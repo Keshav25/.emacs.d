@@ -2,26 +2,33 @@
 #+AUTHOR: The Poet Logician
 #+PROPERTY: head-args :tangle yes
 #+OPTIONS: num:nil
-* Things to Work On
-  - Evil-Avy
-  - Org-Mode Configuration
-  - EAF
-  - Structural Editing
-  - Hydra
-  - Rigpa
-  - Better/More General Keybindings
-  - Fix weird Org-Mode src block indentation
-  - Org-Roam
-  - Look into Ace-Window vs Other-Window
-  - Evil
-	- Evil Goggles
-	- Evil Surround
-	- Evil Commentary
-	- Evil Replace with Register
+* TODO
+** TreeSitter
+** LSP
+** EAF
+** Better Layout
+*** Path
+*** Custom Functions
+*** Keybindings
+*** Themes and Interface Tweaks
+*** exec-path-from-shell
+*** Completion Frameworks
+*** Org
+*** Hydra
+*** Elfeed
+*** Dired
+*** Snippets
+*** Magit
+*** LSP
+*** Clojure
+*** Parens
+*** EAF
+*** Treesitter
 * Startup
+  Garbage Collection
 #+BEGIN_SRC emacs-lisp
 (setq gc-cons-threshold most-positive-fixnum
-	gc-cons-percentage 0.6)
+      gc-cons-percentage 0.6)
       (add-hook 'emacs-startup-hook
           (lambda ()
             (message "*** Emacs loaded in %s with %d garbage collections."
@@ -39,81 +46,75 @@
 
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
-		  (defconst IS-LINUX   (eq system-type 'gnu/linux))
-		  (defconst IS-WINDOWS (memq system-type '(cygwin windows-nt ms-dos)))
-	
-		  (when (and IS-WINDOWS (null (getenv-internal "HOME")))
-			(setenv "HOME" (getenv "USERPROFILE"))
-			(setq abbreviated-home-dir nil))
-	
-		  (set-language-environment "UTF-8")
-	
-		  (require 'subr-x)
-		  (require 'cl-lib)
-		  (setq ad-redefinition-action 'accept)
-		  (advice-add #'display-startup-echo-area-message :override #'ignore)
-		  (setq auto-mode-case-fold nil)
-		  (setq-default bidi-display-reordering 'left-to-right
-						bidi-paragraph-direction 'left-to-right)
-		  (setq bidi-inhibit-bpa t)
-		  (setq-default cursor-in-non-selected-windows nil)
-		  (setq highlight-nonselected-windows nil)
-		  (setq fast-but-imprecise-scrolling t)
-		  (setq ffap-machine-p-known 'reject)
-		  (setq frame-inhibit-implied-resize t)
-		  (setq gcmh-idle-delay 5  ; default is 15s
-				gcmh-high-cons-threshold (* 16 1024 1024))
-		  (setq idle-update-delay 1.0) 
-		(setq idle-update-delay 1.0)
-		(setq inhibit-compacting-font-caches t)
-		  (setq read-process-output-max (* 64 1024))
-		  (when IS-WINDOWS
-			(setq w32-get-true-file-attributes nil   ; decrease file IO workload
-				  w32-pipe-read-delay 0              ; faster IPC
-				  w32-pipe-buffer-size (* 64 1024))) ; read more at a time (was 4K)
-		  (unless IS-LINUX (setq command-line-x-option-alist nil))
-		  (setq confirm-nonexistent-file-or-buffer nil)
-		  (setq hscroll-margin 2
-				hscroll-step 1
-				;; Emacs spends too much effort recentering the screen if you scroll the
-				;; cursor more than N lines past window edges (where N is the settings of
-				;; `scroll-conservatively'). This is especially slow in larger files
-				;; during large-scale scrolling commands. If kept over 100, the window is
-				;; never automatically recentered.
-				scroll-conservatively 101
-				scroll-margin 0
-				scroll-preserve-screen-position t
-				;; Reduce cursor lag by a tiny bit by not auto-adjusting `window-vscroll'
-				;; for tall lines.
-				auto-window-vscroll nil
-				;; mouse
-				mouse-wheel-scroll-amount '(2 ((shift) . hscroll))
-				mouse-wheel-scroll-amount-horizontal 2)
-		  (blink-cursor-mode -1)
-		  (setq blink-matching-paren nil)
-		  (setq x-stretch-cursor nil)
-		  (setq indicate-buffer-boundaries nil
-				indicate-empty-lines nil)
-		  (setq frame-title-format '("%b – Emacs")
-				icon-title-format frame-title-format)
-		  (setq frame-resize-pixelwise t)
-		  (setq window-resize-pixelwise nil)
-		  (push '(menu-bar-lines . 0)   default-frame-alist)
-		  (push '(tool-bar-lines . 0)   default-frame-alist)
-		  (push '(vertical-scroll-bars) default-frame-alist)
-		  (setq menu-bar-mode nil
-				tool-bar-mode nil
-				scroll-bar-mode nil)
-		  (setq window-divider-default-places t
-				window-divider-default-bottom-width 1
-				window-divider-default-right-width 1)
-	  (setq split-width-threshold 160
-			split-height-threshold nil)
-	(setq enable-recursive-minibuffers t)
-	(setq echo-keystrokes 0.02)
-  (setq resize-mini-windows 'grow-only)
+#+RESULTS:
 
+#+BEGIN_SRC emacs-lisp
+(defconst IS-LINUX   (eq system-type 'gnu/linux))
+(defconst IS-WINDOWS (memq system-type '(cygwin windows-nt ms-dos)))
+
+(when (and IS-WINDOWS (null (getenv-internal "HOME")))
+  (setenv "HOME" (getenv "USERPROFILE"))
+  (setq abbreviated-home-dir nil))
+
+(set-language-environment "UTF-8")
+
+(require 'subr-x)
+(require 'cl-lib)
+(setq ad-redefinition-action 'accept)
+(advice-add #'display-startup-echo-area-message :override #'ignore)
+(setq auto-mode-case-fold nil)
+(setq-default bidi-display-reordering 'left-to-right
+              bidi-paragraph-direction 'left-to-right)
+(setq bidi-inhibit-bpa t)
+(setq-default cursor-in-non-selected-windows nil)
+(setq highlight-nonselected-windows nil)
+(setq fast-but-imprecise-scrolling t)
+(setq ffap-machine-p-known 'reject)
+(setq frame-inhibit-implied-resize t)
+(setq gcmh-idle-delay 5  ; default is 15s
+      gcmh-high-cons-threshold (* 16 1024 1024))
+(setq idle-update-delay 1.0) 
+(setq read-process-output-max (* 64 1024))
+(when IS-WINDOWS
+  (setq w32-get-true-file-attributes nil   ; decrease file IO workload
+        w32-pipe-read-delay 0              ; faster IPC
+        w32-pipe-buffer-size (* 64 1024))) ; read more at a time (was 4K)
+(unless IS-LINUX (setq command-line-x-option-alist nil))
+(setq confirm-nonexistent-file-or-buffer nil)
+(setq hscroll-margin 2
+      hscroll-step 1
+      ;; Emacs spends too much effort recentering the screen if you scroll the
+      ;; cursor more than N lines past window edges (where N is the settings of
+      ;; `scroll-conservatively'). This is especially slow in larger files
+      ;; during large-scale scrolling commands. If kept over 100, the window is
+      ;; never automatically recentered.
+      scroll-conservatively 101
+      scroll-margin 0
+      scroll-preserve-screen-position t
+      ;; Reduce cursor lag by a tiny bit by not auto-adjusting `window-vscroll'
+      ;; for tall lines.
+      auto-window-vscroll nil
+      ;; mouse
+      mouse-wheel-scroll-amount '(2 ((shift) . hscroll))
+      mouse-wheel-scroll-amount-horizontal 2)
+(blink-cursor-mode -1)
+(setq blink-matching-paren nil)
+(setq x-stretch-cursor nil)
+(setq indicate-buffer-boundaries nil
+      indicate-empty-lines nil)
+(setq frame-title-format '("%b – Emacs")
+      icon-title-format frame-title-format)
+(setq frame-resize-pixelwise t)
+(setq window-resize-pixelwise nil)
+(push '(menu-bar-lines . 0)   default-frame-alist)
+(push '(tool-bar-lines . 0)   default-frame-alist)
+(push '(vertical-scroll-bars) default-frame-alist)
+(setq menu-bar-mode nil
+      tool-bar-mode nil
+      scroll-bar-mode nil)
+(setq window-divider-default-places t
+      window-divider-default-bottom-width 1
+      window-divider-default-right-width 1)
 #+END_SRC
 
 Same as above
@@ -141,7 +142,6 @@ This setups the melpa, enables async, and autoupdates packages
 	(setq package-enable-at-startup nil)
 	(add-to-list 'package-archives
 			 '("melpa" . "https://melpa.org/packages/"))
-	(package-initialize)
   
 	(defun change-font ()
   (interactive)
@@ -173,88 +173,90 @@ This setups the melpa, enables async, and autoupdates packages
 * General Configuration
 To make Emacs a little more to my liking
 #+BEGIN_SRC emacs-lisp
-	  (setq make-backup-files nil)
-	  (setq auto-save-default nil)
-	  (setq ring-bell-function 'ignore)
-	  (setq find-file-visit-truename t)
-	  (defalias 'yes-or-no-p 'y-or-n-p)
-	  (setq inhibit-startup-message t
-			inhibit-startup-echo-area-message user-login-name
-			inhibit-default-init t
-			;; Shave seconds off startup time by starting the scratch buffer in
-			;; `fundamental-mode', rather than, say, `org-mode' or `text-mode', which
-			;; pull in a ton of packages. `doom/open-scratch-buffer' provides a better
-			;; scratch buffer anyway.
-			initial-major-mode 'fundamental-mode
-			initial-scratch-message nil)
-	  (setq x-select-enable-clipboard t)
-	  (scroll-bar-mode -1)
-	  (setq scroll-conservatively 100)
-			  (setq-default
-			  delete-by-moving-to-trash t
-			  uniquify-buffer-name-style 'foward
-			  window-combination-resize t)
-	(setq-default cursor-in-non-selected-windows nil)
-  
-#+END_SRC
-
-Configuring the theme and font
-#+BEGIN_SRC emacs-lisp
-  (load-theme 'doom-monokai-classic t)
-	(use-package all-the-icons)
-	  (use-package solaire-mode
-	:ensure t)
-
-  (global-hl-line-mode)
+	(setq make-backup-files nil)
+	(setq auto-save-default nil)
+	(setq ring-bell-function 'ignore)
+	(setq find-file-visit-truename t)
+	(defalias 'yes-or-no-p 'y-or-n-p)
+	(load-theme 'doom-monokai-classic t)
+	(global-hl-line-mode)
 	(set-frame-font "Lucida Console-12" t t)
 	(add-to-list 'default-frame-alist '(font . "Lucida Console-12"))
 	(set-face-attribute 'default nil :font "Lucida Console-12")
 	(set-fontset-font t 'symbol "Lucida Console")
-  
-#+END_SRC
 
-For transparency
-#+BEGIN_SRC emacs-lisp
   (set-frame-parameter (selected-frame) 'alpha `(90,90))
   (add-to-list 'default-frame-alist `(alpha . (90, 90)))
   (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
 #+END_SRC
 
-Line Numbers
+#+RESULTS:
+
 #+BEGIN_SRC emacs-lisp
   (add-hook 'prog-mode-hook 'display-line-numbers-mode)
   (add-hook 'text-mode-hook 'display-line-numbers-mode)
-  (setq display-line-numbers-width 3)
-#+END_SRC
-
-General Text Editing Preferences
-#+BEGIN_SRC emacs-lisp
   (show-paren-mode 1)
-  (global-prettify-symbols-mode t)
-  (setq electric-pair-pairs '(
-							  (?\{ . ?\})
-							  (?\( . ?\))
-							  (?\[ . ?\])
-							  (?\" . ?\")
-							  ))
-  (electric-pair-mode t)
+  (setq inhibit-startup-message t
+		inhibit-startup-echo-area-message user-login-name
+		inhibit-default-init t
+		;; Shave seconds off startup time by starting the scratch buffer in
+		;; `fundamental-mode', rather than, say, `org-mode' or `text-mode', which
+		;; pull in a ton of packages. `doom/open-scratch-buffer' provides a better
+		;; scratch buffer anyway.
+		initial-major-mode 'fundamental-mode
+		initial-scratch-message nil)
+  (setq x-select-enable-clipboard t)
+  (scroll-bar-mode -1)
+  (setq scroll-conservatively 100)
 #+END_SRC
 
-Doom-Modeline. Diminish removes indications of the minor-modes
+Modeline
 #+BEGIN_SRC emacs-lisp
-		  (use-package diminish
-			:ensure t)
-		
-		(use-package doom-modeline
-		  :ensure t
-		  :init (doom-modeline-mode 1)
-		  :config
-		  (setq doom-modeline-height 17)
-		  (setq doom-modeline-enable-word-count t)
-  (setq-default display-time-mode 1)
+  (use-package diminish
+	:ensure t)
+
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1)
+  :config
+  (setq doom-modeline-height 17)
+  (setq doom-modeline-enable-word-count t))
+#+END_SRC
+
+Indenting
+#+BEGIN_SRC emacs-lisp
+		  (setq-default
+		  delete-by-moving-to-trash t
+		  tab-width 4
+		  uniquify-buffer-name-style 'foward
+		  window-combination-resize t
+		standard-indent 4)
+					(setq c-basic-offset tab-width
+					backward-delete-char-untabify-method 'nil)
+	  (display-time-mode 1)
 	(unless (equal "Battery status not available"
-				   (battery))))
+				   (battery)))
+#+END_SRC
+
+Enhancing text
+#+BEGIN_SRC emacs-lisp
+(global-prettify-symbols-mode t)
+(setq electric-pair-pairs '(
+                            (?\{ . ?\})
+                            (?\( . ?\))
+                            (?\[ . ?\])
+                            (?\" . ?\")
+                            ))
+(electric-pair-mode t)
+#+END_SRC
+
+I like having several themes installed although I usually just use
+the poet-dark theme.
+#+BEGIN_SRC emacs-lisp
+		(use-package all-the-icons)
+	  (use-package solaire-mode
+	:ensure t)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -293,7 +295,7 @@ Doom-Modeline. Diminish removes indications of the minor-modes
   :defer nil
   :init
   (setq evil-want-integration t)
-  (setq evil-want-keybindings nil)
+  (setq evil-want-keybinding nil)
   (setq evil-want-C-u-scroll t)
   (setq evil-want-vsplit-window-right t)
   (setq evil-want-split-window-below t)
@@ -311,40 +313,12 @@ Doom-Modeline. Diminish removes indications of the minor-modes
   (evil-collection-init))
 #+END_SRC
 
+Look into configuring avy
 #+BEGIN_SRC emacs-lisp
-	 (use-package evil-goggles
-	   :ensure t
-	   :config
-	   (evil-goggles-mode)
-	  (setq evil-goggles-pulse t)
-  (setq evil-goggles-duration 0.001))
-  
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-  (use-package evil-surround
+ (use-package avy
 	:ensure t
-	:config
-	(global-evil-surround-mode 1))
-  
-#+END_SRC
-  
-#+BEGIN_SRC emacs-lisp
-	(use-package evil-org
-	  :ensure t
-	  :after org
-	  :hook (org-mode . (lambda () evil-org-mode))
-	  :config
-	  (require 'evil-org-agenda)
-	  (evil-org-agenda-set-keys)
-  (setq evil-want-C-i-jump nil))
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-	 (use-package avy
-		:ensure t
-		:bind
-		("M-s" . avy-goto-char))
+	:bind
+	("M-s" . avy-goto-char))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -362,6 +336,7 @@ Doom-Modeline. Diminish removes indications of the minor-modes
 
 #+END_SRC
 
+Take ido out, look into other completions
 #+BEGIN_SRC emacs-lisp
   (use-package ido
 	:init
@@ -372,6 +347,7 @@ Doom-Modeline. Diminish removes indications of the minor-modes
 	(setq ido-everywhere t))
 #+END_SRC
 
+** General
 General is a great package for creating keybindings with a leader key
 #+BEGIN_SRC emacs-lisp
 (use-package general
@@ -381,12 +357,16 @@ General is a great package for creating keybindings with a leader key
 
 #+BEGIN_SRC emacs-lisp
 (require 'general)
+#+END_SRC
 
+Enhance Evil Mode
+
+#+BEGIN_SRC emacs-lisp
 (mmap
   ";" 'evil-ex
   ":" 'avy-next
   "/" 'swiper
-  "f" 'avy-goto-char)
+  "F" 'avy-goto-char)
 #+END_SRC
 
 Buffers and Bookmarks
@@ -395,79 +375,82 @@ Buffers and Bookmarks
 "b b" '(ido-switch-buffer :which-key "Switch Buffers")
 "b c" '(clone-indirect-buffer-other-window :which-key "Clone indirect buffer other window")
 "b k" '(kill-current-buffer :which-key "Kill Current Buffer")
-;; "b n" '(next-buffer :which-key "Next buffer")
-;; "b p" '(previous-buffer :which-key "Previous buffer")
-"b B" '(ibuffer-list-buffers :which-key "Ibuffer list buffers")
+"b l" '(next-buffer :which-key "Next buffer")
+ "b h" '(previous-buffer :which-key "Previous buffer")
+"b B" '(ido-switch-buffer :which-key "Switch Buffers")
 "b K" '(ido-kill-buffer :which-key "Kill Buffers"))
 #+END_SRC
 
-Evaluating emacs-lisp
-
 #+BEGIN_SRC emacs-lisp
+
+	(nvmap :states '(normal visual) :keymaps 'override :prefix "SPC"
+  "w j" '(windmove-down :which-key "Window Below")
+  "w k" '(windmove-up :which-key "Window Above")
+  "w h" '(windmove-left :which-key "Window Left")
+  "w l" '(windmove-down :which-key "Window Right")
+"w d" '(delete-window :which-key "Delete Window")
+"w o" '(other-window :which-key "Other Window"))
+#+END_SRC
+
+  Evaluating emacs-lisp
+
+  #+BEGIN_SRC emacs-lisp
   (general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC"
 	"x f" '(eval-buffer :which-key "Eval emacs-lisp in buffer")
 	"x d" '(evale-deun :which-key "Eval defun")
 	"x e"   '(eval-expression :which-key "Eval emacs-lisp expression")
 	"x l"   '(eval-last-sexp :which-key "Eval last sexression")
 	"x r"   '(eval-region :which-key "Eval region"))
-  #+END_SRC
-
- #+BEGIN_SRC emacs-lisp
-			(general-define-key
-			 :keymaps 'org-mode-map
-			 "M-n" 'org-next-visible-heading
-			 "M-p" 'org-previous-visible-heading)
 #+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-  (general-define-key
-		"M-h" 'windmove-left
-	  "M-l" 'windmove-right
-	"M-j" 'windmove-down
-  "M-k" 'windmove-up)
-#+END_SRC
-
 Files and File Management
 #+BEGIN_SRC emacs-lisp
-(use-package all-the-icons-dired)
-(use-package dired-open)
-(use-package peep-dired)
+  (use-package all-the-icons-dired)
+  (use-package dired-open)
+  (use-package peep-dired)
 
-(general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC"
-"f d" '(dired :which-key "Open dired")
-"f j" '(dired :which-key "Dired jump to current")
-"f p" '(dired :which-key "Peed-dired")) 
+  (general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC"
+	"f d" '(dired :which-key "Open dired")
+	"f j" '(dired :which-key "Dired jump to current")
+	"f p" '(dired :which-key "Peed-dired")) 
 
-(general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC"
-       "."     '(find-file :which-key "Find file")
-       "f f"   '(find-file :which-key "Find file")
-       "f r"   '(counsel-recentf :which-key "Recent files")
-       "f s"   '(save-buffer :which-key "Save file")
-       "f u"   '(sudo-edit-find-file :which-key "Sudo find file")
-       "f y"   '(dt/show-and-copy-buffer-path :which-key "Yank file path")
-       "f C"   '(copy-file :which-key "Copy file")
-       "f D"   '(delete-file :which-key "Delete file")
-       "f R"   '(rename-file :which-key "Rename file")
-       "f S"   '(write-file :which-key "Save file as...")
-       "f U"   '(sudo-edit :which-key "Sudo edit file"))
+  (general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC"
+	"."     '(find-file :which-key "Find file")
+	"f f"   '(find-file :which-key "Find file")
+	"f r"   '(counsel-recentf :which-key "Recent files")
+	"f s"   '(save-buffer :which-key "Save file")
+	"f u"   '(sudo-edit-find-file :which-key "Sudo find file")
+	"f y"   '(dt/show-and-copy-buffer-path :which-key "Yank file path")
+	"f C"   '(copy-file :which-key "Copy file")
+	"f D"   '(delete-file :which-key "Delete file")
+	"f R"   '(rename-file :which-key "Rename file")
+	"f S"   '(write-file :which-key "Save file as...")
+	"f U"   '(sudo-edit :which-key "Sudo edit file"))
 
-(with-eval-after-load 'dired
-  ;;(define-key dired-mode-map (kbd "M-p") 'peep-dired)
-  (evil-define-key 'normal dired-mode-map (kbd "h") 'dired-up-directory)
-  (evil-define-key 'normal dired-mode-map (kbd "l") 'dired-open-file) ; use dired-find-file instead if not using dired-open package
-  (evil-define-key 'normal peep-dired-mode-map (kbd "j") 'peep-dired-next-file)
-  (evil-define-key 'normal peep-dired-mode-map (kbd "k") 'peep-dired-prev-file))
+#+END_SRC
 
-(add-hook 'peep-dired-hook 'evil-normalize-keymaps)
-;; Get file icons in dired
-(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
-;; With dired-open plugin, you can launch external programs for certain extensions
-;; For example, I set all .png files to open in 'sxiv' and all .mp4 files to open in 'mpv'
-(setq dired-open-extensions '(("gif" . "sxiv")
-                              ("jpg" . "sxiv")
-                              ("png" . "sxiv")
-                              ("mkv" . "mpv")
-                              ("mp4" . "mpv")))
+#+BEGIN_SRC emacs-lisp
+  (general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC"
+	"t t" '(org-todo :which-key "cycle TODO"))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (with-eval-after-load 'dired
+	;;(define-key dired-mode-map (kbd "M-p") 'peep-dired)
+	(evil-define-key 'normal dired-mode-map (kbd "h") 'dired-up-directory)
+	(evil-define-key 'normal dired-mode-map (kbd "l") 'dired-open-file) ; use dired-find-file instead if not using dired-open package
+	(evil-define-key 'normal peep-dired-mode-map (kbd "j") 'peep-dired-next-file)
+	(evil-define-key 'normal peep-dired-mode-map (kbd "k") 'peep-dired-prev-file))
+
+  (add-hook 'peep-dired-hook 'evil-normalize-keymaps)
+  ;; Get file icons in dired
+  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+  ;; With dired-open plugin, you can launch external programs for certain extensions
+  ;; For example, I set all .png files to open in 'sxiv' and all .mp4 files to open in 'mpv'
+  (setq dired-open-extensions '(("gif" . "sxiv")
+								("jpg" . "sxiv")
+								("png" . "sxiv")
+								("mkv" . "mpv")
+								("mp4" . "mpv")))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -482,7 +465,7 @@ Files and File Management
 #+END_SRC
 * Org-Mode Configuration
 #+BEGIN_SRC emacs-lisp
-	(setq org-hide-emphasis-markers t)
+ 	(setq org-hide-emphasis-markers t)
   
 			(font-lock-add-keywords 'org-mode
 									  '(("^ *\\([-]\\) "
@@ -490,21 +473,38 @@ Files and File Management
   
 			(setq-default line-spacing 9)
 			(require 'org-bullets)
+			(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
   
   
 			(add-hook 'org-mode-hook 'variable-pitch-mode)
 			(add-hook 'org-mode-hook 'visual-line-mode)
-  
+ 
 			(use-package org
 			  :config
 			  (add-hook 'org-mode-hook
 						'(lambda ()
-						   (visual-line-mode 1)))
-			(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
-
+						   (visual-line-mode 1))))
+  
+			(use-package htmlize
+			  :ensure t)
+  
+			(general-define-key
+			 :keymaps 'org-mode-map
+			 "M-n" 'org-next-visible-heading
+			 "M-p" 'org-previous-visible-heading
+  )
+  (general-define-key
+		"M-h" 'windmove-left
+	  "M-l" 'windmove-right
+	"M-j" 'windmove-down
+  "M-k" 'windmove-up)
 #+END_SRC
 * Emacs Application Framework
   #+BEGIN_SRC emacs-lisp
+;;(use-package ctable)
+;;(use-package deferred)
+;;(use-package epc)
+;;(use-package s)
 (use-package eaf
   :load-path "~/.emacs.d/site-lisp/emacs-application-framework" ; Set to "/usr/share/emacs/site-lisp/eaf" if installed from AUR
   :init
@@ -566,41 +566,27 @@ Files and File Management
 * MISC
   Magit is a git client which uses the transient interface aka very quick and awesome way to interact with github and gitlab.
 #+BEGIN_SRC emacs-lisp
-	  (use-package magit :ensure t)
-	(use-package htmlize :ensure t)
-  
-  (use-package paren
-	;; highlight matching delimiters
-	:hook (doom-first-buffer . show-paren-mode)
+  (use-package magit
+	:ensure t)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+			  (use-package org-journal
+			  :init
+			(setq org-journal-dir "~/kesha/Documents/org-mode/journal"
+		  org-journal-date-prefix "#+TITLE: "
+		org-journal-file-format "%Y-%m-$d.org"
+	  org-journal-date-format "%A, %d %B %Y")
 	:config
-	(setq show-paren-delay 0.1
-		  show-paren-highlight-openparen t
-		  show-paren-when-point-inside-paren t
-		  show-paren-when-point-in-periphery t))
-#+END_SRC
+  (setq org-journal-find-file #'find-file-other-window))
+  (setq org-journal-enable-agenda-integration t)
+(use-package org-download
+  :after org
+  :bind
+  (:map org-mode-map
+        (("s-Y" . org-download-screenshot)
+         ("s-y" . org-download-yank))))
 
-#+BEGIN_SRC emacs-lisp
-  (use-package org-journal
-				:init
-			  (setq org-journal-dir "~/kesha/Documents/org-mode/journal"
-			org-journal-date-prefix "#+TITLE: "
-		  org-journal-file-format "%Y-%m-$d.org"
-		org-journal-date-format "%A, %d %B %Y")
-	  :config
-	(setq org-journal-find-file #'find-file-other-window))
-	(setq org-journal-enable-agenda-integration t)
-
- 
-#+END_SRC
-
-org-download
-#+BEGIN_SRC emacs-lisp
-  (use-package org-download
-	:after org
-	:bind
-	(:map org-mode-map
-		  (("s-Y" . org-download-screenshot)
-		   ("s-y" . org-download-yank))))
 #+END_SRC
 
 The package yasnippet is a program which expands text, useful to quickly type things. For example `sout[TAB]` could expand to `System.out.println("[Cursor Here]")`.
@@ -620,13 +606,34 @@ The package yasnippet is a program which expands text, useful to quickly type th
   #+END_SRC
 
  #+BEGIN_SRC emacs-lisp 
-(use-package meghanada
-  :ensure t
-  :defer nil
-  :config
-  (add-hook 'java-mode-hook
-            (lambda ()
-              (meghanada-mode t)))
-  (setq meghanada-java-path "java")
-  (setq meghanada-maven-path "mvn"))
+			   (use-package meghanada
+				 :ensure t
+				 :defer nil
+				 :config
+				 (add-hook 'java-mode-hook
+						   (lambda ()
+							 (meghanada-mode t)))
+				 (setq meghanada-java-path "java")
+				 (setq meghanada-maven-path "mvn"))
+;; To know if I need to print as image or I need to default to the default eshell/cat
+(defun my-is-imagep (filename)
+  (let ((extension (file-name-extension filename))
+        (image-extensions '("png" "jpg" "bmp")))
+    (member extension image-extensions)))
+
+;; Creates a space with display properties. Feel free to change `eshell/println` to `insert` and use it in a normal emacs buffer, it will inline the path given in `file`.
+(defun my-print-image-eshell (file)
+  (eshell/printnl (propertize " " 'display (create-image file))))
+
+
+;; If image, use `my-print-image-eshell`. Otherwise, just use `eshell/cat`.
+(defun eshell/mycat (&rest args)
+  (interactive)
+  (mapc (lambda (arg)
+          (if (my-is-imagep arg)
+              (my-print-image-eshell arg)
+            (eshell/cat arg)
+            )
+          ) (-flatten args))
+  nil)
  #+END_SRC
