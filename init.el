@@ -145,6 +145,18 @@
       tool-bar-mode nil
       scroll-bar-mode nil)
 
+;; Completion Framework
+(leaf vertico)
+(leaf orderless
+      :config
+      (setq completion-styles '(orderless)))
+
+;; Evil God State
+(leaf evil-god-state
+      :config
+      (evil-define-key 'normal global-map "," 'evil-execute-in-god-state)
+      (evil-define-key 'god global-map [escape] 'evil-god-state-bail))
+
 ;; Window Divider Mode
 (setq window-divider-default-places t
       window-divider-default-bottom-width 1
