@@ -35,12 +35,12 @@
 (advice-add #'display-startup-echo-area-message :override #'ignore)
 
 ;; Determine OS
+(require 'subr-x)
 (defconst islinux (eq system-type 'gnu/linux))
 (defconst iswindows (eq system-type '(cygwin windows-nt ms-dos)))
 (defconst istermux (string-suffix-p "Android" (string-trim (shell-command-to-string "uname -a"))))
 (defconst isguix (and islinux
-		      (require 'f)
-		      (string-equal (f-read "/etc/issue")
+		      (string-equal (format-read "/etc/issue")
 				    "\nThis is the GNU system. Welcome.\n")))
 
 ;; Get Home Directory if Windows
@@ -74,7 +74,7 @@
 
   (when istermux
     (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"))
-
+  
   (unless (or (package-installed-p 'leaf) isguix)
     (package-refresh-contents)
     (package-install 'leaf))
@@ -90,11 +90,6 @@
 
 (unless isguix
   (setq leaf-defaults (leaf-append-defaults '(:ensure t))))
-
-;; feather
-(leaf feather
-  :el-get conao3/feather.el
-  :config (feather-mode))
 
 ;; leaf-convert
 (leaf leaf-convert)
