@@ -44,6 +44,7 @@
 (defconst iswindows (eq system-type '(cygwin windows-nt ms-dos)))
 (defconst istermux (string-suffix-p "Android" (string-trim (shell-command-to-string "uname -a"))))
 (defconst isguix nil)
+(setq enabled-eaf nil)
 
 ;; Get Home Directory if Windows
 (when (and iswindows (null (getenv-internal "HOME")))
