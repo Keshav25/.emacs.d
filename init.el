@@ -219,34 +219,6 @@
 (leaf diminish)
 
 
-(leaf-convert
-(leaf doom-modeline
-  :init (doom-modeline-mode . 1)
-  :config
-  (doom-modeline-height . 17)
-  (doom-modeline-enable-word-count . t)
-  (doom-modeline-bar-width . 3)
-  (doom-modeline-buffer-file-name-style . 'truncate-with-project)
-  (doom-modeline-minor-modes . nil)
-  (doom-modeline-major-mode-icon . t)
-  :setq-default (display-time-mode . 1)
-  :unless (equal "Battery status not available" (battery)))
-)
-
-(leaf doom-modeline :commands doom-modeline-init :hook
-  ((after-init-hook . doom-modeline-init))
-  :config
-  (leaf-handler-package doom-modeline doom-modeline nil)
-  (with-eval-after-load 'doom-modeline
-    (let
-	((leaf--load-file-name "/home/haresh/.emacs.d/init.el"))
-      (with-eval-after-load 'doom-modeline
-	(setq doom-modeline-bar-width 3
-	      doom-modeline-icon t
-	      doom-modeline-buffer-file-name-style 'truncate-with-project
-	      doom-modeline-minor-modes nil
-	      doom-modeline-major-mode-icon t)))))
-
 (unless istermux
   (leaf solaire-mode)
   (mmap
