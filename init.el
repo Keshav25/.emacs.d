@@ -79,6 +79,8 @@
   (when istermux
 	(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"))
   
+  (require 'package)
+  
   (unless (or (package-installed-p 'leaf) isguix)
 	(package-refresh-contents)
 	(package-install 'leaf))
