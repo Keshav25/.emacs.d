@@ -1,7 +1,8 @@
 (leaf kaolin-themes)
 (leaf doom-themes)
-(leaf ef-themes
+(leaf ef-themes)
+(load-theme 'doom-1337 t)
+(leaf solaire
   :config
-  (load-theme 'ef-winter t))
-
+  (solaire-global-mode))
 (provide 'k-themes)

@@ -20,20 +20,18 @@
 
 ;; Elfeed For Youtube
 (leaf elfeed-tube
-  :after
+  :config
   (elfeed-tube-setup)
-  ;; :bind (:map elfeed-show-mode-map
-  ;; 		 ("F" . elfeed-tube-fetch)
-  ;; 		 ([remap save-buffer] . elfeed-tube-save)
-  ;; 		 :map elfeed-seach-mode-map
-  ;; 		 ("F" . efleed-tube-fetch)
-  ;; 		 ([remap save-buffer] . elfeed-tube-save))
-)
+  :bind (:elfeed-show-mode-map
+		 ("F" . elfeed-tube-fetch)
+		 ([remap save-buffer] . elfeed-tube-save))
+		 (:elfeed-seach-mode-map
+		 ("F" . efleed-tube-fetch)
+		 ([remap save-buffer] . elfeed-tube-save)))
 
 (leaf elfeed-tube-mpv
-  ;; :bind (:map elfeed-show-mode-map
-  ;; 			  ("C-c C-f" . elfeed-tube-mpv-follow-mode)
-  ;; 			  ("C-c C-w" . elfeed-tube-mpv-where))
-)
+  :bind (:elfeed-show-mode-map
+			  ("C-c C-f" . elfeed-tube-mpv-follow-mode)
+			  ("C-c C-w" . elfeed-tube-mpv-where)))
 
 (provide 'k-elfeed)

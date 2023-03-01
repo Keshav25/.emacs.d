@@ -28,3 +28,11 @@
           (princ (format "%2d %20s %s\n" count key
                          (make-string count ?+))))))))
 
+;; should turn into a mode
+(defun writing-on ()
+  (interactive)
+  (writeroom-mode 1)
+  (display-line-numbers-mode 0)
+  (toggle-truncate-lines 1)
+  (toggle-word-wrap 1)
+  (org-modern-mode 1))

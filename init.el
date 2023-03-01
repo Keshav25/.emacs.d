@@ -1,3 +1,12 @@
+;; emacs-server
+(leaf server
+  :require t
+  :unless (server-running-p)
+  (server-start))
+
+;; (require 'server)
+;; (unless (server-running-p) (server-start))
+
 ;; Load Module Path
 (add-to-list 'load-path "~/.emacs.d/modules")
 
@@ -30,7 +39,7 @@
 (set-language-environment "UTF-8")
 (prefer-coding-system 'utf-8)
 
-;; gobal modes
+;; global modes
 (global-so-long-mode 1)
 (global-hl-line-mode -1)
 
@@ -61,13 +70,15 @@
 
 ;; Determine if EXWM should be enabled
 (setq isexwm (and (not istermux)
-				  (eq window-system 'x)
-				  (seq-contains command-line-args "--use-exwm")))
+				  (eq window-system 'x)))
 
 ;; Bidirectional Text
 (setq-default bidi-display-reordering 'left-to-right
 			  bidi-paragraph-direction 'left-to-right)
 (setq bidi-inhibit-bpa t)
+
+;; recentf-mode
+(recentf-mode 1)
 
 ;; Leaf and Repositories
 (eval-and-compile
@@ -79,8 +90,6 @@
   (when istermux
 	(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"))
   
-  (require 'package)
-  
   (unless (or (package-installed-p 'leaf) isguix)
 	(package-refresh-contents)
 	(package-install 'leaf))
@@ -91,18 +100,8 @@
 	(leaf el-get)
 	(leaf blackout)))
 
-(unless isguix
-  (setq leaf-defaults (leaf-append-defaults '(:ensure t))))
-
 ;; leaf-convert
 (leaf leaf-convert)
-
-;; emacs-client
-(leaf server
-  :require t
-  :defun server-running-p
-  :config
-  (unless (server-running-p) (server-start)))
 
 ;; macrostep
 (leaf macrostep
@@ -111,11 +110,16 @@
 		 ("C-c m c" . macrostep-collapse)))
 
 ;; Auto Package Update
-(leaf auto-package-update
-  :setq
-  (auto-package-update-delete-old-versions . t)
-  (auto-package-update-hide-results . t)
-  :config (auto-package-update-maybe))
+;; (leaf auto-package-update
+  ;; :setq
+  ;; (auto-package-update-delete-old-versions . t)
+  ;; (auto-package-update-hide-results . t)
+  ;; :config (auto-package-update-maybe))
+
+(leaf my/font
+  :config
+  (set-frame-parameter (selected-frame) 'font "JetBrains Mono-10")
+  (set-fontset-font "fontset-default" 'unicode "Noto Color Emoji" nil 'prepend))
 
 ;; Async
 (leaf async
@@ -130,7 +134,7 @@
 
 (setq custom-file
 	  (if (boundp 'server-socket-dir)
-		  (expand-file-name "custom.el" server-socket-dir)
+		  (expand-file-name "~/.emacs.d/custom.el" server-socket-dir)
 		(expand-file-name (format "emacs-custom-$s.el" (user-uid)) temporary-file-directory)))
 
 ;; Gcmh
@@ -167,22 +171,25 @@
 (global-hl-line-mode -1)
 
 ;; Transparency
-(set-frame-parameter (selected-frame) 'alpha `(85,50))
-(add-to-list 'default-frame-alist `(alpha . (85, 50)))
+(set-frame-parameter (selected-frame) 'alpha `(95,50))
+(add-to-list 'default-frame-alist `(alpha . (95, 50)))
 (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-;; Line Numbers
-(leaf display-line-numbers
-  :global-minor-mode global-display-line-numbers-mode
-  :setq
-  (display-line-numbers-type . 'relative)
-  (display-line-numbers-width . 3))
+(defun turn-transparency-off ()
+  (interactive)
+  (set-frame-parameter (selected-frame) 'alpha `(100, 100)))
 
-;; (setq display-line-numbers-type t)
-;; (add-hook 'prog-mode-hook 'display-line-numbers-mode)
-;; (add-hook 'text-mode-hook 'display-line-numbers-mode)
-;; (setq display-line-numbers-width 3)
+(defun turn-transparency-on ()
+  (interactive)
+  (set-frame-parameter (selected-frame) 'alpha `(85, 85)))
+
+;; Line Numbers
+(setq display-line-numbers-type t)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(add-hook 'text-mode-hook 'display-line-numbers-mode)
+(setq display-line-numbers-type 'relative)
+(setq display-line-numbers-width 3)
 
 ;; General Text Editing Preferences
 (show-paren-mode)
@@ -307,13 +314,45 @@
   :doc "setup for my TEL configuration"
   :setq
   (inhibit-startup-screen . t)
+  :config
   (vterm)
   (evil-emacs-state))
 
+;; EAF
+(leaf eaf
+  :when (or islinux iswindows)
+  :load-path "~/.emacs.d/site-lisp/emacs-application-framework/"
+  :config
+  (require 'eaf)
+  (require 'eaf-browser)
+  (require 'eaf-evil)
+  (require 'eaf-all-the-icons)
+  (require 'eaf-2048)
+  (require 'eaf-airshare)
+  (require 'eaf-camera)
+  (require 'eaf-demo)
+  (require 'eaf-file-browser)
+  (require 'eaf-file-manager)
+  (require 'eaf-file-sender)
+  (require 'eaf-git)
+  (require 'eaf-image-viewer)
+  (require 'eaf-jupyter)
+  (require 'eaf-markdown-previewer)
+  (require 'eaf-mindmap)
+  (require 'eaf-music-player)
+  (require 'eaf-netease-cloud-music)
+  (require 'eaf-org-previewer)
+  (require 'eaf-pdf-viewer)
+  (require 'eaf-rss-reader)
+  (require 'eaf-system-monitor)
+  (require 'eaf-terminal)
+  (require 'eaf-video-player)
+  (require 'eaf-vue-demo)
+  (require 'eaf-vue-mindmap)
+  :setq
+  (eaf-browser-search-engines . '(("duckduckgo" . "https://duckduckgo.com/?q=%s")))
+  (eaf-browser-default-search-engine . "duckduckgo"))
 
-;; Experiment Section
-
-(recentf-mode 1)
 
 (leaf citar)
 (leaf citar-embark)

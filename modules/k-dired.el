@@ -4,7 +4,9 @@
 (leaf peep-dired)
 (leaf dirvish
   :config
-  (dirvish-override-dired-mode 1))
+  (dirvish-override-dired-mode) 
+  :bind (:dirvish-directory-view-mode-map
+			  ("q" . 'dirvish-quit)))
 
 ;; Get file icons in dired
 (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)

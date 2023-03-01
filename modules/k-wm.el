@@ -41,5 +41,9 @@
 	(other-window 1))
  (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
 
+(leaf zoom)
+(leaf popper)
+(leaf tabspaces)
+(leaf windmove)
 
 (provide 'k-wm)

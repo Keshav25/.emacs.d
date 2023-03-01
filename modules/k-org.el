@@ -8,6 +8,7 @@
   (org-startup-indented . 1)
   (org-appear-mode . 1)
   (org-modern-mode . 1)
+  (org-use-speed-commands . 1)
   :custom
   (org-directory . "~/org")
   (org-agenda-files . '("~/org/compsol.org"
@@ -33,6 +34,10 @@
 	  entry (file "~/org/school.org")
 	  "* %?\n %T\n %i\n"
 	  :empty-lines 1)
+	 ("f" "food"
+	  entry (file "~/org/food-journal.org")
+	  "* %?\n %T\n %i\n"
+	  :empty-lines 1)
 	 ("d" "daily-template"
 	  entry
 	  (file+olp+datetree "daily.org")
@@ -47,7 +52,15 @@
    '((python . t))
    ))
 
+;; https://tech.toryanderson.com/2020/08/18/orgmode-system-notifications-with-dunst/
+;; (setq appt-display-format 'window)
 
+;; (setq appt-disp-window-function (function tsa/appt-disp-window))
+;; (defun tsa/appt-disp-window (min-to-app new-time msg)
+;;   (save-window-excursion
+;;     (shell-command
+;;      (concat
+;;       "notify-send \"Orgmode: " msg "\"") nil nil)))
 
 ;; Org-Journal
 (leaf org-journal
@@ -89,7 +102,6 @@
 ;; Org-Journal
 
 ;; Org-Roam
-(leaf emacs)
 (leaf org-roam
   :custom
   (org-roam-directory . "~/org/roam")
@@ -170,7 +182,8 @@
 (leaf org-make-toc)
 (leaf org-download)
 (leaf org-contacts)
-(leaf org-tagged)
+(leaf org-tagged
+  :emacs>= 28.1)
 (leaf org-kanban)
 (leaf org-appear)
 (leaf org-emms)
