@@ -1,5 +1,7 @@
 ;; General
 (leaf general
+  :after evil
+  :ensure t
   :config
   (general-evil-setup t))
 

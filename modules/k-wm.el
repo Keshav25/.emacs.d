@@ -1,4 +1,5 @@
 (leaf nano-modeline
+  :ensure t
   :config
   (nano-modeline-mode 1))
 
@@ -16,6 +17,7 @@
 
 ;; Switch Window
 (leaf switch-window
+  :ensure t
   :setq
   (switch-window-input-style . 'minibuffer)
   (switch-window-increase . 4)
@@ -41,9 +43,14 @@
 	(other-window 1))
  (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
 
-(leaf zoom)
-(leaf popper)
-(leaf tabspaces)
-(leaf windmove)
+(leaf zoom :ensure t)
+(leaf popper :ensure t)
+(leaf tabspaces :ensure t)
+(leaf windmove :ensure t)
+
+(leaf exwm
+  :when isexwm
+  :require t
+  :ensure t)
 
 (provide 'k-wm)

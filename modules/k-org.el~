@@ -340,17 +340,4 @@ appropriate.  In tables, insert a new row or end the table."
   ;; :ensure t
   :hook ((org-mode . turn-on-org-cd-latex)))
 
-(leaf writing-function
-  :config
-  (defun turn-on-writing ()
-	(interactive)
-	(display-line-numbers-mode 0)
-	(visual-line-mode 1)
-	(org-modern-mode 1))
-  (defun turn-off-writing ()
-	(interactive)
-	(display-line-numbers-mode 1)
-	(visual-line-mode 0)
-	(org-modern-mode 0)))
-
 (provide 'k-org)

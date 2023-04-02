@@ -3,6 +3,7 @@
 (setq evil-want-keybinding nil)
 
 (leaf evil
+  :ensure t
   :leaf-defer nil
   :setq
   (evil-want-integration . t)
@@ -20,6 +21,7 @@
 
 ;; Evil Collection
 (leaf evil-collection
+  :ensure t
   :after evil
   :setq
   (evil-collection-mode-list . '(dashboard dired buffer))
@@ -29,6 +31,7 @@
 
 ;; Evil Escape
 (leaf evil-escape
+  :ensure t
 	   :config
 	   (evil-escape-mode)
 	   :setq-default
@@ -38,6 +41,7 @@
 
 ;; Evil Goggles
 (leaf evil-goggles
+  :ensure t
 	   :config
 	   (evil-goggles-mode)
 	   :setq
@@ -46,6 +50,7 @@
 
 ;; Evil Surround
 (leaf evil-surround
+  :ensure t
        :config
        (global-evil-surround-mode 1))
 
@@ -107,12 +112,13 @@
 ;; Evil God State
 
 (leaf evil-god-state
+  :ensure t
   :bind (:evil-normal-state-map
 		 (",". 'evil-execute-in-god-state)
 		 ((kbd "ĵ") . #'god-local-mode))
         (:evil-god-state-map
          ([escape] . 'evil-god-state-bail)))
 
-(leaf vundu)
+(leaf vundo :emacs>= 28.1 :ensure t)
 
 (provide 'k-evil)
