@@ -100,7 +100,6 @@
 
 (setq initial-frame-alist
 	  '((right-divider-width . 24)
-		(alpha . (85 . 75))
 		(internal-border-width. 24)))
 
 ;; Recursive Minibuffers
@@ -111,10 +110,10 @@
 (global-hl-line-mode -1)
 
 ;; Transparency
-(if (< emacs-major-version 29)
+(if (or (< emacs-major-version 29) t) ;;not yet
 	(progn
-	  (set-frame-parameter (selected-frame) 'alpha `(95,50))
-	  (add-to-list 'default-frame-alist `(alpha . (95, 50)))
+	  (set-frame-parameter (selected-frame) 'alpha `(95,95))
+	  (add-to-list 'default-frame-alist `(alpha . (95, 95)))
 
 	  (defun turn-transparency-off ()
 		(interactive)
@@ -122,7 +121,7 @@
 
 	  (defun turn-transparency-on ()
 		(interactive)
-		(set-frame-parameter (selected-frame) 'alpha `(85, 85))))
+		(set-frame-parameter (selected-frame) 'alpha `(95, 95))))
   (progn
 	;; for emacs => 29
 	(set-frame-parameter (selected-frame) 'alpha-background 75)
@@ -135,6 +134,7 @@
 		(pcase (frame-parameter nil 'alpha-background)
 		  (alpha-transparency (set-frame-parameter nil 'alpha-background 100))
 		  (t (set-frame-parameter nil 'alpha-background alpha-transparency)))))))
+
 
 (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))

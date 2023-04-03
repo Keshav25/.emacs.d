@@ -15,9 +15,9 @@
   (evil-mode 1)
   ;; https://github.com/minad/consult/issues/318
   :bind (:evil-normal-state-map
-		 ("n" . #'(lambda () (interactive) (search-forward (car consult--line-history))))
-		 ("N" . #'(lambda () (interactive) (search-backward (car consult--line-history))))
-		 ("F" . 'evil-find-char)))
+		 ("n" . (lambda () (interactive) (search-forward (car consult--line-history))))
+		 ("N" . (lambda () (interactive) (search-backward (car consult--line-history))))
+		 ("F" . evil-find-char)))
 
 ;; Evil Collection
 (leaf evil-collection
@@ -116,10 +116,10 @@
 (leaf evil-god-state
   :ensure t
   :bind (:evil-normal-state-map
-		 (",". 'evil-execute-in-god-state)
-		 ((kbd "ĵ") . #'god-local-mode))
+		 (",". evil-execute-in-god-state)
+		 ((kbd "ĵ") . god-local-mode))
         (:evil-god-state-map
-         ([escape] . 'evil-god-state-bail)))
+         ([escape] . evil-god-state-bail)))
 
 (leaf vundo :emacs>= 28.1 :ensure t)
 
