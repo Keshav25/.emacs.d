@@ -1,7 +1,7 @@
 ;; font
-;; (set-frame-parameter (selected-frame) 'font "JetBrains Mono Bold-8")
+(set-frame-parameter (selected-frame) 'font "JetBrains Mono Bold-8")
   
-(set-fontset-font "fontset-default" 'unicode "Noto Color Emoji" nil 'prepend)
+;; (set-fontset-font "fontset-default" 'unicode "Noto Color Emoji" nil 'prepend)
 
 ;; theme packages
 (leaf kaolin-themes :ensure t)
