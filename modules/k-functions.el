@@ -1,5 +1,5 @@
 ;;; http://blogs.fluidinfo.com/terry/2011/11/10/emacs-buffer-mode-histogram/
-(defun buffer-mode-histogram ()
+(defun k-buffer-mode-histogram ()
   "Display a histogram of emacs buffer modes."
   (interactive)
   (let* ((totals ())
@@ -36,3 +36,14 @@
   (toggle-truncate-lines 1)
   (toggle-word-wrap 1)
   (org-modern-mode 1))
+
+(defun k-find-file-in-directory (initial-path)
+  "find-file in the given path, for example:
+    (k-find-file-in-directory \"~/org\")"
+  (let ((default-directory
+		  ;; Checks to see if the path already has a slash at the end
+		  (if (string-suffix-p "/" initial-path)
+			  (expand-file-name initial-path)
+		  (concat (expand-file-name initial-path) "/"))))
+	(call-interactively #'find-file)))
+

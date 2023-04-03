@@ -18,13 +18,6 @@
   :bind (("C-s" . consult-line)
 		 ([remap switch-to-buffer] . consult-buffer)))
   
-;; Avy
-(leaf avy :ensure t)
-
-(leaf corfu :ensure t)
-(leaf cape :ensure t)
-(leaf embark :ensure t)
-
 (leaf embark-consult
   :after (embark consult)
   :ensure t)
@@ -38,5 +31,12 @@
   :ensure t
   :init
   (which-key-mode))
+
+(leaf corfu)
+(leaf cape)
+(leaf embark
+  :ensure t
+  :bind (:evil-normal-state-map
+		 ("zd" . embark-act)))
 
 (provide 'k-emocs)
