@@ -17,6 +17,9 @@
   (dashboard-filter-agenda-entry . 'dashboard-no-filter-agenda)
   :config
   (setq dashboard-banner-logo-title (concat "Welcome " user-full-name))
-  (leaf dashboard-org))
+  (leaf org-dashboard :ensure t)
+  (leaf dashboard-ls :ensure t)
+  (leaf elfeed-dashboard :ensure t)
+  (leaf dashboard-hackernews :ensure t))
 
 (provide 'k-dashboard)

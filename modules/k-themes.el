@@ -21,6 +21,12 @@
 (leaf diminish
   :ensure t)
 
-(leaf all-the-icons)
+(leaf all-the-icons
+  :ensure t
+  :config
+  (leaf all-the-icons-ibuffer
+	:ensure t)
+  (leaf all-the-icons-completion
+	:ensure t))
 
 (provide 'k-themes)

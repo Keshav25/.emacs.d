@@ -1,8 +1,11 @@
 ;; Dired
-(leaf all-the-icons-dired)
-(leaf dired-open)
-(leaf peep-dired)
+(leaf all-the-icons-dired :ensure t
+  :hook ((dired-mode-hook . all-the-icons-dired-mode)))
+
+(leaf dired-open :ensure t)
+(leaf peep-dired :ensure t)
 (leaf dirvish
+  :ensure t
   :config
   (dirvish-override-dired-mode) 
   :bind (:dirvish-directory-view-mode-map

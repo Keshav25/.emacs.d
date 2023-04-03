@@ -37,6 +37,7 @@
   (toggle-word-wrap 1)
   (org-modern-mode 1))
 
+<<<<<<< HEAD
 (defun k-find-file-in-directory (initial-path)
   "find-file in the given path, for example:
     (k-find-file-in-directory \"~/org\")"
@@ -47,3 +48,6 @@
 		  (concat (expand-file-name initial-path) "/"))))
 	(call-interactively #'find-file)))
 
+=======
+(provide 'k-functions)
+>>>>>>> 93dbe26 (thinkpad)

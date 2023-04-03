@@ -1,4 +1,4 @@
-(leaf exwm)
+(leaf exwm :ensure t)
 (require 'exwm-randr)
 (setq exwm-randr-workspace-monitor-plist '(0 "eDP1"))
  (add-hook 'exwm-randr-screen-change-hook
@@ -51,6 +51,7 @@
 
 ;; Desktop-Environment
 (leaf desktop-environment
+  :ensure t
   :after exwm
   :config (desktop-environment-mode)
   :custom

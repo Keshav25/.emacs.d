@@ -15,8 +15,8 @@
   (evil-mode 1)
   ;; https://github.com/minad/consult/issues/318
   :bind (:evil-normal-state-map
-		 ("n" . (lambda () (interactive) (search-forward (car consult--line-history))))
-		 ("N" . (lambda () (interactive) (search-backward (car consult--line-history))))
+		 ("n" . #'(lambda () (interactive) (search-forward (car consult--line-history))))
+		 ("N" . #'(lambda () (interactive) (search-backward (car consult--line-history))))
 		 ("F" . 'evil-find-char)))
 
 ;; Evil Collection
@@ -54,13 +54,14 @@
        :config
        (global-evil-surround-mode 1))
 
-;; Evil TextObj Treesitter
-;; Seems to not work with the Emacs 29 treesitter feature yet
+;; ;; Evil TextObj Treesitter
+;; ;; Seems to not work with the Emacs 29 treesitter feature yet
 ;; (leaf evil-textobj-tree-sitter :ensure t
 ;;   :bind (:evil-outer-text-objects-map
 ;; 		 ("f" . (evil-textobj-tree-sitter-get-textobj "function.outer"))))
-;; `M-x combobulate' (or `C-c o o') to start using Combobulate
+;; ;; `M-x combobulate' (or `C-c o o') to start using Combobulate
 ;; (leaf treesit
+;;   :ensure t
 ;;   :preface
 ;;   (defun mp-setup-install-grammars ()
 ;;     "Install Tree-sitter grammars if they are absent."
@@ -99,6 +100,7 @@
 ;;   ;;  M-x customize-group RET combobulate RET
 ;;   ;;
 ;;   (leaf combobulate
+;; 	:ensure t
 ;;     ;; Optional, but recommended.
 ;;     ;;
 ;;     ;; You can manually enable Combobulate with `M-x

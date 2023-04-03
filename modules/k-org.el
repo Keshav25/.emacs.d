@@ -181,6 +181,7 @@ appropriate.  In tables, insert a new row or end the table."
 
 ;; Evil Org
 (leaf evil-org
+  :ensure t
   :after org
   :hook (org-mode . (lambda () (evil-org-mode)))
   :config
@@ -189,8 +190,8 @@ appropriate.  In tables, insert a new row or end the table."
   :setq (evil-want-C-i-jump . nil))
 
 ;; Org-Noter
-(leaf org-noter)
-(leaf org-noter-pdftools)
+(leaf org-noter :ensure t)
+(leaf org-noter-pdftools :ensure t)
 
 ;; To fix in the future
 ;; (use-package org-krita

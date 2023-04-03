@@ -40,6 +40,30 @@
 ;; Hexo
 (require 'k-hexo)
 
+;; Eshell
+(require 'k-eshell)
+
+;; EXWM
+(require 'k-exwm)
+
+;; Functions
+(require 'k-functions)
+
+;; Guix
+(require 'k-guix)
+
+;; Hexo
+(require 'k-hexo)
+
+;; Programming
+(require 'k-programming)
+
+;; Python
+(require 'k-python)
+
+;; Term
+(require 'k-term)
+
 ;; TEL
 (leaf TEL
   :when istermux
@@ -52,6 +76,7 @@
 
 ;; EAF
 (leaf eaf
+  ;;change to specific conditions required for eaf to work
   :when (or islinux iswindows)
   :load-path "~/.emacs.d/site-lisp/emacs-application-framework/"
   :config
@@ -69,7 +94,9 @@
   (require 'eaf-git)
   (require 'eaf-image-viewer)
   (require 'eaf-jupyter)
+  (require 'eaf-map)
   (require 'eaf-markdown-previewer)
+  (require 'eaf-markmap)
   (require 'eaf-mindmap)
   (require 'eaf-music-player)
   (require 'eaf-netease-cloud-music)
@@ -80,7 +107,7 @@
   (require 'eaf-terminal)
   (require 'eaf-video-player)
   (require 'eaf-vue-demo)
-  (require 'eaf-vue-mindmap)
+  (require 'eaf-tailwindcss)
   :setq
   (eaf-browser-search-engines . '(("duckduckgo" . "https://duckduckgo.com/?q=%s")))
   (eaf-browser-default-search-engine . "duckduckgo"))

@@ -111,18 +111,34 @@
 (global-hl-line-mode -1)
 
 ;; Transparency
-(set-frame-parameter (selected-frame) 'alpha `(95,50))
-(add-to-list 'default-frame-alist `(alpha . (95, 50)))
+(if (< emacs-major-version 29)
+	(progn
+	  (set-frame-parameter (selected-frame) 'alpha `(95,50))
+	  (add-to-list 'default-frame-alist `(alpha . (95, 50)))
+
+	  (defun turn-transparency-off ()
+		(interactive)
+		(set-frame-parameter (selected-frame) 'alpha `(100, 100)))
+
+	  (defun turn-transparency-on ()
+		(interactive)
+		(set-frame-parameter (selected-frame) 'alpha `(85, 85))))
+  (progn
+	;; for emacs => 29
+	(set-frame-parameter (selected-frame) 'alpha-background 75)
+	(add-to-list 'default-frame-alist '(alpha-background . 75))
+
+	(defun k/toggle-transparency ()
+	  "toggle transparency for emacs-major-version > 29"
+	  (interactive)
+	  (let ((alpha-transparency 75))
+		(pcase (frame-parameter nil 'alpha-background)
+		  (alpha-transparency (set-frame-parameter nil 'alpha-background 100))
+		  (t (set-frame-parameter nil 'alpha-background alpha-transparency)))))))
+
 (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-(defun turn-transparency-off ()
-  (interactive)
-  (set-frame-parameter (selected-frame) 'alpha `(100, 100)))
-
-(defun turn-transparency-on ()
-  (interactive)
-  (set-frame-parameter (selected-frame) 'alpha `(85, 85)))
 
 ;; Line Numbers
 (setq display-line-numbers-type t)
