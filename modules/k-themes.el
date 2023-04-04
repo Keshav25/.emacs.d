@@ -7,9 +7,10 @@
 (leaf kaolin-themes :ensure t)
 (leaf doom-themes :ensure t)
 (leaf ef-themes :ensure t)
+(leaf yabaki-theme :ensure t)
 
 ;; load the actual theme
-(load-theme 'ef-bio t)
+(load-theme 'yabaki t)
 
 ;; Solaire
 (leaf solaire-mode
