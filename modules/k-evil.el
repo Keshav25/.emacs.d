@@ -17,7 +17,11 @@
   :bind (:evil-normal-state-map
 		 ("n" . (lambda () (interactive) (search-forward (car consult--line-history))))
 		 ("N" . (lambda () (interactive) (search-backward (car consult--line-history))))
-		 ("F" . evil-find-char)))
+		 ("F" . 'evil-find-char)
+		 ("ge" . 'evil-end-of-line)
+		 ("ga" . 'evil-first-non-blank))
+  (:evil-motion-state-map
+   ("ge" . 'evil-end-of-line)))
 
 ;; Evil Collection
 (leaf evil-collection
