@@ -24,6 +24,7 @@
 (setq load-prefer-newer noninteractive)
 
 (setq package-enable-at-startup nil)
+(setq package-native-compile t)
 
 ;; recentf-mode
 (recentf-mode 1)
@@ -91,12 +92,19 @@
 	  indicate-empty-lines nil)
 
 ;; Disable Graphical Menus
-(push '(menu-bar-lines . 0)   default-frame-alist)
-(push '(tool-bar-lines . 0)   default-frame-alist)
-(push '(vertical-scroll-bars) default-frame-alist)
-(setq menu-bar-mode nil
-	  tool-bar-mode nil
-	  scroll-bar-mode nil)
+(setq-default default-frame-alist
+			  '((tool-bar-lines . 0)
+				(menu-bar-lines . 0)
+				(undecorated . t)
+				(vertical-scroll-bars . nil)
+				(horizontal-scroll-bars . nil)))
+;; (push '(menu-bar-lines . 0)   default-frame-alist)
+;; (push '(tool-bar-lines . 0)   default-frame-alist)
+;; (push '(vertical-scroll-bars) default-frame-alist)
+
+;; (setq menu-bar-mode nil
+	  ;; tool-bar-mode nil
+	  ;; scroll-bar-mode nil)
 
 (setq initial-frame-alist
 	  '((right-divider-width . 24)
