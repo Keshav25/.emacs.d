@@ -124,7 +124,7 @@ appropriate.  In tables, insert a new row or end the table."
 (leaf org-agenda
   :bind (("C-c a" . org-agenda))
   :custom
-  (org-agenda-files . '("~/org/agenda/"))
+  (org-agenda-files . '("~/Documents/org/agenda/"))
   :hook ((org-agenda-finalize . org-modern-agenda)
 		 (org-agenda-finalize . hl-line-mode)))
 
@@ -139,25 +139,25 @@ appropriate.  In tables, insert a new row or end the table."
 	 ("L" "Protocol Link" entry (file+headline "inbox.org" "Inbox")
 	  "* %? %:annotation\n")
 	 ("i" "inbox" entry
-	  (file "~/org/inbox.org")
+	  (file "~/Documents/org/inbox.org")
 	  "* %?\n %T\n %a\n %i\n"
 	  :empty-lines 1 )
 	 ("c" "compsol"
-	  entry (file "~/org/compsol.org")
+	  entry (file "~/Documents/org/compsol.org")
 	  "* %?\n %T\n %i\n"
 	  :empty-lines 1)
 	 ("s" "school"
-	  entry (file "~/org/school.org")
+	  entry (file "~/Documents/org/school.org")
 	  "* %?\n %T\n %i\n"
 	  :empty-lines 1)
 	 ("f" "food"
-	  entry (file "~/org/food-journal.org")
+	  entry (file "~/Documents/org/food-journal.org")
 	  "* %?\n %T\n %i\n"
 	  :empty-lines 1)
 	 ("d" "daily-template"
 	  entry
 	  (file+olp+datetree "daily.org")
-	  "%[~/org/daily-template]"
+	  "%[~/Documents/org/daily-template]"
 	  ;; :unnarrowed 1
 	  :tree-type week
 	  ;; :time-prompt t
@@ -205,7 +205,7 @@ appropriate.  In tables, insert a new row or end the table."
   :require t
   :ensure t
   :setq
-  (org-ehtml-docroot . '(expand-file-name "~/org/roam"))
+  (org-ehtml-docroot . '(expand-file-name "~/Documents/org/roam"))
   (org-ehtml-everything-editable . t))
 
 (defun start-ehtml ()
@@ -218,10 +218,10 @@ appropriate.  In tables, insert a new row or end the table."
 (leaf org-roam
   :ensure t
   :custom
-  (org-roam-directory . "~/org/roam")
+  (org-roam-directory . "~/Documents/org/roam")
   (org-roam-completion-everywhere . t)
   (org-roam-completion-system . 'default)
-  (org-roam-dailies-directory . "~/org/roam/daily")
+  (org-roam-dailies-directory . "~/Documents/org/roam/daily")
   :bind (("C-c n l" . org-roam-buffer-toggle)
 		 ("C-c n f" . org-roam-node-find)
 		 ("C-c n g" . org-roam-graph)
