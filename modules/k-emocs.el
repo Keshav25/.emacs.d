@@ -36,7 +36,8 @@
 (leaf cape)
 (leaf embark
   :ensure t
-  :bind (:evil-normal-state-map
-		 ("zd" . embark-act)))
+  :bind (("C-c e" . embark-act)
+		 (:evil-normal-state-map
+		  ("zd" . embark-act))))
 
 (provide 'k-emocs)
