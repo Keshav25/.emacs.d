@@ -27,6 +27,9 @@
 ;; 
 ;; )
 
+(leaf leaf
+  :bind (("C-c f l" . leaf-find)))
+
 ;; leaf-keywords
 (leaf leaf-keywords :ensure t)
 
