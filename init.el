@@ -64,6 +64,9 @@
 ;; Term
 (require 'k-term)
 
+;; Git
+(require 'k-vc)
+
 ;; TEL
 ;; (leaf TEL
 ;;    :when istermux
