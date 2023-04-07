@@ -13,10 +13,16 @@
   (evil-want-split-window-below . t)
   :config
   (evil-mode 1)
+  (defun k-consult-line-search-forward ()
+	(interactive)
+	(search-forward (car consult--line-history)))
+  (defun k-consult-line-search-backward ()
+	(interactive)
+	(search-backward (car consult--line-history)))
   ;; https://github.com/minad/consult/issues/318
   :bind (:evil-normal-state-map
-		 ("n" . (lambda () (interactive) (search-forward (car consult--line-history))))
-		 ("N" . (lambda () (interactive) (search-backward (car consult--line-history))))
+		 ("n" . 'k-consult-line-search-forward)
+		 ("N" . 'k-consult-line-search-backward)
 		 ("F" . 'evil-find-char)
 		 ("ge" . 'evil-end-of-line)
 		 ("ga" . 'evil-first-non-blank))
