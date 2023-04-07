@@ -42,27 +42,27 @@
 ;; Evil Escape
 (leaf evil-escape
   :ensure t
-	   :config
-	   (evil-escape-mode)
-	   :setq-default
-	   (evil-escape-key-sequence . "jk")
-	   (evil-escape-delay . 0.05)
-	   (evil-escape-undordered-key-sequence . t))
+  :config
+  (evil-escape-mode)
+  :setq-default
+  (evil-escape-key-sequence . "jk")
+  (evil-escape-delay . 0.05)
+  (evil-escape-undordered-key-sequence . t))
 
 ;; Evil Goggles
 (leaf evil-goggles
   :ensure t
-	   :config
-	   (evil-goggles-mode)
-	   :setq
-	   (evil-goggles-pulse . t)
-	   (evil-goggles-duration . 0.001))
+  :config
+  (evil-goggles-mode)
+  :setq
+  (evil-goggles-pulse . t)
+  (evil-goggles-duration . 0.001))
 
 ;; Evil Surround
 (leaf evil-surround
   :ensure t
-       :config
-       (global-evil-surround-mode 1))
+  :config
+  (global-evil-surround-mode 1))
 
 ;; ;; Evil TextObj Treesitter
 ;; ;; Seems to not work with the Emacs 29 treesitter feature yet
@@ -128,8 +128,8 @@
   :bind (:evil-normal-state-map
 		 (",". evil-execute-in-god-state)
 		 ((kbd "ĵ") . god-local-mode))
-        (:evil-god-state-map
-         ([escape] . evil-god-state-bail)))
+  (:evil-god-state-map
+   ([escape] . evil-god-state-bail)))
 
 (leaf vundo :emacs>= 28.1 :ensure t)
 
