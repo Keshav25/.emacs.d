@@ -118,7 +118,10 @@ appropriate.  In tables, insert a new row or end the table."
   :init
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((python . t))
+   '((python . t)
+	 (emacs-lisp . t)
+	 (shell . t)
+	 (scheme . t))
    ))
 
 (leaf org-agenda
