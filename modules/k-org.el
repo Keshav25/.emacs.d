@@ -10,12 +10,27 @@
   (org-startup-indented . 1)
   (org-appear-mode . 1)
   (org-use-speed-commands . 1)
-  ;; (org-fontify-done-headline . t)
-  ;; (org-fontify-quote-and-verse-blocks . t)
-  ;; (org-fontify-whole-heading-line . t)
+  (org-special-ctrl-a . 1)
+  (org-special-ctrl-k . 1)
+  (org-fontify-done-headline . t)
+  (org-fontify-quote-and-verse-blocks . t)
+  (org-fontify-whole-heading-line . t)
   (org-hidden-keywords . nil)
-  ;; (org-hide-emphasis-markers . t)
-  ;; (org-hide-leading-stars . t)
+  (org-hide-emphasis-markers . t)
+  (org-hide-leading-stars . t)
+  (org-export-with-toc . nil)
+  (org-agenda-search-view-always-boolean . t)
+  (org-agenda-timegrid-use-ampm . nil)
+  ;; (org-agenda-time-grid . ((daily today require-timed)
+ ;; (600 630 700 730 800 830 900 930 1000 1030 1100 1130 1200 1230 1300 1330 1400 1430 1500 1530 1600 1630 1700 1730 1800 1830 2000 2030 2100 2130 2200 2230 2300 2330)
+ ;; " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄"))
+  (org-log-done . 'time)
+  (org-log-into-drawer . t)
+  ;; (org-todo-keywords . ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+					    ;; (sequence "BACKLOG(b)" "ACTIVE(a)"
+								  ;; "REVIEW(v)" "WAIT(w@/!)" "HOLD(h)"
+								  ;; "|" "DELEGATED(D)" "CANCELLED(c)")))
+
   (org-highlight-latex-and-related '(native))
   (org-use-sub-superscripts . '{})
   :custom
@@ -196,14 +211,6 @@ appropriate.  In tables, insert a new row or end the table."
 (leaf org-noter :ensure t)
 (leaf org-noter-pdftools :ensure t)
 
-;; To fix in the future
-;; (use-package org-krita
-;;   :ensure t
-;;   :quelpa (org-krita :fetcher github :repo "lepisma/org-krita" :files ("*.el" "resources"))
-;;   :config
-;;   (add-hook 'org-mode-hook 'org-krita-mode))
-
-;; Org-Ehtml
 (leaf org-ehtml
   :require t
   :ensure t
