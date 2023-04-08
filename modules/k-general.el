@@ -37,7 +37,7 @@
   ;; S for sudo edit
   ;; k previous buffer
   ;; j next buffer
-  ;; k kill buffer
+  "k" '(kill-this-buffer :which-key "kill buffer")
   ;; n empty buffer
   ;; o for kill all buffers
   ;; s save buffer
