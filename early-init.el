@@ -27,7 +27,24 @@
 (setq package-native-compile t)
 
 ;; backup files
-(setq backup-directory-alist . `(("." . "~/.saves")))
+(setq backup-directory-alist '(("." . "~/.saves")))
+(setq auto-save-file-name-transformations '(("." . "~/.saves")))
+(setq backup-by-copying t      ; don't clobber symlinks
+	  delete-old-versions t
+	  kept-new-versions 6
+	  kept-old-versions 2
+	  version-control t)       ; use versioned backups
+
+(message "Deleting old backup files...")
+(let ((week (* 60 60 24 7))
+      (current (float-time (current-time))))
+  (dolist (file (directory-files temporary-file-directory t))
+    (when (and (backup-file-name-p file)
+               (> (- current (float-time (fifth (file-attributes file))))
+                  (* 4 week)))
+      (message "%s" file)
+      (delete-file file))))
+
 
 ;; recentf-mode
 (recentf-mode 1)
