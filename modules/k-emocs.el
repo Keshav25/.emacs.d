@@ -3,7 +3,7 @@
   :config
   (vertico-mode 1))
 
-(leaf orderless
+leaf orderless
   :ensure t
       :config
       (setq completion-styles '(orderless)))
@@ -34,6 +34,7 @@
 
 (leaf corfu)
 (leaf cape)
+
 (leaf embark
   :ensure t
   :bind (("C-c h" . embark-act)

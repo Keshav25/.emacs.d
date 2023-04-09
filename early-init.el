@@ -26,6 +26,9 @@
 (setq package-enable-at-startup nil)
 (setq package-native-compile t)
 
+;; backup files
+(setq backup-directory-alist . `(("." . "~/.saves")))
+
 ;; recentf-mode
 (recentf-mode 1)
 
