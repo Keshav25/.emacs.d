@@ -48,9 +48,9 @@
 (leaf tabspaces :ensure t)
 (leaf windmove :ensure t)
 
-(leaf exwm
-  :when isexwm
-  :require t
-  :ensure t)
+(leaf centered-window
+  :ensure t
+  :config
+  (centered-window-mode 1))
 
 (provide 'k-wm)
