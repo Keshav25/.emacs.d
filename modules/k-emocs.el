@@ -36,7 +36,7 @@
 (leaf cape)
 (leaf embark
   :ensure t
-  :bind (("C-c e" . embark-act)
+  :bind (("C-c h" . embark-act)
 		 (:evil-normal-state-map
 		  ("zd" . embark-act))))
 
