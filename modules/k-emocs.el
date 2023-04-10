@@ -17,10 +17,11 @@
   :ensure t
   :bind (("C-s" . consult-line)
 		 ([remap switch-to-buffer] . consult-buffer)))
-  
+
 (leaf embark-consult
   :after (embark consult)
-  :ensure t)
+  :ensure t
+  :hook ((embark-collect-mode . consult-preview-at-point-mode)))
 
 (leaf avy-embark-collect
   :after (embark avy)
