@@ -3,10 +3,10 @@
   :config
   (vertico-mode 1))
 
-leaf orderless
-  :ensure t
-      :config
-      (setq completion-styles '(orderless)))
+(leaf orderless
+:ensure t
+:config
+(setq completion-styles '(orderless)))
 
 (leaf marginalia
   :ensure t
