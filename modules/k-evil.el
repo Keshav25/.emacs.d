@@ -64,6 +64,12 @@
   :config
   (global-evil-surround-mode 1))
 
+(leaf evil-nerd-commenter
+  :ensure t
+  :init
+  (evilnc-default-hotkeys t) ;;only enables for emacs state
+  )
+
 ;; ;; Evil TextObj Treesitter
 ;; ;; Seems to not work with the Emacs 29 treesitter feature yet
 ;; (leaf evil-textobj-tree-sitter :ensure t
