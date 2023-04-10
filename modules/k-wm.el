@@ -9,7 +9,7 @@
 (setq window-divider-default-places t
       window-divider-default-bottom-width 1
       window-divider-default-right-width 1)
-(window-divider-mode)
+(window-divider-mode 1)
 
 ;; Split Thresholds
 (setq split-width-threshold 160
@@ -52,5 +52,10 @@
   :ensure t
   :config
   (centered-window-mode 1))
+
+(leaf balanced-windows
+  :ensure t
+  :config
+  (balanced-windows-mode 1))
 
 (provide 'k-wm)
