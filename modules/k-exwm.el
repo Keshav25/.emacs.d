@@ -1,4 +1,26 @@
-(leaf exwm :ensure t)
+(leaf exwm
+  :ensure t
+  :custom
+  (use-dialog-box . nil)
+  (exwm-input-line-mode-passthrough . t)
+  :hook ((exwm-update-title-hook . (lambda () (exwm-workspace-rename-buffer exwm-title))))
+  :config
+  ;; Remove ALL bindings
+      (define-key exwm-mode-map "\C-c\C-f" nil)
+      (define-key exwm-mode-map "\C-c\C-h" nil)
+      (define-key exwm-mode-map "\C-c\C-k" nil)
+      (define-key exwm-mode-map "\C-c\C-m" nil)
+      (define-key exwm-mode-map "\C-c\C-q" nil)
+      (define-key exwm-mode-map "\C-c\C-t\C-f" nil)
+      (define-key exwm-mode-map "\C-c\C-t\C-m" nil)
+	  (exwm-input-set-key [escape] 'evil-escape)
+  :bind (:exwm-mode-map
+		 ("C-q" . #'exwm-input-send-next-key)
+		 ("s-i" . #'exwm-input-toggle-keyboard)
+		 ("s-r" . #'exwm-reset)
+		 ("s-w" . #'exwm-workspace-switch)
+		 ("s-TAB" . #'exwm/jump-to-last-exwm)))
+
 (require 'exwm-randr)
 (setq exwm-randr-workspace-monitor-plist '(0 "eDP1"))
  (add-hook 'exwm-randr-screen-change-hook
@@ -53,12 +75,19 @@
 (leaf desktop-environment
   :ensure t
   :after exwm
-  :config (desktop-environment-mode)
   :custom
   (desktop-environment-brightness-small-increment . "2%+")
   (desktop-environment-brightness-small-decrement . "2%-")
   (desktop-environment-brightness-normal-increment . "5%+")
-  (desktop-environment-brightness-normal-decrement . "5%-"))
+  (desktop-environment-brightness-normal-decrement . "5%-")
+  (exwm-layout-show-all-buffers . t)
+  :config
+  (desktop-environment-mode 1)
+  :bind (:desktop-environment-mode-map
+		 ("s-l" . nil)))
+
+;; Evil-Mode integration, need to add git srcs to leaf to install
+(leaf evil-exwm-state)
 
 (provide 'k-exwm)
 
