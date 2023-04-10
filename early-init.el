@@ -203,20 +203,4 @@
 	  mouse-wheel-scroll-amount-horizon 2)
 (setq x-stretch-cursor nil)
 
-
-;; Split and Follow Functions
-(defun split-and-follow-horizontally ()
-  (interactive)
-  (split-window-below)
-  (balance-windows)
-  (other-window 1))
-(global-set-key (kbd "C-x 2") 'split-and-follow-horizontally)
-
-(defun split-and-follow-vertically ()
-  (interactive)
-  (split-window-right)
-  (balance-windows)
-  (other-window 1))
-(global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
-
 (provide 'early-init)
