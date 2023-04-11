@@ -29,7 +29,9 @@
 		 ("ga" . 'evil-first-non-blank)
 		 ;;unbind open and close folds
 		 ("zo" . 'nil)
-		 ("zc" . 'nil))
+		 ("zc" . 'nil)
+		 ;;unbind q
+		 ("q" . nil))
   (:evil-motion-state-map
    ("ge" . 'evil-end-of-line))
   :chord
