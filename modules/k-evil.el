@@ -27,7 +27,11 @@
 		 ("ge" . 'evil-end-of-line)
 		 ("ga" . 'evil-first-non-blank))
   (:evil-motion-state-map
-   ("ge" . 'evil-end-of-line)))
+   ("ge" . 'evil-end-of-line))
+  :chord
+  (:evil-insert-state-map
+   ("jj" . evil-normal-state)
+   ("jk" . evil-normal-state)))
 
 ;; Evil Collection
 (leaf evil-collection
@@ -40,16 +44,16 @@
   (evil-collection-init))
 
 ;; Evil Escape
-(leaf evil-escape
-  :ensure t
-  :config
-  (evil-escape-mode)
-  :setq-default
-  (evil-escape-key-sequence . "jk")
-  (evil-escape-delay . 0.05)
-  (evil-escape-undordered-key-sequence . t))
+;; (leaf evil-escape
+;;   :ensure t
+;;   :config
+;;   (evil-escape-mode)
+;;   :setq-default
+;;   (evil-escape-key-sequence . "jk")
+;;   (evil-escape-delay . 0.05)
+;;   (evil-escape-undordered-key-sequence . t))
 
-;; Evil Goggles
+
 (leaf evil-goggles
   :ensure t
   :config
@@ -137,6 +141,11 @@
   (:evil-god-state-map
    ([escape] . evil-god-state-bail)))
 
-(leaf vundo :emacs>= 28.1 :ensure t)
+;; (leaf vundo :emacs>= 28.1 :ensure t)
+
+(leaf undo-tree
+  :ensure t
+  :custom
+  (evil-undo-system . 'undo-tree))
 
 (provide 'k-evil)
