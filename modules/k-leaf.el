@@ -30,6 +30,13 @@
 (leaf leaf
   :bind (("C-c f l" . leaf-find)))
 
+(leaf quelpa :ensure t)
+(leaf quelpa-leaf
+  :ensure t
+  :require t
+  :config
+  (quelpa-leaf-init))
+
 ;; key-chords
 (leaf key-chord
   :ensure t
