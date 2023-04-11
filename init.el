@@ -67,6 +67,8 @@
 ;; Git
 (require 'k-vc)
 
+(alert "done loading emacs")
+
 ;; TEL
 ;; (leaf TEL
 ;;    :when istermux
