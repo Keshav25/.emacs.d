@@ -26,13 +26,15 @@
 		 ("N" . 'k-consult-line-search-backward)
 		 ("F" . 'evil-find-char)
 		 ("ge" . 'evil-end-of-line)
-		 ("ga" . 'evil-first-non-blank))
+		 ("ga" . 'evil-first-non-blank)
+		 ;;unbind open and close folds
+		 ("zo" . 'nil)
+		 ("zc" . 'nil))
   (:evil-motion-state-map
    ("ge" . 'evil-end-of-line))
   :chord
   (:evil-insert-state-map
-   ("jj" . evil-normal-state)
-   ("jk" . evil-normal-state)))
+   ("jj" . evil-normal-state)))
 
 ;; Evil Collection
 (leaf evil-collection
