@@ -4,6 +4,7 @@
 
 (leaf evil
   :ensure t
+  :after (key-chord)
   :leaf-defer nil
   :setq
   (evil-want-integration . t)
