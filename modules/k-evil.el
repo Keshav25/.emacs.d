@@ -143,9 +143,15 @@
 
 ;; (leaf vundo :emacs>= 28.1 :ensure t)
 
+(leaf evil-mc
+  :ensure t
+  :init
+  (global-evil-mc-mode 1))
+
 (leaf undo-tree
   :ensure t
   :custom
   (evil-undo-system . 'undo-tree))
+
 
 (provide 'k-evil)

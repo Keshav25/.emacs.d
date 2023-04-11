@@ -97,7 +97,6 @@
 	  url-history-file (expand-file-name "url/history" user-emacs-directory))
 
 
-
 (setq custom-file
 	  (if (boundp 'server-socket-dir)
 		  (expand-file-name "~/.emacs.d/custom.el" server-socket-dir)
