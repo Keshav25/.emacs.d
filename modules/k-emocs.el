@@ -1,7 +1,8 @@
 (leaf vertico
   :ensure t
   :config
-  (vertico-mode 1))
+  (vertico-mode 1)
+  (vertico-mouse-mode 1))
 
 (leaf orderless
 :ensure t
