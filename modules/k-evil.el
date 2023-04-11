@@ -180,10 +180,11 @@
 
 ;; (leaf vundo :emacs>= 28.1 :ensure t)
 
-(leaf evil-mc
-  :ensure t
-  :init
-  (global-evil-mc-mode 1))
+;; don't really like multicursors, maybe in the future
+;; (leaf evil-mc
+  ;; :ensure t
+  ;; :init
+  ;; (global-evil-mc-mode 1))
 
 (leaf undo-tree
   :ensure t
