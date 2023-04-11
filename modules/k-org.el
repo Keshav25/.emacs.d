@@ -34,7 +34,7 @@
   (org-highlight-latex-and-related '(native))
   (org-use-sub-superscripts . '{})
   :custom
-  (org-directory . "~/org")
+  (org-directory . "~/Documents/org")
   (org-file-apps . '((auto-mode . emacs)))
   :config
   ;; https://github.com/karthink/.emacs.d/blob/5c9bb4102e53a60a7f6df2d3fb1cad5086114d1b/lisp/setup-org.el#L172
