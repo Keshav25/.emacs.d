@@ -222,8 +222,6 @@ appropriate.  In tables, insert a new row or end the table."
   (interactive)
   (ws-start org-ethml-handler 8888))
 
-;; Org-Journal
-
 ;; Org-Roam
 (leaf org-roam
   :ensure t
