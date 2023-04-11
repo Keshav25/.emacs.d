@@ -5,3 +5,6 @@
   (if istermux
 	  (setq alert-default-style 'termux)
 	(setq alert-default-style 'libnotify)))
+
+(leaf prodigy
+  :ensure t)
