@@ -86,7 +86,7 @@
 ;; Ignore Startup Echo Message
 (advice-add #'display-startup-echo-area-message :override #'ignore)
 
-;; Bidirectional Textn
+;; Bidirectional Text
 (setq-default bidi-display-reordering 'left-to-right
 			  bidi-paragraph-direction 'left-to-right)
 (setq bidi-inhibit-bpa t)
