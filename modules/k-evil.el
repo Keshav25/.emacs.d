@@ -27,13 +27,23 @@
 		 ("F" . 'evil-find-char)
 		 ("ge" . 'evil-end-of-line)
 		 ("ga" . 'evil-first-non-blank)
+		 ("-" . 'dired)
 		 ;;unbind open and close folds
 		 ("zo" . 'nil)
 		 ("zc" . 'nil)
 		 ;;unbind q
-		 ("q" . nil))
+		 ("q" . 'nil)
+		 ;;replace paste
+		 ("p" . 'package-install)
+		 ("P" . 'package-reinstall)
+		 ("C-p" . 'package-refresh-contents)
+		 ;;scroll the other window instead
+		 ("C-d" . 'scroll-other-window)
+		 ("C-u" . 'scroll-other-window-down))
   (:evil-motion-state-map
-   ("ge" . 'evil-end-of-line))
+   ("ge" . 'evil-end-of-line)
+   ;;unbind a few emacs keys
+   ("C-y" . 'nil))
   :chord
   (:evil-insert-state-map
    ("jj" . evil-normal-state)))
