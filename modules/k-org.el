@@ -364,4 +364,19 @@ appropriate.  In tables, insert a new row or end the table."
 	(visual-line-mode 0)
 	(org-modern-mode 0)))
 
+(leaf pandoc :ensure t)
+(leaf pandoc-mode :ensure t)
+(leaf ox-pandoc :ensure t)
+(leaf copyit-pandoc :ensure t)
+
+(leaf gnuplot :ensure t)
+(leaf htmlize :ensure t)
+
+(leaf org-novelist
+  :quelpa (org-novelist :fetcher github :repo "sympodius/org-novelist")
+  :setq
+  (org-novelist-language-tag ."en-US")
+  (org-novelist-author . user-full-name)
+  (org-novelist-author-email . user-mail-address))
+
 (provide 'k-org)
