@@ -30,8 +30,17 @@
 (leaf leaf
   :bind (("C-c f l" . leaf-find)))
 
+;; key-chords
+(leaf key-chord
+  :ensure t
+  :config
+  (key-chord-mode 1))
+
 ;; leaf-keywords
-(leaf leaf-keywords :ensure t)
+(leaf leaf-keywords
+  :ensure t
+  :init
+  (leaf-keywords-init))
 
 ;; leaf-convert
 (leaf leaf-convert :ensure t)
