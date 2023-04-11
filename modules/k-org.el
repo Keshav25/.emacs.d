@@ -349,6 +349,8 @@ appropriate.  In tables, insert a new row or end the table."
   ;; :ensure t
   :hook ((org-mode . turn-on-org-cd-latex)))
 
+(leaf org-mime :ensure t)
+
 (leaf writing-function
   :config
   (defun turn-on-writing ()
