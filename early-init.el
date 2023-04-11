@@ -76,7 +76,6 @@
 
 ;; global modes
 (global-so-long-mode 1)
-(global-hl-line-mode -1)
 
 ;; Tab Width
 (setq-default tab-width 4)
