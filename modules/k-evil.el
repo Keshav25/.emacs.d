@@ -46,15 +46,37 @@
   :config
   (evil-collection-init))
 
+;; Honestly might be better to make my own package
+(leaf evil-extra-operator
+  :ensure t
+  :bind (:evil-motion-state-map
+		 ("gs" . evil-operator-google-translate))
+  :config
+  (require 'evil-extra-operator)
+  (evil-define-operator evil-operator-google-search (beg end type)
+	"Evil operator for google search."
+	:move-point nil
+	(interactive "<R>")
+	(browse-url
+	 (concat "http://www.startpage.com/search?q="
+			 (url-hexify-string
+			  (.eeo/make-url-args beg end type)))))
+  (global-evil-extra-operator-mode 1))
+
+(leaf evil-exchange
+  :ensure t
+  :config
+  (evil-exchange-install))
+
 ;; Evil Escape
-;; (leaf evil-escape
-;;   :ensure t
-;;   :config
-;;   (evil-escape-mode)
-;;   :setq-default
-;;   (evil-escape-key-sequence . "jk")
-;;   (evil-escape-delay . 0.05)
-;;   (evil-escape-undordered-key-sequence . t))
+(leaf evil-escape
+  :ensure t
+  :config
+  (evil-escape-mode)
+  :setq-default
+  (evil-escape-key-sequence . "jk")
+  (evil-escape-delay . 0.05)
+  (evil-escape-undordered-key-sequence . t))
 
 
 (leaf evil-goggles
