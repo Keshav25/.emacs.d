@@ -17,7 +17,8 @@
 (leaf consult
   :ensure t
   :bind (("C-s" . consult-line)
-		 ([remap switch-to-buffer] . consult-buffer)))
+		 ([remap switch-to-buffer] . consult-buffer)
+		 ("C-y" . yank-from-kill-ring)))
 
 (leaf embark-consult
   :after (embark consult)
