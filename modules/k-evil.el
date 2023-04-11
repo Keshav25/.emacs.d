@@ -176,7 +176,9 @@
 (leaf undo-tree
   :ensure t
   :custom
-  (evil-undo-system . 'undo-tree))
+  (evil-undo-system . 'undo-tree)
+  :config
+  (global-undo-tree-mode 1))
 
 
 (provide 'k-evil)
