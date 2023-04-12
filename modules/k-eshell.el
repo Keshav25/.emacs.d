@@ -37,7 +37,7 @@
 		(venv-initialize-eshell)))
 	(autoload 'epe-theme-lambda "eshell-prompt-extras")
 	(setq eshell-highlight-prompt nil
-		  eshell-prompt-function 'epe-theme-multiline-with-status))
+		  eshell-prompt-function 'epe-theme-multiline-with-status)))
 
 (leaf eshell-z
   :ensure t
@@ -61,7 +61,5 @@
 
 (leaf eshell-syntax-highlighting
   :ensure t)
-
-
 
 (provide 'k-eshell)
