@@ -31,8 +31,8 @@
 		 ;;unbind open and close folds
 		 ("zo" . 'nil)
 		 ("zc" . 'nil)
-		 ;;unbind q
-		 ("q" . 'nil)
+		 ;;replace q
+		 ("q" . 'kill-buffer-and-window)
 		 ;;replace paste
 		 ("p" . 'package-install)
 		 ("P" . 'package-reinstall)
