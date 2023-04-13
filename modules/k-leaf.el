@@ -39,6 +39,7 @@
 
 ;; key-chords
 (leaf key-chord
+  :require t
   :ensure t
   :config
   (key-chord-mode 1))
