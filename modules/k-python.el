@@ -1,13 +1,28 @@
 (leaf python-mode
   :custom ((python-indent-guess-indent-offset . t)
-		   (python-indent-guess-indent-offset-verbose . nil))
+		   (python-indent-guess-indent-offset-verbose . nil)))
 
-  :init
-  (leaf lsp-python-ms
-	:after lsp-mode
-	:custom ((lsp-python-ms-auto-install-server . t)))
-  :hook (python-mode-hook . (lambda ()
-							  (require 'lsp-python-ms)
-							  (lsp-deferred))))
+(leaf anaconda-mode
+  :ensure t
+  :hook ((python-mode . anaconda-mode)))
+
+(leaf blacken
+  :ensure t
+  :hook ((python-mode . blacken-mode)))
+
+(leaf eglot-mode
+  :hook ((python-mode . eglot-ensure)))
+
+(leaf pyvenv
+  :ensure t
+  :hook ((python-mode . pyvenv-mode)
+		 (python-mode . pyvenv-tracking-mode)
+		 (pyvenv-post-activate-hooks . pyvenc-restart-python))
+  :custom
+  (pyvenv-default-virtual-env-name . "venv"))
+
+(leaf numpydoc
+  :ensure t
+  :hook ((python-mode . eldoc-mode)))
 
 (provide 'k-python)
