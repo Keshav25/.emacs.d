@@ -38,6 +38,10 @@
   :custom
   (org-directory . "~/Documents/org")
   (org-file-apps . '((auto-mode . emacs)))
+  :hook ((org-mode-hook . (lambda ()
+							(setq-local electric-pair-inhibit-predicate
+										`(lambda (c)
+										   (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c)))))))
   :config
   ;; https://github.com/karthink/.emacs.d/blob/5c9bb4102e53a60a7f6df2d3fb1cad5086114d1b/lisp/setup-org.el#L172
   (defun my/org-element-descendant-of (type element)
@@ -208,6 +212,15 @@ appropriate.  In tables, insert a new row or end the table."
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys)
   :setq (evil-want-C-i-jump . nil))
+
+;; PDF Tools
+(leaf pdf-tools
+  :ensure t
+  :hook ((doc-view-mode-hook . (lambda () (require 'pdf-tools))))
+  :config
+  (pdf-tools-install)
+  :setq-default
+  (pdf-view-display-size . 'fit-width))
 
 ;; Org-Noter
 (leaf org-noter :ensure t)
