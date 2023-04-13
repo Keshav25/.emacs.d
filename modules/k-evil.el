@@ -22,26 +22,31 @@
   (defun k-consult-line-search-backward ()
 	(interactive)
 	(search-backward (car consult--line-history)))
+  (add-to-list 'evil-insert-state-modes 'text-mode)
   ;; https://github.com/minad/consult/issues/318
-  :bind (:evil-normal-state-map
-		 ("n" . 'k-consult-line-search-forward)
-		 ("N" . 'k-consult-line-search-backward)
-		 ("F" . 'evil-find-char)
-		 ("ge" . 'evil-end-of-line)
-		 ("ga" . 'evil-first-non-blank)
-		 ("-" . 'dired)
-		 ;;unbind open and close folds
-		 ("zo" . 'nil)
-		 ("zc" . 'nil)
-		 ;;replace q
-		 ("q" . 'kill-buffer-and-window)
-		 ;;replace paste
-		 ("p" . 'package-install)
-		 ("P" . 'package-reinstall)
-		 ("C-p" . 'package-refresh-contents)
-		 ;;scroll the other window instead
-		 ("C-d" . 'scroll-other-window)
-		 ("C-u" . 'scroll-other-window-down))
+  :bind ("C-M-u" . 'universal-argument)
+  (:evil-insert-state-map
+   ("C-a" . 'nil)
+   ("C-y" . 'nil))
+  (:evil-normal-state-map
+   ("n" . 'k-consult-line-search-forward)
+   ("N" . 'k-consult-line-search-backward)
+   ("F" . 'evil-find-char)
+   ("ge" . 'evil-end-of-line)
+   ("ga" . 'evil-first-non-blank)
+   ("-" . 'dired)
+   ;;unbind open and close folds
+   ("zo" . 'nil)
+   ("zc" . 'nil)
+   ;;replace q
+   ("q" . 'kill-buffer-and-window)
+   ;;replace paste
+   ("p" . 'package-install)
+   ("P" . 'package-reinstall)
+   ("C-p" . 'package-refresh-contents)
+   ;;scroll the other window instead
+   ("C-d" . 'scroll-other-window)
+   ("C-u" . 'scroll-other-window-down))
   (:evil-motion-state-map
    ("ge" . 'evil-end-of-line)
    ;;unbind a few emacs keys
