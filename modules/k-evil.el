@@ -1,7 +1,3 @@
-;; Evil
-;; for some reason can't get pre-setq to work
-(setq evil-want-keybinding nil)
-
 (leaf evil
   :ensure t
   :after (key-chord)
@@ -61,7 +57,6 @@
   :after evil
   :setq
   (evil-collection-mode-list . '(dashboard dired buffer))
-  (evil-want-keybinding . nil)
   :config
   (evil-collection-init))
 
@@ -189,9 +184,9 @@
 
 ;; don't really like multicursors, maybe in the future
 ;; (leaf evil-mc
-  ;; :ensure t
-  ;; :init
-  ;; (global-evil-mc-mode 1))
+;; :ensure t
+;; :init
+;; (global-evil-mc-mode 1))
 
 (leaf undo-tree
   :ensure t
