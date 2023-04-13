@@ -8,7 +8,9 @@
   :leaf-defer nil
   :setq
   (evil-want-integration . t)
-  (evil-want-keybindings . nil)
+  (evil-want-keybinding . nil)
+  (evil-want-fine-undo . t)
+  (evil-respect-visual-line-mode . t)
   (evil-want-C-u-scroll . t)
   (evil-want-vsplit-window-right . t)
   (evil-want-split-window-below . t)
