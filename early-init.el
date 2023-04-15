@@ -93,7 +93,7 @@
 
 
 ;; Keep .emacs.d clean
-(setq user-emacs-directory (expand-file-name "~/.cache/emacs")
+(setq user-emacs-directory (expand-file-name "~/.emacs.d")
 	  url-history-file (expand-file-name "url/history" user-emacs-directory))
 
 
