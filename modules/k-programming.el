@@ -15,7 +15,6 @@
   (treemacs-width . 25)
   :hook (treemacs-mode-hook . '(text-scale-adjust -1)))
 
-
 ;; doesn't work, slows down emacs, and is proprietary
 ;; (leaf codeium
 ;;   :quelpa (codeium :fetcher github :repo "Exafunction/codeium.el")
@@ -75,6 +74,5 @@
 ;;             (buffer-substring-no-properties (max (- (point) 3000) (point-min)) (point))))
 ;;     (setq codeium/document/text 'my-codeium/document/text)
 ;;     (setq codeium/document/cursor_offset 'my-codeium/document/cursor_offset))
-
 
 (provide 'k-programming)
