@@ -36,6 +36,7 @@
   :custom
   (org-directory . "~/Documents/org")
   (org-file-apps . '((auto-mode . emacs)))
+<<<<<<< HEAD
   :hook ((org-mode-hook . (lambda ()
 							(setq-local electric-pair-inhibit-predicate
 										`(lambda (c)
@@ -134,6 +135,8 @@ appropriate.  In tables, insert a new row or end the table."
 	   (t
 		;; All other cases: call `org-return'.
 		(org-return)))))
+=======
+>>>>>>> 517dbc3 (removed org-element-descent-of function)
   :init
   (org-babel-do-load-languages
    'org-babel-load-languages
