@@ -392,4 +392,8 @@ appropriate.  In tables, insert a new row or end the table."
   (org-novelist-author . user-full-name)
   (org-novelist-author-email . user-mail-address))
 
+(leaf memacs
+  ;; this is a python program
+  )
+
 (provide 'k-org)
