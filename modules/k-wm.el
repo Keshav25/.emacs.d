@@ -43,6 +43,17 @@
 	(other-window 1))
  (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
 
+;; Toggle fullscreen
+(defun k-toggle-fullscreen ()
+  "Delete other windows in frame if any, or restore previous window config."
+  (interactive)
+  (if (and winner-mode
+		   (equal (selected-window) (next-window)))
+	  (winner-undo)
+	    (delete-other-windows)))
+
+(global-set-key (kbd "C-x 1") 'k-toggle-fullscreen)
+
 (leaf zoom :ensure t)
 (leaf popper
   :ensure t
