@@ -34,10 +34,7 @@
 	(when (package-installed-p 'virtualenvwrapper)
 	  (progn
 		(require 'virtualenvwrapper)
-		(venv-initialize-eshell)))
-	(autoload 'epe-theme-lambda "eshell-prompt-extras")
-	(setq eshell-highlight-prompt nil
-		  eshell-prompt-function 'epe-theme-multiline-with-status)))
+		(venv-initialize-eshell)))))
 
 (leaf eshell-z
   :ensure t
