@@ -1,8 +1,6 @@
 (leaf org
   :bind (("C-c l" . org-store-link)
-		 ("C-c C-M-l" . org-toggle-link-display)
-		 (:org-mode-map
-		  ("RET" . my/org-return-dwim)))
+		 ("C-c C-M-l" . org-toggle-link-display))
   :setq
   (org-ellipsis . " ▾")
   (org-startup-numerated . 1)
