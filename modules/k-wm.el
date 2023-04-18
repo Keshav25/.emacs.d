@@ -61,4 +61,8 @@
   :config
   (balanced-windows-mode 1))
 
+(leaf beframe :ensure t)
+
+(leaf hyperbole :ensure t)
+
 (provide 'k-wm)
