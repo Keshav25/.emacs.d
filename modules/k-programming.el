@@ -3,7 +3,7 @@
 (leaf flymake
   :ensure t
   :config
-  (leaf flymake-collections
+  (leaf flymake-collection
 	:ensure t))
 
 (leaf envrc
