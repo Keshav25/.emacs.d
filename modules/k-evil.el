@@ -30,8 +30,8 @@
 		 ;;unbind open and close folds
 		 ("zo" . 'nil)
 		 ("zc" . 'nil)
-		 ;;replace q
-		 ("q" . 'kill-buffer-and-window)
+		 ;;unbind q
+		 ("q" . 'nil)
 		 ;;scroll the other window instead
 		 ("C-d" . 'scroll-other-window)
 		 ("C-u" . 'scroll-other-window-down))
