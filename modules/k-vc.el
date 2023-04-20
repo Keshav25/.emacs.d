@@ -1,6 +1,6 @@
 (leaf magit
   :bind
-  ("C-x g" . 'magit))
+  ("C-x g" . 'magit-status))
 
 (leaf magit-delta
   :after magit
