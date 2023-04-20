@@ -60,11 +60,18 @@
  "s-k" 'windmove-up)
 
 ;; SPC w for Window Navigation
-(general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC"
-  "w h" '(windmove-left :which-key "Move to Left Window")
-  "w j" '(windmove-down :which-key "Move Down a Window")
-  "w k" '(windmove-up :which-key "Move Up a Window")
-  "w l" '(windmove-right :which-key "Move to Right Window"))
+(general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC w"
+  "h" '(windmove-left :which-key "Move to Left Window")
+  "j" '(windmove-down :which-key "Move Down a Window")
+  "k" '(windmove-up :which-key "Move Up a Window")
+  "l" '(windmove-right :which-key "Move to Right Window")
+  "s" '(split-and-follow-horizontally :which-key "Split Window Horizontally")
+  "v" '(split-and-follow-verticaly :which-key "Split Window Verticaly")
+  "t" '(fwb-toggle-window-split :which-key "Toggle Window Split")
+  "o" '(switch-window :which-key "Jump to Other Window")
+  "f" '(k-toggle-fullscreen :which-key "Un/Maximize a Window")
+  "u" '(winner-undo :which-key "Undo Window Manipulation")
+  "U" '(winner-redo :which-key "Redo Window Manipulation"))
 
 ;; SPC f for Files
 (general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC"
