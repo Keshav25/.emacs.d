@@ -88,7 +88,8 @@
        "f D"   '(delete-file :which-key "Delete file")
        "f R"   '(rename-file :which-key "Rename file")
        "f S"   '(write-file :which-key "Save file as...")
-       "f U"   '(sudo-edit :which-key "Sudo edit file"))
+       "f U"   '(sudo-edit :which-key "Sudo edit file")
+	   "f l"   '(leaf-find :which-key "find leaf"))
 
 ;; SPC n for Org-Roam
 (general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC n"
