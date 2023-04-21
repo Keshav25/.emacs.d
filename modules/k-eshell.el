@@ -35,7 +35,7 @@
 	  (progn
 		(require 'virtualenvwrapper)
 		(venv-initialize-eshell)))
-	(autoload 'epe-theme-lambda "eshell-prompt-extras")
+	(autoload 'epe-theme-multiline-with-status "eshell-prompt-extras")
 	(setq eshell-highlight-prompt nil
 		  eshell-prompt-function 'epe-theme-multiline-with-status)))
 
@@ -46,9 +46,9 @@
 
 (leaf eshell-vterm
   :ensure t
-  :after eshell
+  :after (eshell vterm)
   :config
-  (eshell-vterm-mode)
+  (eshell-vterm-mode 1)
   (defalias 'eshell/v 'eshell-exec-visual))
 
 (leaf eshell-bookmark
