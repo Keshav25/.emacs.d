@@ -4,6 +4,7 @@
   :ensure t
   :config
   (leaf flymake-collection
+	:emacs>= 28.1
 	:ensure t))
 
 (leaf envrc

@@ -55,10 +55,12 @@
 (global-set-key (kbd "C-x 1") 'k-toggle-fullscreen)
 
 (leaf zoom :ensure t)
+
 (leaf popper
   :ensure t
   :config
   (popper-mode 1))
+
 (leaf tabspaces :ensure t)
 (leaf windmove :ensure t)
 

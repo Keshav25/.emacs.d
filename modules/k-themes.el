@@ -10,7 +10,7 @@
 (leaf yabaki-theme :ensure t)
 
 ;; load the actual theme
-(load-theme 'yabaki t)
+(load-theme 'kaolin-dark t)
 
 ;; Solaire
 (leaf solaire-mode
