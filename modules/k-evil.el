@@ -172,7 +172,11 @@
   (:evil-god-state-map
    ([escape] . evil-god-state-bail)))
 
-;; (leaf vundo :emacs>= 28.1 :ensure t)
+;; Needs better evil integration and try undo-in-region
+(leaf vundo :emacs>= 28.1 :ensure t
+  :bind
+  (:evil-normal-state-map
+   ("C-M-u" . 'vundo)))
 
 ;; don't really like multicursors, maybe in the future
 ;; (leaf evil-mc
