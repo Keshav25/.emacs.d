@@ -19,7 +19,7 @@
   "f" 'avy-goto-char)
 
 ;; SPC h for help
-(general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC h"
+(general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC t"
   "t" '(load-theme :which-key "load-theme"))
 
 ;; SPC x for executing emacs lisp
@@ -109,6 +109,17 @@
 
 (general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC q"
   "q" '(save-buffers-kill-terminal :which-key "save-buffers-kill-terminal"))
+
+
+;; SPC v for version control
+(general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC v"
+  "g" '(magit-status :which-key "run magit"))
+
+;; SPC s for system
+(general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC s"
+  "g" '(guix :which-key "guix")
+  ;;"a" '(alert)
+  )
 
 ;; some other keybindings that I want but have yet to implement
 ;;  c code
