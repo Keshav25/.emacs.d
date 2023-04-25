@@ -6,7 +6,7 @@
   (evil-want-integration . t)
   (evil-want-keybinding . nil)
   (evil-want-fine-undo . t)
-  (evil-respect-visual-line-mode . f)
+  (evil-respect-visual-line-mode . nil)
   (evil-want-C-u-scroll . t)
   (evil-want-vsplit-window-right . t)
   (evil-want-split-window-below . t)
