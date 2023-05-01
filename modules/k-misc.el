@@ -32,6 +32,10 @@
   (:helpful-mode-map
    ([remap revert-buffer] . 'helpful-update)))
 
+(leaf inform
+  :ensure t)
+
+
 (leaf elisp-demos
   :ensure t
   :after (helpful)
