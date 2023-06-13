@@ -15,4 +15,7 @@
 (leaf git-gutter
   :ensure t)
 
+(leaf code-review
+  :ensure t)
+
 (provide 'k-vc)
