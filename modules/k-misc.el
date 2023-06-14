@@ -43,4 +43,6 @@
   :advice
   (:after helpful-update elisp-demos-advice-helpful-update))
 
+(setq browse-url-browser-function 'browse-url-xdg-open)
+
 (provide 'k-misc)
