@@ -47,7 +47,7 @@
 ;; leaf-keywords
 (leaf leaf-keywords
   :ensure t
-  :init
+  :config
   (leaf-keywords-init))
 
 ;; leaf-convert
