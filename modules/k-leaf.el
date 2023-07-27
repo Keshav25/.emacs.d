@@ -9,7 +9,8 @@
   (customize-set-variable
    'package-archives '(("org" . "https://orgmode.org/elpa/")
                        ("melpa" . "https://melpa.org/packages/")
-                       ("gnu" . "https://elpa.gnu.org/packages/")) t)
+                       ("gnu" . "https://elpa.gnu.org/packages/")
+					   ("leaf" . "https://elpa.nongnu.org/nongnu/")) t)
   (package-initialize)
   (unless (package-installed-p 'leaf)
     (package-refresh-contents)
