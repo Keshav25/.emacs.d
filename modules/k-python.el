@@ -25,4 +25,10 @@
   :ensure t
   :hook ((python-mode . eldoc-mode)))
 
+(leaf ein
+  :ensure t
+  :setq
+  (ein:polymode . t)
+  (ein:output-area-inlined-images . t))
+
 (provide 'k-python)
