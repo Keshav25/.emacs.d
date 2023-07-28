@@ -1,4 +1,3 @@
-
 ;; General
 (leaf general
   :after evil
@@ -65,6 +64,7 @@
   "j" '(windmove-down :which-key "Move Down a Window")
   "k" '(windmove-up :which-key "Move Up a Window")
   "l" '(windmove-right :which-key "Move to Right Window")
+  "c" '(centered-window-mode :which-key "Un/Center Window")
   "s" '(split-and-follow-horizontally :which-key "Split Window Horizontally")
   "v" '(split-and-follow-verticaly :which-key "Split Window Verticaly")
   "t" '(fwb-toggle-window-split :which-key "Toggle Window Split")
