@@ -16,6 +16,17 @@
   (treemacs-width . 25)
   :hook (treemacs-mode-hook . '(text-scale-adjust -1)))
 
+(use-package treesit-auto
+  :demand t
+  :config
+  (setq treesit-auto-install 'prompt)
+  (global-treesit-auto-mode))
+
+;; (leaf treesit-auto
+  ;; :ensure t
+  ;; :config
+  ;; (global-treesit-auto-mode))
+
 ;; doesn't work, slows down emacs, and is proprietary
 ;; (leaf codeium
 ;;   :quelpa (codeium :fetcher github :repo "Exafunction/codeium.el")
