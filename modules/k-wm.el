@@ -29,6 +29,13 @@
 (setq split-width-threshold 160
 	  split-height-threshold nil)
 
+;: From perspective.el README
+(customize-set-variable 'display-buffer-base-action
+						'((display-buffer-reuse-window display-buffer-same-window)
+						  (reusable-frames . t)))
+
+(customize-set-variable 'even-window-sizes nil)     ; avoid resizing
+
 ;; Switch Window
 (leaf switch-window
   :ensure t
@@ -72,6 +79,13 @@
 
 (leaf popper
   :ensure t
+  :setq
+  (popper-reference-buffers . '("\\*Messages\\*"
+								"Output\\*$"
+								"\\*Async Shell Command\\*"
+								"COMMIT_EDITMSG"
+								help-mode
+								compilation-mode))
   :config
   (popper-mode 1))
 
