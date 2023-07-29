@@ -17,6 +17,7 @@
   :bind (:exwm-mode-map
 		 ("C-q" . #'exwm-input-send-next-key)
 		 ("s-i" . #'exwm-input-toggle-keyboard)
+		 ("s-b" . #'exwm-layout-toggle-modeline)
 		 ("s-r" . #'exwm-reset)
 		 ("s-w" . #'exwm-workspace-switch)
 		 ("s-TAB" . #'exwm/jump-to-last-exwm)))
