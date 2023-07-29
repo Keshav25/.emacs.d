@@ -51,4 +51,8 @@
   (leaf all-the-icons-completion
 	:ensure t))
 
+(leaf all-the-icons-nerd-fonts
+			 :quelpa
+			 (all-the-icons-nerd-fonts :fetcher github :repo "mohkale/all-the-icons-nerd-fonts"))
+
 (provide 'k-themes)
