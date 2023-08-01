@@ -81,6 +81,7 @@
   :ensure t
   :setq
   (popper-reference-buffers . '("\\*Messages\\*"
+								"\\*Warnings\\*"
 								"Output\\*$"
 								"\\*Async Shell Command\\*"
 								"COMMIT_EDITMSG"
