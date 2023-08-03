@@ -36,13 +36,12 @@
 (general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC b"
   "b" '(switch-to-buffer :which-key "switch buffer")
   ;; S for sudo edit
-  ;; k previous buffer
-  ;; j next buffer
+  "p" '(previous-buffer :which-key "previous buffer")
+  "n" '(next-buffer :which-key "next buffer")
   "k" '(kill-this-buffer :which-key "kill buffer")
   ;; n empty buffer
   ;; o for kill all buffers
-  ;; s save buffer
-  ;; x pop scratch buffer
+  "x" '(popper-toggle-type :which-ekey "pop buffer")
   ;; z burry buffer
   )
 
