@@ -70,14 +70,4 @@
 ;; OS
 (require 'k-os)
 
-;; TEL
-;; (leaf TEL
-;;    :when istermux
-;;    :doc "setup for my TEL configuration"
-;;    :setq
-;;    (inhibit-startup-screen . t)
-;;    :config
-;;    (vterm)
-;;    (evil-emacs-state))
-
 (alert "emacs has loaded")

@@ -139,4 +139,14 @@
   (require 'eaf-airshare)
   (require 'eaf-netease-cloud-music))
 
+;; TEL
+(leaf TEL
+   :when istermux
+   :doc "setup for my TEL configuration"
+   :setq
+   (inhibit-startup-screen . t)
+   :config
+   (eshell)
+   (evil-emacs-state))
+
 (provide 'k-os)
