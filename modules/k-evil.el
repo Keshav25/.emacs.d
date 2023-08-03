@@ -31,10 +31,7 @@
 		 ("zo" . 'nil)
 		 ("zc" . 'nil)
 		 ;;unbind q
-		 ("q" . 'nil)
-		 ;;scroll the other window instead
-		 ("C-d" . 'scroll-other-window)
-		 ("C-u" . 'scroll-other-window-down))
+		 ("q" . 'nil))
   (:evil-motion-state-map
    ("ge" . 'evil-end-of-line)
    ;;unbind a few emacs keys
