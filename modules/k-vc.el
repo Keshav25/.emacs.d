@@ -10,7 +10,9 @@
   :ensure t)
 
 (leaf diff-hl
-  :ensure t)
+  :ensure t
+  :init
+  (global-diff-hl-mode 1))
 
 (leaf git-gutter
   :ensure t)
