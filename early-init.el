@@ -139,9 +139,6 @@
 (setq enable-recursive-minibuffers t)
 
 
-;; hl-line-mode
-(global-hl-line-mode -1)
-
 ;; Transparency
 (if (< emacs-major-version 29)
 	(progn

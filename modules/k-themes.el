@@ -3,6 +3,11 @@
   
 ;; (set-fontset-font "fontset-default" 'unicode "Noto Color Emoji" nil 'prepend)
 
+(global-hl-line-mode 1)
+
+;; Show changes in the left margins of the buffer
+(global-diff-hl-mode 1)
+
 ;; theme packages
 (leaf kaolin-themes :ensure t)
 (leaf doom-themes :ensure t)
