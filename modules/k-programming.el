@@ -42,11 +42,6 @@
 (leaf aggressive-indent
   :ensure t)
 
-(leaf el-fly-indent-mode
-  :ensure t
-  :hook (emacs-lisp-mode-hook .  #'el-fly-indent-mode))
-
-
 ;; doesn't work, slows down emacs, and is proprietary
 ;; (leaf codeium
 ;;   :quelpa (codeium :fetcher github :repo "Exafunction/codeium.el")
