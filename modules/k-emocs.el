@@ -46,6 +46,7 @@
   :bind (("C-c h a" . embark-act)
 		 ("C-c h d" . embark-dwim)
 		 ("C-c h b" . embark-bindings)
+		 ("C-;" . embark-collect)
 		 (:evil-normal-state-map
 		  ("zd" . embark-act)))
   :init
