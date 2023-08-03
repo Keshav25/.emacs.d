@@ -1,12 +1,10 @@
-
 ;; General
 (leaf general
   :after evil
   :ensure t
+  :require t
   :config
   (general-evil-setup t))
-
-(require 'general)
 
 ;; Enhance Evil Mode
 (unless istermux
@@ -224,36 +222,4 @@
 ;;         l line numbers
 ;;         p org-tree-slide-mode
 ;;         s flyspell
-;;     w window
-;;         + increase height
-;;         - descr height
-;;         < dec width
-;;         = balance windows
-;;         > incr width
-;;         H move left
-;;         J move down
-;;         K move up
-;;         L move right
-;;         R rotate up
-;;         S split
-;;         W prev
-;;         _ set height
-;;         b bottom right
-;;         c close window
-;;         h left
-;;         j down
-;;         k up
-;;         l right
-;;         n new
-;;         o enlargen
-;;         p mru
-;;         q quit
-;;         r rotate down
-;;         s split
-;;         t top left
-;;         u winner undo
-;;         v vsplit
-;;         w next
-;;         | set width
-
 (provide 'k-general)
