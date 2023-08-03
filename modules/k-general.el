@@ -71,7 +71,21 @@
   "o" '(switch-window :which-key "Jump to Other Window")
   "f" '(k-toggle-fullscreen :which-key "Un/Maximize a Window")
   "u" '(winner-undo :which-key "Undo Window Manipulation")
-  "U" '(winner-redo :which-key "Redo Window Manipulation"))
+  "U" '(winner-redo :which-key "Redo Window Manipulation")
+  "+" '(evil-window-increase-height :which-key "Increase Height")
+  "-" '(evil-window-decrease-height :which-key "Decrease Heigth")
+  "<" '(evil-window-decrease-width :which-key "Decrease Width")
+  ">" '(evil-window-increase-width :which-key "Increase Width")
+  "=" '(balance-windows :which-key "Balance Windows")
+  "H" '(windmove-swap-states-left :which-key "Move Window Left")
+  "J" '(windmove-swap-states-down :which-key "Move Window Down")
+  "K" '(windmove-swap-states-up :which-key "Move Window Up")
+  "L" '(windmove-swap-states-right :which-key "Move Window Right")
+  "R" '(evil-window-rotate-upwards :which-key "Rotate Windows")
+  "r" '(evil-window-rotate-downwards :which-key "Reverse Rotate Windows")
+  "c" '(centered-window-mode :which-key "Un/Center Window")
+  ";" '(enlarge-window :whiich-key "Enlarge Window"))
+
 
 ;; SPC f for Files
 (general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC"
