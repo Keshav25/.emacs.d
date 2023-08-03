@@ -15,8 +15,8 @@
 (leaf git-gutter
   :ensure t)
 
-(leaf code-review
-  :ensure t)
+;; (leaf code-review
+  ;; :ensure t)
 
 (leaf syncthing
   ;; requires diffutils
