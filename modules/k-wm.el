@@ -1,7 +1,6 @@
 (leaf nano-modeline
   :ensure t
   :config
-  (require 'nano-theme)
   (require 'nano-modeline)
   (add-hook 'prog-mode-hook            #'nano-modeline-prog-mode)
   (add-hook 'text-mode-hook            #'nano-modeline-text-mode)
@@ -15,7 +14,8 @@
   (add-hook 'xwidget-webkit-mode-hook  #'nano-modeline-xwidget-mode)
   (add-hook 'messages-buffer-mode-hook #'nano-modeline-message-mode)
   (add-hook 'org-capture-mode-hook     #'nano-modeline-org-capture-mode)
-  (add-hook 'org-agenda-mode-hook      #'nano-modeline-org-agenda-mode))
+  (add-hook 'org-agenda-mode-hook      #'nano-modeline-org-agenda-mode)
+  (nano-modeline-mode 1))
 
 (winner-mode 1)
 
