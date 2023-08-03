@@ -67,6 +67,9 @@
 ;; Git
 (require 'k-vc)
 
+;; OS
+(require 'k-os)
+
 ;; TEL
 ;; (leaf TEL
 ;;    :when istermux
