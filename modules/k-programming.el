@@ -1,13 +1,36 @@
 (leaf eglot)
 
-(leaf flymake
-  :ensure t
-  :config
-  (leaf flymake-collection
-	:emacs>= 28.1
-	:ensure t))
-
 (leaf envrc
+  :ensure t)
+
+(leaf flycheck
+  :ensure t
+  ;; :init
+  ;; (global-flycheck-mode)
+  )
+
+(leaf avy-flycheck
+  :after (flycheck avy)
+  :ensure t)
+
+(leaf flycheck-eglot
+  :after (flycheck eglot)
+  :ensure t)
+
+(leaf flycheck-guile
+  :after (flycheck)
+  :ensure t)
+
+(leaf flycheck-ledger
+  :after (flycheck)
+  :ensure t)
+
+(leaf consult-flycheck
+  :after (flycheck consult)
+  :ensure t)
+
+(leaf flycheck-inline
+  :after (flycheck)
   :ensure t)
 
 (leaf treemacs
