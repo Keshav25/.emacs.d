@@ -27,7 +27,10 @@
 
 (leaf avy-embark-collect
   :after (embark avy)
-  :ensure t)
+  :ensure t
+  :bind
+  ;;jump to any character in any window
+  (("C-j" . 'avy-goto-char)))
 
 ;; Which-Key
 (leaf which-key
@@ -56,5 +59,7 @@
 				 nil
 				 (window-parameters (mode-line-format . none)))))
 
+(leaf consult-gh
+  :quelpa (consult-gh :fetcher github :repo "armindarvish/consult-gh"))
 
 (provide 'k-emocs)
