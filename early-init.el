@@ -143,7 +143,7 @@
 (global-hl-line-mode -1)
 
 ;; Transparency
-(if (or (< emacs-major-version 29) t) ;;not yet
+(if (< emacs-major-version 29)
 	(progn
 	  (set-frame-parameter (selected-frame) 'alpha `(95,95))
 	  (add-to-list 'default-frame-alist `(alpha . (95, 95)))
