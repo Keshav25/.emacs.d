@@ -65,4 +65,10 @@
 (leaf eshell-syntax-highlighting
   :ensure t)
 
+(leaf eat
+  :ensure t
+  :hook ((eshell-load-hook . eat-eshell-mode)
+		 ;; since htop doesn't work with the former
+		 (eshell-load-hook . eat-eshell-visual-command-mode)))
+
 (provide 'k-eshell)
