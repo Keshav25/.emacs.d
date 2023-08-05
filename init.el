@@ -114,3 +114,5 @@
 ;;   :setq
 ;;   (eaf-browser-search-engines . '(("duckduckgo" . "https://duckduckgo.com/?q=%s")))
 ;;   (eaf-browser-default-search-engine . "duckduckgo"))
+
+(alert "emacs has loaded")
