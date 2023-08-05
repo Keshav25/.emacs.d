@@ -39,21 +39,8 @@
   (treemacs-width . 25)
   :hook (treemacs-mode-hook . '(text-scale-adjust -1)))
 
-<<<<<<< HEAD
-(use-package treesit-auto
-  :demand t
-  :config
-  (setq treesit-auto-install 'prompt)
-  (global-treesit-auto-mode))
-
-;; (leaf treesit-auto
-  ;; :ensure t
-  ;; :config
-  ;; (global-treesit-auto-mode))
-=======
 (leaf aggressive-indent
   :ensure t)
->>>>>>> ad17687b62bd3991ffca894289d82fc6e65591cd
 
 ;; doesn't work, slows down emacs, and is proprietary
 ;; (leaf codeium
