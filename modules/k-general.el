@@ -66,7 +66,7 @@
   "l" '(windmove-right :which-key "Move to Right Window")
   "c" '(centered-window-mode :which-key "Un/Center Window")
   "s" '(split-and-follow-horizontally :which-key "Split Window Horizontally")
-  "v" '(split-and-follow-verticaly :which-key "Split Window Verticaly")
+  "v" '(split-and-follow-vertically :which-key "Split Window Vertically")
   "t" '(fwb-toggle-window-split :which-key "Toggle Window Split")
   "o" '(switch-window :which-key "Jump to Other Window")
   "f" '(k-toggle-fullscreen :which-key "Un/Maximize a Window")
