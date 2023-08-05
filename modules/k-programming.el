@@ -1,13 +1,36 @@
 (leaf eglot)
 
-(leaf flymake
-  :ensure t
-  :config
-  (leaf flymake-collection
-	:emacs>= 28.1
-	:ensure t))
-
 (leaf envrc
+  :ensure t)
+
+(leaf flycheck
+  :ensure t
+  ;; :init
+  ;; (global-flycheck-mode)
+  )
+
+(leaf avy-flycheck
+  :after (flycheck avy)
+  :ensure t)
+
+(leaf flycheck-eglot
+  :after (flycheck eglot)
+  :ensure t)
+
+(leaf flycheck-guile
+  :after (flycheck)
+  :ensure t)
+
+(leaf flycheck-ledger
+  :after (flycheck)
+  :ensure t)
+
+(leaf consult-flycheck
+  :after (flycheck consult)
+  :ensure t)
+
+(leaf flycheck-inline
+  :after (flycheck)
   :ensure t)
 
 (leaf treemacs
@@ -16,6 +39,7 @@
   (treemacs-width . 25)
   :hook (treemacs-mode-hook . '(text-scale-adjust -1)))
 
+<<<<<<< HEAD
 (use-package treesit-auto
   :demand t
   :config
@@ -26,6 +50,10 @@
   ;; :ensure t
   ;; :config
   ;; (global-treesit-auto-mode))
+=======
+(leaf aggressive-indent
+  :ensure t)
+>>>>>>> ad17687b62bd3991ffca894289d82fc6e65591cd
 
 ;; doesn't work, slows down emacs, and is proprietary
 ;; (leaf codeium
