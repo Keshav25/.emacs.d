@@ -66,6 +66,10 @@
 	  (file "~/Documents/org/inbox.org")
 	  "* %?\n %T\n %a\n %i\n"
 	  :empty-lines 1 )
+	 ("e" "emacs"
+	  entry (file "~/Documents/org/emacs-notes.org")
+	  "* %?\n %T\n %i\n"
+	  :empty-lines 1)
 	 ("c" "compsol"
 	  entry (file "~/Documents/org/compsol.org")
 	  "* %?\n %T\n %i\n"
