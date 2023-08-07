@@ -1,37 +1,112 @@
 (leaf eglot)
 
+(leaf corfu
+  :ensure t
+  :require t
+  :setq
+  (completion-cycle-threshold . 3)
+  (tab-always-indent . 'complete)
+  (corfu-quit-no-match . 'separator)
+  (corfu-auto . t)
+  :init
+  (global-corfu-mode 1))
+
+(leaf corfu-terminal
+  :ensure t
+  :config
+  (unless (display-graphic-p)
+	(corfu-terminal-mode +1)))
+
+(leaf kind-icon
+  :ensure t
+  :require t
+  :after (corfu)
+  :custom
+  (kind-icon-default-face . 'corfu-default) ; to compute blended backgrounds correctly
+  :hook ('my-completion-ui-mode-hook .
+   	    (lambda ()
+   	      (setq completion-in-region-function
+				(kind-icon-enhance-completion completion-in-region-function))))
+  :config
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+
+(leaf cape
+  :ensure t
+  :require t
+  ;; Bind dedicated completion commands
+  ;; Alternative prefix keys: C-c p, M-p, M-+, ...
+  :bind (("C-c C-p p" . completion-at-point) ;; capf
+         ("C-c C-p t" . complete-tag)        ;; etags
+         ("C-c C-p d" . cape-dabbrev)        ;; or dabbrev-completion
+         ("C-c C-p h" . cape-history)
+         ("C-c C-p f" . cape-file)
+         ("C-c C-p k" . cape-keyword)
+         ("C-c C-p s" . cape-symbol)
+         ("C-c C-p a" . cape-abbrev)
+         ("C-c C-p l" . cape-line)
+         ("C-c C-p w" . cape-dict)
+         ("C-c C-p \\" . cape-tex)
+         ("C-c C-p _" . cape-tex)
+         ("C-c C-p ^" . cape-tex)
+         ("C-c C-p &" . cape-sgml)
+         ("C-c C-p r" . cape-rfc1345))
+  :init
+  ;; Add `completion-at-point-functions', used by `completion-at-point'.
+  ;; NOTE: The order matters!
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-elisp-block)
+  ;;(add-to-list 'completion-at-point-functions #'cape-history)
+  ;;(add-to-list 'completion-at-point-functions #'cape-keyword)
+  ;;(add-to-list 'completion-at-point-functions #'cape-tex)
+  ;;(add-to-list 'completion-at-point-functions #'cape-sgml)
+  ;;(add-to-list 'completion-at-point-functions #'cape-rfc1345)
+  ;;(add-to-list 'completion-at-point-functions #'cape-abbrev)
+  ;;(add-to-list 'completion-at-point-functions #'cape-dict)
+  ;;(add-to-list 'completion-at-point-functions #'cape-symbol)
+  ;;(add-to-list 'completion-at-point-functions #'cape-line)
+)
+
+(leaf treesit-auto
+  :ensure t
+  :require t
+  :setq
+  (treesit-auto-install . 'prompt)
+  :config
+  (global-treesit-auto-mode))
+
 (leaf envrc
   :ensure t)
 
 (leaf flycheck
   :ensure t
-  ;; :init
-  ;; (global-flycheck-mode)
-  )
+  :init
+  (global-flycheck-mode 1)
+  :config
 
-(leaf avy-flycheck
-  :after (flycheck avy)
-  :ensure t)
+  (leaf avy-flycheck
+	:after (flycheck avy)
+	:ensure t)
 
-(leaf flycheck-eglot
-  :after (flycheck eglot)
-  :ensure t)
+  (leaf flycheck-eglot
+	:after (flycheck eglot)
+	:ensure t)
 
-(leaf flycheck-guile
-  :after (flycheck)
-  :ensure t)
+  (leaf flycheck-guile
+	:after (flycheck)
+	:ensure t)
 
-(leaf flycheck-ledger
-  :after (flycheck)
-  :ensure t)
+  (leaf flycheck-ledger
+	:after (flycheck)
+	:ensure t)
 
-(leaf consult-flycheck
-  :after (flycheck consult)
-  :ensure t)
+  (leaf consult-flycheck
+	:after (flycheck consult)
+	:ensure t)
 
-(leaf flycheck-inline
-  :after (flycheck)
-  :ensure t)
+  (leaf flycheck-inline
+	:after (flycheck)
+	:ensure t))
 
 (leaf treemacs
   :ensure t
