@@ -7,8 +7,7 @@
 
 (eval-and-compile
   (customize-set-variable
-   'package-archives '(("org" . "https://orgmode.org/elpa/")
-                       ("melpa" . "https://melpa.org/packages/")
+   'package-archives '(("melpa" . "https://melpa.org/packages/")
                        ("gnu" . "https://elpa.gnu.org/packages/")
 					   ("leaf" . "https://elpa.nongnu.org/nongnu/")) t)
   (package-initialize)
