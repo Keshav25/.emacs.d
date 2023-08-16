@@ -20,6 +20,13 @@
 		 ([remap switch-to-buffer] . consult-buffer)
 		 ("C-y" . yank-from-kill-ring)))
 
+(leaf consult-dir
+  :ensure t
+  :bind (("C-x C-d" . consult-dir)
+		 (:minibuffer-local-completion-map
+		  ("C-x C-d" . consult-dir)
+		  ("C-x C-j" . consult-dir-jump-file))))
+
 (leaf embark-consult
   :after (embark consult)
   :ensure t
