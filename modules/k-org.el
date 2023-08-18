@@ -48,7 +48,7 @@
 (leaf org-agenda
   :bind (("C-c a" . org-agenda))
   :custom
-  (org-agenda-files . '("~/Documents/org/agenda/"))
+  (org-agenda-files . `(,(directory-files-recursively "~/Documents/journal" "\\.org$")))
   :hook ((org-agenda-finalize . org-modern-agenda)
 		 (org-agenda-finalize . hl-line-mode)))
 
