@@ -8,13 +8,17 @@
 
 ;; Enhance Evil Mode
 (unless istermux
-(mmap
-  ";" 'evil-ex
-  ":" 'avy-next))
+  (mmap
+	";" 'evil-ex
+	":" 'avy-next))
 
 (mmap
   "/" 'consult-line
   "f" 'avy-goto-char)
+
+;; SPC single keys
+(general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC"
+  ";" '(execute-extended-command :which-key "execute-extended-command"))
 
 ;; SPC h for help
 (general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC t"
@@ -22,12 +26,12 @@
 
 ;; SPC x for executing emacs lisp
 (general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC x"
-       "f" '(eval-buffer :which-key "Eval emacs-lisp in buffer")
-       "d" '(evale-deun :which-key "Eval defun")
-       "e"   '(eval-expression :which-key "Eval emacs-lisp expression")
-       "l"   '(eval-last-sexp :which-key "Eval last sexression")
-       "r"   '(eval-region :which-key "Eval region")
-       "p" '(pp-eval-last-sexp :which-key "Pretty Eval"))
+  "f" '(eval-buffer :which-key "Eval emacs-lisp in buffer")
+  "d" '(evale-deun :which-key "Eval defun")
+  "e"   '(eval-expression :which-key "Eval emacs-lisp expression")
+  "l"   '(eval-last-sexp :which-key "Eval last sexression")
+  "r"   '(eval-region :which-key "Eval region")
+  "p" '(pp-eval-last-sexp :which-key "Pretty Eval"))
 
 ;; SPC b for buffer navigation
 ;; More will be done here once I figure out which completion packages to use
@@ -45,9 +49,9 @@
 
 ;; Org-Mode navigation
 (general-define-key
-     :keymaps 'org-mode-map
-     "M-n" 'org-next-visible-heading
-     "M-p" 'org-previous-visible-heading)
+ :keymaps 'org-mode-map
+ "M-n" 'org-next-visible-heading
+ "M-p" 'org-previous-visible-heading)
 
 ;; Window Navigation (Mainly For EXWM)
 (general-define-key
@@ -85,24 +89,24 @@
 
 
 ;; SPC f for Files
-(general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC"
-"f d" '(dired :which-key "Open dired")
-"f j" '(dired :which-key "Dired jump to current")
-"f p" '(dired :which-key "Peed-dired")
-       "."     '(find-file :which-key "Find file")
-       "f f"   '(find-file :which-key "Find file")
-       "f r"   '(consult-recent-file :which-key "Recent files")
-       "f s"   '(save-buffer :which-key "Save file")
-       "f u"   '(sudo-edit-find-file :which-key "Sudo find file")
-       "f y"   '(dt/show-and-copy-buffer-path :which-key "Yank file path")
-       "f C"   '(copy-file :which-key "Copy file")
-       "f D"   '(delete-file :which-key "Delete file")
-       "f R"   '(rename-file :which-key "Rename file")
-       "f S"   '(write-file :which-key "Save file as...")
-       "f U"   '(sudo-edit :which-key "Sudo edit file")
-	   "f l"   '(leaf-find :which-key "find leaf"))
+(general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC f"
+  "d" '(consult-dir :which-key "Open dired")
+  "j" '(dired :which-key "Dired jump to current")
+  "p" '(find-file "~/.emacs.d/modules" :which-key "Peed-dired")
+  "." '(find-file :which-key "Find file")
+  "f" '(find-file :which-key "Find file")
+  "r" '(consult-recent-file :which-key "Recent files")
+  "s" '(save-buffer :which-key "Save file")
+  "u" '(sudo-edit-find-file :which-key "Sudo find file")
+  "y" '(dt/show-and-copy-buffer-path :which-key "Yank file path")
+  "C" '(copy-file :which-key "Copy file")
+  "D" '(delete-file :which-key "Delete file")
+  "R" '(rename-file :which-key "Rename file")
+  "S" '(write-file :which-key "Save file as...")
+  "U" '(sudo-edit :which-key "Sudo edit file")
+  "l" '(leaf-find :which-key "find leaf"))
 
-;; SPC n for Org-Roam
+
 (general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC n"
   "l" '(org-roam :which-key "org-roam")
   "i" '(org-roam-node-insert :which-key "org-roam-node-insert")

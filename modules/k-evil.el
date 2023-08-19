@@ -30,6 +30,8 @@
 		 ;;unbind open and close folds
 		 ("zo" . 'nil)
 		 ("zc" . 'nil)
+		 ("C-S-u" . 'scroll-other-window-down)
+		 ("C-S-d" . 'scroll-other-window)
 		 ;;unbind q
 		 ("q" . 'nil))
   (:evil-motion-state-map

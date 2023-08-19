@@ -179,4 +179,39 @@
 ;;     (setq codeium/document/text 'my-codeium/document/text)
 ;;     (setq codeium/document/cursor_offset 'my-codeium/document/cursor_offset))
 
+(leaf lsp-mode
+  :ensure t
+  :custom
+  (lsp-eldoc-render-all . t)
+  (lsp-idle-delay . 0.6)
+  (lsp-inlay-hint-enable . t)
+  :hook
+  (lsp-mode-hook . lsp-ui-mode))
+
+(leaf lsp-ui
+  :ensure t
+  :custom
+  (lsp-ui-peek-always-show . t)
+  (lsp-ui-sideline-show-hover . t)
+  (lsp-ui-doc-enable . nil))
+
+(use-package yasnippet
+  :ensure t
+  :config
+  (yas-reload-all)
+  :hook
+  (prog-mode-hook . yas-minor-mode)
+  (text-mode-hook . yas-minor-mode))
+
+  (use-package dap-mode
+    :ensure t
+    :config
+    (dap-ui-mode)
+    (dap-ui-controls-mode 1)
+
+    (require 'dap-lldb)
+    (require 'dap-gdb-lldb)
+    ;; installs .extension/vscode
+    (dap-gdb-lldb-setup))
+
 (provide 'k-programming)

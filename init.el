@@ -61,6 +61,9 @@
 ;; Python
 (require 'k-python)
 
+;; Rust
+(require 'k-rust)
+
 ;; Term
 (require 'k-term)
 

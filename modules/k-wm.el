@@ -152,4 +152,14 @@
 		  (select-window first-win)
 		  (if this-win-2nd (other-window 1))))))
 
+;; (leaf perspective
+;;   :ensure t  ; use `:straight t` if using straight.el!
+;;   :bind (("C-x k" . persp-kill-buffer*)
+;; 		 (:persp-mode-map
+;; 		  ("s" . persp-switch)))
+;;   :custom ((persp-mode-prefix-key . "C-x x"))
+;;   :init
+;;   (persp-mode))
+
 (provide 'k-wm)
+;;; k-wm.el ends here

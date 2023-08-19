@@ -1,6 +1,10 @@
 (leaf org
+  :ensure t
   :bind (("C-c l" . org-store-link)
 		 ("C-c C-M-l" . org-toggle-link-display))
+  :hook ((org-mode . (lambda ()
+					   (toggle-truncate-lines 1)
+					   (toggle-word-wrap 1))))
   :setq
   (org-ellipsis . " ▾")
   (org-startup-numerated . 1)
@@ -47,8 +51,8 @@
 
 (leaf org-agenda
   :bind (("C-c a" . org-agenda))
-  :custom
-  (org-agenda-files . `(,(directory-files-recursively "~/Documents/journal" "\\.org$")))
+  :config
+  (custom-set-variables org-agenda-files "~/org/agenda/")
   :hook ((org-agenda-finalize . org-modern-agenda)
 		 (org-agenda-finalize . hl-line-mode)))
 
@@ -126,6 +130,30 @@
   :setq-default
   (pdf-view-display-size . 'fit-width))
 
+;; Calibre integration
+(use-package calibredb
+  :ensure t
+  :defer t
+  :config
+  (setq calibredb-root-dir "~/Calibre Library")
+  (setq calibredb-db-dir (expand-file-name "metadata.db" calibredb-root-dir))
+  (setq calibredb-library-alist '(
+								  ("~/Calibre Library")
+                                  )))
+
+;; read epub files
+(leaf nov
+  :ensure t)
+
+;; https://depp.brause.cc/nov.el/
+;; (use-package nov-xwidget
+;;   :ensure t
+;;   :demand t
+;;   :after nov
+;;   :config
+;;   (define-key nov-mode-map (kbd "o") 'nov-xwidget-view)
+;;   (add-hook 'nov-mode-hook 'nov-xwidget-inject-all-files))
+
 ;; Org-Noter
 (leaf org-noter :ensure t)
 (leaf org-noter-pdftools :ensure t)
@@ -134,7 +162,7 @@
   :require t
   :ensure t
   :setq
-  (org-ehtml-docroot . '(expand-file-name "~/Documents/org/roam"))
+  (org-ehtml-docroot . '(expand-file-name "~/org/roam"))
   (org-ehtml-everything-editable . t))
 
 (defun start-ehtml ()
@@ -145,10 +173,10 @@
 (leaf org-roam
   :ensure t
   :custom
-  (org-roam-directory . "~/Documents/org/roam")
+  (org-roam-directory . "~/org/roam")
   (org-roam-completion-everywhere . t)
   (org-roam-completion-system . 'default)
-  (org-roam-dailies-directory . "~/Documents/org/roam/daily")
+  (org-roam-dailies-directory . "~/org/roam/daily")
   :bind (("C-c n l" . org-roam-buffer-toggle)
 		 ("C-c n f" . org-roam-node-find)
 		 ("C-c n g" . org-roam-graph)
@@ -301,5 +329,16 @@
 (leaf memacs
   ;; this is a python program
   )
+
+(leaf org-pretty-tags
+  :ensure t
+  :init
+  (org-pretty-tags-global-mode 1))
+
+(leaf org-unique-id
+  :ensure t
+  :require t
+  :after (org)
+  :hook ((before-save-hook . org-unique-id)))
 
 (provide 'k-org)

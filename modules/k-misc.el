@@ -1,3 +1,7 @@
+;; k-misc.el -- Miscellanious Configuration
+
+;;; Commentary:
+
 ;; User Information
 (setq user-full-name "Keshav Italia"
 	  user-mail-address "keshavitalia0@gmail.com")
@@ -58,6 +62,40 @@
   :advice
   (:after helpful-update elisp-demos-advice-helpful-update))
 
+(leaf elisp-autofmt
+  :ensure t
+  :commands (elisp-autofmt-mode elisp-autofmt-buffer)
+  :hook (emacs-lisp-mode . elisp-autofmt-mode))
+
 (setq browse-url-browser-function 'browse-url-xdg-open)
+
+(leaf ement
+  :ensure t)
+
+(leaf plz
+  :ensure t)
+
+(leaf mastodon
+  :ensure t
+  :require t
+  :config
+  (mastodon-discover))
+
+(leaf moldable-emacs
+  :init (if (f-directory-p "~/.emacs.d/site-lisp/moldable-emacs")
+            (shell-command "cd ~/.emacs.d/site-lisp/moldable-emacs; git pull;")
+          (shell-command "cd ~/.emacs.d/site-lisp/; git clone git@github.com:ag91/moldable-emacs.git"))
+  :load-path "~/.emacs.d/site-lisp/moldable-emacs/"
+  :bind (("C-c v m" . me-mold)
+         ("C-c v f" . me-go-forward)
+         ("C-c v b" . me-go-back)
+         ("C-c v o" . me-open-at-point)
+         ("C-c v d" . me-mold-docs)
+         ("C-c v g" . me-goto-mold-source)
+         ("C-c v e a" . me-mold-add-last-example))
+  :require t
+  :config
+  (add-to-list 'me-files-with-molds (concat (file-name-directory (symbol-file 'me-mold)) "molds/experiments.el")) ;; TODO this is relevant only if you have private molds
+  (me-setup-molds))
 
 (provide 'k-misc)

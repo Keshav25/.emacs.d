@@ -50,6 +50,7 @@
 
 (leaf embark
   :ensure t
+  :hook ((embark-collect-mode . display-line-numbers-mode))
   :bind (("C-c h a" . embark-act)
 		 ("C-c h d" . embark-dwim)
 		 ("C-c h b" . embark-bindings)
