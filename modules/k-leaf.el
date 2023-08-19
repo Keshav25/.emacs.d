@@ -9,7 +9,7 @@
   (customize-set-variable
    'package-archives '(("melpa" . "https://melpa.org/packages/")
                        ("gnu" . "https://elpa.gnu.org/packages/")
-					   ("leaf" . "https://elpa.nongnu.org/nongnu/")) t)
+					   ("nongnu" . "https://elpa.nongnu.org/nongnu/")) t)
   (package-initialize)
   (unless (package-installed-p 'leaf)
     (package-refresh-contents)
