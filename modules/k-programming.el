@@ -115,7 +115,9 @@
   :hook (treemacs-mode-hook . '(text-scale-adjust -1)))
 
 (leaf aggressive-indent
-  :ensure t)
+  :ensure t
+  :config
+  (global-aggressive-indent-mode 1))
 
 ;; doesn't work, slows down emacs, and is proprietary
 ;; (leaf codeium
