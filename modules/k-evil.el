@@ -190,5 +190,8 @@
 ;;   :config
 ;;   (global-undo-tree-mode 1))
 
+(leaf expand-region
+  :ensure t)
+
 
 (provide 'k-evil)
