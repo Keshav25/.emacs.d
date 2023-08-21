@@ -125,6 +125,8 @@
 ;; Org-Journal
 (leaf org-journal
   :ensure t
+  :custom
+  (org-journal-file-format . "%Y%m%d.org")
   :bind
   ("C-c C-j" . org-journal-new-entry))
 
