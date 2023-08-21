@@ -345,6 +345,16 @@
   (org-novelist-author . user-full-name)
   (org-novelist-author-email . user-mail-address))
 
+(leaf ankifier
+  :after (expand-region)
+  :quelpa (ankifier :fetcher github :repo "adham-omran/ankifier")
+  :setq
+  (ankifier-insert-elsewhere . t)
+  (ankifier-anki-basic-note-type . "E-Basic")
+  (ankifier-anki-cloze-note-type . "E-Cloze")
+  (ankifier-feedback . t)
+  (ankifier-context-question . t))
+
 (leaf memacs
   ;; this is a python program
   )
