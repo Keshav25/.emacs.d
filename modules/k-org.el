@@ -56,6 +56,23 @@
   :hook ((org-agenda-finalize . org-modern-agenda)
 		 (org-agenda-finalize . hl-line-mode)))
 
+(leaf org-publish
+  :custom
+  (org-publish-project-alist .
+							 '(("journal"
+								:base-directory "~/Documents/journal/"
+								:base-extension "org"
+								:publishing-directory "~/org/neocities/html/"
+								:recursive t
+								:publishing-function org-html-publish-to-html
+								:headline-levels 4
+								:section-numbers nil
+								:html-head nil
+								:html-head-include-default-style nil
+								:html-head-include-scripts nil
+								:html-preamble my-blog-header
+								:html-postamble my-blog-footer))))
+
 (leaf org-capture
   :bind (("C-c c" . org-capture))
   :custom
