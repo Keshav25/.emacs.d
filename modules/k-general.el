@@ -137,6 +137,10 @@
   "a" '(alert--log-open-log :which-key "notifications")
   )
 
+;; SPC / for search
+(general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC /"
+  "s" '(consult-grep :which-key "search")
+  ;; "r" refactor
   )
 
 ;; some other keybindings that I want but have yet to implement
