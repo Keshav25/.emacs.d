@@ -134,7 +134,9 @@
 ;; SPC s for system
 (general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC s"
   "g" '(guix :which-key "guix")
-  ;;"a" '(alert)
+  "a" '(alert--log-open-log :which-key "notifications")
+  )
+
   )
 
 ;; some other keybindings that I want but have yet to implement
