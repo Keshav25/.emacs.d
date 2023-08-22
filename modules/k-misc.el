@@ -98,4 +98,7 @@
   (add-to-list 'me-files-with-molds (concat (file-name-directory (symbol-file 'me-mold)) "molds/experiments.el")) ;; TODO this is relevant only if you have private molds
   (me-setup-molds))
 
+(leaf bbdb
+  :ensure t)
+
 (provide 'k-misc)
