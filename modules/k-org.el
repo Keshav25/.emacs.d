@@ -62,7 +62,20 @@
 							 '(("journal"
 								:base-directory "~/Documents/journal/"
 								:base-extension "org"
-								:publishing-directory "~/org/neocities/html/"
+								:publishing-directory "~/org/neocities/journal"
+								:recursive t
+								:publishing-function org-html-publish-to-html
+								:headline-levels 4
+								:section-numbers nil
+								:html-head nil
+								:html-head-include-default-style nil
+								:html-head-include-scripts nil
+								:html-preamble my-blog-header
+								:html-postamble my-blog-footer)
+							   ("posts"
+								:base-directory "~/Documents/posts/"
+								:base-extension "org"
+								:publishing-directory "~/org/neocities/posts"
 								:recursive t
 								:publishing-function org-html-publish-to-html
 								:headline-levels 4
