@@ -34,6 +34,8 @@
 		 ("C-S-d" . 'scroll-other-window)
 		 ;;unbind q
 		 ("q" . 'nil))
+  (:evil-insert-state-map
+   ("C-o" . evil-force-normal-state))
   (:evil-motion-state-map
    ("ge" . 'evil-end-of-line)
    ;;unbind a few emacs keys
