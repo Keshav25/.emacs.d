@@ -87,8 +87,48 @@
   :bind (:desktop-environment-mode-map
 		 ("s-l" . nil)))
 
-;; Evil-Mode integration, need to add git srcs to leaf to install
-(leaf evil-exwm-state)
+;; Adds to more evil states for EXWM's char and line modes,
+;; stole from https://github.com/domenzain/evil-exwm-state/tree/master
+(leaf evil-exwm-state
+  :after (evil exwm)
+  :config
+
+  (evil-define-state exwm
+	"`exwm state' interfacing exwm mode."
+	:tag " <X> "
+	:enable (motion)
+	:message "-- EXWM --"
+	:intput-method f
+	:entry-hook (evil-exwm-state/enter-exwm))
+
+  (evil-define-state exwm-insert
+	"Replace insert state in `exwm state'."
+	:tag " <Xi> "
+	:enable (motion)
+	:message "-- EXWM-INSERT --"
+	:input-method t
+	:entry-hook (evil-exwm-state/enter-exwm-insert))
+
+  (defun evil-exwm-state/escape-exwm ()
+	"Quit `evil-exwm-insert-state'."
+	(interactive)
+	(evil-exwm-state))
+
+  (defun evil-exwm-state/enter-exwm-insert ()
+	"Quit `evil-exwm-insert-state'."
+	(call-interactively 'exwm-input-release-keyboard))
+
+  (defun evil-exwm-state/enter-exwm ()
+	"Quit `evil-exwm-insert-state'."
+	(call-interactively 'exwm-input-grab-keyboard))
+
+  (define-key evil-exwm-state-map "i" 'evil-exwm-insert-state)
+
+  ;; Ensure initial state is char mode / exwm-insert
+  (setq exwm-manage-configurations '((t char-mode t)))
+  (evil-set-initial-state 'exwm-mode 'exwm-insert))
+
+
 
 (provide 'k-exwm)
 
