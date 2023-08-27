@@ -2,7 +2,11 @@
   :ensure t
   :config
   (vertico-mode 1)
-  (vertico-mouse-mode 1))
+  (vertico-mouse-mode 1)
+  :bind (:vertico-map
+		 ("C-'" . vertico-quick-exit)
+		 ("C-i" . vertico-insert)
+		 ("C-w" . vertico-directory-delete-char)))
 
 (leaf orderless
 :ensure t
