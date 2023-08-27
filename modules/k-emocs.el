@@ -80,4 +80,7 @@
   :custom
   (yas-prompt-functions . '(yas-completing-prompt)))
 
+;; Just trying this out
+(bind-key "C-." #'completion-at-point)
+
 (provide 'k-emocs)
