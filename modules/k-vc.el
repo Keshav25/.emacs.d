@@ -6,6 +6,10 @@
   :after magit
   :ensure t)
 
+(leaf magit-todos
+  :ensure t
+  :require t)
+
 (leaf forge
   :ensure t)
 
