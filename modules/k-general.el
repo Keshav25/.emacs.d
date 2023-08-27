@@ -105,7 +105,8 @@
   "R" '(rename-file :which-key "Rename file")
   "S" '(write-file :which-key "Save file as...")
   "U" '(sudo-edit :which-key "Sudo edit file")
-  "l" '(leaf-find :which-key "find leaf"))
+  "l" '(leaf-find :which-key "find leaf")
+  "'" '(consult-flycheck :which-key "Errors"))
 
 
 (general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC n"
