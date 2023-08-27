@@ -129,6 +129,10 @@
   (evil-set-initial-state 'exwm-mode 'exwm-insert))
 
 
+(leaf exwm-edit
+  :ensure t
+  ;; exwm-edit-compose-hook
+  )
 
 (provide 'k-exwm)
 
