@@ -75,4 +75,9 @@
 (leaf consult-gh
   :quelpa (consult-gh :fetcher github :repo "armindarvish/consult-gh"))
 
+(leaf yasnippet
+  :config (yas-global-mode)
+  :custom
+  (yas-prompt-functions . '(yas-completing-prompt)))
+
 (provide 'k-emocs)
