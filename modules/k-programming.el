@@ -239,5 +239,31 @@
   :ensure t
   :config (direnv-mode))
 
+(leaf tramp
+  :setq
+  (tramp-default-method . "ssh")
+  (tramp-verbose . 1)
+  (tramp-default-remote-shell . "/bin/bash")
+  (tramp-connection-local-default-shell-variables .
+												  '((shell-file-name . "/bin/bash")
+													(shell-command-switch . "-c")))
+  :config
+  (connection-local-set-profile-variables 'tramp-connection-local-default-shell-profile
+										  '((shell-file-name . "/bin/bash")
+											(shell-command-switch . "-c")))
+
+  ;; add gh codespaces ssh method support for tramp editing
+  ;; e.g. C-x C-f /ghcs:codespace-name:/path/to/file
+  ;; thanks to my coworker Bas for this one
+  (let ((ghcs (assoc "ghcs" tramp-methods))
+		(ghcs-methods '((tramp-login-program "gh")
+						(tramp-login-args (("codespace") ("ssh") ("-c") ("%h")))
+						(tramp-remote-shell "/bin/sh")
+						(tramp-remote-shell-login ("-l"))
+						(tramp-remote-shell-args ("-c")))))
+	;; just for debugging the methods
+	(if ghcs (setcdr ghcs ghcs-methods)
+      (push (cons "ghcs" ghcs-methods) tramp-methods))))
+
 
 (provide 'k-programming)
