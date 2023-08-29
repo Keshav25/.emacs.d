@@ -283,5 +283,9 @@
   ;; 									 (setq-local lsp-completion-filter-on-incomplete nil))))
   )
 
+(leaf restclient
+  :ensure t
+  :mode  ("\\.restclient$" . restclient-mode))
+
 
 (provide 'k-programming)
