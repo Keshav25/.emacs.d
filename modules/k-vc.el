@@ -26,8 +26,12 @@
 (leaf git-gutter
   :ensure t)
 
-;; (leaf code-review
-  ;; :ensure t)
+(leaf code-review
+  :ensure t
+  :after (magit)
+  :bind ((:forge-topic-mode-map ("C-c r" . #'code-review-forge-pr-at-point))
+		 (:code-review-mode-map (("C-c n" . #'code-review-comment-jump-next)
+								 ("C-c p" . #'code-review-comment-jump-previous)))))
 
 (leaf syncthing
   ;; requires diffutils
