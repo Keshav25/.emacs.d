@@ -384,4 +384,7 @@
   :after (org)
   :hook ((before-save-hook . org-unique-id)))
 
+(leaf ox-haunt
+  :ensure t)
+
 (provide 'k-org)
