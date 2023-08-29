@@ -265,5 +265,23 @@
 	(if ghcs (setcdr ghcs ghcs-methods)
       (push (cons "ghcs" ghcs-methods) tramp-methods))))
 
+(leaf tramp-lsp
+  :disabled t
+  :after (tramp lsp)
+  :config
+  ;; (lsp-register-client
+  ;;  (make-lsp-client :new-connection (lsp-stdio-connection "gopls")
+  ;; 					:major-modes '(go-mode go-dot-mod-mode)
+  ;; 					:language-id "go"
+  ;; 					:remote? t
+  ;; 					:priority 0
+  ;; 					:server-id 'gopls-remote
+  ;; 					:completion-in-comments? t
+  ;; 					:library-folders-fn #'lsp-go--library-default-directories
+  ;; 					:after-open-fn (lambda ()
+  ;; 									 ;; https://github.com/golang/tools/commit/b2d8b0336
+  ;; 									 (setq-local lsp-completion-filter-on-incomplete nil))))
+  )
+
 
 (provide 'k-programming)
