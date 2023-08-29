@@ -40,6 +40,8 @@
   :custom
   (org-directory . "~/Documents/org")
   (org-file-apps . '((auto-mode . emacs)))
+  (org-src-ask-before-returning-to-edit-buffer . nil)
+  (org-src-window-setup . current-window)
   :init
   (org-babel-do-load-languages
    'org-babel-load-languages
