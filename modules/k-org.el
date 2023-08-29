@@ -3,8 +3,7 @@
   :bind (("C-c l" . org-store-link)
 		 ("C-c C-M-l" . org-toggle-link-display))
   :hook ((org-mode . (lambda ()
-					   (toggle-truncate-lines 1)
-					   (toggle-word-wrap 1))))
+					   (visual-line-mode 1))
   :setq
   (org-ellipsis . " ▾")
   (org-startup-numerated . 1)
