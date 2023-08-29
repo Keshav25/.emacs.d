@@ -11,6 +11,12 @@
   (eglot-autoshutdown . t)
   )
 
+(leaf consult-eglot
+  :disabled t
+  :after (eglot)
+  :ensure t
+  :bind (:eglot-mode-map ("s-t" . #'consult-eglot-symbols))) 
+
 (leaf corfu
   :ensure t
   :require t
