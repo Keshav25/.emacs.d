@@ -235,5 +235,9 @@
   ;; installs .extension/vscode
   (dap-gdb-lldb-setup))
 
+(leaf direnv
+  :ensure t
+  :config (direnv-mode))
+
 
 (provide 'k-programming)
