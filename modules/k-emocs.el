@@ -22,7 +22,12 @@
   :ensure t
   :bind (("C-s" . consult-line)
 		 ([remap switch-to-buffer] . consult-buffer)
-		 ("C-y" . yank-from-kill-ring)))
+		 ("C-y" . yank-from-kill-ring))
+  :custom
+  (completion-in-region-function . #'consult-completion-in-region)
+  (xref-show-xrefs-function . #'consult-xref)
+  (xref-show-definitions-function . #'consult-xref)
+  (consult-project-root-function . #'deadgrep--project-root)) ;; ensure ripgrep works)
 
 (leaf consult-dir
   :ensure t
