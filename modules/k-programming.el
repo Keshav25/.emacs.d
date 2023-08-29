@@ -97,9 +97,8 @@
 
 (leaf flycheck
   :ensure t
-  :init
-  (global-flycheck-mode 1)
   :config
+  (global-flycheck-mode 1)
 
   (leaf avy-flycheck
 	:after (flycheck avy)
