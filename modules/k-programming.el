@@ -293,5 +293,7 @@
 (leaf dockerfile-mode
   :ensure t)
 
+(leaf toml-mode
+  :ensure t)
 
 (provide 'k-programming)
