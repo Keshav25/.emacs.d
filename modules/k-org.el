@@ -33,7 +33,7 @@
   ;; (sequence "BACKLOG(b)" "ACTIVE(a)"
   ;; "REVIEW(v)" "WAIT(w@/!)" "HOLD(h)"
   ;; "|" "DELEGATED(D)" "CANCELLED(c)")))
-
+ 
   (org-highlight-latex-and-related '(native))
   (org-use-sub-superscripts . '{})
   :custom
@@ -262,25 +262,25 @@
 (leaf org-starter
   :ensure t)
 
-(leaf org-context)
-(leaf org-hyperscheduler)
-(leaf org-custom-cookies)
-(leaf org-wild-notifier)
-(leaf org-transclusion)
-(leaf org-time-budgets)
-(leaf org-ref-prettify)
-(leaf org-drill-table)
-(leaf org-auto-tangle)
-(leaf org-tree-slide)
-(leaf org-tanglesync)
-(leaf org-randomnote)
-(leaf org-projectile)
-(leaf org-inline-pdf)
-(leaf citar-org-roam)
-(leaf org-web-tools)
-(leaf org-treeusage)
-(leaf org-rich-yank)
-(leaf org-review)
+(leaf org-context :ensure t)
+(leaf org-hyperscheduler :ensure t)
+(leaf org-custom-cookies :ensure t)
+(leaf org-wild-notifier :ensure t)
+(leaf org-transclusion :ensure t)
+(leaf org-time-budgets :ensure t)
+(leaf org-ref-prettify :ensure t)
+(leaf org-drill-table :ensure t)
+(leaf org-auto-tangle :ensure t)
+(leaf org-tree-slide :ensure t)
+(leaf org-tanglesync :ensure t)
+(leaf org-randomnote :ensure t)
+(leaf org-projectile :ensure t)
+(leaf org-inline-pdf :ensure t)
+(leaf citar-org-roam :ensure t)
+(leaf org-web-tools :ensure t)
+(leaf org-treeusage :ensure t)
+(leaf org-rich-yank :ensure t)
+(leaf org-review :ensure t)
 
 (leaf org-re-reveal
   :ensure t
@@ -291,31 +291,32 @@
   (add-to-list 'org-structure-template-alist '("R" . "#+REVEAL_HTML: ?\n")))
 
 
-(leaf org-pdftools)
-(leaf org-mind-map)
-(leaf org-make-toc)
+(leaf org-pdftools :ensure t)
+(leaf org-mind-map :ensure t)
+(leaf org-make-toc :ensure t)
 
 (leaf org-download
   :ensure t
   :hook ((dired-mode . org-download-enable)
 		 (org-mode . org-download-enable)))
 
-(leaf org-contacts)
+(leaf org-contacts :ensure t)
 
 (leaf org-tagged
+  :ensure t
   :emacs>= 28.1)
 
-(leaf org-kanban)
-(leaf org-appear)
-(leaf org-emms)
-(leaf org-evil)
-(leaf org-edna)
-(leaf org-ref)
-(leaf org-msg)
-(leaf org-gtd)
-(leaf org-wc)
-(leaf org-if)
-(leaf org-fancy-priorities)
+(leaf org-kanban :ensure t)
+(leaf org-appear :ensure t)
+(leaf org-emms :ensure t)
+(leaf org-evil :ensure t)
+(leaf org-edna :ensure t)
+(leaf org-ref :ensure t)
+(leaf org-msg :ensure t)
+(leaf org-gtd :ensure t)
+(leaf org-wc :ensure t)
+(leaf org-if :ensure t)
+(leaf org-fancy-priorities :ensure t)
 
 (leaf org-modern
   :ensure t
@@ -326,7 +327,7 @@
   :ensure t)
 
 (leaf cdlatex
-  ;; :ensure t
+  :ensure t
   :hook ((org-mode . turn-on-org-cd-latex)))
 
 (leaf org-mime :ensure t)
