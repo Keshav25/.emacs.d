@@ -92,23 +92,24 @@
 (leaf popper
   :ensure t
   :setq
- (popper-reference-buffers .  '("\\*Messages\\*"
-                              "Output\\*$"
-                              "\\*Async Shell Command\\*"
-                              help-mode
-                              prodigy-mode
-                              "COMMIT_EDITMSG"
-                              "\\*deadgrep.\*"
-                              "\\*eldoc.\*"
-                              "\\*xref\\*"
-                              "\\*direnv\\*"
-                              "\\*Warnings\\*"
-                              "\\*Bookmark List\\*"
-                              haskell-compilation-mode
-                              compilation-mode
-                              bqn-inferior-mode))
+  (popper-reference-buffers .  '("\\*Messages\\*"
+								 "Output\\*$"
+								 "\\*Async Shell Command\\*"
+								 help-mode
+								 prodigy-mode
+								 "COMMIT_EDITMSG"
+								 "\\*deadgrep.\*"
+								 "\\*eldoc.\*"
+								 "\\*xref\\*"
+								 "\\*direnv\\*"
+								 "\\*Warnings\\*"
+								 "\\*Bookmark List\\*"
+								 haskell-compilation-mode
+								 compilation-mode
+								 bqn-inferior-mode))
   :config
-  (popper-mode 1))
+  (popper-mode 1)
+  (popper-echo-mode 1))
 
 (leaf tabspaces :ensure t)
 (leaf windmove :ensure t)
