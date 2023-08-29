@@ -1,4 +1,15 @@
-(leaf eglot)
+(leaf eglot
+  :disabled t
+  :hook (
+		 (rustic-mode . eglot-ensure))
+  :bind (:eglot-mode-map
+		 ("C-c e r" . #'eglot-rename)
+		 ("C-<down-mouse-1>" . #'xref-find-definitions)
+		 ("C-S-<down-mouse-1>" . #'xref-find-references)
+		 ("C-c C-c" . #'eglot-code-actions))
+  :custom
+  (eglot-autoshutdown . t)
+  )
 
 (leaf corfu
   :ensure t
