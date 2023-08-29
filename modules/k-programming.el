@@ -287,5 +287,8 @@
   :ensure t
   :mode  ("\\.restclient$" . restclient-mode))
 
+(leaf yaml-mode
+  :ensure t)
+
 
 (provide 'k-programming)
