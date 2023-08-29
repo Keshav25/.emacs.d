@@ -290,5 +290,8 @@
 (leaf yaml-mode
   :ensure t)
 
+(leaf dockerfile-mode
+  :ensure t)
+
 
 (provide 'k-programming)
