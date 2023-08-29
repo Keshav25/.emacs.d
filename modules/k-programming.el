@@ -219,15 +219,21 @@
   (prog-mode-hook . yas-minor-mode)
   (text-mode-hook . yas-minor-mode))
 
-  (use-package dap-mode
-    :ensure t
-    :config
-    (dap-ui-mode)
-    (dap-ui-controls-mode 1)
+(leaf dap-mode
+  :ensure t
+  :bind (:dap-mode-map
+		 ("C-c d b" . dap-breakpoint-toggle)
+		 ("C-c d r" . dap-debug-restart)
+		 ("C-c d l" . dap-debug-last)
+		 ("C-c d d" . dap-debug))
+  :config
+  (dap-ui-mode)
+  (dap-ui-controls-mode 1)
 
-    (require 'dap-lldb)
-    (require 'dap-gdb-lldb)
-    ;; installs .extension/vscode
-    (dap-gdb-lldb-setup))
+  (require 'dap-lldb)
+  (require 'dap-gdb-lldb)
+  ;; installs .extension/vscode
+  (dap-gdb-lldb-setup))
+
 
 (provide 'k-programming)
