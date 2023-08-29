@@ -11,7 +11,12 @@
   :require t)
 
 (leaf forge
-  :ensure t)
+  :after (magit)
+  :ensure t
+  :config
+  ;; hack to eliminate weirdness
+  (unless (boundp 'bug-reference-auto-setup-functions)
+	(defvar bug-reference-auto-setup-functions '())))
 
 (leaf diff-hl
   :ensure t
