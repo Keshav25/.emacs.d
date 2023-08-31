@@ -82,11 +82,9 @@
   :quelpa (consult-gh :fetcher github :repo "armindarvish/consult-gh"))
 
 (leaf yasnippet
+  :ensure t
   :config (yas-global-mode)
   :custom
   (yas-prompt-functions . '(yas-completing-prompt)))
-
-;; Just trying this out
-(bind-key "C-." #'completion-at-point)
 
 (provide 'k-emocs)
