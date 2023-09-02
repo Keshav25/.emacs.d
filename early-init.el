@@ -229,4 +229,7 @@
  mouse-wheel-scroll-amount-horizon 2)
 (setq x-stretch-cursor nil)
 
+;; require libraries
+(require 'f)
+
 (provide 'early-init)
