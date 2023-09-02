@@ -16,16 +16,19 @@
   "/" 'consult-line
   "f" 'avy-goto-char)
 
+;; general states
+(setq k-gs '(normal visual motion))
+
 ;; SPC single keys
-(general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC"
+(general-nvmap :states k-gs :keymaps 'override :prefix "SPC"
   ";" '(execute-extended-command :which-key "execute-extended-command"))
 
 ;; SPC h for help
-(general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC t"
+(general-nvmap :states k-gs :keymaps 'override :prefix "SPC t"
   "t" '(load-theme :which-key "load-theme"))
 
 ;; SPC x for executing emacs lisp
-(general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC x"
+(general-nvmap :states k-gs :keymaps 'override :prefix "SPC x"
   "f" '(eval-buffer :which-key "Eval emacs-lisp in buffer")
   "d" '(evale-deun :which-key "Eval defun")
   "e"   '(eval-expression :which-key "Eval emacs-lisp expression")
@@ -35,7 +38,7 @@
 
 ;; SPC b for buffer navigation
 ;; More will be done here once I figure out which completion packages to use
-(general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC b"
+(general-nvmap :states k-gs :keymaps 'override :prefix "SPC b"
   "b" '(switch-to-buffer :which-key "switch buffer")
   ;; S for sudo edit
   "p" '(previous-buffer :which-key "previous buffer")
@@ -61,7 +64,7 @@
  "s-k" 'windmove-up)
 
 ;; SPC w for Window Navigation
-(general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC w"
+(general-nvmap :states k-gs :keymaps 'override :prefix "SPC w"
   "h" '(windmove-left :which-key "Move to Left Window")
   "j" '(windmove-down :which-key "Move Down a Window")
   "k" '(windmove-up :which-key "Move Up a Window")
@@ -90,7 +93,7 @@
 
 
 ;; SPC f for Files
-(general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC f"
+(general-nvmap :states k-gs :keymaps 'override :prefix "SPC f"
   "d" '(consult-dir :which-key "Open dired")
   "j" '(dired :which-key "Dired jump to current")
   "p" '(find-file "~/.emacs.d/modules" :which-key "Peed-dired")
@@ -109,7 +112,7 @@
   "'" '(consult-flycheck :which-key "Errors"))
 
 
-(general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC n"
+(general-nvmap :states k-gs :keymaps 'override :prefix "SPC n"
   "l" '(org-roam :which-key "org-roam")
   "i" '(org-roam-node-insert :which-key "org-roam-node-insert")
   "b" '(org-roam-switch-to-buffer :which-key "org-roam-switch-to-buffer")
@@ -119,27 +122,27 @@
   "j" '(org-roam-dailies-capture-today :which-key "org-roam-dailies-capture-today"))
 
 ;; SPC o for Opening various application
-(general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC o"
+(general-nvmap :states k-gs :keymaps 'override :prefix "SPC o"
   "e" '(eshell :which-key "eshell")
   "b" '(eaf-open-browser-other-window :which-key "open url")
   "s" '(eaf-search-it :which-key "search browser"))
 
-(general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC q"
+(general-nvmap :states k-gs :keymaps 'override :prefix "SPC q"
   "q" '(save-buffers-kill-terminal :which-key "save-buffers-kill-terminal"))
 
 
 ;; SPC v for version control
-(general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC v"
+(general-nvmap :states k-gs :keymaps 'override :prefix "SPC v"
   "g" '(magit-status :which-key "run magit"))
 
 ;; SPC s for system
-(general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC s"
+(general-nvmap :states k-gs :keymaps 'override :prefix "SPC s"
   "g" '(guix :which-key "guix")
   "a" '(alert--log-open-log :which-key "notifications")
   )
 
 ;; SPC / for search
-(general-nvmap :states '(normal visual) :keymaps 'override :prefix "SPC /"
+(general-nvmap :states k-gs :keymaps 'override :prefix "SPC /"
   "s" '(consult-grep :which-key "search")
   ;; "r" refactor
   )
