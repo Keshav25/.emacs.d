@@ -4,7 +4,7 @@
 		 ("C-c C-M-l" . org-toggle-link-display))
   :hook ((org-mode . (lambda ()
 					   (visual-line-mode 1))))
-  :setq
+  :custom
   (org-ellipsis . " ▾")
   (org-startup-numerated . 1)
   (org-startup-truncated . 1)
@@ -33,14 +33,13 @@
   ;; (sequence "BACKLOG(b)" "ACTIVE(a)"
   ;; "REVIEW(v)" "WAIT(w@/!)" "HOLD(h)"
   ;; "|" "DELEGATED(D)" "CANCELLED(c)")))
- 
+  
   (org-highlight-latex-and-related '(native))
   (org-use-sub-superscripts . '{})
-  :custom
   (org-directory . "~/Documents/org")
   (org-file-apps . '((auto-mode . emacs)))
   (org-src-ask-before-returning-to-edit-buffer . nil)
-  (org-src-window-setup . current-window)
+  (org-src-window-setup . 'current-window)
   :init
   (org-babel-do-load-languages
    'org-babel-load-languages
