@@ -1,6 +1,6 @@
 (leaf vertico
   :ensure t
-  :config
+  :init
   (vertico-mode 1)
   (vertico-mouse-mode 1)
   :bind (:vertico-map
@@ -9,9 +9,9 @@
 		 ("C-w" . vertico-directory-delete-char)))
 
 (leaf orderless
-:ensure t
-:config
-(setq completion-styles '(orderless)))
+  :ensure t
+  :config
+  (setq completion-styles '(orderless)))
 
 (leaf marginalia
   :ensure t
@@ -24,7 +24,7 @@
 		 ([remap switch-to-buffer] . consult-buffer)
 		 ("C-y" . yank-from-kill-ring))
   :custom
-  (completion-in-region-function . #'consult-completion-in-region)
+  ;; (completion-in-region-function . #'consult-completion-in-region)
   (xref-show-xrefs-function . #'consult-xref)
   (xref-show-definitions-function . #'consult-xref)
   (consult-project-root-function . #'deadgrep--project-root)) ;; ensure ripgrep works)
