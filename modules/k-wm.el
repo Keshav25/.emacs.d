@@ -164,5 +164,76 @@
 ;;   :init
 ;;   (persp-mode))
 
+(leaf other-wm
+  ;; need to replace i3-command with xdotools or something that works on wayland
+  :disabled t
+  :require windmove
+  :bind (("s-j" . k-owm-left)
+         ("s-l" . k-owm-right)
+         ("s-i" . k-owm-up)
+         ("s-k" . k-owm-down)
+         ("s-J" . k-owm-swap-states-left)
+         ("s-L" . k-owm-swap-states-right))
+  :config
+  (defun k-owm-left (&optional arg)
+    "Like windmove-left but call i3 command `focus left'
+if there is no window on the left."
+    (interactive "P")
+    (if (windmove-find-other-window 'left arg)
+        (windmove-do-window-select 'left arg)
+      ;; No window to the left
+      (i3-command 0 "focus left")))
+
+  (defun k-owm-right (&optional arg)
+    "Like windmove-right but call i3 command `focus right'
+if there is no window on the right."
+    (interactive "P")
+    (if (windmove-find-other-window 'right arg)
+        (windmove-do-window-select 'right arg)
+      ;; No window to the right
+      (i3-command 0 "focus right")
+      ;; (i3-command 0 "mode 'default'")
+      ))
+
+  (defun k-owm-up (&optional arg)
+    "Like windmove-up but call i3 command `focus up'
+if there is no window on the up."
+    (interactive "P")
+    (if (windmove-find-other-window 'up arg)
+        (windmove-do-window-select 'up arg)
+      ;; No window to the up
+      (i3-command 0 "focus up")))
+
+  (defun k-owm-down (&optional arg)
+    "Like windmove-down but call i3 command `focus down'
+if there is no window on the down."
+    (interactive "P")
+    (let ((other-window (windmove-find-other-window 'down arg)))
+      (if (or (and other-window
+                   (not (window-minibuffer-p other-window)))
+              (and (window-minibuffer-p other-window)
+                   (minibuffer-window-active-p other-window)))
+          (windmove-do-window-select 'down arg)
+        ;; No window to the down
+        (i3-command 0 "focus down"))))
+
+  (defun k-owm-swap-states-left (&optional arg)
+    "Like windmove-swap-states-left but call i3 command `move left'
+if there is no window on the left."
+    (interactive "P")
+    (if (windmove-find-other-window 'left arg)
+        (windmove-swap-states-in-direction 'left)
+      ;; No window to the left
+      (i3-command 0 "move left")))
+
+  (defun k-owm-swap-states-right (&optional arg)
+    "Like windmove-swap-states-right but call i3 command `move right'
+if there is no window on the right."
+    (interactive "P")
+    (if (windmove-find-other-window 'right arg)
+        (windmove-swap-states-in-direction 'right)
+      ;; No window to the right
+      (i3-command 0 "move right"))))
+
 (provide 'k-wm)
 ;;; k-wm.el ends here
