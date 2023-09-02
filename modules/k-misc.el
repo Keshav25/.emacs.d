@@ -84,4 +84,7 @@
 (leaf bbdb
   :ensure t)
 
+(leaf speed-type
+  :ensure t)
+
 (provide 'k-misc)
