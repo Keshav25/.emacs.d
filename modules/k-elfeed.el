@@ -4,7 +4,7 @@
   :config
   (with-eval-after-load 'elfeed
 	(let
-		((leaf--load-file-name "/home/haresh/.emacs.d/init.el"))
+		((leaf--load-file-name "~/.emacs.d/init.el"))
 	  (setq elfeed-db-directory "~/.emacs.d/elfeed/")
 	  (setq elfeed-show-entry-switch 'display-buffer))))
 
