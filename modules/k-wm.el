@@ -91,7 +91,7 @@
 
 (leaf popper
   :ensure t
-  :setq
+  :custom
   (popper-reference-buffers .  '("\\*Messages\\*"
 								 "Output\\*$"
 								 "\\*Async Shell Command\\*"
@@ -107,6 +107,8 @@
 								 haskell-compilation-mode
 								 compilation-mode
 								 bqn-inferior-mode))
+  (popper-display-control . t)
+  (popper-display-function . #'display-buffer-at-bottom)
   :config
   (popper-mode 1)
   (popper-echo-mode 1))
