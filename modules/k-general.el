@@ -126,7 +126,8 @@
 (general-nvmap :states k-gs :keymaps 'override :prefix "SPC o"
   "e" '(eshell :which-key "eshell")
   "b" '(eaf-open-browser-other-window :which-key "open url")
-  "s" '(eaf-search-it :which-key "search browser"))
+  "s" '(eaf-search-it :which-key "search browser")
+  "g" '(magit :which-key "magit"))
 
 (general-nvmap :states k-gs :keymaps 'override :prefix "SPC q"
   "q" '(save-buffers-kill-terminal :which-key "save-buffers-kill-terminal"))
