@@ -93,4 +93,20 @@
 ;;			   (set-fontset-font
 ;;				t 'symbol "Symbola" nil)))
 
+(leaf highlight-numbers
+  :ensure t
+  :config
+  (highlight-numbers-mode 1))
+
+(leaf highlight-quoted
+  :ensure t
+  :hook
+  (emacs-lisp-mode . highlight-quoted-mode))
+
+(leaf highlight-defined
+  :ensure t
+  :hook
+  (emacs-lisp-mode . highlight-defined-mode))
+
+
 (provide 'k-themes)
