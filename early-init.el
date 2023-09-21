@@ -230,6 +230,6 @@
 (setq x-stretch-cursor nil)
 
 ;; load libraries
-(load-library "f")
+;; (load-library "f")
 
 (provide 'early-init)
