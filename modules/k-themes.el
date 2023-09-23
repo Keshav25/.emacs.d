@@ -33,7 +33,7 @@
 ;; 			 (load-theme 'haki t))
 
 ;; ;; load the actual theme
-(load-theme 'kaolin-dark t)
+(load-theme 'yabaki t)
 
 ;; Solaire
 (leaf solaire-mode
@@ -53,9 +53,23 @@
   (leaf all-the-icons-completion
 	:ensure t))
 
+(leaf nerd-icons
+  :ensure t
+  :require t)
+
 (leaf all-the-icons-nerd-fonts
+  :require t
   :quelpa
-  (all-the-icons-nerd-fonts :fetcher github :repo "mohkale/all-the-icons-nerd-fonts"))
+  (all-the-icons-nerd-fonts :fetcher github :repo "mohkale/all-the-icons-nerd-fonts")
+  :require t
+  :after (all-the-icons)
+  :config
+  (all-the-icons-nerd-fonts-prefer))
+
+(leaf nerd-fonts
+  :require t
+  :quelpa
+  (nerd-fonts :fetcher github :repo "twlz0ne/nerd-fonts.el"))
 
 (leaf lambda-line
   :quelpa (lambda-line :fetcher github :repo "lambda-emacs/lambda-line") 
