@@ -22,7 +22,7 @@
   :require t
   :setq
   (completion-cycle-threshold . 3)
-  (tab-always-indent . 'complete)
+  (tab-always-indent . t)
   (corfu-quit-no-match . 'separator)
   (corfu-auto . t)
   :init
@@ -262,6 +262,7 @@
   :config (direnv-mode))
 
 (leaf tramp
+  :require t
   :setq
   (tramp-default-method . "ssh")
   (tramp-verbose . 1)
