@@ -2,8 +2,7 @@
   :ensure t
   :bind (("C-c l" . org-store-link)
 		 ("C-c C-M-l" . org-toggle-link-display))
-  :hook ((org-mode . (lambda ()
-					   (visual-line-mode 1))))
+  :hook (org-mode . visual-line-mode)
   :custom
   (org-ellipsis . " ▾")
   (org-startup-numerated . 1)
