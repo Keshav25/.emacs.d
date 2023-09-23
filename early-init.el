@@ -145,7 +145,9 @@
                 (menu-bar-lines . 0)
                 ;; (undecorated . t)
                 (vertical-scroll-bars . nil)
-                (horizontal-scroll-bars . nil)))
+                (horizontal-scroll-bars . nil)
+				(font . "JetBrains Mono-8:weigth=regular:width=normal")))
+
 ;; (push '(menu-bar-lines . 0)   default-frame-alist)
 ;; (push '(tool-bar-lines . 0)   default-frame-alist)
 ;; (push '(vertical-scroll-bars) default-frame-alist)
@@ -228,8 +230,5 @@
  mouse-wheel-scroll-amount '(2 ((shift) . hscroll))
  mouse-wheel-scroll-amount-horizon 2)
 (setq x-stretch-cursor nil)
-
-;; require libraries
-(require 'f)
 
 (provide 'early-init)
