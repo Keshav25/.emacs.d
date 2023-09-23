@@ -386,4 +386,14 @@
 (leaf ox-haunt
   :ensure t)
 
+(leaf hyperbole
+  :disabled t
+  :ensure t
+  :config
+  (hyperbole-mode 1))
+
+(leaf org-ql
+  :quelpa (org-ql :fetcher github :repo "alphapapa/org-ql"
+				  :files (:defaults (:exclude "helm-org-ql.el")))))
+
 (provide 'k-org)
