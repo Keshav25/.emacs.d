@@ -1,22 +1,22 @@
-(leaf nano-modeline
-  :ensure t
-  :require t
-  :config
-  (require 'nano-modeline)
-  ;; (add-hook 'prog-mode-hook            #'nano-modeline-prog-mode)
-  ;; (add-hook 'text-mode-hook            #'nano-modeline-text-mode)
-  ;; (add-hook 'org-mode-hook             #'nano-modeline-org-mode)
-  ;; (add-hook 'pdf-view-mode-hook        #'nano-modeline-pdf-mode)
-  ;; (add-hook 'mu4e-headers-mode-hook    #'nano-modeline-mu4e-headers-mode)
-  ;; (add-hook 'mu4e-view-mode-hook       #'nano-modeline-mu4e-message-mode)
-  ;; (add-hook 'elfeed-show-mode-hook     #'nano-modeline-elfeed-entry-mode)
-  ;; (add-hook 'elfeed-search-mode-hook   #'nano-modeline-elfeed-search-mode)
-  ;; (add-hook 'term-mode-hook            #'nano-modeline-term-mode)
-  ;; (add-hook 'xwidget-webkit-mode-hook  #'nano-modeline-xwidget-mode)
-  ;; (add-hook 'messages-buffer-mode-hook #'nano-modeline-message-mode)
-  ;; (add-hook 'org-capture-mode-hook     #'nano-modeline-org-capture-mode)
-  ;; (add-hook 'org-agenda-mode-hook      #'nano-modeline-org-agenda-mode)
-  (nano-modeline-mode 1))
+;; (leaf nano-modeline
+;;   :ensure t
+;;   :require t
+;;   :config
+;;   (require 'nano-modeline)
+;;   ;; (add-hook 'prog-mode-hook            #'nano-modeline-prog-mode)
+;;   ;; (add-hook 'text-mode-hook            #'nano-modeline-text-mode)
+;;   ;; (add-hook 'org-mode-hook             #'nano-modeline-org-mode)
+;;   ;; (add-hook 'pdf-view-mode-hook        #'nano-modeline-pdf-mode)
+;;   ;; (add-hook 'mu4e-headers-mode-hook    #'nano-modeline-mu4e-headers-mode)
+;;   ;; (add-hook 'mu4e-view-mode-hook       #'nano-modeline-mu4e-message-mode)
+;;   ;; (add-hook 'elfeed-show-mode-hook     #'nano-modeline-elfeed-entry-mode)
+;;   ;; (add-hook 'elfeed-search-mode-hook   #'nano-modeline-elfeed-search-mode)
+;;   ;; (add-hook 'term-mode-hook            #'nano-modeline-term-mode)
+;;   ;; (add-hook 'xwidget-webkit-mode-hook  #'nano-modeline-xwidget-mode)
+;;   ;; (add-hook 'messages-buffer-mode-hook #'nano-modeline-message-mode)
+;;   ;; (add-hook 'org-capture-mode-hook     #'nano-modeline-org-capture-mode)
+;;   ;; (add-hook 'org-agenda-mode-hook      #'nano-modeline-org-agenda-mode)
+;;   (nano-modeline-mode 1))
 
 (leaf smart-modeline
   :disabled t
@@ -112,6 +112,13 @@
   :config
   (popper-mode 1)
   (popper-echo-mode 1))
+
+(leaf shackle
+  :ensure t
+  :custom
+  (shackle-default-rule . '(:same t))
+  (shackle-rules . `(,popper-reference-buffers :align t :size 0.4)))
+
 
 (leaf tabspaces :ensure t)
 (leaf windmove :ensure t)
