@@ -233,7 +233,7 @@
   (lsp-ui-sideline-show-hover . t)
   (lsp-ui-doc-enable . nil))
 
-(use-package yasnippet
+(leaf yasnippet
   :ensure t
   :config
   (yas-reload-all)

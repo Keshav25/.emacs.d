@@ -11,6 +11,7 @@
 (leaf ef-themes :ensure t)
 (leaf yabaki-theme :ensure t)
 (leaf haki-theme :ensure t)
+(leaf sweet-theme :ensure t)
 
 ;; ;; Option 1: Simply do (make sure it is in 'custom-theme-directory')
 ;; (setq haki-region "#2e8b6d")
@@ -33,7 +34,7 @@
 ;; 			 (load-theme 'haki t))
 
 ;; ;; load the actual theme
-(load-theme 'yabaki t)
+(load-theme 'sweet t)
 
 ;; Solaire
 (leaf solaire-mode
@@ -106,5 +107,21 @@
 ;;			 (when (member "Symbola" (font-family-list))
 ;;			   (set-fontset-font
 ;;				t 'symbol "Symbola" nil)))
+
+(leaf highlight-numbers
+  :ensure t
+  :config
+  (highlight-numbers-mode 1))
+
+(leaf highlight-quoted
+  :ensure t
+  :hook
+  (emacs-lisp-mode . highlight-quoted-mode))
+
+(leaf highlight-defined
+  :ensure t
+  :hook
+  (emacs-lisp-mode . highlight-defined-mode))
+
 
 (provide 'k-themes)

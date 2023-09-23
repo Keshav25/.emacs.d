@@ -242,5 +242,10 @@ if there is no window on the right."
       ;; No window to the right
       (i3-command 0 "move right"))))
 
+(leaf golden-ratio
+  :ensure t
+  :config
+  (golden-ratio-mode 1))
+
 (provide 'k-wm)
 ;;; k-wm.el ends here

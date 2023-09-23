@@ -162,9 +162,8 @@
   (pdf-view-display-size . 'fit-width))
 
 ;; Calibre integration
-(use-package calibredb
+(leaf calibredb
   :ensure t
-  :defer t
   :config
   (setq calibredb-root-dir "~/Calibre Library")
   (setq calibredb-db-dir (expand-file-name "metadata.db" calibredb-root-dir))
