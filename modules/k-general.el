@@ -14,7 +14,7 @@
 
 (mmap
   "/" 'consult-line
-  "f" 'avy-goto-char)
+  "f" 'evil-avy-goto-char)
 
 ;; general states
 (setq k-gs '(normal visual motion))
