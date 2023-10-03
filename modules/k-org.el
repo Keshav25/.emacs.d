@@ -393,6 +393,6 @@
 
 (leaf org-ql
   :quelpa (org-ql :fetcher github :repo "alphapapa/org-ql"
-				  :files (:defaults (:exclude "helm-org-ql.el")))))
+				  :files (:defaults (:exclude "helm-org-ql.el"))))
 
 (provide 'k-org)
