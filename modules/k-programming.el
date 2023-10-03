@@ -142,9 +142,11 @@
   (prism-randomize-colors))
 
 (leaf moldable-emacs
-  :init (if (f-directory-p "~/.emacs.d/site-lisp/moldable-emacs")
-            (shell-command "cd ~/.emacs.d/site-lisp/moldable-emacs; git pull;")
-          (shell-command "cd ~/.emacs.d/site-lisp/; git clone git@github.com:ag91/moldable-emacs.git"))
+  :init
+  (require 'f)
+  (if (f-directory-p "~/.emacs.d/site-lisp/moldable-emacs")
+      (shell-command "cd ~/.emacs.d/site-lisp/moldable-emacs; git pull;")
+    (shell-command "cd ~/.emacs.d/site-lisp/; git clone git@github.com:ag91/moldable-emacs.git"))
   :load-path "~/.emacs.d/site-lisp/moldable-emacs/"
   :bind (("C-c v m" . me-mold)
          ("C-c v f" . me-go-forward)
