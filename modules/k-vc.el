@@ -1,6 +1,8 @@
 (leaf magit
   :bind
-  ("C-x g" . 'magit-status))
+  ("C-x g" . 'magit-status)
+  :custom
+  (magit-display-buffer-function . 'magit-display-buffer-same-window-except-diff-v1))
 
 (leaf magit-delta
   :after magit
