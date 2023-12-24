@@ -247,5 +247,35 @@ if there is no window on the right."
   :config
   (golden-ratio-mode 1))
 
+(leaf hydra
+  :ensure t)
+
+(defhydra k-window-movement ()
+  ("h" windmove-left "Move to Left Window")
+  ("l" windmove-right "Move to Right Window")
+  ("j" windmove-down "Move Down a Window")
+  ("k" windmove-up "Move Up a Window")
+  ("c" centered-window-mode "Un/Center Window")
+  ("s" split-and-follow-vertically "Split Window Horizontally")
+  ("v" split-and-follow-horizontally "Split Window Vertically")
+  ("d" delete-window "Delete Window")
+  ("o" switch-window "Switch Window")
+  ("f" k-toggle-fullscreen "Un/Maximize a Window")
+  ("u" winner-undo "Undo Window Manipulation")
+  ("U" winner-redo "Redo Window Manipulation")
+  ("+" evil-window-increase-height "Increase Height")
+  ("-" evil-window-decrease-height "Decrease Heigth")
+  ("<" evil-window-decrease-width "Decrease Width")
+  (">" evil-window-increase-width "Increase Width")
+  ("=" balance-windows "Balance Windows")
+  ("H" windmove-swap-states-left "Move Window Left")
+  ("J" windmove-swap-states-down "Move Window Down")
+  ("K" windmove-swap-states-up "Move Window Up")
+  ("L" windmove-swap-states-right "Move Window Right")
+  ("R" evil-window-rotate-upwards "Rotate Windows")
+  ("r" evil-window-rotate-downwards "Reverse Rotate Windows")
+  (";" enlarge-window "Enlarge Window")
+  ("q" nil))
+
 (provide 'k-wm)
 ;;; k-wm.el ends here
