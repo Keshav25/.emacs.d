@@ -1,3 +1,8 @@
+(leaf prog-mode
+  :hook ((prog-mode . subword-mode)
+		 (prog-mode . which-func-mode)
+		 (prog-mode . (lambda () (setq-local fill-column 120)))))
+
 (leaf eglot
   :disabled t
   :hook (
