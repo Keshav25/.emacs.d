@@ -62,14 +62,14 @@
 
 (message "Deleting old backup files...")
 (let ((week (* 60 60 24 7))
-      (current (float-time (current-time))))
+	  (current (float-time (current-time))))
   (dolist (file (directory-files temporary-file-directory t))
-    (when (and (backup-file-name-p file)
-               (> (- current
-                     (float-time (fifth (file-attributes file))))
-                  (* 4 week)))
-      (message "%s" file)
-      (delete-file file))))
+	(when (and (backup-file-name-p file)
+			   (> (- current
+					 (float-time (fifth (file-attributes file))))
+				  (* 4 week)))
+	  (message "%s" file)
+	  (delete-file file))))
 
 
 ;; recentf-mode
@@ -93,7 +93,7 @@
 ;; Determine if Native Comp
 (defconst isnativecomp
   (if (fboundp 'native-comp-available-p)
-      (native-comp-available-p)))
+	  (native-comp-available-p)))
 
 ;; Determine if EXWM should be enabled
 (setq isexwm (and (not istermux) (eq window-system 'x)))
