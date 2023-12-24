@@ -117,8 +117,8 @@
   "l" '(org-roam :which-key "org-roam")
   "i" '(org-roam-node-insert :which-key "org-roam-node-insert")
   "b" '(org-roam-switch-to-buffer :which-key "org-roam-switch-to-buffer")
-  "f" '(org-roam-find-file :which-key "org-roam-find-file")
-  "g" '(org-roam-show-graph :which-key "org-roam-show-graph")
+  "f" '(org-roam-node-find :which-key "org-roam-node-find")
+  "g" '(org-roam-graph :which-key "org-roam-graph")
   "c" '(org-roam-capture :which-key "org-roam-capture")
   "j" '(org-roam-dailies-capture-today :which-key "org-roam-dailies-capture-today"))
 
