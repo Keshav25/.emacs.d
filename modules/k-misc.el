@@ -93,4 +93,7 @@
 (leaf electric-ospl
   :ensure t)
 
+(leaf pair-tree
+  :ensure t)
+
 (provide 'k-misc)
