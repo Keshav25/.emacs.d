@@ -326,4 +326,8 @@
 (leaf toml-mode
   :ensure t)
 
+(leaf dape
+  :ensure t
+  :url "https://github.com/svaante/dape")
+
 (provide 'k-programming)
