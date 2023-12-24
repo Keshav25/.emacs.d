@@ -87,4 +87,10 @@
 (leaf speed-type
   :ensure t)
 
+(leaf subed
+  :ensure t)
+
+(leaf electric-ospl
+  :ensure t)
+
 (provide 'k-misc)
