@@ -1,6 +1,10 @@
 (leaf elfeed :ensure t
+  :custom
+  (elfeed-feeds . '("https://sachachua.com/blog/feed/"))
   :bind
   (("C-x w" . elfeed))
+  (:elfeed-show-mode-map
+   ("r" . elfeed-update))
   :config
   (with-eval-after-load 'elfeed
 	(let
