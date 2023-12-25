@@ -248,34 +248,58 @@ if there is no window on the right."
   (golden-ratio-mode 1))
 
 (leaf hydra
-  :ensure t)
-
-(defhydra k-window-movement ()
-  ("h" windmove-left "Move to Left Window")
-  ("l" windmove-right "Move to Right Window")
-  ("j" windmove-down "Move Down a Window")
-  ("k" windmove-up "Move Up a Window")
-  ("c" centered-window-mode "Un/Center Window")
-  ("s" split-and-follow-vertically "Split Window Horizontally")
-  ("v" split-and-follow-horizontally "Split Window Vertically")
-  ("d" delete-window "Delete Window")
-  ("o" switch-window "Switch Window")
-  ("f" k-toggle-fullscreen "Un/Maximize a Window")
-  ("u" winner-undo "Undo Window Manipulation")
-  ("U" winner-redo "Redo Window Manipulation")
-  ("+" evil-window-increase-height "Increase Height")
-  ("-" evil-window-decrease-height "Decrease Heigth")
-  ("<" evil-window-decrease-width "Decrease Width")
-  (">" evil-window-increase-width "Increase Width")
-  ("=" balance-windows "Balance Windows")
-  ("H" windmove-swap-states-left "Move Window Left")
-  ("J" windmove-swap-states-down "Move Window Down")
-  ("K" windmove-swap-states-up "Move Window Up")
-  ("L" windmove-swap-states-right "Move Window Right")
-  ("R" evil-window-rotate-upwards "Rotate Windows")
-  ("r" evil-window-rotate-downwards "Reverse Rotate Windows")
-  (";" enlarge-window "Enlarge Window")
-  ("q" nil))
+  :ensure t
+  :config
+  (leaf major-mode-hydra
+	:ensure t
+	:bind
+	("M-SPC" . major-mode-hydra)
+	:config
+	(major-mode-hydra-define emacs-lisp-mode
+	  (:quit-key "q")
+	  ("Eval"
+	   (("b" eval-buffer "buffer")
+		("e" eval-defun "defun")
+		("r" eval-region "region"))
+	   "REPL"
+	   (("I" ielm "ielm"))
+	   "Test"
+	   (("t" ert "prompt")
+		("T" (ert t) "all")
+		("F" (ert :failed) "failed"))
+	   "Doc"
+	   (("d" describe-foo-at-point "thing-at-pt")
+		("f" describe-function "function")
+		("v" describe-variable "variable")
+		("i" info-lookup-symbol "info lookup")))))
+  (pretty-hydra-define k-window-movement
+	(:color amaranth :quit-key "q" :title "Window Management")
+	("Navigation"
+	 (("h" windmove-left "Move to Left Window")
+	  ("l" windmove-right "Move to Right Window")
+	  ("j" windmove-down "Move Down a Window")
+	  ("k" windmove-up "Move Up a Window"))
+	 "Manipulation"
+	 (("c" centered-window-mode "Un/Center Window")
+	  ("s" split-and-follow-vertically "Split Window Horizontally")
+	  ("v" split-and-follow-horizontally "Split Window Vertically")
+	  ("d" delete-window "Delete Window")
+	  ("o" switch-window "Switch Window")
+	  ("f" k-toggle-fullscreen "Un/Maximize a Window")
+	  ("u" winner-undo "Undo Window Manipulation")
+	  ("U" winner-redo "Redo Window Manipulation")
+	  ("+" evil-window-increase-height "Increase Height")
+	  ("-" evil-window-decrease-height "Decrease Heigth")
+	  ("<" evil-window-decrease-width "Decrease Width")
+	  (">" evil-window-increase-width "Increase Width")
+	  ("=" balance-windows "Balance Windows")
+	  ("H" windmove-swap-states-left "Move Window Left")
+	  ("J" windmove-swap-states-down "Move Window Down")
+	  ("K" windmove-swap-states-up "Move Window Up")
+	  ("L" windmove-swap-states-right "Move Window Right")
+	  ("R" evil-window-rotate-upwards "Rotate Windows")
+	  ("r" evil-window-rotate-downwards "Reverse Rotate Windows")
+	  (";" enlarge-window "Enlarge Window")))))
 
 (provide 'k-wm)
 ;;; k-wm.el ends here
