@@ -27,6 +27,12 @@
 ;;   :custom ((detached-show-output-on-attach t)
 ;;            (detached-terminal-data-command system-type)))
 
+;; (leaf detached
+;;   :ensure t
+;;   :ensure-system-package dtach
+;;   :config
+;;   (detached-init))
+
 ;; keep emacs clean
 (leaf no-littering :ensure t)
 
@@ -94,6 +100,9 @@
   :ensure t)
 
 (leaf pair-tree
+  :ensure t)
+
+(leaf jinx
   :ensure t)
 
 (provide 'k-misc)
