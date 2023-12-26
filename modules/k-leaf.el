@@ -62,4 +62,7 @@
   :bind (("C-c m e" . macrostep-expand)
 		 ("C-c m c" . macrostep-collapse)))
 
+(leaf system-packages
+  :ensure t)
+
 (provide 'k-leaf)
