@@ -25,7 +25,7 @@
 
 ;; SPC h for help
 (general-nvmap :states k-gs :keymaps 'override :prefix "SPC t"
-  "t" '(load-theme :which-key "load-theme")
+  "t" '(consult-theme :which-key "load-theme")
   "l" '(display-line-numbers-mode :which-key "line numbers"))
 
 ;; SPC x for executing emacs lisp
