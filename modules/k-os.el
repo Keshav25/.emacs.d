@@ -2,6 +2,7 @@
 
 (leaf alert
   :ensure t
+  :require t
   :config
   (if istermux
 	  (setq alert-default-style 'termux)
@@ -31,7 +32,7 @@
 	(add-hook 'after-init-hook
 			  #'(lambda nil
 				  (edit-server-start)))))
-  
+
 (leaf eaf
   :load-path "~/.cache/emacs/quelpa/build/eaf"
   :quelpa (eaf :fetcher github :repo "emacs-eaf/emacs-application-framework")
@@ -152,12 +153,12 @@
 
 ;; TEL
 (leaf TEL
-   :when istermux
-   :doc "setup for my TEL configuration"
-   :setq
-   (inhibit-startup-screen . t)
-   :config
-   (eshell)
-   (evil-emacs-state))
+  :when istermux
+  :doc "setup for my TEL configuration"
+  :setq
+  (inhibit-startup-screen . t)
+  :config
+  (eshell)
+  (evil-emacs-state))
 
 (provide 'k-os)
