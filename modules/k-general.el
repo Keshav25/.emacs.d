@@ -97,9 +97,10 @@
 (general-nvmap :states k-gs :keymaps 'override :prefix "SPC f"
   "d" '(consult-dir :which-key "Open dired")
   "j" '(dired :which-key "Dired jump to current")
-  "p" '(find-file "~/.emacs.d/modules" :which-key "Peed-dired")
+  "p" '(find-file "~/.emacs.d/modules" :which-key "module files")
   "." '(find-file :which-key "Find file")
   "f" '(find-file :which-key "Find file")
+  "/" '(project-find-file :which-key "Find file in project")
   "r" '(consult-recent-file :which-key "Recent files")
   "s" '(save-buffer :which-key "Save file")
   "u" '(sudo-edit-find-file :which-key "Sudo find file")
