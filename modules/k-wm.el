@@ -41,7 +41,7 @@
 (setq split-width-threshold 160
 	  split-height-threshold nil)
 
-;: From perspective.el README
+										;: From perspective.el README
 (customize-set-variable 'display-buffer-base-action
 						'((display-buffer-reuse-window display-buffer-same-window)
 						  (reusable-frames . t)))
@@ -293,13 +293,19 @@ if there is no window on the right."
 	  ("<" evil-window-decrease-width "Decrease Width")
 	  (">" evil-window-increase-width "Increase Width")
 	  ("=" balance-windows "Balance Windows")
-	  ("H" windmove-swap-states-left "Move Window Left")
-	  ("J" windmove-swap-states-down "Move Window Down")
-	  ("K" windmove-swap-states-up "Move Window Up")
-	  ("L" windmove-swap-states-right "Move Window Right")
 	  ("R" evil-window-rotate-upwards "Rotate Windows")
 	  ("r" evil-window-rotate-downwards "Reverse Rotate Windows")
-	  (";" enlarge-window "Enlarge Window")))))
+	  (";" enlarge-window "Enlarge Window"))
+	 "Buffer"
+	 (("b" consult-buffer "Change Buffer"))
+	 "Swap Windows"
+	 (("H" windmove-swap-states-left "Move Window Left")
+	  ("J" windmove-swap-states-down "Move Window Down")
+	  ("K" windmove-swap-states-up "Move Window Up")
+	  ("L" windmove-swap-states-right "Move Window Right"))
+	 "Text"
+	 (("C-=" text-scale-increase "zoom in")
+	  ("C--" text-scale-decrease "zoom out")))))
 
 (provide 'k-wm)
 ;;; k-wm.el ends here
