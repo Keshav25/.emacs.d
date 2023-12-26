@@ -330,4 +330,9 @@
   :ensure t
   :url "https://github.com/svaante/dape")
 
+(leaf apheleia
+  :ensure t
+  :config
+  (apheleia-global-mode 1))
+
 (provide 'k-programming)
