@@ -39,7 +39,14 @@
 (leaf elfeed-tube-mpv
   :ensure t
   :bind (:elfeed-show-mode-map
-			  ("C-c C-f" . elfeed-tube-mpv-follow-mode)
-			  ("C-c C-w" . elfeed-tube-mpv-where)))
+		 ("C-c C-f" . elfeed-tube-mpv-follow-mode)
+		 ("C-c C-w" . elfeed-tube-mpv-where)))
+
+(leaf eww
+  :hook (eww-mode . eww-readable)
+  :config
+  (leaf shrface
+	:ensure t
+	:hook (eww-mode . shrface-mode)))
 
 (provide 'k-elfeed)
