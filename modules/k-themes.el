@@ -40,7 +40,7 @@
 (leaf solaire-mode
   :ensure t
   :config
-  (solaire-global-mode))
+  (solaire-global-mode 1))
 
 ;; Diminish
 (leaf diminish
