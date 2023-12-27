@@ -2,7 +2,7 @@
   :ensure t
   :bind (("C-c l" . org-store-link)
 		 ("C-c C-M-l" . org-toggle-link-display))
-  :hook (org-mode . visual-line-mode)
+  :hook (org-mode . (turn-on-visual-line-mode))
   :custom
   (org-ellipsis . " ▾")
   (org-startup-numerated . 1)
@@ -87,45 +87,57 @@
 
 (leaf org-capture
   :bind (("C-c c" . org-capture))
-  :custom
-  (org-capture-templates
-   .
-   '(
-	 ("p" "Protocol" entry (file+headline "inbox.org" "Inbox")
-	  "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
-	 ("L" "Protocol Link" entry (file+headline "inbox.org" "Inbox")
-	  "* %? %:annotation\n")
-	 ("i" "inbox" entry
-	  (file "~/Documents/org/inbox.org")
-	  "* %?\n %T\n %a\n %i\n"
-	  :empty-lines 1 )
-	 ("e" "emacs"
-	  entry (file "~/Documents/org/emacs-notes.org")
-	  "* %?\n %T\n %i\n"
-	  :empty-lines 1)
-	 ("c" "compsol"
-	  entry (file "~/Documents/org/compsol.org")
-	  "* %?\n %T\n %i\n"
-	  :empty-lines 1)
-	 ("s" "school"
-	  entry (file "~/Documents/org/school.org")
-	  "* %?\n %T\n %i\n"
-	  :empty-lines 1)
-	 ("f" "food"
-	  entry (file "~/Documents/org/food-journal.org")
-	  "* %?\n %T\n %i\n"
-	  :empty-lines 1)
-	 ("d" "daily-template"
-	  entry
-	  (file+olp+datetree "daily.org")
-	  "%[~/Documents/org/daily-template]"
-	  ;; :unnarrowed 1
-	  :tree-type week
-	  ;; :time-prompt t
-	  ))))
+  :config
+  (leaf defcapture
+	:ensure t
+	:config
+	(defcapture protocol () "Protocol"
+	  :keys "p"
+	  :file "~/Documents/org/inbox.org"
+	  :template ("* %^{Title}"
+				 "Source: %u, %c"
+				 "#+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?"))
+	(defcapture inbox () "Inbox"
+	  :keys "i"
+	  :file "~/Documents/org/inbox.org"
+	  :template ("* %^{Title}\n %a\n %i\n")
+	  :empty-lines 1))
+  (setq org-capture-templates (defcapture-captures)))
 
-(leaf defcapture
-  :ensure t)
+;; :custom
+;; (org-capture-templates
+;;  .
+;;  '(
+;;    ("L" "Protocol Link" entry (file+headline "inbox.org" "Inbox")
+;; 	"* %? %:annotation\n")
+;;    ("i" "inbox" entry
+;; 	(file "~/Documents/org/inbox.org")
+;; 	"* %?\n %T\n %a\n %i\n"
+;; 	:empty-lines 1 )
+;;    ("e" "emacs"
+;; 	entry (file "~/Documents/org/emacs-notes.org")
+;; 	"* %?\n %T\n %i\n"
+;; 	:empty-lines 1)
+;;    ("c" "compsol"
+;; 	entry (file "~/Documents/org/compsol.org")
+;; 	"* %?\n %T\n %i\n"
+;; 	:empty-lines 1)
+;;    ("s" "school"
+;; 	entry (file "~/Documents/org/school.org")
+;; 	"* %?\n %T\n %i\n"
+;; 	:empty-lines 1)
+;;    ("f" "food"
+;; 	entry (file "~/Documents/org/food-journal.org")
+;; 	"* %?\n %T\n %i\n"
+;; 	:empty-lines 1)
+;;    ("d" "daily-template"
+;; 	entry
+;; 	(file+olp+datetree "daily.org")
+;; 	"%[~/Documents/org/daily-template]"
+;; 	;; :unnarrowed 1
+;; 	:tree-type week
+;; 	;; :time-prompt t
+;; 	))))
 
 ;; https://tech.toryanderson.com/2020/08/18/orgmode-system-notifications-with-dunst/
 ;; (setq appt-display-format 'window)
