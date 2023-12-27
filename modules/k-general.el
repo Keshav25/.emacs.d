@@ -45,7 +45,7 @@
   "p" '(previous-buffer :which-key "previous buffer")
   "n" '(next-buffer :which-key "next buffer")
   "k" '(kill-this-buffer :which-key "kill buffer")
-  ;; n empty buffer
+  "s" '(scratch-buffer :which-key "scratch buffer")
   ;; o for kill all buffers
   "x" '(popper-toggle-type :which-ekey "pop buffer")
   ;; z burry buffer
