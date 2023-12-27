@@ -88,3 +88,5 @@
   (yas-prompt-functions . '(yas-completing-prompt)))
 
 (provide 'k-emocs)
+
+;;; k-emocs.el ends here

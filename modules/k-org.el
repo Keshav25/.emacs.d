@@ -124,6 +124,9 @@
 	  ;; :time-prompt t
 	  ))))
 
+(leaf defcapture
+  :ensure t)
+
 ;; https://tech.toryanderson.com/2020/08/18/orgmode-system-notifications-with-dunst/
 ;; (setq appt-display-format 'window)
 

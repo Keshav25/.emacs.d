@@ -13,8 +13,7 @@
 		 ("C-S-<down-mouse-1>" . #'xref-find-references)
 		 ("C-c C-c" . #'eglot-code-actions))
   :custom
-  (eglot-autoshutdown . t)
-  )
+  (eglot-autoshutdown . t))
 
 (leaf consult-eglot
   :disabled t
@@ -46,9 +45,9 @@
   :custom
   (kind-icon-default-face . 'corfu-default) ; to compute blended backgrounds correctly
   :hook ('my-completion-ui-mode-hook .
-   	    (lambda ()
-   	      (setq completion-in-region-function
-				(kind-icon-enhance-completion completion-in-region-function))))
+   									 (lambda ()
+   									   (setq completion-in-region-function
+											 (kind-icon-enhance-completion completion-in-region-function))))
   :config
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
@@ -87,7 +86,7 @@
   ;;(add-to-list 'completion-at-point-functions #'cape-dict)
   ;;(add-to-list 'completion-at-point-functions #'cape-symbol)
   ;;(add-to-list 'completion-at-point-functions #'cape-line)
-)
+  )
 
 (leaf treesit-auto
   :ensure t

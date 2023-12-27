@@ -32,9 +32,9 @@
   :bind (:elfeed-show-mode-map
 		 ("F" . elfeed-tube-fetch)
 		 ([remap save-buffer] . elfeed-tube-save))
-		 (:elfeed-search-mode-map
-		 ("F" . elfeed-tube-fetch)
-		 ([remap save-buffer] . elfeed-tube-save)))
+  (:elfeed-search-mode-map
+   ("F" . elfeed-tube-fetch)
+   ([remap save-buffer] . elfeed-tube-save)))
 
 (leaf elfeed-tube-mpv
   :ensure t
