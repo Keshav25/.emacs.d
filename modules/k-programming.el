@@ -332,6 +332,7 @@
 
 (leaf apheleia
   :ensure t
+  :doc "reformats code on file save"
   :config
   (apheleia-global-mode 1))
 
