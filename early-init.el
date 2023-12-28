@@ -164,6 +164,8 @@
 ;; Recursive Minibuffers
 (setq enable-recursive-minibuffers t)
 
+;; prevent restoring windows after exiting the minibuffer
+(setq read-minibuffer-restore-windows nil)
 
 ;; Transparency
 (if (or (< emacs-major-version 29)
