@@ -43,7 +43,7 @@
 		 ("C-c C-w" . elfeed-tube-mpv-where)))
 
 (leaf eww
-  :hook (eww-mode . eww-readable)
+  :hook (eww-after-render-hook . eww-readable)
   :config
   (leaf shrface
 	:ensure t
