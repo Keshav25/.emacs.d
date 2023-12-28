@@ -410,4 +410,10 @@
   :quelpa (org-ql :fetcher github :repo "alphapapa/org-ql"
 				  :files (:defaults (:exclude "helm-org-ql.el"))))
 
+(leaf org-sticky-header
+  :ensure t)
+
+(leaf org-bookmark-heading
+  :ensure t)
+
 (provide 'k-org)
