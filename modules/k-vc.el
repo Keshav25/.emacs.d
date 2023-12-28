@@ -35,6 +35,11 @@
 		 (:code-review-mode-map (("C-c n" . #'code-review-comment-jump-next)
 								 ("C-c p" . #'code-review-comment-jump-previous)))))
 
+(leaf blamer
+  :ensure t
+  :config
+  (global-blamer-mode 1))
+
 (leaf syncthing
   ;; requires diffutils
   :config
@@ -108,6 +113,6 @@
 								   (setq ediff-after-quit-hook-internal nil)
 								   (when quit-hook (funcall quit-hook))
 								   (set-window-configuration wnd))))
-				         (error "no more than 2 files should be marked")))))
+				   (error "no more than 2 files should be marked")))))
 
 (provide 'k-vc)

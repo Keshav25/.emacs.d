@@ -136,7 +136,8 @@
 
 ;; SPC v for version control
 (general-nvmap :states k-gs :keymaps 'override :prefix "SPC v"
-  "g" '(magit-status :which-key "run magit"))
+  "g" '(magit-status :which-key "run magit")
+  "c" '(blamer-show-commit-info :which-key "commit info"))
 
 ;; SPC s for system
 (general-nvmap :states k-gs :keymaps 'override :prefix "SPC s"
