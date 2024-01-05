@@ -41,6 +41,9 @@
   :ensure t
   :hook ((embark-collect-mode . consult-preview-at-point-mode)))
 
+(leaf consult-notes
+  :ensure t)
+
 (leaf avy-embark-collect
   :after (embark avy)
   :ensure t
