@@ -81,6 +81,12 @@
 (leaf plz
   :ensure t)
 
+(leaf plz-see
+  :ensure t)
+
+(leaf verb
+  :ensure t)
+
 (leaf mastodon
   :ensure t
   :require t
