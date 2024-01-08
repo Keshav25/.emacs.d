@@ -98,10 +98,18 @@
 				 "Source: %u, %c"
 				 "#+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?"))
 	(defcapture inbox () "Inbox"
-	  :keys "i"
-	  :file "~/Documents/org/inbox.org"
-	  :template ("* %^{Title}\n %a\n %i\n")
-	  :empty-lines 1))
+      :keys "i"
+      :file "~/Documents/org/inbox.org"
+      :template ("* %^{Title}\n %a\n %i\n")
+      :empty-lines 1)
+	(defcapture emacs () "Emacs"
+      :keys "e"
+      :file "~/Documents/org/emacs-notes.org"
+	  :template ("* %^{Title}"))
+	(defcapture dumbs () "Brain Dumps"
+      :keys "d"
+      :file "~/Documents/org/single-file.org"
+      :template "* %^{Title}\n %i\n"))
   (setq org-capture-templates (defcapture-captures)))
 
 ;; :custom
