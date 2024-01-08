@@ -111,4 +111,16 @@
 (leaf jinx
   :ensure t)
 
+;; https://github.com/astoff/jit-spell
+;; https://github.com/alphapapa/unpackaged.el
+
+(leaf ts
+  :ensure t)
+
+(leaf altcaps
+  :ensure t)
+
+(leaf hyperdrive
+  :ensure t)
+
 (provide 'k-misc)
