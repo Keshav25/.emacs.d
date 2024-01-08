@@ -81,4 +81,13 @@
 		 ;; since htop doesn't work with the former
 		 (eshell-load-hook . eat-eshell-visual-command-mode)))
 
+(leaf comint-mime
+  :ensure t
+  :hook (shell-mode-hook . comint-mime-setup)
+  (inferior-python-code-mode . comint-mime-setup)
+  :config
+  (when (executable-find "ipython3")
+	(setq python-shell-interpreter "ipython3"
+          python-shell-interpreter-args "--simple-prompt --classic")))
+
 (provide 'k-eshell)
