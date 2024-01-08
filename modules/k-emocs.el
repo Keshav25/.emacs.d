@@ -86,9 +86,20 @@
 
 (leaf yasnippet
   :ensure t
-  :config (yas-global-mode)
+  :config
+  (yas-global-mode)
+  (yas-reload-all)
+  :hook
+  (prog-mode-hook . yas-minor-mode)
+  (text-mode-hook . yas-minor-mode)
   :custom
   (yas-prompt-functions . '(yas-completing-prompt)))
+
+(leaf placeholder
+  :quelpa (placeholder :fetcher github :repo "oantolin/placeholder")
+  :bind (("C-S-n" . placeholder-forward)
+		 ("C-S-p" . placeholder-backward)
+		 ("C-S-x" . placeholder-insert)))
 
 (provide 'k-emocs)
 
