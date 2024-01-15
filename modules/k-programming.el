@@ -327,4 +327,7 @@
   :config
   (apheleia-global-mode 1))
 
+(leaf turbo-log
+  :quelpa (turbo-log :fetcher github :repo "artawower/turbo-log.el"))
+
 (provide 'k-programming)
