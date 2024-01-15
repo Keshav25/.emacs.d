@@ -424,4 +424,39 @@
 (leaf org-bookmark-heading
   :ensure t)
 
+(leaf hammy
+  :quelpa (hammy :fetcher github :repo "alphapapa/hammy.el"))
+
+;; from https://www.reddit.com/r/emacs/comments/d54ogp/emacs_doom_e17_org_mode_checkboxes/
+;; (add-hook 'org-mode-hook
+;; 		  ;; TODO: Use add-to-list prettify-symbols-alist instead of "add-to-list", to avoid duplicates
+;; 		  (lambda () "Beautify Org Checkbox Symbol"
+;;             ;; These are nice unicode characters for checkboxes: ☐ ☑ ☒
+;;             (add-to-list prettify-symbols-alist '("TODO" . "☐") )
+;;             (add-to-list prettify-symbols-alist '("NEXT" . "Δ" ) )
+;;             (add-to-list prettify-symbols-alist '("DONE" . "☑" ) )
+;;             (add-to-list prettify-symbols-alist '("CANCELED" . "☒" ) )
+
+;;             ;; This changed to be case sensitive in a recent update of doom
+;;             (add-to-list prettify-symbols-alist '("#+BEGIN_SRC" . "↦" ) )
+;;             (add-to-list prettify-symbols-alist '("#+END_SRC" . "⇤" ) )
+;;             (add-to-list prettify-symbols-alist '("#+BEGIN_EXAMPLE" . "↦" ) )
+;;             (add-to-list prettify-symbols-alist '("#+END_EXAMPLE" . "⇤" ) )
+;;             (add-to-list prettify-symbols-alist '("#+BEGIN_QUOTE" . "↦" ) )
+;;             (add-to-list prettify-symbols-alist '("#+END_QUOTE" . "⇤" ) )
+
+;;             (add-to-list prettify-symbols-alist '("#+begin_quote" . "↦" ) )
+;;             (add-to-list prettify-symbols-alist '("#+end_quote" . "⇤" ) )
+;;             (add-to-list prettify-symbols-alist '("#+begin_example" . "↦" ) )
+;;             (add-to-list prettify-symbols-alist '("#+end_example" . "⇤" ) )
+;;             (add-to-list prettify-symbols-alist '("#+begin_src" . "↦" ) )
+;;             (add-to-list prettify-symbols-alist '("#+end_src" . "⇤" ) )
+
+;;             ;; Monday 2021-11-01 not working
+;;             ;; (add-to-list prettify-symbols-alist '("+ [ ]" . "☐") )
+;;             ;; (add-to-list prettify-symbols-alist '("+ [x]" . "☑" ) )
+;;             ;; (add-to-list prettify-symbols-alist '("+ []" . "☒" ) )
+
+;;             (prettify-symbols-mode)))
+
 (provide 'k-org)
