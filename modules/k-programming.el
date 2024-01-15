@@ -354,4 +354,7 @@
   :ensure t
   :bind ("C-h D" . 'devdocs-lookup))
 
+(leaf code-cells
+  :ensure t)
+
 (provide 'k-programming)
