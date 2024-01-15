@@ -357,4 +357,7 @@
 (leaf code-cells
   :ensure t)
 
+(leaf buffer-env
+  :ensure t)
+
 (provide 'k-programming)
