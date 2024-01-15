@@ -1,6 +1,6 @@
 ;; font
 ;; (set-frame-parameter (selected-frame) 'font "JetBrains Mono Bold-8")
-  
+
 ;; (set-fontset-font "fontset-default" 'unicode "Noto Color Emoji" nil 'prepend)
 
 (global-hl-line-mode 1)

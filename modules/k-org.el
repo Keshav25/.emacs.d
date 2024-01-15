@@ -192,7 +192,7 @@
   (setq calibredb-db-dir (expand-file-name "metadata.db" calibredb-root-dir))
   (setq calibredb-library-alist '(
 								  ("~/Calibre Library")
-                                  )))
+								  )))
 
 ;; read epub files
 (leaf nov
