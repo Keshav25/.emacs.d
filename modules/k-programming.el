@@ -360,4 +360,7 @@
 (leaf buffer-env
   :ensure t)
 
+(leaf obvious
+  :quelpa (obvious :fetcher github :repo "alphapapa/obvious.el"))
+
 (provide 'k-programming)
