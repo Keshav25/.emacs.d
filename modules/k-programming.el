@@ -239,14 +239,6 @@
   (lsp-ui-sideline-show-hover . t)
   (lsp-ui-doc-enable . nil))
 
-(leaf yasnippet
-  :ensure t
-  :config
-  (yas-reload-all)
-  :hook
-  (prog-mode-hook . yas-minor-mode)
-  (text-mode-hook . yas-minor-mode))
-
 (leaf dap-mode
   :ensure t
   :bind (:dap-mode-map
