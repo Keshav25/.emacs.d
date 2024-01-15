@@ -350,4 +350,8 @@
 ;;   (define-key macrursors-mark-map (kbd ".") #'macrursors-mark-all-sentences)
 ;;   (define-key macrursors-mark-map (kbd "r") #'macrursors-mark-all-lines))
 
+(leaf devdocs
+  :ensure t
+  :bind ("C-h D" . 'devdocs-lookup))
+
 (provide 'k-programming)
