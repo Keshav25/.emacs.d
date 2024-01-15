@@ -308,5 +308,12 @@ if there is no window on the right."
 	 (("C-=" text-scale-increase "zoom in")
 	  ("C--" text-scale-decrease "zoom out")))))
 
+;; https://github.com/alphapapa/yequake
+
+(leaf good-scroll
+  :ensure t
+  :config
+  (good-scroll-mode 1))
+
 (provide 'k-wm)
 ;;; k-wm.el ends here
