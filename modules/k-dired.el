@@ -9,7 +9,7 @@
   :config
   (dirvish-override-dired-mode) 
   :bind (:dirvish-directory-view-mode-map
-			  ("q" . 'dirvish-quit)))
+		 ("q" . 'dirvish-quit)))
 
 ;; Get file icons in dired
 ;; (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
@@ -20,5 +20,10 @@
                               ("png" . "sxiv")
                               ("mkv" . "mpv")
                               ("mp4" . "mpv")))
+
+(leaf dired-preview
+  :ensure t
+  :config
+  (dired-preview-global-mode 1))
 
 (provide 'k-dired)
