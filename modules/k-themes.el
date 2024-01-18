@@ -136,4 +136,7 @@
 (leaf lin
   :ensure t)
 
+(set-face-background 'default nil)
+(set-face-attribute 'default nil)
+
 (provide 'k-themes)
