@@ -101,6 +101,9 @@
 		 ("C-S-p" . placeholder-backward)
 		 ("C-S-x" . placeholder-insert)))
 
+;; (leaf hyperbole
+;;   :ensure t)
+
 (provide 'k-emocs)
 
 ;;; k-emocs.el ends here
