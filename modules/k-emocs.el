@@ -104,6 +104,9 @@
 ;; (leaf hyperbole
 ;;   :ensure t)
 
+(leaf eev
+:ensure t)
+
 (provide 'k-emocs)
 
 ;;; k-emocs.el ends here
