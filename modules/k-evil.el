@@ -195,5 +195,7 @@
 (leaf evil-embrace
   :ensure t)
 
+(leaf evil-textobj-tree-sitter
+  :ensure t)
 
 (provide 'k-evil)
