@@ -192,7 +192,7 @@
 ;;   :config
 ;;   (global-undo-tree-mode 1))
 
-(leaf expand-region
+(leaf evil-embrace
   :ensure t)
 
 
