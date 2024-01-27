@@ -22,7 +22,7 @@
   :ensure t
   :bind (("C-s" . consult-line)
 		 ([remap switch-to-buffer] . consult-buffer)
-		 ("C-y" . yank-from-kill-ring))
+		 ("C-y" . consult-yank-pop))
   :custom
   ;; (completion-in-region-function . #'consult-completion-in-region)
   (xref-show-xrefs-function . #'consult-xref)
@@ -105,7 +105,7 @@
 ;;   :ensure t)
 
 (leaf eev
-:ensure t)
+  :ensure t)
 
 (provide 'k-emocs)
 
