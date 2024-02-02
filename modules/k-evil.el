@@ -196,63 +196,40 @@
   :ensure t)
 
 (leaf evil-textobj-tree-sitter
+  :after (which-key)
   :require t
   :ensure t
   :custom
   (tree-sitter-debug-jump-buttons . t)
   (tree-sitter-debug-highlight-jump-region . t)
-  :config
-  (defun +tree-sitter-goto-textobj (group &optional previous end query)
-	"Thin wrapper that returns the symbol of a named function, used in keybindings."
-	(let ((sym (intern (format "+goto%s%s-%s" (if previous "-previous" "") (if end "-end" "") group))))
-      (fset sym (lambda ()
-                  (interactive)
-                  (evil-textobj-tree-sitter-goto-textobj group previous end query)))
-      sym))
-  (defun +tree-sitter-get-textobj (group &optional query)
-	"A wrapper around `evil-textobj-tree-sitter-get-textobj' to
-prevent eager expansion."
-	(eval `(evil-textobj-tree-sitter-get-textobj ,group ,query))))
-
-(leaf evil-textobj-tree-sitter-bindings
-  :after (evil-textobj-tree-sitter)
   :bind
-  (:+tree-sitter-inner-text-objects-map
-   ("A" . (+tree-sitter-get-textobj '("parameter.inner" "call.inner")))
-   ("f" . (+tree-sitter-get-textobj "function.inner"))
-   ("F" . (+tree-sitter-get-textobj "call.inner"))
-   ("C" . (+tree-sitter-get-textobj "class.inner"))
-   ("v" . (+tree-sitter-get-textobj "conditional.inner"))
-   ("l" . (+tree-sitter-get-textobj "loop.inner")))
-  (:+tree-sitter-outer-text-objects-map
-   ("A" . (+tree-sitter-get-textobj '("parameter.outer" "call.outer")))
-   ("f" . (+tree-sitter-get-textobj "function.outer"))
-   ("F" . (+tree-sitter-get-textobj "call.outer"))
-   ("C" . (+tree-sitter-get-textobj "class.outer"))
-   ("v" . (+tree-sitter-get-textobj "conditional.outer"))
-   ("l" . (+tree-sitter-get-textobj "loop.outer")))
-  (:+tree-sitter-goto-previous-map
-   ("a" . (+tree-sitter-goto-textobj "parameter.outer" t))
-   ("f" . (+tree-sitter-goto-textobj "function.outer" t))
-   ("F" . (+tree-sitter-goto-textobj "call.outer" t))
-   ("C" . (+tree-sitter-goto-textobj "class.outer" t))
-   ("c" . (+tree-sitter-goto-textobj "comment.outer" t))
-   ("v" . (+tree-sitter-goto-textobj "conditional.outer" t))
-   ("l" . (+tree-sitter-goto-textobj "loop.outer" t)))
-  (:+tree-sitter-goto-next-map
-   ("a" . (+tree-sitter-goto-textobj "parameter.outer"))
-   ("f" . (+tree-sitter-goto-textobj "function.outer"))
-   ("F" . (+tree-sitter-goto-textobj "call.outer"))
-   ("C" . (+tree-sitter-goto-textobj "class.outer"))
-   ("c" . (+tree-sitter-goto-textobj "comment.outer"))
-   ("v" . (+tree-sitter-goto-textobj "conditional.outer"))
-   ("l" . (+tree-sitter-goto-textobj "loop.outer")))
-  :config
-  (evil-define-key '(visual operator) 'tree-sitter-mode
-	"i" +tree-sitter-inner-text-objects-map
-	"a" +tree-sitter-outer-text-objects-map)
-  (evil-define-key ('normal 'tree-sitter-mode)
-	"[g" +tree-sitter-goto-previous-map
-	"]g" +tree-sitter-goto-next-map))
-
+  (:evil-inner-text-objects-map
+   ("f" . (evil-textobj-tree-sitter-get-textobj "function.inner"))
+   ("F" . (evil-textobj-tree-sitter-get-textobj "call.inner"))
+   ("C" . (evil-textobj-tree-sitter-get-textobj "class.inner"))
+   ("v" . (evil-textobj-tree-sitter-get-textobj "conditional.inner"))
+   ("l" . (evil-textobj-tree-sitter-get-textobj "loop.inner")))
+  (:evil-outer-text-objects-map
+   ("f" . (evil-textobj-tree-sitter-get-textobj "function.outer"))
+   ("F" . (evil-textobj-tree-sitter-get-textobj "call.outer"))
+   ("C" . (evil-textobj-tree-sitter-get-textobj "class.outer"))
+   ("v" . (evil-textobj-tree-sitter-get-textobj "conditional.outer"))
+   ("l" . (evil-textobj-tree-sitter-get-textobj "loop.outer")))
+  ;; (:+tree-sitter-goto-previous-map
+  ;;  ("a" . (+tree-sitter-goto-textobj "parameter.outer" t))
+  ;;  ("f" . (+tree-sitter-goto-textobj "function.outer" t))
+  ;;  ("F" . (+tree-sitter-goto-textobj "call.outer" t))
+  ;;  ("C" . (+tree-sitter-goto-textobj "class.outer" t))
+  ;;  ("c" . (+tree-sitter-goto-textobj "comment.outer" t))
+  ;;  ("v" . (+tree-sitter-goto-textobj "conditional.outer" t))
+  ;;  ("l" . (+tree-sitter-goto-textobj "loop.outer" t)))
+  ;; (:+tree-sitter-goto-next-map
+  ;;  ("a" . (+tree-sitter-goto-textobj "parameter.outer"))
+  ;;  ("f" . (+tree-sitter-goto-textobj "function.outer"))
+  ;;  ("F" . (+tree-sitter-goto-textobj "call.outer"))
+  ;;  ("C" . (+tree-sitter-goto-textobj "class.outer"))
+  ;;  ("c" . (+tree-sitter-goto-textobj "comment.outer"))
+  ;;  ("v" . (+tree-sitter-goto-textobj "conditional.outer"))
+  ;; ("l" . (+tree-sitter-goto-textobj "loop.outer")))
+  )
 (provide 'k-evil)
