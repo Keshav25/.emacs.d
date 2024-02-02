@@ -34,7 +34,8 @@
 (setq backup-directory-alist
 	  `(("."
 		 .
-		 ,(expand-file-name "tmp/backups/" user-emacs-directory))))
+		 ,(expand-file-name "tmp/backups/" user-emacs-directory)))
+	  create-lockfiles nil)
 
 (make-directory (expand-file-name "tmp/auto-saves/"
 								  user-emacs-directory)
