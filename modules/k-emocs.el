@@ -54,8 +54,10 @@
 ;; Which-Key
 (leaf which-key
   :ensure t
+  :custom
+  (which-key-allow-multiple-replacements . t)
   :init
-  (which-key-mode))
+  (which-key-mode 1))
 
 (leaf corfu)
 (leaf cape)
