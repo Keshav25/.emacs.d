@@ -225,12 +225,17 @@
 
 (leaf lsp-mode
   :ensure t
+  :require t
+  :init
+  (setq lsp-keymap-prefix "C-c C-y")
   :custom
   (lsp-eldoc-render-all . t)
   (lsp-idle-delay . 0.6)
   (lsp-inlay-hint-enable . t)
   :hook
-  (lsp-mode-hook . lsp-ui-mode))
+  (lsp-mode-hook . lsp-ui-mode)
+  (lsp-mode. lsp-enable-which-key-integration)
+  (python-ts-mode . lsp))
 
 (leaf lsp-ui
   :ensure t
