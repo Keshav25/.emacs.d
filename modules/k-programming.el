@@ -28,9 +28,11 @@
   (completion-cycle-threshold . 3)
   (tab-always-indent . t)
   (corfu-quit-no-match . 'separator)
-  (corfu-auto . t)
+  (corfu-auto . nil)
   :init
-  (global-corfu-mode 1))
+  (global-corfu-mode 1)
+  :bind ((:corfu-map
+		  ("RET" . newline))))
 
 (leaf corfu-terminal
   :ensure t
