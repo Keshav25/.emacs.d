@@ -21,7 +21,8 @@
 (setq
  comp-deferred-compilation nil
  native-comp-jit-compilation nil
- comp-async-report-warnings-errors nil)
+ comp-async-report-warnings-errors nil
+ package-install-upgrade-built-in t)
 
 (setq load-prefer-newer noninteractive)
 
