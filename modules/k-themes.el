@@ -56,7 +56,9 @@
 
 (leaf nerd-icons
   :ensure t
-  :require t)
+  :require t
+  :custom
+  (nerd-icons-font-family . "JetbrainsMono Nerd Font"))
 
 (leaf all-the-icons-nerd-fonts
   :require t
