@@ -236,7 +236,7 @@
 		 ("C-c n i" . org-roam-node-insert)
 		 ("C-c n c" . org-roam-capture)
 		 ;; Dailies
-		 ("C-c n j" . org-roam-dailies-capture-today))
+		 ("C-c n d" . org-roam-dailies-capture-today))
   
   :config
   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
