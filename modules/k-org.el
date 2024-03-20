@@ -53,6 +53,7 @@
   :bind (("C-c a" . org-agenda))
   :config
   (setq org-agenda-files (directory-files org-directory nil "^\\([^.]\\|\\.[^.]\\|\\.\\..\\)"))
+  (setq org-cycle-separator-lines 1)
   :hook ((org-agenda-finalize . org-modern-agenda)
 		 (org-agenda-finalize . hl-line-mode)))
 
