@@ -147,6 +147,10 @@
   (prism-mode 1)
   (prism-randomize-colors))
 
+(leaf rainbow-delimiters
+  :ensure t
+  :hook (org-mode prog-mode . rainbow-delimiters-mode))
+
 (leaf moldable-emacs
   :init
   (require 'f)
