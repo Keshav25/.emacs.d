@@ -52,7 +52,7 @@
 (leaf org-agenda
   :bind (("C-c a" . org-agenda))
   :config
-  (setq org-agenda-files (directory-files "~/Documents/org/"))
+  (setq org-agenda-files (directory-files org-directory nil "^\\([^.]\\|\\.[^.]\\|\\.\\..\\)"))
   :hook ((org-agenda-finalize . org-modern-agenda)
 		 (org-agenda-finalize . hl-line-mode)))
 
