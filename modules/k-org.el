@@ -54,6 +54,8 @@
   :config
   (setq org-agenda-files (directory-files org-directory nil "^\\([^.]\\|\\.[^.]\\|\\.\\..\\)"))
   (setq org-cycle-separator-lines 1)
+  :custom
+  (org-refile-targets . '((org-agenda-files :maxlevel . 3)))
   :hook ((org-agenda-finalize . org-modern-agenda)
 		 (org-agenda-finalize . hl-line-mode)))
 
