@@ -125,6 +125,19 @@
   :hook
   (emacs-lisp-mode . highlight-defined-mode))
 
+(leaf hl-todo
+  :ensure t
+  :custom
+  (hl-todo-highlight-punctuation . ":")
+  (hl-todo-keyword-faces .
+						 `(("TODO" warning bold)
+						   ("FIXME" error bold)
+						   ("HACK" font-lock-constant-face bold)
+						   ("REVIEW" font-lock-keyword-face bold)
+						   ("NOTE" success bold)
+						   ("DECPRECATED" font-lock-doc-face bold)))
+  :hook (org-mode prog-mode . hl-todo-mode))
+
 (leaf fontaine
   :ensure t)
 
