@@ -172,7 +172,7 @@
 ;; Evil Org
 (leaf evil-org
   :ensure t
-  :after org
+  :after (evil org)
   :hook (org-mode . (lambda () (evil-org-mode)))
   :config
   (require 'evil-org-agenda)
@@ -333,7 +333,7 @@
 (leaf org-kanban :ensure t)
 (leaf org-appear :ensure t)
 (leaf org-emms :ensure t)
-(leaf org-evil :ensure t)
+(leaf org-evil :after evil :ensure t)
 (leaf org-edna :ensure t)
 (leaf org-ref :ensure t)
 (leaf org-msg :ensure t)
