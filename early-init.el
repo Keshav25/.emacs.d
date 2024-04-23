@@ -169,37 +169,6 @@
 ;; prevent restoring windows after exiting the minibuffer
 (setq read-minibuffer-restore-windows nil)
 
-;; Transparency
-(if (or (< emacs-major-version 29)
-		iswindows)
-    (progn
-      (set-frame-parameter (selected-frame) 'alpha `(75,75))
-      (add-to-list 'default-frame-alist `(alpha . (75, 75)))
-
-      (defun turn-transparency-off ()
-        (interactive)
-        (set-frame-parameter (selected-frame) 'alpha `(100, 100)))
-
-      (defun turn-transparency-on ()
-        (interactive)
-        (set-frame-parameter (selected-frame) 'alpha `(75, 75))))
-  (progn
-    ;; for emacs => 29
-    (set-frame-parameter (selected-frame) 'alpha-background 75)
-    (add-to-list 'default-frame-alist '(alpha-background . 75))
-
-    (defun k/toggle-transparency ()
-      "toggle transparency for emacs-major-version > 29"
-      (interactive)
-      (let ((alpha-transparency 75))
-        (pcase (frame-parameter nil 'alpha-background)
-          (alpha-transparency
-           (set-frame-parameter nil 'alpha-background 100))
-          (t
-           (set-frame-parameter
-            nil 'alpha-background alpha-transparency)))))))
-
-
 (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
