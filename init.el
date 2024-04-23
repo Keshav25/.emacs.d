@@ -20,10 +20,10 @@
 (require 'k-emocs)
 
 ;; Evil
-(require 'k-evil)
+;; (require 'k-evil)
 
 ;; General
-(require 'k-general)
+;; (require 'k-general)
 
 ;; Dired
 (require 'k-dired)
@@ -51,9 +51,6 @@
 
 ;; Guix
 (require 'k-guix)
-
-;; Hexo
-(require 'k-hexo)
 
 ;; Programming
 (require 'k-programming)
