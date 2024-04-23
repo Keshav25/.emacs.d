@@ -69,8 +69,9 @@
 		 ("C-c h d" . embark-dwim)
 		 ("C-c h b" . embark-bindings)
 		 ("C-;" . embark-collect)
-		 (:evil-normal-state-map
-		  ("zd" . embark-act)))
+		 ;; (:evil-normal-state-map
+		 ;; ("zd" . embark-act)
+		 )
   :init
   (setq prefix-help-command #'embark-prefix-help-command)
   (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
