@@ -158,7 +158,6 @@
   :setq
   (inhibit-startup-screen . t)
   :config
-  (eshell)
-  (evil-emacs-state))
+  (eshell))
 
 (provide 'k-os)
