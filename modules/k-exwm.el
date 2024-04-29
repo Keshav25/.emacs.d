@@ -4,7 +4,8 @@
   (use-dialog-box . nil)
   (exwm-input-line-mode-passthrough . t)
   (mouse-autoselect-window . t)
-  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+  (exwm-input-line-mode-passthrough . nil)
+  (ediff-window-setup-function . 'ediff-setup-windows-plain)
   (focus-follows-mouse . t)
   :hook ((exwm-update-title-hook . (lambda () (exwm-workspace-rename-buffer exwm-title)))
 		 (exwm-input--input-mode-change-hook . force-modeline-update))
@@ -20,7 +21,7 @@
   :bind (:exwm-mode-map
 		 ("C-q" . #'exwm-input-send-next-key)
 		 ("s-i" . #'exwm-input-toggle-keyboard)
-		 ("s-b" . #'switch-to-buffer)
+		 ("s-e" . #'switch-to-buffer)
 		 ("s-r" . #'dmenu)
 		 ("s-w" . #'exwm-workspace-switch)
 		 ("s-D" . #'kill-this-buffer)
