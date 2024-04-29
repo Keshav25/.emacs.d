@@ -17,13 +17,13 @@
   (define-key exwm-mode-map "\C-c\C-q" nil)
   (define-key exwm-mode-map "\C-c\C-t\C-f" nil)
   (define-key exwm-mode-map "\C-c\C-t\C-m" nil)
-  (exwm-input-set-key [escape] 'evil-escape)
   :bind (:exwm-mode-map
 		 ("C-q" . #'exwm-input-send-next-key)
 		 ("s-i" . #'exwm-input-toggle-keyboard)
-		 ("s-b" . #'exwm-layout-toggle-modeline)
-		 ("s-r" . #'exwm-reset)
+		 ("s-b" . #'switch-to-buffer)
+		 ("s-r" . #'dmenu)
 		 ("s-w" . #'exwm-workspace-switch)
+		 ("s-D" . #'kill-this-buffer)
 		 ("s-TAB" . #'exwm/jump-to-last-exwm)))
 
 (require 'exwm-randr)
