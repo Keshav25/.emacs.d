@@ -3,7 +3,9 @@
   :custom
   (use-dialog-box . nil)
   (exwm-input-line-mode-passthrough . t)
-  (exwm-manage-configurations '((t char-mode t)))
+  (mouse-autoselect-window . t)
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+  (focus-follows-mouse . t)
   :hook ((exwm-update-title-hook . (lambda () (exwm-workspace-rename-buffer exwm-title)))
 		 (exwm-input--input-mode-change-hook . force-modeline-update))
   :config
