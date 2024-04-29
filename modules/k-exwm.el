@@ -35,12 +35,10 @@
 (exwm-randr-enable)
 (setq exwm-input-global-keys
       `(
-        ([?\s-r] . exwm-reset)
         ([?\s-b] . windmove-left)
         ([?\s-f] . windmove-right)
         ([?\s-p] . windmove-up)
         ([?\s-n] . windmove-down)
-        ([?\s-O] . counsel-linux-app)
         ([?\s-`] . (lambda () (interactive) (exwm-workspace-switch-create 0)))
         ([?\s-w] . exwm-workspace-switch)
 		([?\s-m] . (lambda () (interactive) (exwm-layout-toggle-model-line) (exwm-workspace-toggle-minibuffer)))
@@ -55,6 +53,7 @@
         (,(kbd "s-\\") . exwm-floating-toggle-floating) ;; Toggle the current window between floating and non-floating states
         (,(kbd "s-Q") . exwm-layout-toggle-fullscreen) ;; Toggle fullscreen mode, when in an EXWM window.
         (,(kbd "s-D") . kill-this-buffer)
+		(,(kbd "s-'") . fhd/toggle-exwm-input-line-mode-passthrough)
         (,(kbd "s-<backspace>") . kill-this-buffer)
         ,@(mapcar (lambda (i)
                     `(,(kbd (format "s-%d" i)) .
@@ -91,6 +90,16 @@
       window-divider-default-right-width 2)
 
 (window-divider-mode 1)
+
+(defun fhd/toggle-exwm-input-line-mode-passthrough ()
+  (interactive)
+  (if exwm-input-line-mode-passthrough
+      (progn
+        (setq exwm-input-line-mode-passthrough nil)
+        (message "App receives all the keys now (with some simulation)"))
+    (progn
+      (setq exwm-input-line-mode-passthrough t)
+      (message "emacs receives all the keys now"))))
 
 (defun efs/set-wallpaper ()
   (interactive)
