@@ -147,6 +147,7 @@
 (setq-default default-frame-alist
               '((tool-bar-lines . 0)
                 (menu-bar-lines . 0)
+				(alpha-background . 65)
                 ;; (undecorated . t)
                 (vertical-scroll-bars . nil)
                 (horizontal-scroll-bars . nil)
