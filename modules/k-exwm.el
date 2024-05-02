@@ -63,6 +63,15 @@
                         (interactive)
                         (exwm-workspace-switch-create ,i))))
                   (number-sequence 0 9))))
+(leaf exwm-edit
+  :ensure t
+  :config
+  (add-to-list 'exwm-input-global-keys '([?\C-c ?\'] . exwm-edit--compose))
+  (add-to-list 'exwm-input-global-keys '([?\C-c ?\'] . exwm-edit--compose))
+  (defun k/on-exwm-edit-compose ()
+	(funcall 'org-mode))
+  ;; exwm-edit-compose-hook
+  (add-hook 'exwm-edit-compose-hook 'k/on-exwm-edit-compose))
 
 (setq exwm-input-simulation-keys
 	  '(
