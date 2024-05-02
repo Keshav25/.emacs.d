@@ -195,11 +195,12 @@
 ;;   (setq exwm-manage-configurations '((t char-mode t)))
 ;;   (evil-set-initial-state 'exwm-mode 'exwm-insert))
 
-
-(leaf exwm-edit
-  :ensure t
-  ;; exwm-edit-compose-hook
-  )
+(defun k/setup-vertical-monitor ()
+  "make vertical monitors more useful"
+  (interactive)
+  (golden-ratio-mode 0)
+  (window-divider-mode 0)
+  (centered-window-mode 0))
 
 (provide 'k-exwm)
 
