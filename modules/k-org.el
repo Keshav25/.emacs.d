@@ -95,6 +95,10 @@
   (leaf defcapture
 	:ensure t
 	:config
+	(defcapture todo () "Todo"
+	  :keys "t"
+	  :file "~/Documents/org/inbox.org"
+	  :template ("* %^{Title}"))
 	(defcapture protocol () "Protocol"
 	  :keys "p"
 	  :file "~/Documents/org/inbox.org"
