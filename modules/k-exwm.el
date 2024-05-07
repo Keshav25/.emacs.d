@@ -97,6 +97,14 @@
 		([?\M-d] . [C-S-right delete])
 		))
 
+;; (leaf exwm-firefox
+;;   :quelpa (exwm-firefox :fetcher codeberg :repo "emacs-weirdware/exwm-firefox")
+;;   :require t
+;;   :bind (:exwm-firefox-keymap
+;; 		 ("C-c C-f" . exwm-firefox-core-history-forward))
+;;   :config
+;;   (exwm-firefox-mode))
+
 (setq window-divider-default-bottom-width 2
       window-divider-default-right-width 2)
 
