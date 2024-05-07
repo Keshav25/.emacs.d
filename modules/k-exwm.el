@@ -202,6 +202,8 @@
   (window-divider-mode 0)
   (centered-window-mode 0))
 
+(exwm-init)
+
 (provide 'k-exwm)
 
 ;; (leaf exwm
