@@ -56,7 +56,7 @@
         (,(kbd "s-D") . kill-this-buffer)
 		(,(kbd "s-s") . split-and-follow-vertically)
 		(,(kbd "s-'") . fhd/toggle-exwm-input-line-mode-passthrough)
-        (,(kbd "s-<backspace>") . kill-this-buffer)
+        (,(kbd "s-c") . kill-buffer-and-window)
         ,@(mapcar (lambda (i)
                     `(,(kbd (format "s-%d" i)) .
                       (lambda ()
