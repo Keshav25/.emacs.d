@@ -6,7 +6,8 @@
   :bind (:vertico-map
 		 ("C-'" . vertico-quick-exit)
 		 ("C-i" . vertico-insert)
-		 ("C-w" . vertico-directory-delete-char)))
+		 ("C-w" . vertico-directory-delete-char)
+		 ("C-c C-c" . vertico-exit-input)))
 
 (leaf orderless
   :ensure t
