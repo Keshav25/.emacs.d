@@ -136,7 +136,8 @@
 						   ("REVIEW" font-lock-keyword-face bold)
 						   ("NOTE" success bold)
 						   ("DECPRECATED" font-lock-doc-face bold)))
-  :hook (org-mode prog-mode . hl-todo-mode))
+  :config
+  (hl-todo-mode 1))
 
 (leaf fontaine
   :ensure t)
