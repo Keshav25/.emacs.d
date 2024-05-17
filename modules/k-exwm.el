@@ -34,6 +34,8 @@
             (start-process-shell-command
              "xrandr" nil "xrandr --output eDP1 --mode 1920x1080 --pos 0x0 --rotate normal")))
 (exwm-randr-enable)
+
+;; TODO Add Volume Control Keybindings
 (setq exwm-input-global-keys
       `(
         ([?\s-b] . windmove-left)
@@ -95,6 +97,7 @@
 		([?\M-f] . [C-right])
 		([?\M-b] . [C-left])
 		([?\M-d] . [C-S-right delete])
+		([?\C-g] . [escape])
 		))
 
 ;; (leaf exwm-firefox
