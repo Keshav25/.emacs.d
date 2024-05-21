@@ -114,10 +114,14 @@
 	  :keys "e"
 	  :file "~/Documents/org/emacs-notes.org"
 	  :template ("* %^{Title}"))
-	(defcapture dumbs () "Brain Dumps"
+	(defcapture dumps () "Brain Dumps"
 	  :keys "d"
 	  :file "~/Documents/org/single-file.org"
 	  :template "* %^{Title}\n %i\n"))
+  (defcapture interests () "topics to research later"
+	:keys "i"
+	:file "~/Documents/org/inbox.org"
+	:template ("* %^{Title}"))
   (setq org-capture-templates (defcapture-captures)))
 
 ;; :custom
