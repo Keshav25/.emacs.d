@@ -130,4 +130,15 @@
   (setq browser-hist-default-browser 'firefox)
   :commands (browser-hist-search))
 
+(leaf atomic-chrome
+  :doc "must have Chrome Emacs extension in Chromium installed"
+  :quelpa (atomic-chrome
+		   :repo "KarimAziev/atomic-chrome"
+		   :fetcher github)
+  :commands (atomic-chrome-start-server)
+  :config
+  (setq-default atomic-chrome-extension-type-list '(atomic-chrome))
+  (atomic-chrome-start-server))
+
+
 (provide 'k-misc)
