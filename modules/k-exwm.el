@@ -104,6 +104,8 @@
   :quelpa (exwm-firefox :fetcher codeberg :repo "emacs-weirdware/exwm-firefox")
   :require t
   :bind (:exwm-firefox-keymap
+		 ("C-n" . exwm-firefox-core-down)
+		 ("C-p" . exwm-firefox-core-up)
 		 ("C-c C-f" . exwm-firefox-core-history-forward)
 		 ("C-c C-b" . exwm-firefox-core-history-back)
 		 ("C-c C-d" . exwm-firefox-core-tab-close)
