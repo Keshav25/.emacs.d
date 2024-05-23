@@ -123,4 +123,11 @@
 (leaf hyperdrive
   :ensure t)
 
+(leaf browser-hist
+  :after embark
+  :quelpa (browser-hist :fetcher github :repo "agzam/browser-hist.el")
+  :config
+  (setq browser-hist-default-browser 'firefox)
+  :commands (browser-hist-search))
+
 (provide 'k-misc)
