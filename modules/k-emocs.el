@@ -78,6 +78,11 @@
   ;;; Set API KEYs. It is recommended to use a function that returns the string for better security.
   )
 
+(leaf consult-org-roam
+  :ensure t
+  :config
+  (consult-org-roam-mode))
+
 (leaf avy-embark-collect
   :after (embark avy)
   :ensure t
