@@ -88,7 +88,21 @@
 								:html-head-include-default-style nil
 								:html-head-include-scripts nil
 								:html-preamble my-blog-header
-								:html-postamble my-blog-footer))))
+								:html-postamble my-blog-footer)
+							   ("roam"
+								:base-directory "~/org/roam/"
+								:base-extension "org"
+								:publishing-directory "~/org/zettelkasten/"
+								:recursive t
+								:publishing-function org-html-publish-to-html
+								:headline-levels 4
+								:section-numbers nil
+								:html-head nil
+								:html-head-include-default-style nil
+								:html-head-include-scripts nil
+								:html-preamble my-blog-header
+								:html-postamble my-blog-footer)
+							   )))
 
 (leaf org-capture
   :bind (("C-c c" . org-capture))
