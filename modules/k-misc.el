@@ -140,5 +140,7 @@
   (setq-default atomic-chrome-extension-type-list '(atomic-chrome))
   (atomic-chrome-start-server))
 
+(leaf casual
+  :ensure t)
 
 (provide 'k-misc)
