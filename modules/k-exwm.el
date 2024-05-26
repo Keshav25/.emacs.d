@@ -109,6 +109,8 @@
 		 ("C-c C-f" . exwm-firefox-core-history-forward)
 		 ("C-c C-b" . exwm-firefox-core-history-back)
 		 ("C-c C-d" . exwm-firefox-core-tab-close)
+		 ("M-k" . exwm-firefox-core-tab-next)
+		 ("M-j" . exwm-firefox-core-tab-previous)
 		 ("C-s" . exwm-firefox-core-find))
   :config
   (exwm-firefox-mode))
