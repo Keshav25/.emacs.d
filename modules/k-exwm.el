@@ -106,9 +106,9 @@
   :bind (:exwm-firefox-keymap
 		 ("C-n" . exwm-firefox-core-down)
 		 ("C-p" . exwm-firefox-core-up)
-		 ("C-c C-f" . exwm-firefox-core-history-forward)
-		 ("C-c C-b" . exwm-firefox-core-history-back)
-		 ("C-c C-d" . exwm-firefox-core-tab-close)
+		 ("C-S-f" . exwm-firefox-core-history-forward)
+		 ("C-S-b" . exwm-firefox-core-history-back)
+		 ("C-S-d" . exwm-firefox-core-tab-close)
 		 ("M-k" . exwm-firefox-core-tab-next)
 		 ("M-j" . exwm-firefox-core-tab-previous)
 		 ("C-s" . exwm-firefox-core-find))
@@ -116,7 +116,7 @@
   (exwm-firefox-mode))
 
 (setq window-divider-default-bottom-width 2
-      window-divider-default-right-width 2)
+	  window-divider-default-right-width 2)
 
 (window-divider-mode 1)
 
