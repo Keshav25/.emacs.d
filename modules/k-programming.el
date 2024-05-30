@@ -151,6 +151,10 @@
   :ensure t
   :hook (org-mode prog-mode . rainbow-delimiters-mode))
 
+(leaf paredit
+  :ensure t
+  :hook (emacs-lisp-mode-hook . enable-paredit-mode))
+
 (leaf moldable-emacs
   :init
   (require 'f)
