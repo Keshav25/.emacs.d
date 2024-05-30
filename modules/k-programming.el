@@ -16,8 +16,8 @@
   (eglot-autoshutdown . t))
 
 (leaf consult-eglot
-  :disabled t
   :after (eglot)
+  :disabled t
   :ensure t
   :bind (:eglot-mode-map ("s-t" . #'consult-eglot-symbols))) 
 
@@ -35,6 +35,7 @@
 		  ("RET" . newline))))
 
 (leaf corfu-terminal
+  :after corfu
   :ensure t
   :config
   (unless (display-graphic-p)
@@ -156,6 +157,7 @@
   :hook (emacs-lisp-mode-hook . enable-paredit-mode))
 
 (leaf moldable-emacs
+  :disabled t
   :init
   (require 'f)
   (if (f-directory-p "~/.emacs.d/site-lisp/moldable-emacs")
@@ -302,8 +304,8 @@
       (push (cons "ghcs" ghcs-methods) tramp-methods))))
 
 (leaf tramp-lsp
-  :disabled t
   :after (tramp lsp)
+  :disabled t
   :config
   ;; (lsp-register-client
   ;;  (make-lsp-client :new-connection (lsp-stdio-connection "gopls")
