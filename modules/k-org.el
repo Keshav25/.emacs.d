@@ -454,6 +454,37 @@
 (leaf hammy
   :quelpa (hammy :fetcher github :repo "alphapapa/hammy.el"))
 
+(leaf denote
+  :ensure t
+  :custom
+  (denote-directory . "~/Documents/notes/")
+  (denote-save-buffer-after-creation . nil)
+  (denote-known-keywords . '("emacs"
+							 "philosophy"
+							 "politics"
+							 "economics"
+							 "astrology"))
+  (denote-infer-keywords . t)
+  (denote-prompts . '(title keywords template))
+  (denote-templates . nil)
+  (denote-backlinks-show-context . t))
+
+(leaf denote-menu
+  :after (dmenu)
+  :ensure t)
+
+(leaf denote-refs
+  :after (dmenu)
+  :ensure t)
+
+(leaf citar-denote
+  :after (dmenu citar)
+  :ensure t)
+
+(leaf denote-explore
+  :after (dmenu)
+  :ensure t)
+
 ;; from https://www.reddit.com/r/emacs/comments/d54ogp/emacs_doom_e17_org_mode_checkboxes/
 ;; (add-hook 'org-mode-hook
 ;; 		  ;; TODO: Use add-to-list prettify-symbols-alist instead of "add-to-list", to avoid duplicates
