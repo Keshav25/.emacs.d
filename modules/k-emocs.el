@@ -83,12 +83,14 @@
   :config
   (consult-org-roam-mode))
 
-(leaf avy-embark-collect
-  :after (embark avy)
+(leaf avy
   :ensure t
   :bind
-  ;;jump to any character in any window
-  (("C-j" . 'avy-goto-char)))
+  (("M-N" . avy-goto-char)))
+
+(leaf avy-embark-collect
+  :after (embark avy)
+  :ensure t)
 
 ;; Which-Key
 (leaf which-key
