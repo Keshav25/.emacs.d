@@ -137,7 +137,15 @@
 	:keys "i"
 	:file "~/Documents/org/inbox.org"
 	:template ("* %^{Title}"))
-  (setq org-capture-templates (defcapture-captures)))
+  (setq org-capture-templates (defcapture-captures))
+  (add-to-list 'org-capture-templates
+			   '("n" "New note with Denote" plain
+				 (file denote-last-path)
+				 #'denote-org-capture
+				 :no-save t
+				 :immediate-finish nil
+				 :kill-buffer t
+				 :jump-to-captured t)))
 
 ;; :custom
 ;; (org-capture-templates
