@@ -115,7 +115,14 @@
 							:immediate-finish nil
 							:kill-buffer t
 							:jump-to-captured t)
-						   ("f" "fleeting notes" plain
+						   ("f" "Fleeting notes" plain
+							(file denote-last-path)
+							#'denote-org-capture
+							:no-save t
+							:immediate-finish nil
+							:kill-buffer t
+							:jump-to-captured t)
+						   ("b" "Books" plain
 							(file denote-last-path)
 							#'denote-org-capture
 							:no-save t
