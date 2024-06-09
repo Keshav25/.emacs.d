@@ -463,19 +463,23 @@
   (denote-org-capture-specifiers . "%?"))
 
 (leaf denote-menu
-  :after (dmenu)
+  :after (denote)
   :ensure t)
 
 (leaf denote-refs
-  :after (dmenu)
+  :after (denote)
   :ensure t)
 
 (leaf citar-denote
-  :after (dmenu citar)
+  :after (denote citar)
   :ensure t)
 
 (leaf denote-explore
-  :after (dmenu)
+  :after (denote)
+  :ensure t)
+
+(leaf consult-denote
+  :after (denote consult)
   :ensure t)
 
 ;; from https://www.reddit.com/r/emacs/comments/d54ogp/emacs_doom_e17_org_mode_checkboxes/
