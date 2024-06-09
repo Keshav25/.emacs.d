@@ -213,12 +213,12 @@
 ;;   (setq exwm-manage-configurations '((t char-mode t)))
 ;;   (evil-set-initial-state 'exwm-mode 'exwm-insert))
 
-(defun k/setup-vertical-monitor ()
+(defun k/toggle-fancy-windows ()
   "make vertical monitors more useful"
   (interactive)
-  (golden-ratio-mode 0)
-  (window-divider-mode 0)
-  (centered-window-mode 0))
+  (golden-ratio-mode)
+  (window-divider-mode)
+  (centered-window-mode))
 
 (exwm-init)
 
