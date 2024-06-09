@@ -144,4 +144,16 @@
   :doc "calculator program based on calc"
   :ensure t)
 
+(leaf number
+  :ensure t
+  :require t
+  ;; example keybindings
+  ;; (global-set-key (kbd "C-c C-+") 'number/add)
+  ;; (global-set-key (kbd "C-c C--") 'number/sub)
+  ;; (global-set-key (kbd "C-c C-*") 'number/multiply)
+  ;; (global-set-key (kbd "C-c C-/") 'number/divide)
+  ;; (global-set-key (kbd "C-c C-0") 'number/pad)
+  ;; (global-set-key (kbd "C-c C-=") 'number/eval)
+  )
+
 (provide 'k-misc)
