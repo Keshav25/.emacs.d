@@ -106,46 +106,22 @@
 
 (leaf org-capture
   :bind (("C-c c" . org-capture))
-  :config
-  (leaf defcapture
-	:ensure t
-	:config
-	(defcapture todo () "Todo"
-	  :keys "t"
-	  :file "~/Documents/org/inbox.org"
-	  :template ("* %^{Title}"))
-	(defcapture protocol () "Protocol"
-	  :keys "p"
-	  :file "~/Documents/org/inbox.org"
-	  :template ("* %^{Title}"
-				 "Source: %u, %c"
-				 "#+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?"))
-	(defcapture inbox () "Inbox"
-	  :keys "i"
-	  :file "~/Documents/org/inbox.org"
-	  :template ("* %^{Title}\n %a\n %i\n")
-	  :empty-lines 1)
-	(defcapture emacs () "Emacs"
-	  :keys "e"
-	  :file "~/Documents/org/emacs-notes.org"
-	  :template ("* %^{Title}"))
-	(defcapture dumps () "Brain Dumps"
-	  :keys "d"
-	  :file "~/Documents/org/single-file.org"
-	  :template "* %^{Title}\n %i\n"))
-  (defcapture interests () "topics to research later"
-	:keys "i"
-	:file "~/Documents/org/inbox.org"
-	:template ("* %^{Title}"))
-  (setq org-capture-templates (defcapture-captures))
-  (add-to-list 'org-capture-templates
-			   '("n" "New note with Denote" plain
-				 (file denote-last-path)
-				 #'denote-org-capture
-				 :no-save t
-				 :immediate-finish nil
-				 :kill-buffer t
-				 :jump-to-captured t)))
+  :custom
+  (org-capture-templates .
+						 '(("n" "New note with Denote" plain
+							(file denote-last-path)
+							#'denote-org-capture
+							:no-save t
+							:immediate-finish nil
+							:kill-buffer t
+							:jump-to-captured t)
+						   ("f" "fleeting notes" plain
+							(file denote-last-path)
+							#'denote-org-capture
+							:no-save t
+							:immediate-finish nil
+							:kill-buffer t
+							:jump-to-captured t))))
 
 ;; :custom
 ;; (org-capture-templates
@@ -475,7 +451,8 @@
   (denote-infer-keywords . t)
   (denote-prompts . '(title keywords template))
   (denote-templates . nil)
-  (denote-backlinks-show-context . t))
+  (denote-backlinks-show-context . t)
+  (denote-org-capture-specifiers . "%?"))
 
 (leaf denote-menu
   :after (dmenu)
@@ -495,8 +472,8 @@
 
 ;; from https://www.reddit.com/r/emacs/comments/d54ogp/emacs_doom_e17_org_mode_checkboxes/
 ;; (add-hook 'org-mode-hook
-;; 		  ;; TODO: Use add-to-list prettify-symbols-alist instead of "add-to-list", to avoid duplicates
-;; 		  (lambda () "Beautify Org Checkbox Symbol"
+;; 		  ;; TODO: Use add-to-list prettify-symbols-alist instead of add-to-list"", to avoid duplicates
+;; 		  (lambda () ")Beautify Org Checkbox Symbol"
 ;;             ;; These are nice unicode characters for checkboxes: ☐ ☑ ☒
 ;;             (add-to-list prettify-symbols-alist '("TODO" . "☐") )
 ;;             (add-to-list prettify-symbols-alist '("NEXT" . "Δ" ) )
