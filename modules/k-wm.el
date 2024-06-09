@@ -4,7 +4,6 @@
 (setq window-divider-default-places t
 	  window-divider-default-bottom-width 1
 	  window-divider-default-right-width 1)
-(window-divider-mode 1)
 
 ;; Split Thresholds
 (setq split-width-threshold 160
@@ -93,9 +92,7 @@
 (leaf windmove :ensure t)
 
 (leaf centered-window
-  :ensure t
-  :config
-  (centered-window-mode 1))
+  :ensure t)
 
 (leaf balanced-windows
   :ensure t
@@ -213,8 +210,7 @@ if there is no window on the right."
 
 (leaf golden-ratio
   :ensure t
-  :config
-  (golden-ratio-mode 1))
+  :config)
 
 (leaf hydra
   :ensure t
