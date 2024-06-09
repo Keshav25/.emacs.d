@@ -454,7 +454,8 @@
 							 "philosophy"
 							 "politics"
 							 "economics"
-							 "astrology"))
+							 "astrology"
+							 "books"))
   (denote-infer-keywords . t)
   (denote-prompts . '(title keywords template))
   (denote-templates . nil)
