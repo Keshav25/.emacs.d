@@ -447,6 +447,8 @@
 
 (leaf denote
   :ensure t
+  :init
+  (denote-rename-buffer-mode 1)
   :custom
   (denote-directory . "~/Documents/notes/")
   (denote-save-buffer-after-creation . nil)
@@ -460,7 +462,9 @@
   (denote-prompts . '(title keywords template))
   (denote-templates . nil)
   (denote-backlinks-show-context . t)
-  (denote-org-capture-specifiers . "%?"))
+  (denote-org-capture-specifiers . "%?")
+  (denote-date-prompt-use-org-read-date . t)
+  :hook (dired-mode-hook . denote-dired-mode))
 
 (leaf denote-menu
   :after (denote)
