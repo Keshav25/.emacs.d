@@ -84,5 +84,3 @@
 	(k/phone-configuration))
 
 (alert "emacs has loaded")
-
-(provide 'config)
