@@ -321,7 +321,7 @@
 
 (leaf org-download
   :ensure t
-  :hook ((dired-mode . org-download-enable)
+  :hook ((Dir . org-download-enable)
 		 (org-mode . org-download-enable)))
 
 (leaf org-contacts :ensure t)
