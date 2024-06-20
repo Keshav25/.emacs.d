@@ -56,6 +56,7 @@
   (setq org-cycle-separator-lines 1)
   :custom
   (org-refile-targets . '((org-agenda-files :maxlevel . 3)))
+  (org-agenda-window-setup . 'current-window)
   :hook ((org-agenda-finalize . org-modern-agenda)
 		 (org-agenda-finalize . hl-line-mode)))
 
@@ -87,34 +88,47 @@
 								:html-head-include-default-style nil
 								:html-head-include-scripts nil
 								:html-preamble my-blog-header
-								:html-postamble my-blog-footer))))
+								:html-postamble my-blog-footer)
+							   ("roam"
+								:base-directory "~/org/roam/"
+								:base-extension "org"
+								:publishing-directory "~/org/zettelkasten/"
+								:recursive t
+								:publishing-function org-html-publish-to-html
+								:headline-levels 4
+								:section-numbers nil
+								:html-head nil
+								:html-head-include-default-style nil
+								:html-head-include-scripts nil
+								:html-preamble my-blog-header
+								:html-postamble my-blog-footer)
+							   )))
 
 (leaf org-capture
   :bind (("C-c c" . org-capture))
-  :config
-  (leaf defcapture
-	:ensure t
-	:config
-	(defcapture protocol () "Protocol"
-	  :keys "p"
-	  :file "~/Documents/org/inbox.org"
-	  :template ("* %^{Title}"
-				 "Source: %u, %c"
-				 "#+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?"))
-	(defcapture inbox () "Inbox"
-	  :keys "i"
-	  :file "~/Documents/org/inbox.org"
-	  :template ("* %^{Title}\n %a\n %i\n")
-	  :empty-lines 1)
-	(defcapture emacs () "Emacs"
-	  :keys "e"
-	  :file "~/Documents/org/emacs-notes.org"
-	  :template ("* %^{Title}"))
-	(defcapture dumbs () "Brain Dumps"
-	  :keys "d"
-	  :file "~/Documents/org/single-file.org"
-	  :template "* %^{Title}\n %i\n"))
-  (setq org-capture-templates (defcapture-captures)))
+  :custom
+  (org-capture-templates .
+						 '(("n" "New note with Denote" plain
+							(file denote-last-path)
+							#'denote-org-capture
+							:no-save t
+							:immediate-finish nil
+							:kill-buffer t
+							:jump-to-captured t)
+						   ("f" "Fleeting notes" plain
+							(file denote-last-path)
+							#'denote-org-capture
+							:no-save t
+							:immediate-finish nil
+							:kill-buffer t
+							:jump-to-captured t)
+						   ("b" "Books" plain
+							(file denote-last-path)
+							#'denote-org-capture
+							:no-save t
+							:immediate-finish nil
+							:kill-buffer t
+							:jump-to-captured t))))
 
 ;; :custom
 ;; (org-capture-templates
@@ -172,7 +186,7 @@
 ;; Evil Org
 (leaf evil-org
   :ensure t
-  :after org
+  :after (evil org)
   :hook (org-mode . (lambda () (evil-org-mode)))
   :config
   (require 'evil-org-agenda)
@@ -333,7 +347,7 @@
 (leaf org-kanban :ensure t)
 (leaf org-appear :ensure t)
 (leaf org-emms :ensure t)
-(leaf org-evil :ensure t)
+(leaf org-evil :after evil :ensure t)
 (leaf org-edna :ensure t)
 (leaf org-ref :ensure t)
 (leaf org-msg :ensure t)
@@ -431,10 +445,51 @@
 (leaf hammy
   :quelpa (hammy :fetcher github :repo "alphapapa/hammy.el"))
 
+(leaf denote
+  :ensure t
+  :init
+  (denote-rename-buffer-mode 1)
+  :custom
+  (denote-directory . "~/Documents/notes/")
+  (denote-save-buffer-after-creation . nil)
+  (denote-known-keywords . '("emacs"
+							 "philosophy"
+							 "politics"
+							 "economics"
+							 "astrology"
+							 "books"))
+  (denote-infer-keywords . t)
+  (denote-prompts . '(title keywords template))
+  (denote-templates . nil)
+  (denote-backlinks-show-context . t)
+  (denote-org-capture-specifiers . "%?")
+  (denote-date-prompt-use-org-read-date . t)
+  :hook (dired-mode-hook . denote-dired-mode))
+
+(leaf denote-menu
+  :after (denote)
+  :ensure t)
+
+(leaf denote-refs
+  :after (denote)
+  :ensure t)
+
+(leaf citar-denote
+  :after (denote citar)
+  :ensure t)
+
+(leaf denote-explore
+  :after (denote)
+  :ensure t)
+
+(leaf consult-denote
+  :after (denote consult)
+  :ensure t)
+
 ;; from https://www.reddit.com/r/emacs/comments/d54ogp/emacs_doom_e17_org_mode_checkboxes/
 ;; (add-hook 'org-mode-hook
-;; 		  ;; TODO: Use add-to-list prettify-symbols-alist instead of "add-to-list", to avoid duplicates
-;; 		  (lambda () "Beautify Org Checkbox Symbol"
+;; 		  ;; TODO: Use add-to-list prettify-symbols-alist instead of add-to-list"", to avoid duplicates
+;; 		  (lambda () ")Beautify Org Checkbox Symbol"
 ;;             ;; These are nice unicode characters for checkboxes: ☐ ☑ ☒
 ;;             (add-to-list prettify-symbols-alist '("TODO" . "☐") )
 ;;             (add-to-list prettify-symbols-alist '("NEXT" . "Δ" ) )

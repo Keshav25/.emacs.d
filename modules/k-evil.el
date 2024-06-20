@@ -1,4 +1,5 @@
 (leaf evil
+  :disabled t
   :ensure t
   :after (key-chord)
   :leaf-defer nil
@@ -55,28 +56,31 @@
 
 ;; Honestly might be better to make my own package
 (leaf evil-extra-operator
+  :after evil
   :ensure t
   :bind (:evil-motion-state-map
 		 ("gs" . evil-operator-google-translate))
   :config
   (require 'evil-extra-operator)
   (evil-define-operator evil-operator-google-search (beg end type)
-	"Evil operator for google search."
-	:move-point nil
-	(interactive "<R>")
-	(browse-url
-	 (concat "http://www.startpage.com/search?q="
-			 (url-hexify-string
-			  (.eeo/make-url-args beg end type)))))
+						"Evil operator for google search."
+						:move-point nil
+						(interactive "<R>")
+						(browse-url
+						 (concat "http://www.startpage.com/search?q="
+								 (url-hexify-string
+								  (.eeo/make-url-args beg end type)))))
   (global-evil-extra-operator-mode 1))
 
 (leaf evil-exchange
+  :after evil
   :ensure t
   :config
   (evil-exchange-install))
 
 ;; Evil Escape
 (leaf evil-escape
+  :after evil
   :ensure t
   :config
   (evil-escape-mode)
@@ -87,6 +91,7 @@
 
 
 (leaf evil-goggles
+  :after evil
   :ensure t
   :config
   (evil-goggles-mode)
@@ -96,11 +101,13 @@
 
 ;; Evil Surround
 (leaf evil-surround
+  :after evil
   :ensure t
   :config
   (global-evil-surround-mode 1))
 
 (leaf evil-nerd-commenter
+  :after evil
   :ensure t
   :init
   (evilnc-default-hotkeys t) ;;only enables for emacs state
@@ -166,6 +173,7 @@
 ;; Evil God State
 
 (leaf evil-god-state
+  :after evil
   :ensure t
   :bind (:evil-normal-state-map
 		 (",". evil-execute-in-god-state)
@@ -193,10 +201,11 @@
 ;;   (global-undo-tree-mode 1))
 
 (leaf evil-embrace
+  :after evil
   :ensure t)
 
 (leaf evil-textobj-tree-sitter
-  :after (which-key)
+  :after (which-key evil)
   :require t
   :ensure t
   :custom

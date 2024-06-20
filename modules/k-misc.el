@@ -123,4 +123,37 @@
 (leaf hyperdrive
   :ensure t)
 
+(leaf browser-hist
+  :after embark
+  :quelpa (browser-hist :fetcher github :repo "agzam/browser-hist.el")
+  :config
+  (setq browser-hist-default-browser 'firefox)
+  :commands (browser-hist-search))
+
+(leaf atomic-chrome
+  :doc "must have Chrome Emacs extension in Chromium installed"
+  :quelpa (atomic-chrome
+		   :repo "KarimAziev/atomic-chrome"
+		   :fetcher github)
+  :commands (atomic-chrome-start-server)
+  :config
+  (setq-default atomic-chrome-extension-type-list '(atomic-chrome))
+  (atomic-chrome-start-server))
+
+(leaf casual
+  :doc "calculator program based on calc"
+  :ensure t)
+
+(leaf number
+  :ensure t
+  :require t
+  ;; example keybindings
+  ;; (global-set-key (kbd "C-c C-+") 'number/add)
+  ;; (global-set-key (kbd "C-c C--") 'number/sub)
+  ;; (global-set-key (kbd "C-c C-*") 'number/multiply)
+  ;; (global-set-key (kbd "C-c C-/") 'number/divide)
+  ;; (global-set-key (kbd "C-c C-0") 'number/pad)
+  ;; (global-set-key (kbd "C-c C-=") 'number/eval)
+  )
+
 (provide 'k-misc)

@@ -16,8 +16,8 @@
   (eglot-autoshutdown . t))
 
 (leaf consult-eglot
-  :disabled t
   :after (eglot)
+  :disabled t
   :ensure t
   :bind (:eglot-mode-map ("s-t" . #'consult-eglot-symbols))) 
 
@@ -35,6 +35,7 @@
 		  ("RET" . newline))))
 
 (leaf corfu-terminal
+  :after corfu
   :ensure t
   :config
   (unless (display-graphic-p)
@@ -151,7 +152,53 @@
   :ensure t
   :hook (org-mode prog-mode . rainbow-delimiters-mode))
 
+(leaf paredit
+  :ensure t
+  :hook (emacs-lisp-mode-hook . enable-paredit-mode))
+
+(leaf paredit-everywhere
+  ;; Original is by Steve Purcell
+  :after (paredit)
+  :config
+  (require 'paredit)
+
+  (defvar paredit-everywhere-mode-map
+	(let ((m (make-sparse-keymap)))
+      (define-key m (kbd "C-)") 'paredit-forward-slurp-sexp)
+      (define-key m (kbd "C-}") 'paredit-forward-barf-sexp)
+      (define-key m (kbd "M-(") 'paredit-wrap-round)
+      (define-key m (kbd "M-)") 'paredit-close-round-and-newline)
+      (define-key m (kbd "M-]") 'paredit-close-square-and-newline)
+      (define-key m (kbd "M-\"") 'paredit-meta-doublequote)
+      (define-key m (kbd "M-S") 'paredit-split-sexp)
+      (define-key m (kbd "M-J") 'paredit-join-sexps)
+      (define-key m (kbd "M-s") 'paredit-splice-sexp)
+      (define-key m (kbd "M-r") 'paredit-raise-sexp)
+      (define-key m (kbd "M-DEL") 'paredit-backward-kill-word)
+      (define-key m (kbd "M-d") 'paredit-forward-kill-word)
+	  (define-key m (kbd "C-k") 'paredit-kill)
+      m)
+	"Keymap for `paredit-everywhere-mode'.")
+
+;;;###autoload
+  (define-minor-mode paredit-everywhere-mode
+	"A cut-down version of paredit which can be used in non-lisp buffers."
+	:lighter " Par-"
+	:keymap paredit-everywhere-mode-map)
+
+  (defun turn-off-paredit-everywhere-mode ()
+	"Disable `paredit-everywhere-mode'."
+	(paredit-everywhere-mode 0))
+
+  ;; Disable paredit-everywhere when full paredit is enabled
+  (add-hook 'paredit-mode-hook 'turn-off-paredit-everywhere-mode)
+  )
+
+(leaf paredit-menu
+  :ensure t)
+
 (leaf moldable-emacs
+  :disabled t
   :init
   (require 'f)
   (if (f-directory-p "~/.emacs.d/site-lisp/moldable-emacs")
@@ -298,8 +345,8 @@
       (push (cons "ghcs" ghcs-methods) tramp-methods))))
 
 (leaf tramp-lsp
-  :disabled t
   :after (tramp lsp)
+  :disabled t
   :config
   ;; (lsp-register-client
   ;;  (make-lsp-client :new-connection (lsp-stdio-connection "gopls")

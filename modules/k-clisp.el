@@ -20,11 +20,5 @@
   :after evil
   :ensure t)
 
-(leaf evil-paredit
-  :ensure t)
-
-(leaf paredit-everywhere
-  :ensure t)
-
 (leaf sly-quicklisp
   :ensure t)

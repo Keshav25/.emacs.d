@@ -34,14 +34,14 @@
 				  (edit-server-start)))))
 
 (leaf eaf
-  :load-path "~/.cache/emacs/quelpa/build/eaf"
+  :load-path "~/.emacs.d/quelpa/build/eaf"
   :quelpa (eaf :fetcher github :repo "emacs-eaf/emacs-application-framework")
-  :require t
   :init
   (leaf epc :ensure t)
   (leaf ctable :ensure t)
   (leaf deferred :ensure t)
   (leaf s :ensure t)
+  ;; (require 'eaf)
   :setq
   (browser-url-browser-function . 'eaf-open-browser)
   (eaf-browser-default-search-engine . "duckduckgo")
@@ -158,7 +158,6 @@
   :setq
   (inhibit-startup-screen . t)
   :config
-  (eshell)
-  (evil-emacs-state))
+  (eshell))
 
 (provide 'k-os)

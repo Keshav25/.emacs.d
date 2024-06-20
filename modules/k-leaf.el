@@ -31,7 +31,9 @@
   :bind (("C-c f l" . leaf-find)))
 
 (leaf quelpa :ensure t)
+
 (leaf quelpa-leaf
+  :after leaf
   :ensure t
   :require t
   :config
@@ -46,15 +48,20 @@
 
 ;; leaf-keywords
 (leaf leaf-keywords
+  :after leaf
   :ensure t
   :config
   (leaf-keywords-init))
 
 ;; leaf-convert
-(leaf leaf-convert :ensure t)
+(leaf leaf-convert
+  :after leaf
+  :ensure t)
 
 ;; leaf-manager
-(leaf leaf-manager :ensure t)
+(leaf leaf-manager
+  :after leaf
+  :ensure t)
 
 ;; macrostep
 (leaf macrostep

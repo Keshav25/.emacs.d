@@ -1,41 +1,9 @@
-;; (leaf nano-modeline
-;;   :ensure t
-;;   :require t
-;;   :config
-;;   (require 'nano-modeline)
-;;   ;; (add-hook 'prog-mode-hook            #'nano-modeline-prog-mode)
-;;   ;; (add-hook 'text-mode-hook            #'nano-modeline-text-mode)
-;;   ;; (add-hook 'org-mode-hook             #'nano-modeline-org-mode)
-;;   ;; (add-hook 'pdf-view-mode-hook        #'nano-modeline-pdf-mode)
-;;   ;; (add-hook 'mu4e-headers-mode-hook    #'nano-modeline-mu4e-headers-mode)
-;;   ;; (add-hook 'mu4e-view-mode-hook       #'nano-modeline-mu4e-message-mode)
-;;   ;; (add-hook 'elfeed-show-mode-hook     #'nano-modeline-elfeed-entry-mode)
-;;   ;; (add-hook 'elfeed-search-mode-hook   #'nano-modeline-elfeed-search-mode)
-;;   ;; (add-hook 'term-mode-hook            #'nano-modeline-term-mode)
-;;   ;; (add-hook 'xwidget-webkit-mode-hook  #'nano-modeline-xwidget-mode)
-;;   ;; (add-hook 'messages-buffer-mode-hook #'nano-modeline-message-mode)
-;;   ;; (add-hook 'org-capture-mode-hook     #'nano-modeline-org-capture-mode)
-;;   ;; (add-hook 'org-agenda-mode-hook      #'nano-modeline-org-agenda-mode)
-;;   (nano-modeline-mode 1))
-
-(leaf smart-modeline
-  :disabled t
-  :ensure t
-  :config
-  (leaf smart-mode-line-powerline-theme
-	:ensure t)
-  (leaf smart-mode-line-atom-one-dark-theme
-	:ensure t)
-  (setq sml/theme 'atom-one-dark)
-  (sml/setup))
-
 (winner-mode 1)
 
 ;; Window Divider Mode
 (setq window-divider-default-places t
 	  window-divider-default-bottom-width 1
 	  window-divider-default-right-width 1)
-(window-divider-mode 1)
 
 ;; Split Thresholds
 (setq split-width-threshold 160
@@ -124,9 +92,7 @@
 (leaf windmove :ensure t)
 
 (leaf centered-window
-  :ensure t
-  :config
-  (centered-window-mode 1))
+  :ensure t)
 
 (leaf balanced-windows
   :ensure t
@@ -244,8 +210,7 @@ if there is no window on the right."
 
 (leaf golden-ratio
   :ensure t
-  :config
-  (golden-ratio-mode 1))
+  :config)
 
 (leaf hydra
   :ensure t

@@ -7,6 +7,7 @@
   (eshell-smart-space-goes-to-end . t))
 
 (leaf eshell-icat
+  :after eshell
   :config
   ;; Eshell mycat command
   ;; To know if I need to print as image or I need to default to the default eshell/cat
@@ -31,6 +32,7 @@
 	nil))
 
 (leaf esh-help
+  :after eshell
   :ensure t
   :require t
   :config
@@ -40,8 +42,8 @@
   :ensure t)
 
 (leaf eshell-prompt-extras
-  :ensure t
   :after (eshell virtualenvwrapper)
+  :ensure t
   :config
   (with-eval-after-load "esh-opt"
 	(when (package-installed-p 'virtualenvwrapper)
@@ -53,29 +55,33 @@
 		eshell-prompt-function 'epe-theme-lambda))
 
 (leaf eshell-z
-  :ensure t
   :after eshell
+  :ensure t
   :require t)
 
 (leaf eshell-vterm
-  :ensure t
   :after (eshell vterm)
+  :ensure t
   :config
   (eshell-vterm-mode 1)
   (defalias 'eshell/v 'eshell-exec-visual))
 
 (leaf eshell-bookmark
+  :after eshell
   :ensure t)
 
 (leaf eshell-did-you-mean
+  :after eshell
   :ensure t
   :config
   (eshell-did-you-mean-setup))
 
 (leaf eshell-syntax-highlighting
+  :after eshell
   :ensure t)
 
 (leaf eat
+  :after eshell
   :ensure t
   :hook ((eshell-load-hook . eat-eshell-mode)
 		 ;; since htop doesn't work with the former
