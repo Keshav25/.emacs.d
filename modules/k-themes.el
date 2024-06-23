@@ -155,4 +155,9 @@
 (set-face-background 'default nil)
 (set-face-attribute 'default nil)
 
+(leaf doom-modeline
+  :ensure t
+  :config
+  (doom-modeline-mode 1))
+
 (provide 'k-themes)
