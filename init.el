@@ -212,5 +212,5 @@
 ;; load libraries
 ;; (load-library "f")
 
-(load-file "config.el")
+(load-file "./config.el")
 (provide 'init)
