@@ -20,6 +20,3 @@ for date, files in dates.items():
 
 for date, calories in table.items():
     print(date, sum(map(lambda x: int(x) if x else 0, calories[1::2])))
-            
-
-
