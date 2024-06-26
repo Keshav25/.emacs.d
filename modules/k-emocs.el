@@ -143,9 +143,9 @@
 
 (leaf placeholder
   :quelpa (placeholder :fetcher github :repo "oantolin/placeholder")
-  :bind (("C-S-n" . placeholder-forward)
-		 ("C-S-p" . placeholder-backward)
-		 ("C-S-x" . placeholder-insert)))
+  :bind (("M-n" . placeholder-forward)
+		 ("M-p" . placeholder-backward)
+		 ("M-o" . placeholder-insert)))
 
 ;; (leaf hyperbole
 ;;   :ensure t)
