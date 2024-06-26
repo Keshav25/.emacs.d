@@ -142,10 +142,11 @@
   (yas-prompt-functions . '(yas-completing-prompt)))
 
 (leaf placeholder
+  ;; TODO Remember to bind EXT key + top row for these bindings on the ZSA Voyager
   :quelpa (placeholder :fetcher github :repo "oantolin/placeholder")
-  :bind (("M-n" . placeholder-forward)
-		 ("M-p" . placeholder-backward)
-		 ("M-o" . placeholder-insert)))
+  :bind (("C-c p n" . placeholder-forward)
+		 ("C-c p p" . placeholder-backward)
+		 ("C-c p i" . placeholder-insert)))
 
 ;; (leaf hyperbole
 ;;   :ensure t)
