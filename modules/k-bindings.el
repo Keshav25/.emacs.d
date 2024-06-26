@@ -1,3 +1,7 @@
+(leaf expand-region
+  :ensure t
+  :bind (("C-=" . er/expand-region)))
+
 (leaf embrace
   :ensure t)
 
