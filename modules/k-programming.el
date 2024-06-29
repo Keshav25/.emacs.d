@@ -192,6 +192,7 @@
 
   ;; Disable paredit-everywhere when full paredit is enabled
   (add-hook 'paredit-mode-hook 'turn-off-paredit-everywhere-mode)
+  (paredit-everywhere-mode 1)
   )
 
 (leaf paredit-menu
