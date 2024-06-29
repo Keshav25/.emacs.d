@@ -425,10 +425,10 @@
   :ensure t
   :require t
   :config
-  (repl-driven-development [C-x C-j] java)       ;; e“X”ecute “j”ava
-  (repl-driven-development [C-x C-n] javascript) ;; e“X”ecute “n”odejs
-  (repl-driven-development [C-x C-p] python)     ;; e“X”ecute “p”ython
+  (repl-driven-development [C-x C-j] java)       
+  (repl-driven-development [C-x C-n] javascript) 
+  (repl-driven-development [C-x C-p] python)
+  (repl-driven-development [C-x C-a] php)     
   (repl-driven-development [C-x C-t] terminal))
-;; e“X”ecute “t”erminal
 
 (provide 'k-programming)
