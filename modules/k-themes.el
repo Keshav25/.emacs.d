@@ -128,6 +128,7 @@
 (leaf hl-todo
   :ensure t
   :custom
+  (hl-todo-color-background . t)
   (hl-todo-highlight-punctuation . ":")
   (hl-todo-keyword-faces .
 						 `(("TODO" warning bold)

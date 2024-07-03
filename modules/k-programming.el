@@ -192,6 +192,7 @@
 
   ;; Disable paredit-everywhere when full paredit is enabled
   (add-hook 'paredit-mode-hook 'turn-off-paredit-everywhere-mode)
+  (paredit-everywhere-mode 1)
   )
 
 (leaf paredit-menu
@@ -420,5 +421,15 @@
 
 (leaf obvious
   :quelpa (obvious :fetcher github :repo "alphapapa/obvious.el"))
+
+(leaf repl-driven-development
+  :ensure t
+  :require t
+  :config
+  (repl-driven-development [C-x C-j] java)       
+  (repl-driven-development [C-x C-n] javascript) 
+  (repl-driven-development [C-x C-p] python)
+  (repl-driven-development [C-x C-a] php)     
+  (repl-driven-development [C-x C-t] terminal))
 
 (provide 'k-programming)

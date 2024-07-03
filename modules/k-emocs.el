@@ -28,7 +28,7 @@
   ;; (completion-in-region-function . #'consult-completion-in-region)
   (xref-show-xrefs-function . #'consult-xref)
   (xref-show-definitions-function . #'consult-xref)
-  (consult-project-root-function . #'deadgrep--project-root)) ;; ensure ripgrep works)
+  (consult-project-root-function . #'deadgrep--project-root))
 
 (leaf consult-dir
   :ensure t
@@ -142,10 +142,11 @@
   (yas-prompt-functions . '(yas-completing-prompt)))
 
 (leaf placeholder
+  ;; TODO Remember to bind EXT key + top row for these bindings on the ZSA Voyager
   :quelpa (placeholder :fetcher github :repo "oantolin/placeholder")
-  :bind (("C-S-n" . placeholder-forward)
-		 ("C-S-p" . placeholder-backward)
-		 ("C-S-x" . placeholder-insert)))
+  :bind (("C-c p n" . placeholder-forward)
+		 ("C-c p p" . placeholder-backward)
+		 ("C-c p i" . placeholder-insert)))
 
 ;; (leaf hyperbole
 ;;   :ensure t)
