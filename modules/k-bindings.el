@@ -98,3 +98,9 @@
 	 '("<escape>" . ignore)))
   (meow-setup)
   (meow-global-mode 1))
+
+(leaf meow-tree-sitter
+  :ensure t
+  :require t
+  :config
+  (meow-tree-sitter-register-defaults))
