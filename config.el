@@ -68,7 +68,11 @@
   (require 'k-vc)
 
   ;; OS
-  (require 'k-os))
+  (require 'k-os)
+
+  ;; Meow
+  (require 'k-bindings)
+  )
 
 (defun k/phone-configuration ()
   ;; Evil
