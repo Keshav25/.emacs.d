@@ -389,25 +389,28 @@
 (leaf turbo-log
   :quelpa (turbo-log :fetcher github :repo "artawower/turbo-log.el"))
 
-;; (use-package macrursors
-;;   :config
-;;   (dolist (mode '(corfu-mode goggles-mode beacon-mode))
-;;     (add-hook 'macrursors-pre-finish-hook mode)
-;;     (add-hook 'macrursors-post-finish-hook mode))
-;;   (define-prefix-command 'macrursors-mark-map)
-;;   (global-set-key (kbd "C-c SPC") #'macrursors-select)
-;;   (global-set-key (kbd "C->") #'macrursors-mark-next-instance-of)
-;;   (global-set-key (kbd "C-<") #'macrursors-mark-previous-instance-of)
-;;   (global-set-key (kbd "C-;") 'macrursors-mark-map)
-;;   (define-key macrursors-mark-map (kbd "C-;") #'macrursors-mark-all-lines-or-instances)
-;;   (define-key macrursors-mark-map (kbd ";") #'macrursors-mark-all-lines-or-instances)
-;;   (define-key macrursors-mark-map (kbd "l") #'macrursors-mark-all-lists)
-;;   (define-key macrursors-mark-map (kbd "s") #'macrursors-mark-all-symbols)
-;;   (define-key macrursors-mark-map (kbd "e") #'macrursors-mark-all-sexps)
-;;   (define-key macrursors-mark-map (kbd "f") #'macrursors-mark-all-defuns)
-;;   (define-key macrursors-mark-map (kbd "n") #'macrursors-mark-all-numbers)
-;;   (define-key macrursors-mark-map (kbd ".") #'macrursors-mark-all-sentences)
-;;   (define-key macrursors-mark-map (kbd "r") #'macrursors-mark-all-lines))
+(leaf macrursors
+  :disabled t  
+  :quelpa (macrusors :fetcher github :repo "corytertel/macrursors")
+  :require t
+  :config
+  (dolist (mode '(corfu-mode goggles-mode beacon-mode))
+	(add-hook 'macrursors-pre-finish-hook mode)
+	(add-hook 'macrursors-post-finish-hook mode))
+  (define-prefix-command 'macrursors-mark-map)
+  (global-set-key (kbd "C-c SPC") #'macrursors-select)
+  (global-set-key (kbd "C->") #'macrursors-mark-next-instance-of)
+  (global-set-key (kbd "C-<") #'macrursors-mark-previous-instance-of)
+  (global-set-key (kbd "C-;") 'macrursors-mark-map)
+  (define-key macrursors-mark-map (kbd "C-;") #'macrursors-mark-all-lines-or-instances)
+  (define-key macrursors-mark-map (kbd ";") #'macrursors-mark-all-lines-or-instances)
+  (define-key macrursors-mark-map (kbd "l") #'macrursors-mark-all-lists)
+  (define-key macrursors-mark-map (kbd "s") #'macrursors-mark-all-symbols)
+  (define-key macrursors-mark-map (kbd "e") #'macrursors-mark-all-sexps)
+  (define-key macrursors-mark-map (kbd "f") #'macrursors-mark-all-defuns)
+  (define-key macrursors-mark-map (kbd "n") #'macrursors-mark-all-numbers)
+  (define-key macrursors-mark-map (kbd ".") #'macrursors-mark-all-sentences)
+  (define-key macrursors-mark-map (kbd "r") #'macrursors-mark-all-lines))
 
 (leaf devdocs
   :ensure t
@@ -429,7 +432,41 @@
   (repl-driven-development [C-x C-j] java)       
   (repl-driven-development [C-x C-n] javascript) 
   (repl-driven-development [C-x C-p] python)
-  (repl-driven-development [C-x C-a] php)     
   (repl-driven-development [C-x C-t] terminal))
+
+(leaf cider
+  :ensure t
+  :require t
+  :config
+  (autoload 'cider--make-result-overlay "cider-overlays")
+  
+  (defun k/eval-overlay (value point)
+	"Evaluate Elisp with a Cider Overlay"
+	(cider--make-result-overlay (format "%S" value)
+	  :where point
+	  :duration 'command)
+	value)
+
+  (advice-add 'eval-region :around
+			  (lambda (func beg end &rest region)
+				(k/eval-overlay
+				 (apply func beg end region)
+				 end)))
+  
+  (advice-add 'eval-last-sexp :filter-return
+			  (lambda (region)
+				(k/eval-overlay region (point))))
+
+  (advice-add 'eval-defun :filter-return
+			  (lambda (region)
+				(k/eval/overlay region
+								(save-excursion
+								  (end-of-defun)
+								  (point))))))
+
+(leaf rainbow-mode
+  :ensure t
+  :config
+  (rainbow-mode 1))
 
 (provide 'k-programming)
