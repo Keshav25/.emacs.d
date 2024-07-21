@@ -17,11 +17,13 @@
   :config
   (defun meow-setup ()
 	(setq meow-cheatsheet-layout meow-cheatsheet-layout-colemak)
+
 	(meow-motion-overwrite-define-key
 	 ;; Use e to move up, n to move down.
 	 ;; Since special modes usually use n to move down, we only overwrite e here.
 	 '("e" . meow-prev)
 	 '("<escape>" . ignore))
+
 	(meow-leader-define-key
 	 '("?" . meow-cheatsheet)
 	 ;; To execute the originally e in MOTION state, use SPC e.
@@ -36,6 +38,7 @@
 	 '("8" . meow-digit-argument)
 	 '("9" . meow-digit-argument)
 	 '("0" . meow-digit-argument))
+	
 	(meow-normal-define-key
 	 '("0" . meow-expand-0)
 	 '("1" . meow-expand-1)
@@ -95,6 +98,7 @@
 	 '("y" . meow-save)
 	 '("z" . meow-pop-selection)
 	 '("'" . repeat)
+	 '("<backspace>" . meow-left)
 	 '("<escape>" . ignore)))
   (meow-setup)
   (meow-global-mode 1))
