@@ -45,8 +45,7 @@
   :setq
   (browser-url-browser-function . 'eaf-open-browser)
   (eaf-browser-default-search-engine . "duckduckgo")
-  (eaf-browser-keybinding . '(
-							  ("C--" . "zoom_out")
+  (eaf-browser-keybinding . '(("C--" . "zoom_out")
 							  ("C-=" . "zoom_in")
 							  ("C-0" . "zoom_reset")
 							  ("C-s" . "search_text_forward")
@@ -129,8 +128,7 @@
 							  ("M-m" . "eaf-send-return-key")
 							  ("<f5>" . "refresh_page")
 							  ("<f12>" . "open_devtools")
-							  ("<C-return>" . "eaf-send-ctrl-return-sequence")
-							  ))
+							  ("<C-return>" . "eaf-send-ctrl-return-sequence")))
   :config
   (require 'eaf-browser)
   (require 'eaf-terminal)
@@ -159,5 +157,31 @@
   (inhibit-startup-screen . t)
   :config
   (eshell))
+
+(leaf windows
+  :when iswindows
+  :doc "the source of my anger issues"
+  :config
+  (defun wsl (command)
+	"run shell-command in wsl"
+	(interactive "sCommand: ")
+	(async-shell-command (concat "wsl " command)))
+
+  (defun wsl-path (path)
+	"Convert a Windows path to a WSL-compatible path."
+	(replace-regexp-in-string "C:" "/mnt/c"
+							  (replace-regexp-in-string "\\\\" "/" path)))
+
+  (defun run-in-wsl-dir (dir command)
+	"Prompt for a directory DIR and a COMMAND to run in WSL."
+	(interactive "DDirectory: 
+sCommand: ")
+	(wsl (format "cd %s && %s" (wsl-path dir) command)))
+
+  (defun run-in-wsl-file (command)
+	"Run a COMMAND in WSL on the current file."
+	(interactive "sCommand: ")
+	(let ((file (wsl-path buffer-file-name)))
+      (wsl (format "%s %s" command file)))))
 
 (provide 'k-os)
