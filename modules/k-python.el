@@ -11,6 +11,8 @@
   :hook ((python-mode . blacken-mode)))
 
 (leaf eglot-mode
+  :bind (:eglot-diagnostic
+		 ("M-RET" . eglot-code-actions))
   :hook ((python-mode . eglot-ensure)))
 
 (leaf pyvenv

@@ -5,8 +5,7 @@
 
 (leaf eglot
   :disabled t
-  :hook (
-		 (rustic-mode . eglot-ensure))
+  :hook ((rustic-mode . eglot-ensure))
   :bind (:eglot-mode-map
 		 ("C-c e r" . #'eglot-rename)
 		 ("C-<down-mouse-1>" . #'xref-find-definitions)
@@ -19,7 +18,7 @@
   :after (eglot)
   :disabled t
   :ensure t
-  :bind (:eglot-mode-map ("s-t" . #'consult-eglot-symbols))) 
+  :bind (:eglot-mode-map ("s-t" . #'consult-eglot-symbols)))
 
 (leaf corfu
   :ensure t
