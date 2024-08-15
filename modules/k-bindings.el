@@ -124,3 +124,4 @@
   (global-set-key [remap fill-paragraph]
                   #'endless/fill-or-unfill))
 
+(provide 'k-bindings)
