@@ -156,4 +156,8 @@
   ;; (global-set-key (kbd "C-c C-=") 'number/eval)
   )
 
+(leaf expreg
+  :doc "alternative to expand-region that defers to treesitter when possible"
+  :ensure t)
+
 (provide 'k-misc)
