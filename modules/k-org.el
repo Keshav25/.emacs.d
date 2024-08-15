@@ -52,13 +52,17 @@
 (leaf org-agenda
   :bind (("C-c a" . org-agenda))
   :config
-  (setq org-agenda-files (directory-files "~/Documents/notes/" 'full (rx ".org" eos)))
+  (defun k/reload-org-agenda-files ()
+	(setq org-agenda-files (directory-files "~/Documents/notes/" 'full (rx ".org" eos))))
+  
+  (k/reload-org-agenda-files)
   ;; (setq org-agenda-files (directory-files org-directory nil "^\\([^.]\\|\\.[^.]\\|\\.\\..\\)"))
   (setq org-cycle-separator-lines 1)
   :custom
   (org-refile-targets . '((org-agenda-files :maxlevel . 3)))
   (org-agenda-window-setup . 'current-window)
-  :hook ((org-agenda-finalize . org-modern-agenda)
+  :hook ((org-agenda-mode . k/reload-org-agenda-files)
+		 (org-agenda-finalize . org-modern-agenda)
 		 (org-agenda-finalize . hl-line-mode)))
 
 (leaf org-publish
