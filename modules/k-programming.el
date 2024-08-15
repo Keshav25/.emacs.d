@@ -176,7 +176,14 @@
       (define-key m (kbd "M-DEL") 'paredit-backward-kill-word)
       (define-key m (kbd "M-d") 'paredit-forward-kill-word)
 	  (define-key m (kbd "C-k") 'paredit-kill)
-      m)
+	  (global-set-key "\M-[" #'paredit-wrap-square)
+	  (global-set-key "\M-{" #'paredit-wrap-curly)
+	  (global-set-key (kbd "C-M-u") #'paredit-backward-up)
+	  (global-set-key (kbd "C-M-n") #'paredit-forward-up)
+	  ;; This one's surpisingly useful for writing prose.
+	  (global-set-key "\M-S"
+					  #'paredit-splice-sexp-killing-backward)
+	  m)
 	"Keymap for `paredit-everywhere-mode'.")
 
 ;;;###autoload
