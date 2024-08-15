@@ -34,7 +34,7 @@
 ;; 			 (load-theme 'haki t))
 
 ;; ;; load the actual theme
-(load-theme 'sweet t)
+(load-theme 'kaolin-aurora t)
 
 ;; Solaire
 (leaf solaire-mode
