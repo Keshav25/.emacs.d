@@ -159,6 +159,8 @@
 (leaf doom-modeline
   :ensure t
   :config
-  (doom-modeline-mode 1))
+  ;; slows down emacs
+  ;;(doom-modeline-mode 1)
+  )
 
 (provide 'k-themes)
