@@ -61,6 +61,9 @@
   ;; Rust
   (require 'k-rust)
 
+  ;; Go
+  (require 'k-go)
+  
   ;; Term
   (require 'k-term)
 
