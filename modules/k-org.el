@@ -256,7 +256,7 @@
   :bind (("C-c n l" . org-roam-buffer-toggle)
 		 ("C-c n f" . org-roam-node-find)
 		 ("C-c n g" . org-roam-graph)
-		 ("C-c n i" . org-roam-node-insert)
+		 ;; ("C-c n i" . org-roam-node-insert)
 		 ("C-c n c" . org-roam-capture)
 		 ;; Dailies
 		 ("C-c n d" . org-roam-dailies-capture-today))
@@ -456,8 +456,11 @@
 
 (leaf denote
   :ensure t
+  :require t
   :init
   (denote-rename-buffer-mode 1)
+  :bind
+  ("C-c n i" . denote-link-or-create)
   :custom
   (denote-directory . "~/Documents/notes/")
   (denote-save-buffer-after-creation . nil)
