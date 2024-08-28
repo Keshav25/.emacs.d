@@ -160,4 +160,13 @@
   :doc "alternative to expand-region that defers to treesitter when possible"
   :ensure t)
 
+(leaf dir-config
+  :quelpa (dir-config :fetcher github :repo "jamescherti/dir-config.el")
+  :custom
+  (dir-config-file-names . '(".dir-config.el"))
+  ;;(dir-config-allowed-directories '("~/src" "~/projects"))
+  :config
+  (dir-config-mode))
+
 (provide 'k-misc)
+
