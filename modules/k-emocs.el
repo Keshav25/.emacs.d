@@ -154,6 +154,11 @@
 (leaf eev
   :ensure t)
 
+(leaf rg
+  :ensure t
+  :config
+  (setq rg-executable (executable-find "rga")))
+
 (provide 'k-emocs)
 
 ;;; k-emocs.el ends here
