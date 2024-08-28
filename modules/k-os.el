@@ -184,4 +184,8 @@ sCommand: ")
 	(let ((file (wsl-path buffer-file-name)))
       (wsl (format "%s %s" command file)))))
 
+(leaf powershell
+  :disabled (not iswindows)
+  :ensure t)
+
 (provide 'k-os)
