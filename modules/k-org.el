@@ -450,6 +450,10 @@
 (leaf hammy
   :quelpa (hammy :fetcher github :repo "alphapapa/hammy.el"))
 
+(leaf weblorg
+  :ensure t
+  :require t)
+
 (leaf denote
   :ensure t
   :init
@@ -522,5 +526,8 @@
 ;;             ;; (add-to-list prettify-symbols-alist '("+ []" . "☒" ) )
 
 ;;             (prettify-symbols-mode)))
+
+(leaf corg
+  :quelpa (corg :fetcher github :repo "isamert/corg.el"))
 
 (provide 'k-org)
