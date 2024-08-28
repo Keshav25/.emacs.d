@@ -473,8 +473,16 @@
   (denote-backlinks-show-context . t)
   (denote-org-capture-specifiers . "%?")
   (denote-date-prompt-use-org-read-date . t)
-  :hook (dired-mode-hook . denote-dired-mode))
-
+  :hook (dired-mode-hook . denote-dired-mode)
+  :config
+  (defun k/publish-denote ()
+	(interactive)
+	(mapc (lambda (file) (org-ehtml-export-file file))
+		  (seq-filter (apply-partially #'string-match-p "_programming")
+					  (denote-directory-files)))
+	(shell-command (concat "mv "
+						   (concat (denote-directory) "*.html ")
+						   (concat (denote-directory) "blog/posts/")))))
 (leaf denote-menu
   :after (denote)
   :ensure t)
