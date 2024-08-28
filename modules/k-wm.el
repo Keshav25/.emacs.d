@@ -27,7 +27,8 @@
   (switch-window-qwerty-shortcuts .
 								  '("a" "s" "d" "f" "j" "k" "l"))
   :bind
-  ([remap other-window] . switch-window))
+  ("C-x o" . switch-window)
+  ("C-<tab>" . other-window))
 
 ;; Split and Follow Functions
 (defun split-and-follow-horizontally ()
