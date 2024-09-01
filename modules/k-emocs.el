@@ -7,6 +7,7 @@
 		 ("C-'" . vertico-quick-exit)
 		 ("C-i" . vertico-insert)
 		 ("C-w" . vertico-directory-delete-char)
+		 ("C-j" . vertico-exit-input)
 		 ("C-c C-c" . vertico-exit-input)))
 
 (leaf orderless
