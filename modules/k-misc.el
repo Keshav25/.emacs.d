@@ -168,5 +168,9 @@
   :config
   (dir-config-mode))
 
+(leaf sotclojure
+  :ensure t)
+
+
 (provide 'k-misc)
 
