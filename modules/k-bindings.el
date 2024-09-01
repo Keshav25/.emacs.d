@@ -1,3 +1,8 @@
+(leaf isrt
+  :config
+  (keyboard-translate ?\C-t ?\C-x)
+  (keyboard-translate ?\C-x ?\C-t))
+
 (leaf expand-region
   :ensure t
   :bind (("C-=" . er/expand-region)))
