@@ -34,6 +34,7 @@
 				  (edit-server-start)))))
 
 (leaf eaf
+  :disabled t
   :load-path "~/.emacs.d/quelpa/build/eaf"
   :quelpa (eaf :fetcher github :repo "emacs-eaf/emacs-application-framework")
   :init
