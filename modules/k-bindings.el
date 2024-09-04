@@ -109,8 +109,7 @@
 	 '("'" . repeat)
 	 '("<backspace>" . meow-left)
 	 '("<escape>" . ignore)))
-  (meow-setup)
-  (meow-global-mode 1))
+  (meow-setup))
 
 (leaf meow-for-commands
   :after (hydra)
@@ -183,7 +182,7 @@
 
 (leaf meow-tree-sitter
   :after (meow)
-  :ensure to
+  :ensure t
   :require t
   :config
   (meow-tree-sitter-register-defaults))
