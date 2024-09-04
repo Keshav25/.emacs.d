@@ -247,6 +247,7 @@
 
 ;; Org-Roam
 (leaf org-roam
+  :disabled t
   :ensure t
   :custom
   (org-roam-directory . "~/org/roam")
