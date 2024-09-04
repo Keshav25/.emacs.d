@@ -541,4 +541,9 @@
 (leaf corg
   :quelpa (corg :fetcher github :repo "isamert/corg.el"))
 
+(leaf org-media-note
+  :quelpa (org-media-note :fetcher github :repo "yuchen-lea/org-media-note")
+  :config
+  (setq org-media-note-screenshot-image-dir "~/Document/notes/imgs/'"))
+
 (provide 'k-org)
