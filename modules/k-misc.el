@@ -141,6 +141,7 @@
   (atomic-chrome-start-server))
 
 (leaf casual
+  :disabled t
   :doc "calculator program based on calc"
   :ensure t)
 
