@@ -118,25 +118,16 @@
   (leaf meow :require t)
   (pretty-hydra-define text-objects
 	(:quit-key "q" :title "motions")
-	("selection"
-	 (("0"  meow-expand-0)
-	  ("1"  meow-expand-1)
-	  ("2"  meow-expand-2)
-	  ("3"  meow-expand-3)
-	  ("4"  meow-expand-4)
-	  ("5"  meow-expand-5)
-	  ("6"  meow-expand-6)
-	  ("7"  meow-expand-7)
-	  ("8"  meow-expand-8)
-	  ("9"  meow-expand-9)
-	  ("-"  negative-argument)
+	("direction"
+	 (("-"  negative-argument)
 	  (";"  meow-reverse)
 	  (","  meow-inner-of-thing)
 	  ("."  meow-bounds-of-thing)
 	  ("["  meow-beginning-of-thing)
 	  ("]"  meow-end-of-thing)
-	  ("/"  meow-visit)
-	  ("a"  meow-append)
+	  ("/"  meow-visit))
+	 "cmd1"
+	 (("a"  meow-append)
 	  ("A"  meow-open-below)
 	  ("b"  meow-back-word)
 	  ("B"  meow-back-symbol)
@@ -152,8 +143,9 @@
 	  ("i"  meow-right)
 	  ("I"  meow-right-expand)
 	  ("j"  meow-join)
-	  ("k"  meow-kill)
-	  ("l"  meow-line)
+	  ("k"  meow-kill))
+	 "cmd2"
+	 (("l"  meow-line)
 	  ("L"  meow-goto-line)
 	  ("m"  meow-mark-word)
 	  ("M"  meow-mark-symbol)
@@ -178,8 +170,7 @@
 	  ("z"  meow-pop-selection)
 	  ("'"  repeat)
 	  ("<backspace>" meow-left)
-	  ("<escape>" ignore)
-	  ))))
+	  ("<escape>" ignore)))))
 
 (leaf meow-tree-sitter
   :after (meow)
