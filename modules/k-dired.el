@@ -7,7 +7,7 @@
 (leaf dirvish
   :ensure t
   :config
-  (dirvish-override-dired-mode) 
+  (dirvish-override-dired-mode)
   :bind (:dirvish-directory-view-mode-map
 		 ("q" . 'dirvish-quit)))
 
@@ -22,6 +22,8 @@
                               ("mp4" . "mpv")))
 
 (leaf dired-preview
+  :doc "disabled in favor of dirvish"
+  :disabled t
   :ensure t
   :config
   (dired-preview-global-mode 1))
