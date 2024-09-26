@@ -141,15 +141,35 @@
   :config
   (global-aggressive-indent-mode 1))
 
-(leaf prism
-  :ensure t
-  :init
-  (prism-mode 1)
-  (prism-randomize-colors))
-
 (leaf rainbow-delimiters
   :ensure t
-  :hook (org-mode prog-mode . rainbow-delimiters-mode))
+  :hook (prog-mode . (lambda () (rainbow-delimiters-mode 1))))
+
+(leaf prism
+  :ensure t
+  :after ef-themes
+  :init
+  (prism-mode 1)
+  (prism-set-colors
+	:desaturations '(0) ; do not change---may lower the contrast ratio
+	:lightens '(0)      ; same
+	:colors (ef-themes-with-colors
+              (list fg-main
+					magenta
+					cyan-cooler
+					magenta-cooler
+					blue
+					magenta-warmer
+					cyan-warmer
+					red-cooler
+					green
+					fg-main
+					cyan
+					yellow
+					blue-warmer
+					red-warmer
+					green-cooler
+					yellow-faint))))
 
 (leaf paredit
   :ensure t
