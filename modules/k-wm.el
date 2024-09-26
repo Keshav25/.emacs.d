@@ -60,6 +60,9 @@
 
 (leaf popper
   :ensure t
+  :bind (("C-`" . popper-toggle)
+		 ("M-`" . popper-cycle)
+		 ("C-M-`" . popper-toggle-type))
   :custom
   (popper-reference-buffers .  '("\\*Messages\\*"
 								 "Output\\*$"
