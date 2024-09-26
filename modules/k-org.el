@@ -529,6 +529,7 @@
   (denote-rename-buffer-mode 1)
   :bind
   ("C-c n i" . denote-link-or-create)
+  ("C-c n c" . denote-open-or-create)
   :custom
   (denote-directory . "~/Documents/notes/")
   (denote-save-buffer-after-creation . nil)
