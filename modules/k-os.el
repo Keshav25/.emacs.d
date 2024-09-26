@@ -205,4 +205,9 @@ sCommand: ")
 				   :repo "abo-abo/whicher"
 				   :files ("*.el")))
 
+(leaf define-word
+  :quelpa (define-word :fether github
+					   :repo "abo-abo/define-word"
+					   :files ("*.el")))
+
 (provide 'k-os)
