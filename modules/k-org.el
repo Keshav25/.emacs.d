@@ -40,14 +40,81 @@
   (org-file-apps . '((auto-mode . emacs)))
   (org-src-ask-before-returning-to-edit-buffer . nil)
   (org-src-window-setup . 'current-window)
+  )
+
+(leaf org-babel
   :init
+  (leaf ob-go
+	:ensure t)
+  (setq org-confirm-babel-evaluate nil)
+  (setq scimax-src-block-keymaps
+		;; `(("ipython" . ,(let ((map (make-composed-keymap
+		;; 							`(,elpy-mode-map ,python-mode-map ,pyvenv-mode-map)
+		;; 							org-mode-map)))
+        ;;                   ;; In org-mode I define RET so we f
+        ;;                   (define-key map (kbd "<return>") 'newline)
+        ;;                   (define-key map (kbd "C-c C-c") 'org-ctrl-c-ctrl-c)
+        ;;                   map))
+        ;;   ("python" . ,(let ((map (make-composed-keymap
+        ;;                            `(,elpy-mode-map ,python-mode-map ,pyvenv-mode-map)
+        ;;                            org-mode-map)))
+		;; 				 ;; In org-mode I define RET so we f
+		;; 				 (define-key map (kbd "<return>") 'newline)
+		;; 				 (define-key map (kbd "C-c C-c") 'org-ctrl-c-ctrl-c)
+		;; 				 map))
+        `(("emacs-lisp" . ,(let ((map (make-composed-keymap `(
+                                                              ,emacs-lisp-mode-map
+                                                              ,outline-minor-mode-map)
+															org-mode-map)))
+							 (define-key map (kbd "C-c C-c") 'org-ctrl-c-ctrl-c)
+							 map))))
+  (defun scimax-add-keymap-to-src-blocks (limit)
+	"Add keymaps to src-blocks defined in `scimax-src-block-keymaps'."
+	(let ((case-fold-search t)
+          lang)
+      (while (re-search-forward org-babel-src-block-regexp limit t)
+		(let ((lang (match-string 2))
+              (beg (match-beginning 0))
+              (end (match-end 0)))
+          (if (assoc (org-no-properties lang) scimax-src-block-keymaps)
+              (progn
+				(add-text-properties
+				 beg end `(local-map ,(cdr (assoc
+											(org-no-properties lang)
+											scimax-src-block-keymaps))))
+				(add-text-properties
+				 beg end `(cursor-sensor-functions
+                           ((lambda (win prev-pos sym)
+                              ;; This simulates a mouse click and makes a menu change
+                              (org-mouse-down-mouse nil)))))))))))
+  (defun scimax-add-keymap-to-src-blocks (limit)
+	"Add keymaps to src-blocks defined in `scimax-src-block-keymaps'."
+	(let ((case-fold-search t)
+          lang)
+      (while (re-search-forward org-babel-src-block-regexp limit t)
+		(let ((lang (match-string 2))
+              (beg (match-beginning 0))
+              (end (match-end 0)))
+          (if (assoc (org-no-properties lang) scimax-src-block-keymaps)
+              (progn
+				(add-text-properties
+				 beg end `(local-map ,(cdr (assoc
+											(org-no-properties lang)
+											scimax-src-block-keymaps))))
+				(add-text-properties
+				 beg end `(cursor-sensor-functions
+                           ((lambda (win prev-pos sym)
+                              ;; This simulates a mouse click and makes a menu change
+                              (org-mouse-down-mouse nil)))))))))))
+
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((python . t)
 	 (emacs-lisp . t)
 	 (shell . t)
-	 (scheme . t))
-   ))
+	 (scheme . t)
+	 (go . t)
+	 (clojure . t))))
 
 (leaf org-agenda
   :bind (("C-c a" . org-agenda))
