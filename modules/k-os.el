@@ -200,4 +200,9 @@ sCommand: ")
   (setq spookfox-enabled-apps '(spookfox-org-tabs))
   (spookfox-init))
 
+(leaf whicher
+  :quelpa (whicher :fetcher github
+				   :repo "abo-abo/whicher"
+				   :files ("*.el")))
+
 (provide 'k-os)
