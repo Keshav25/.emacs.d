@@ -189,4 +189,15 @@ sCommand: ")
   :disabled (not iswindows)
   :ensure t)
 
+(leaf spookfox
+  :doc "only works on linux"
+  :disabled t
+  :quelpa (spookfox :fetcher github
+					:repo "bitspook/spookfox"
+					:files ("lisp/*.el" "lisp/apps/*.el"))
+  :require t
+  :config
+  (setq spookfox-enabled-apps '(spookfox-org-tabs))
+  (spookfox-init))
+
 (provide 'k-os)
