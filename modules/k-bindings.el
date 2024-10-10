@@ -7,6 +7,10 @@
    ("M-t" . execute-extended-command)
    ("M-T" . execute-extended-command-for-buffer)))
 
+(leaf dup-lines
+  :bind
+  (("C-," . duplicate-dwim)))
+
 (leaf expand-region
   :ensure t
   :bind (("C-=" . er/expand-region)))
