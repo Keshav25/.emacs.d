@@ -206,7 +206,7 @@ sCommand: ")
 				   :files ("*.el")))
 
 (leaf define-word
-  :quelpa (define-word :fether github
+  :quelpa (define-word :fetcher github
 					   :repo "abo-abo/define-word"
 					   :files ("*.el")))
 
