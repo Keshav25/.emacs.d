@@ -139,7 +139,8 @@
 (leaf aggressive-indent
   :ensure t
   :config
-  (global-aggressive-indent-mode 1))
+  ;; (global-aggressive-indent-mode 1)
+  )
 
 (leaf rainbow-delimiters
   :ensure t
