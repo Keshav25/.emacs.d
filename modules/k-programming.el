@@ -437,4 +437,8 @@
   :config
   (rainbow-mode 1))
 
+(leaf compile
+  :setq
+  (byte-compile-ignore-files . t))
+
 (provide 'k-programming)
