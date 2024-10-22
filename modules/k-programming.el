@@ -144,7 +144,7 @@
 
 (leaf rainbow-delimiters
   :ensure t
-  :hook (prog-mode . (lambda () (rainbow-delimiters-mode 1))))
+  :hook (prog-mode . rainbow-delimiters-mode))
 
 (leaf prism
   :ensure t
@@ -155,22 +155,22 @@
 	:desaturations '(0) ; do not change---may lower the contrast ratio
 	:lightens '(0)      ; same
 	:colors (ef-themes-with-colors
-              (list fg-main
-					magenta
-					cyan-cooler
-					magenta-cooler
-					blue
-					magenta-warmer
-					cyan-warmer
-					red-cooler
-					green
-					fg-main
-					cyan
-					yellow
-					blue-warmer
-					red-warmer
-					green-cooler
-					yellow-faint))))
+             (list fg-main
+				   magenta
+				   cyan-cooler
+				   magenta-cooler
+				   blue
+				   magenta-warmer
+				   cyan-warmer
+				   red-cooler
+				   green
+				   fg-main
+				   cyan
+				   yellow
+				   blue-warmer
+				   red-warmer
+				   green-cooler
+				   yellow-faint))))
 
 (leaf paredit
   :ensure t
@@ -451,5 +451,9 @@
   (text-mode-hook . yas-minor-mode)
   :custom
   (yas-prompt-functions . '(yas-completing-prompt)))
+
+(leaf elisp-slime-nav
+  :ensure t
+  :hook ((emacs-lisp-mode . elisp-slime-nav-mode)))
 
 (provide 'k-programming)
