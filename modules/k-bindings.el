@@ -119,12 +119,13 @@
   :after (hydra)
   :config
   (leaf meow :ensure t :require t)
+  (leaf evil :ensure t :require t)
   (pretty-hydra-define text-objects
 	(:quit-key "C-g" :title "motions")
 	("direction"
 	 (("-"  negative-argument)
 	  (";"  meow-reverse)
-	  (","  meow-inner-of-thing)
+	  ("i"  meow-inner-of-thing)
 	  ("."  meow-bounds-of-thing)
 	  ("["  meow-beginning-of-thing)
 	  ("]"  meow-end-of-thing)
@@ -133,7 +134,10 @@
 	 (("l"  meow-line)
 	  ("o"  meow-block)
 	  ("O"  meow-to-block)
-	  ("z"  meow-pop-selection)))))
+	  ("z"  meow-pop-selection)
+	  ("," duplicate-dwim)
+	  ("d" evil-delete))))
+  :bind ("C-," . text-objects/body))
 
 (leaf meow-tree-sitter
   :after (meow)
