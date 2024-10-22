@@ -131,17 +131,6 @@
 (leaf consult-gh
   :quelpa (consult-gh :fetcher github :repo "armindarvish/consult-gh"))
 
-(leaf yasnippet
-  :ensure t
-  :config
-  (yas-global-mode)
-  (yas-reload-all)
-  :hook
-  (prog-mode-hook . yas-minor-mode)
-  (text-mode-hook . yas-minor-mode)
-  :custom
-  (yas-prompt-functions . '(yas-completing-prompt)))
-
 (leaf placeholder
   ;; TODO Remember to bind EXT key + top row for these bindings on the ZSA Voyager
   :quelpa (placeholder :fetcher github :repo "oantolin/placeholder")

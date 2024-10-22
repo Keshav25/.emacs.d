@@ -441,4 +441,15 @@
   :setq
   (byte-compile-ignore-files . t))
 
+(leaf yasnippet
+  :ensure t
+  :config
+  (yas-global-mode)
+  (yas-reload-all)
+  :hook
+  (prog-mode-hook . yas-minor-mode)
+  (text-mode-hook . yas-minor-mode)
+  :custom
+  (yas-prompt-functions . '(yas-completing-prompt)))
+
 (provide 'k-programming)
