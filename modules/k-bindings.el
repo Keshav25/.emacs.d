@@ -1,9 +1,10 @@
 (leaf isrt
   :init
   (keyboard-translate ?\C-t ?\C-x)
-  (keyboard-translate ?\C-x ?\C-t)
+  ;; (keyboard-translate ?\C-x ?\C-t)
   :bind
-  (("M-x" . transpose-words)
+  (
+   ;; ("M-x" . transpose-words)
    ("M-t" . execute-extended-command)
    ("M-T" . execute-extended-command-for-buffer)))
 
