@@ -144,7 +144,8 @@
 
 (leaf rainbow-delimiters
   :ensure t
-  :hook (prog-mode . rainbow-delimiters-mode))
+  :config
+  (rainbow-delimiters-mode t))
 
 (leaf prism
   :ensure t
