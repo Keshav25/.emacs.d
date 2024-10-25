@@ -26,9 +26,6 @@
 
 (setq load-prefer-newer noninteractive)
 
-(setq package-enable-at-startup nil)
-(setq package-native-compile t)
-
 (setq warning-suppress-log-types '((package reinitialization)))
 
 ;; Because Windows
