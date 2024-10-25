@@ -103,7 +103,7 @@ or not."
 	:require t)
   
   (setq keycast-mode-line-format "%2s%k%c%R")
-  (setq keycast-mode-line-insert-after 'my-modeline-vc-branch)
+  (setq keycast-mode-line-insert-after 'my-modeline-major-mode)
   (setq keycast-mode-line-window-predicate 'mode-line-window-selected-p)
   (setq keycast-mode-line-remove-tail-elements nil)
 
