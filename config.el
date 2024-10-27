@@ -1,5 +1,6 @@
 ;; Load Module Path
 (add-to-list 'load-path "~/.emacs.d/modules")
+(add-to-list 'load-path "~/.emacs.d/modules/lang")
 
 ;; (defun k/mod (module)
 ;;   (require (read (concat "k-" module)))
