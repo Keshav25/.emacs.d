@@ -21,6 +21,7 @@
   :bind (:eglot-mode-map ("s-t" . #'consult-eglot-symbols)))
 
 (leaf corfu
+  :disabled t
   :ensure t
   :require t
   :setq
