@@ -3,15 +3,20 @@
 
 ;; (set-fontset-font "fontset-default" 'unicode "Noto Color Emoji" nil 'prepend)
 
-(global-hl-line-mode 1)
-
-;; theme packages
-(leaf kaolin-themes :ensure t)
-(leaf doom-themes :ensure t)
-(leaf ef-themes :ensure t)
-(leaf yabaki-theme :ensure t)
-(leaf haki-theme :ensure t)
-(leaf sweet-theme :ensure t)
+(leaf theme
+  :init
+  ;; theme packages
+  (leaf kaolin-themes :ensure t)
+  (leaf doom-themes :ensure t)
+  (leaf ef-themes :ensure t)
+  (leaf yabaki-theme :ensure t)
+  (leaf haki-theme :ensure t)
+  (leaf sweet-theme :ensure t)
+  :config
+  ;; load the actual theme
+  (load-theme 'doom-challenger-deep t)
+  (set-foreground-color "lightblue")
+  (global-hl-line-mode 1))
 
 ;; ;; Option 1: Simply do (make sure it is in 'custom-theme-directory')
 ;; (setq haki-region "#2e8b6d")
@@ -32,9 +37,6 @@
 ;; 			 (add-hook 'post-command-hook #'haki-modal-mode-line)
 
 ;; 			 (load-theme 'haki t))
-
-;; ;; load the actual theme
-(load-theme 'kaolin-aurora t)
 
 ;; Solaire
 (leaf solaire-mode
@@ -130,13 +132,12 @@
   :custom
   (hl-todo-color-background . t)
   (hl-todo-highlight-punctuation . ":")
-  (hl-todo-keyword-faces .
-						 `(("TODO" warning bold)
-						   ("FIXME" error bold)
-						   ("HACK" font-lock-constant-face bold)
-						   ("REVIEW" font-lock-keyword-face bold)
-						   ("NOTE" success bold)
-						   ("DECPRECATED" font-lock-doc-face bold)))
+  (hl-todo-keyword-faces . `(("TODO" warning bold)
+							 ("FIXME" error bold)
+							 ("HACK" font-lock-constant-face bold)
+							 ("REVIEW" font-lock-keyword-face bold)
+							 ("NOTE" success bold)
+							 ("DECPRECATED" font-lock-doc-face bold)))
   :config
   (hl-todo-mode 1))
 
