@@ -1,36 +1,56 @@
-(setq mode-line-compact nil)
-(setq mode-line-right-align-edge 'right-margin) 
-										; Note that separate to this is my `prot-modeline-subtle-mode'.
-(setq-default mode-line-format
-			  '("%e"
-                my-modeline-kbd-macro
-                my-modeline-narrow
-                my-modeline-input-method
-                my-modeline-buffer-status
-                " "
-                my-modeline-buffer-identification
-                "  "
-                my-modeline-major-mode
-                my-modeline-process
-                "  "
-                my-modeline-vc-branch
-                "  "
-                my-modeline-flymake
-                "  "
-                my-modeline-align-right
-                my-modeline-misc-info))
-(setq mode-line-format nil)
+(leaf keycast
+  :ensure t
+  :require t
+  :config
+  
+  (setq keycast-mode-line-format "%2s%k%c%R")
+  (setq keycast-mode-line-insert-after 'my-modeline-major-mode)
+  (setq keycast-mode-line-window-predicate 'mode-line-window-selected-p)
+  (setq keycast-mode-line-remove-tail-elements nil)
+
+  (dolist (input '(self-insert-command org-self-insert-command))
+	(add-to-list 'keycast-substitute-alist `(,input "." "Typing…")))
+
+  (dolist (event '(mouse-event-p mouse-movement-p mwheel-scroll))
+	(add-to-list 'keycast-substitute-alist `(,event nil)))
+
+  (keycast-mode-line-mode))
+
+
 
 (leaf spacious-padding
   :ensure t)
 
-(defface my-modeline-indicator-button nil
-  "Generic face used for indicators that have a background.
+(leaf modeline
+  :after (spacious-padding keycast)
+  :config
+  (setq mode-line-compact nil)
+  (setq mode-line-right-align-edge 'right-margin) 
+
+  (setq-default mode-line-format
+				'("%e"
+                  my-modeline-kbd-macro
+                  my-modeline-narrow
+                  my-modeline-input-method
+                  my-modeline-buffer-status
+                  " "
+                  my-modeline-buffer-identification
+                  "  "
+                  my-modeline-major-mode
+                  my-modeline-process
+                  "  "
+                  my-modeline-vc-branch
+                  "  "
+                  my-modeline-flymake
+                  "  "
+                  my-modeline-align-right
+                  my-modeline-misc-info))
+  (setq mode-line-format nil)
+  (defface my-modeline-indicator-button nil
+	"Generic face used for indicators that have a background.
 Modify this face to, for example, add a :box attribute to all
 relevant indicators (combines nicely with my `spacious-padding'
 package).")
-
-(with-eval-after-load 'spacious-padding
   (defun my/modeline-spacious-indicators ()
     "Set box attribute to `'my-modeline-indicator-button' if spacious-padding is enabled."
     (if (bound-and-true-p spacious-padding-mode)
@@ -79,13 +99,6 @@ package).")
 
   (put 'my-modeline-major-mode 'risky-local-variable t)
 
-
-
-
-
-  ;; Emacs 29, check the definition right below
-  (mode-line-window-selected-p)
-
   (defun mode-line-window-selected-p ()
 	"Return non-nil if we're updating the mode line for the selected window.
 This function is meant to be called in `:eval' mode line
@@ -96,25 +109,7 @@ or not."
       (or (eq window (old-selected-window))
 		  (and (minibuffer-window-active-p (minibuffer-window))
 			   (with-selected-window (minibuffer-window)
-				 (eq window (minibuffer-selected-window)))))))
-
-  (leaf keycast
-	:ensure t
-	:require t
-	:config
-	
-	(setq keycast-mode-line-format "%2s%k%c%R")
-	(setq keycast-mode-line-insert-after 'my-modeline-major-mode)
-	(setq keycast-mode-line-window-predicate 'mode-line-window-selected-p)
-	(setq keycast-mode-line-remove-tail-elements nil)
-
-	(dolist (input '(self-insert-command org-self-insert-command))
-	  (add-to-list 'keycast-substitute-alist `(,input "." "Typing…")))
-
-	(dolist (event '(mouse-event-p mouse-movement-p mwheel-scroll))
-	  (add-to-list 'keycast-substitute-alist `(,event nil)))
-
-	(keycast-mode-line-mode)))
+				 (eq window (minibuffer-selected-window))))))))
 
 ;; ;;;;; Copy Pasted
 ;; (defgroup my-modeline nil
