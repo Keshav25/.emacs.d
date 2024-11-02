@@ -162,4 +162,8 @@
   (global-set-key [remap fill-paragraph]
                   #'endless/fill-or-unfill))
 
+
+(leaf compile
+  :bind (("C-c z" . 'compile)))
+
 (provide 'k-bindings)
