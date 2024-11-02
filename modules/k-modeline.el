@@ -1,28 +1,8 @@
-(leaf keycast
-  :ensure t
-  :require t
-  :config
-  
-  (setq keycast-mode-line-format "%2s%k%c%R")
-  (setq keycast-mode-line-insert-after 'my-modeline-major-mode)
-  (setq keycast-mode-line-window-predicate 'mode-line-window-selected-p)
-  (setq keycast-mode-line-remove-tail-elements nil)
-
-  (dolist (input '(self-insert-command org-self-insert-command))
-	(add-to-list 'keycast-substitute-alist `(,input "." "Typing…")))
-
-  (dolist (event '(mouse-event-p mouse-movement-p mwheel-scroll))
-	(add-to-list 'keycast-substitute-alist `(,event nil)))
-
-  (keycast-mode-line-mode))
-
-
-
 (leaf spacious-padding
   :ensure t)
 
 (leaf modeline
-  :after (spacious-padding keycast)
+  :after (spacious-padding)
   :config
   (setq mode-line-compact nil)
   (setq mode-line-right-align-edge 'right-margin) 
@@ -110,6 +90,26 @@ or not."
 		  (and (minibuffer-window-active-p (minibuffer-window))
 			   (with-selected-window (minibuffer-window)
 				 (eq window (minibuffer-selected-window))))))))
+
+(leaf keycast
+  :after (modeline)
+  :ensure t
+  :require t
+  :config
+  
+  (setq keycast-mode-line-format "%2s%k%c%R")
+  (setq keycast-mode-line-insert-after 'my-modeline-major-mode)
+  (setq keycast-mode-line-window-predicate 'mode-line-window-selected-p)
+  (setq keycast-mode-line-remove-tail-elements nil)
+
+  (dolist (input '(self-insert-command org-self-insert-command))
+	(add-to-list 'keycast-substitute-alist `(,input "." "Typing…")))
+
+  (dolist (event '(mouse-event-p mouse-movement-p mwheel-scroll))
+	(add-to-list 'keycast-substitute-alist `(,event nil)))
+
+  (keycast-mode-line-mode))
+
 
 ;; ;;;;; Copy Pasted
 ;; (defgroup my-modeline nil
