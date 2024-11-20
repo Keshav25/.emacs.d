@@ -120,6 +120,8 @@
   :bind (("C-c a" . org-agenda))
   :config
   (defun k/reload-org-agenda-files ()
+	"Refreshes org-agenda-files directory to get latest updates"
+	(interactive)
 	(setq org-agenda-files (directory-files "~/Documents/notes/" 'full (rx ".org" eos))))
   
   (k/reload-org-agenda-files)
