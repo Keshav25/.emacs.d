@@ -251,7 +251,7 @@
 
 ;; Org-Journal
 (leaf org-journal
-  :docs "using denote journal features instead now"
+  :doc "using denote journal features instead now"
   :disabled t
   :ensure t
   :custom
