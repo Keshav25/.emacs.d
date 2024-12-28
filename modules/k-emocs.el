@@ -149,6 +149,14 @@
   :config
   (setq rg-executable (executable-find "rga")))
 
+(leaf posframe
+  (leaf vertico-posframe
+	:after (vertico)
+	:ensure t)
+  (leaf which-key-posframe
+	:after (vertico)
+	:ensure t))
+
 (provide 'k-emocs)
 
 ;;; k-emocs.el ends here
