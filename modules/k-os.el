@@ -210,4 +210,6 @@ sCommand: ")
 					   :repo "abo-abo/define-word"
 					   :files ("*.el")))
 
+(leaf dmenu :ensure t)
+
 (provide 'k-os)
