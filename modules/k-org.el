@@ -251,6 +251,8 @@
 
 ;; Org-Journal
 (leaf org-journal
+  :docs "using denote journal features instead now"
+  :disabled t
   :ensure t
   :custom
   (org-journal-file-format . "%Y%m%d.org")
@@ -532,6 +534,7 @@
   :bind
   ("C-c n i" . denote-link-or-create)
   ("C-c n c" . denote-open-or-create)
+  ("C-c n j" . denote-journal-extras-new-or-existing-entry)
   :custom
   (denote-directory . "~/Documents/notes/")
   (denote-save-buffer-after-creation . nil)
@@ -540,6 +543,7 @@
 							 "politics"
 							 "economics"
 							 "astrology"
+							 "journal"
 							 "books"))
   (denote-infer-keywords . t)
   (denote-prompts . '(title keywords template))
@@ -547,8 +551,10 @@
   (denote-backlinks-show-context . t)
   (denote-org-capture-specifiers . "%?")
   (denote-date-prompt-use-org-read-date . t)
+  (denote-journal-extras-title-format . 'day-date-month-year)
   :hook (dired-mode-hook . denote-dired-mode)
   :config
+  (require 'denote-journal-extras)
   (defun k/publish-denote ()
 	(interactive)
 	(mapc (lambda (file) (org-ehtml-export-file file))
