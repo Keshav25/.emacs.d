@@ -9,7 +9,7 @@
 ;; (k/mod "leaf")
 
 (defun k/main-configuration ()
-  ;; leaf
+  ;; Leaf
   (require 'k-leaf)
 
   ;; Dashboard
@@ -26,6 +26,7 @@
 
   ;; Completion Framework
   (require 'k-emocs)
+
   ;; Dired
   (require 'k-dired)
 
@@ -87,8 +88,7 @@
   (require 'k-evil)
 
   ;; General
-  (require 'k-general)
-  )
+  (require 'k-general))
 
 (k/main-configuration)
 
