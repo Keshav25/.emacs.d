@@ -1,3 +1,8 @@
+(leaf transparent-frame
+  :config
+  (set-frame-parameter nil 'alpha 80)
+  (add-to-list 'default-frame-alist '(alpha . 80)))
+
 (leaf exwm
   :ensure t
   :custom
