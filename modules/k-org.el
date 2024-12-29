@@ -485,10 +485,6 @@
   (ankifier-feedback . t)
   (ankifier-context-question . t))
 
-(leaf memacs
-  ;; this is a python program
-  )
-
 (leaf org-pretty-tags
   :ensure t
   :init
