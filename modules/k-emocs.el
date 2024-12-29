@@ -152,10 +152,14 @@
 (leaf posframe
   (leaf vertico-posframe
 	:after (vertico)
-	:ensure t)
+	:ensure t
+	:config
+	(vertico-posframe-mode))
   (leaf which-key-posframe
-	:after (vertico)
-	:ensure t))
+	:after (which-key)
+	:ensure t
+	:config
+	(which-key-posframe-mode)))
 
 (provide 'k-emocs)
 
