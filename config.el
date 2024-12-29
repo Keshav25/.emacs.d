@@ -2,12 +2,6 @@
 (add-to-list 'load-path "~/.emacs.d/modules")
 (add-to-list 'load-path "~/.emacs.d/modules/lang")
 
-;; (defun k/mod (module)
-;;   (require (read (concat "k-" module)))
-;;   (setq (read (concat "k/is" module)) 1))
-
-;; (k/mod "leaf")
-
 (defun k/main-configuration ()
   ;; Leaf
   (require 'k-leaf)
