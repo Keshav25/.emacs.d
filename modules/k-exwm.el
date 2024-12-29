@@ -59,6 +59,7 @@
 		(,(kbd "s-s") . split-and-follow-vertically)
 		(,(kbd "s-'") . fhd/toggle-exwm-input-line-mode-passthrough)
         (,(kbd "s-c") . kill-buffer-and-window)
+		(,(kbd "C-`") . popper-toggle)
         ,@(mapcar (lambda (i)
                     `(,(kbd (format "s-%d" i)) .
                       (lambda ()
