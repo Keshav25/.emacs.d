@@ -161,6 +161,10 @@
 	:config
 	(which-key-posframe-mode)))
 
+(leaf bufler
+  :ensure t
+  :bind (("C-x C-b" . bufler)))
+
 (provide 'k-emocs)
 
 ;;; k-emocs.el ends here
