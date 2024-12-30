@@ -163,7 +163,7 @@
 
 (leaf bufler
   :ensure t
-  :bind (("C-x C-b" . bufler)))
+  :bind (([remap list-buffers] . bufler)))
 
 (provide 'k-emocs)
 
