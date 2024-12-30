@@ -138,7 +138,7 @@
 	  ("z"  meow-pop-selection)
 	  ("," duplicate-dwim)
 	  ("d" evil-delete))))
-  :bind ("C-," . text-objects/body))
+  :bind ("C-," . #'text-objects/body))
 
 (leaf meow-tree-sitter
   :after (meow)
