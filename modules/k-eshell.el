@@ -5,10 +5,11 @@
   (eshell-where-to-jump . 'begin)
   (eshell-review-quick-commands . nil)
   (eshell-smart-space-goes-to-end . t)
+
   (eshell-modules-list . '(eshell-banner eshell-basic eshell-cmpl eshell-dirs
 										 eshell-extpipe eshell-glob eshell-hist eshell-ls
 										 eshell-pred eshell-prompt eshell-script eshell-term
-										 eshell-unix)))
+										 eshell-smart eshell-unix)))
 
 ;; '(eshell-alias eshell-banner eshell-basic eshell-cmpl eshell-dirs
 ;; 			   eshell-extpipe eshell-glob eshell-hist eshell-ls
