@@ -455,4 +455,11 @@
   :ensure t
   :hook ((emacs-lisp-mode . elisp-slime-nav-mode)))
 
+(leaf compile
+  :bind (("C-c y" . 'compile))
+  :custom
+  (compilation-scroll-output . t)
+  :hook
+  (compilation-filter-hook . ansi-color-compilation-filter))
+
 (provide 'k-programming)
