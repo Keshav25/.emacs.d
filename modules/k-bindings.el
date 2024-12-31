@@ -163,6 +163,6 @@
 
 
 (leaf compile
-  :bind (("C-c z" . 'compile)))
+  :bind (("C-c y" . 'compile)))
 
 (provide 'k-bindings)
