@@ -151,6 +151,7 @@
   (setq rg-executable (executable-find "rga")))
 
 (leaf posframe
+  :config
   (leaf vertico-posframe
 	:after (vertico)
 	:ensure t
