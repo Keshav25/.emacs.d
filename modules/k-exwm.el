@@ -107,21 +107,6 @@
 		([?\C-g] . [escape])
 		))
 
-(leaf exwm-firefox
-  :quelpa (exwm-firefox :fetcher codeberg :repo "emacs-weirdware/exwm-firefox")
-  :require t
-  :bind (:exwm-firefox-keymap
-		 ("C-n" . exwm-firefox-core-down)
-		 ("C-p" . exwm-firefox-core-up)
-		 ("C-S-f" . exwm-firefox-core-history-forward)
-		 ("C-S-b" . exwm-firefox-core-history-back)
-		 ("C-S-d" . exwm-firefox-core-tab-close)
-		 ("M-k" . exwm-firefox-core-tab-next)
-		 ("M-j" . exwm-firefox-core-tab-previous)
-		 ("C-s" . exwm-firefox-core-find))
-  :config
-  (exwm-firefox-mode))
-
 (setq window-divider-default-bottom-width 2
 	  window-divider-default-right-width 2)
 
