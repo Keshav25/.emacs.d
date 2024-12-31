@@ -30,7 +30,8 @@
 		 ("s-r" . #'dmenu)
 		 ("s-w" . #'exwm-workspace-switch)
 		 ("s-D" . #'kill-this-buffer)
-		 ("s-TAB" . #'exwm/jump-to-last-exwm)))
+		 ("s-TAB" . #'exwm/jump-to-last-exwm)
+		 ("M-t" . #'execute-extended-command)))
 
 (leaf exwm-randr
   :config
@@ -67,7 +68,6 @@
 		(,(kbd "s-'") . fhd/toggle-exwm-input-line-mode-passthrough)
         (,(kbd "s-c") . kill-buffer-and-window)
 		(,(kbd "C-`") . popper-toggle)
-		(,(kbd "M-t") . execute-extended-command)
         ,@(mapcar (lambda (i)
                     `(,(kbd (format "s-%d" i)) .
                       (lambda ()
