@@ -531,6 +531,7 @@
   ("C-c n i" . denote-link-or-create)
   ("C-c n c" . denote-open-or-create)
   ("C-c n j" . denote-journal-extras-new-or-existing-entry)
+  ("C-c C-j" . denote-journal-extras-new-or-existing-entry)
   :custom
   (denote-directory . "~/Documents/notes/")
   (denote-save-buffer-after-creation . nil)
