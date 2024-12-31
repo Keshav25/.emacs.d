@@ -80,6 +80,7 @@
   )
 
 (leaf consult-org-roam
+  :after (org-roam)
   :ensure t
   :config
   (consult-org-roam-mode))
