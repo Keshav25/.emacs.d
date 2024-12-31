@@ -78,7 +78,7 @@
 (recentf-mode 1)
 
 ;; Toggle Word Wrap
-(visual-line-mode 1)
+(global-visual-line-mode 1)
 
 ;; Determine OS
 (require 'subr-x)
