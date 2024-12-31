@@ -32,12 +32,14 @@
 		 ("s-D" . #'kill-this-buffer)
 		 ("s-TAB" . #'exwm/jump-to-last-exwm)))
 
-(require 'exwm-randr)
-(setq exwm-randr-workspace-monitor-plist '(0 "eDP1"))
-(add-hook 'exwm-randr-screen-change-hook
-          (lambda ()
-            (start-process-shell-command
-             "xrandr" nil "xrandr --output eDP1 --mode 1920x1080 --pos 0x0 --rotate normal")))
+(leaf exwm-randr
+  :config
+  (require 'exwm-randr)
+  (setq exwm-randr-workspace-monitor-plist '(0 "eDP1"))
+  (add-hook 'exwm-randr-screen-change-hook
+			(lambda ()
+              (start-process-shell-command
+               "xrandr" nil "xrandr --output eDP1 --mode 1920x1080 --pos 0x0 --rotate normal"))))
 (exwm-randr-enable)
 
 ;; TODO Add Volume Control Keybindings
