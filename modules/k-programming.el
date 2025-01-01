@@ -106,27 +106,27 @@
   :ensure t
   :config
   (global-flycheck-mode 1)
-
+  
   (leaf avy-flycheck
 	:after (flycheck avy)
 	:ensure t)
-
+  
   (leaf flycheck-eglot
 	:after (flycheck eglot)
 	:ensure t)
-
+  
   (leaf flycheck-guile
 	:after (flycheck)
 	:ensure t)
-
+  
   (leaf flycheck-ledger
 	:after (flycheck)
 	:ensure t)
-
+  
   (leaf consult-flycheck
 	:after (flycheck consult)
 	:ensure t)
-
+  
   (leaf flycheck-inline
 	:after (flycheck)
 	:ensure t))
@@ -155,25 +155,25 @@
   :config
   (prism-mode 1)
   (prism-set-colors
-	:desaturations '(0) ; do not change---may lower the contrast ratio
-	:lightens '(0)      ; same
-	:colors (ef-themes-with-colors
-              (list fg-main
-					magenta
-					cyan-cooler
-					magenta-cooler
-					blue
-					magenta-warmer
-					cyan-warmer
-					red-cooler
-					green
-					fg-main
-					cyan
-					yellow
-					blue-warmer
-					red-warmer
-					green-cooler
-					yellow-faint))))
+   :desaturations '(0) ; do not change---may lower the contrast ratio
+   :lightens '(0)      ; same
+   :colors (ef-themes-with-colors
+            (list fg-main
+				  magenta
+				  cyan-cooler
+				  magenta-cooler
+				  blue
+				  magenta-warmer
+				  cyan-warmer
+				  red-cooler
+				  green
+				  fg-main
+				  cyan
+				  yellow
+				  blue-warmer
+				  red-warmer
+				  green-cooler
+				  yellow-faint))))
 
 (leaf paredit
   :ensure t
@@ -184,21 +184,21 @@
   :after (paredit)
   :config
   (require 'paredit)
-
+  
   (defvar paredit-everywhere-mode-map
 	(let ((m (make-sparse-keymap)))
-      (define-key m (kbd "C-)") 'paredit-forward-slurp-sexp)
-      (define-key m (kbd "C-}") 'paredit-forward-barf-sexp)
-      (define-key m (kbd "M-(") 'paredit-wrap-round)
-      (define-key m (kbd "M-)") 'paredit-close-round-and-newline)
-      (define-key m (kbd "M-]") 'paredit-close-square-and-newline)
-      (define-key m (kbd "M-\"") 'paredit-meta-doublequote)
-      (define-key m (kbd "M-S") 'paredit-split-sexp)
-      (define-key m (kbd "M-J") 'paredit-join-sexps)
-      (define-key m (kbd "M-s") 'paredit-splice-sexp)
-      (define-key m (kbd "M-r") 'paredit-raise-sexp)
-      (define-key m (kbd "M-DEL") 'paredit-backward-kill-word)
-      (define-key m (kbd "M-d") 'paredit-forward-kill-word)
+	  (define-key m (kbd "C-)") 'paredit-forward-slurp-sexp)
+	  (define-key m (kbd "C-}") 'paredit-forward-barf-sexp)
+	  (define-key m (kbd "M-(") 'paredit-wrap-round)
+	  (define-key m (kbd "M-)") 'paredit-close-round-and-newline)
+	  (define-key m (kbd "M-]") 'paredit-close-square-and-newline)
+	  (define-key m (kbd "M-\"") 'paredit-meta-doublequote)
+	  (define-key m (kbd "M-S") 'paredit-split-sexp)
+	  (define-key m (kbd "M-J") 'paredit-join-sexps)
+	  (define-key m (kbd "M-s") 'paredit-splice-sexp)
+	  (define-key m (kbd "M-r") 'paredit-raise-sexp)
+	  (define-key m (kbd "M-DEL") 'paredit-backward-kill-word)
+	  (define-key m (kbd "M-d") 'paredit-forward-kill-word)
 	  (define-key m (kbd "C-k") 'paredit-kill)
 	  (global-set-key "\M-[" #'paredit-wrap-square)
 	  (global-set-key "\M-{" #'paredit-wrap-curly)
@@ -209,17 +209,17 @@
 					  #'paredit-splice-sexp-killing-backward)
 	  m)
 	"Keymap for `paredit-everywhere-mode'.")
-
+  
 ;;;###autoload
   (define-minor-mode paredit-everywhere-mode
 	"A cut-down version of paredit which can be used in non-lisp buffers."
 	:lighter " Par-"
 	:keymap paredit-everywhere-mode-map)
-
+  
   (defun turn-off-paredit-everywhere-mode ()
 	"Disable `paredit-everywhere-mode'."
 	(paredit-everywhere-mode 0))
-
+  
   ;; Disable paredit-everywhere when full paredit is enabled
   (add-hook 'paredit-mode-hook 'turn-off-paredit-everywhere-mode)
   (paredit-everywhere-mode 1)
@@ -279,7 +279,7 @@
   :config
   (dap-ui-mode)
   (dap-ui-controls-mode 1)
-
+  
   (require 'dap-lldb)
   (require 'dap-gdb-lldb)
   ;; installs .extension/vscode
@@ -302,7 +302,7 @@
   (connection-local-set-profile-variables 'tramp-connection-local-default-shell-profile
 										  '((shell-file-name . "/bin/bash")
 											(shell-command-switch . "-c")))
-
+  
   ;; add gh codespaces ssh method support for tramp editing
   ;; e.g. C-x C-f /ghcs:codespace-name:/path/to/file
   ;; thanks to my coworker Bas for this one
@@ -314,7 +314,7 @@
 						(tramp-remote-shell-args ("-c")))))
 	;; just for debugging the methods
 	(if ghcs (setcdr ghcs ghcs-methods)
-      (push (cons "ghcs" ghcs-methods) tramp-methods))))
+	  (push (cons "ghcs" ghcs-methods) tramp-methods))))
 
 (leaf tramp-lsp
   :after (tramp lsp)
@@ -417,7 +417,7 @@
 	  :where point
 	  :duration 'command)
 	value)
-
+  
   (advice-add 'eval-region :around
 			  (lambda (func beg end &rest region)
 				(k/eval-overlay
@@ -427,7 +427,7 @@
   (advice-add 'eval-last-sexp :filter-return
 			  (lambda (region)
 				(k/eval-overlay region (point))))
-
+  
   (advice-add 'eval-defun :filter-return
 			  (lambda (region)
 				(k/eval/overlay region
