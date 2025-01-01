@@ -167,6 +167,19 @@
   :ensure t
   :bind (([remap list-buffers] . bufler)))
 
+(leaf completion-preview
+  :ensure t
+  :config
+  (global-completion-preview-mode)
+  (push 'org-self-insert-command completion-preview-mode)
+  (setq completion-auto-select t
+		completion-auto-help 'visible
+		completions-format 'one-column
+		completions-sort 'historical
+		completions-max-height 20
+		completion-ignore-case t))
+
+
 (provide 'k-emocs)
 
 ;;; k-emocs.el ends here
