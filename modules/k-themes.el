@@ -40,6 +40,7 @@
 
 ;; Solaire
 (leaf solaire-mode
+  :disabled t
   :ensure t
   :config
   (solaire-global-mode 1))
