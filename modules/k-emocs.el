@@ -161,7 +161,17 @@
 	:after (which-key)
 	:ensure t
 	:config
-	(which-key-posframe-mode)))
+	(which-key-posframe-mode))
+  (leaf transient-posframe
+	:after (magit)
+	:ensure t
+	:config
+	(transient-posframe-mode))
+  (leaf flycheck-posframe
+	:after (flycheck)
+	:ensure t
+	:config
+	(flycheck-posframe-mode)))
 
 (leaf bufler
   :ensure t
