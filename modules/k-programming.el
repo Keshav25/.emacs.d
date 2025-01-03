@@ -462,4 +462,12 @@
   :hook
   (compilation-filter-hook . ansi-color-compilation-filter))
 
+(leaf symbol-overlay
+  :ensure t
+  :config
+  (symbol-overlay-mode))
+
+(leaf symbol-overlay-mc
+  :ensure t)
+
 (provide 'k-programming)
