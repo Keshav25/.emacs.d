@@ -24,7 +24,8 @@
   :ensure t
   :bind (("C-s" . consult-line)
 		 ([remap switch-to-buffer] . consult-buffer)
-		 ("C-y" . consult-yank-pop))
+		 ("C-y" . consult-yank-pop)
+		 ("C-S-s" . consult-ripgrep))
   :custom
   ;; (completion-in-region-function . #'consult-completion-in-region)
   (xref-show-xrefs-function . #'consult-xref)
