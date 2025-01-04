@@ -134,22 +134,22 @@
 	:after (vertico)
 	:ensure t
 	:config
-	(vertico-posframe-mode))
+	(vertico-posframe-mode 1))
   (leaf which-key-posframe
 	:after (which-key)
 	:ensure t
 	:config
-	(which-key-posframe-mode))
+	(which-key-posframe-mode 1))
   (leaf transient-posframe
 	:after (magit)
 	:ensure t
 	:config
-	(transient-posframe-mode))
+	(transient-posframe-mode 1))
   (leaf flycheck-posframe
 	:after (flycheck)
 	:ensure t
-	:config
-	(flycheck-posframe-mode)))
+	:hook
+	(flycheck-mode . flycheck-posframe-mode)))
 
 (leaf bufler
   :ensure t
