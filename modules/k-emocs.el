@@ -79,6 +79,17 @@
   ;;; Set API KEYs. It is recommended to use a function that returns the string for better security.
   )
 
+(use-package consult-omni
+  :straight (consult-omni :type git :host github :repo "armindarvish/consult-omni" :branch "main" :files (:defaults "sources/*.el"))
+  :after consult
+  :config
+  ;; Load Sources Core code
+  (require 'consult-omni-sources)
+  ;; Load Embark Actions
+  (require 'consult-omni-embark)
+  (setq consult-omni-sources-modules-to-load '(consult-omni-wikipedia))
+  (consult-omni-sources-load-modules))
+
 (leaf consult-org-roam
   :after (org-roam)
   :ensure t
