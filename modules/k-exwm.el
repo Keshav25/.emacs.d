@@ -214,6 +214,10 @@
   (window-divider-mode)
   (centered-window-mode))
 
+(leaf exwm-background
+  :quelpa (exwm-background :fetcher github :repo "keshav25/exwm-background")
+  :require t)
+
 (exwm-init)
 
 (provide 'k-exwm)
