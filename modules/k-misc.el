@@ -172,6 +172,15 @@
 (leaf sotclojure
   :ensure t)
 
+(leaf gptel
+  :ensure t
+  :config
+  (setq gptel-default-mode #'org-mode)
+  (setq
+   gptel-model 'uncensored-dolphin-mistral:latest
+   gptel-backend (gptel-make-ollama "Ollama"
+                   :host "localhost:11434"
+                   :stream t
+                   :models '(uncensored-dolphin-mistral:latest))))
 
 (provide 'k-misc)
-
