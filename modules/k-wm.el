@@ -284,5 +284,9 @@ if there is no window on the right."
   :config
   (good-scroll-mode 1))
 
+(leaf context-menu
+  :config
+  (context-menu-mode 1))
+
 (provide 'k-wm)
 ;;; k-wm.el ends here
