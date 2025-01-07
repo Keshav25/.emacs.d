@@ -122,6 +122,7 @@
 ;;   :ensure t)
 
 (leaf eev
+  :disabled t
   :ensure t)
 
 (leaf rg
