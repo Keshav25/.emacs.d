@@ -22,6 +22,11 @@
   (magit-file-icons-enable-untracked-icons . t)
   (magit-file-icons-enable-diffstat-icons . t))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (leaf orgit											  ;;
+;;   :quelpa (orgit :fetcher github :repo "magit/orgit")) ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (leaf forge
   :after (magit)
   :ensure t
