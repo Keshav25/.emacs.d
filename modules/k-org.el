@@ -549,7 +549,9 @@
   (denote-org-capture-specifiers . "%?")
   (denote-date-prompt-use-org-read-date . t)
   (denote-journal-extras-title-format . 'day-date-month-year)
-  :hook (dired-mode-hook . denote-dired-mode)
+  :hook
+  (dired-mode-hook . denote-dired-mode)
+  (after-save-hook . k/denote-always-rename-on-save)
   :config
   (require 'denote-journal-extras)
   (defun k/publish-denote ()
@@ -559,7 +561,16 @@
 					  (denote-directory-files)))
 	(shell-command (concat "mv "
 						   (concat (denote-directory) "*.html ")
-						   (concat (denote-directory) "blog/posts/")))))
+						   (concat (denote-directory) "blog/posts/"))))
+  (defun k/denote-always-rename-on-save ()
+	"Rename the current Denote file upon saving the file.
+    Add this to `after-save-hook'."
+	(let ((denote-rename-confirmations nil)
+          (denote-save-buffers t)) ; to save again post-rename
+      (when (and buffer-file-name (denote-file-is-note-p buffer-file-name))
+		(ignore-errors (denote-rename-file-using-front-matter buffer-file-name))
+		(message "Buffer saved and denote-file renamed!")))))
+
 (leaf denote-menu
   :after (denote)
   :ensure t)
