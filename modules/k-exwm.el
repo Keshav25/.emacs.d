@@ -218,6 +218,11 @@
   :quelpa (exwm-background :fetcher github :repo "keshav25/exwm-background")
   :require t)
 
+(leaf exwm-mff
+  :ensure t
+  :config
+  (exwm-mff-mode 1))
+
 (exwm-init)
 
 (provide 'k-exwm)
