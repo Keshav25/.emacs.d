@@ -177,7 +177,7 @@
 					yellow-faint))))
 
 (leaf paredit
-  :rensure t
+  :ensure t
   :hook (emacs-lisp-mode-hook . enable-paredit-mode))
 
 (leaf paredit-everywhere
