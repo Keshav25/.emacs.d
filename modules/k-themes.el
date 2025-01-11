@@ -14,7 +14,7 @@
   (leaf sweet-theme :ensure t)
   :config
   ;; load the actual theme
-  (load-theme 'doom-challenger-deep t)
+  (load-theme 'ef-dark t)
   (set-foreground-color "lightblue")
   (global-hl-line-mode 1))
 
