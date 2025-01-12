@@ -148,10 +148,6 @@
 (leaf cursory
   :ensure t)
 
-(leaf spacious-padding
-  :ensure t)
-
-
 (leaf lin
   :ensure t)
 
