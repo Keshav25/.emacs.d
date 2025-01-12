@@ -165,4 +165,9 @@
   ;;(doom-modeline-mode 1)
   )
 
+(leaf visual-line
+  :hook ((visual-line-mode . menu-bar--display-line-numbers-mode-visual))
+  :config
+  (visual-line-mode))
+
 (provide 'k-themes)

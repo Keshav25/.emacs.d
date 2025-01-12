@@ -77,9 +77,6 @@
 ;; recentf-mode
 (recentf-mode 1)
 
-;; Toggle Word Wrap
-(global-visual-line-mode 1)
-
 ;; Determine OS
 (require 'subr-x)
 (defconst islinux (eq system-type 'gnu/linux))
