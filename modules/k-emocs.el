@@ -133,8 +133,9 @@
 (leaf posframe
   :config
   (leaf vertico-posframe
-	:after (vertico)
 	:ensure t
+	:custom
+	(vertico-posframe-border-width . 1)
 	:config
 	(vertico-posframe-mode 1))
   (leaf which-key-posframe
