@@ -1,6 +1,7 @@
 (leaf eshell
   :require t
   :require 'em-smart
+  :bind (("C-<return>" . 'eshell))
   :custom
   (eshell-where-to-jump . 'begin)
   (eshell-review-quick-commands . nil)
