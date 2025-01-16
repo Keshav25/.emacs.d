@@ -68,6 +68,7 @@
 		(,(kbd "s-'") . fhd/toggle-exwm-input-line-mode-passthrough)
         (,(kbd "s-c") . kill-buffer-and-window)
 		(,(kbd "C-`") . popper-toggle)
+		(,(kbd "M-<return>") . eshell)
         ,@(mapcar (lambda (i)
                     `(,(kbd (format "s-%d" i)) .
                       (lambda ()
