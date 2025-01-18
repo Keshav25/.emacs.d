@@ -212,4 +212,12 @@ sCommand: ")
 
 (leaf dmenu :ensure t)
 
+(leaf sudo-edit
+  :after (embark)
+  :bind
+  (:embark-file-map
+   ("s". sudo-edit-find-file))
+  (:embark-become-file+buffer-map
+   ("s" . sudo-edit-find-file)))
+
 (provide 'k-os)
