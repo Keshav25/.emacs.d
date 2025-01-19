@@ -31,7 +31,10 @@
 		 ("s-w" . #'exwm-workspace-switch)
 		 ("s-D" . #'kill-this-buffer)
 		 ("s-TAB" . #'exwm/jump-to-last-exwm)
-		 ("M-t" . #'execute-extended-command)))
+		 ("M-t" . #'execute-extended-command)
+		 ("M-!" . #'shell-command)
+		 ("<XF86AudioLowerVolume>" . #'desktop-environment-volume-decrement)
+		 ("<XF86AudioRaiseVolume>" . #'desktop-environment-volume-increment)))
 
 (leaf exwm-randr
   :config
