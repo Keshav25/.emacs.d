@@ -166,4 +166,12 @@
   :config
   (visual-line-mode))
 
+(leaf ultra-scroll
+  :quelpa (ultra-scroll :fetcher github :repo "jdtsmith/ultra-scroll")
+  :setq
+  (scroll-conservatively . 101)
+  (scroll-margin . 0)
+  :config
+  (ultra-scroll-mode 1))
+
 (provide 'k-themes)
