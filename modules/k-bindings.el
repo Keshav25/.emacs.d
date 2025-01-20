@@ -117,7 +117,7 @@
 
 (leaf meow-for-commands
   :after (hydra)
-  :config
+  :init
   (leaf meow :ensure t :require t)
   (leaf evil :ensure t :require t)
   (pretty-hydra-define text-objects
