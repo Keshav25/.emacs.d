@@ -96,9 +96,10 @@
 	  (?c aw-split-window-fair "Split Fair Window")
 	  (?v aw-split-window-vert "Split Vert Window")
 	  (?b aw-split-window-horz "Split Horz Window")
-	  (?o delete-other-windows "Delete Other Windows")
+	  (?f delete-other-windows "Delete Other Windows")
 	  (?? aw-show-dispatch-help))
 	"List of actions for `aw-dispatch-default'.")
+  (ace-window-display-mode)
   :bind
   ("C-x o" . ace-window))
 
