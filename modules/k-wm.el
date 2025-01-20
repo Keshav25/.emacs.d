@@ -16,20 +16,6 @@
 
 (customize-set-variable 'even-window-sizes nil)     ; avoid resizing
 
-;; Switch Window
-(leaf switch-window
-  :ensure t
-  :setq
-  (switch-window-input-style . 'minibuffer)
-  (switch-window-increase . 4)
-  (switch-window-threshold . 2)
-  (switch-window-shortcut-style . 'qwerty)
-  (switch-window-qwerty-shortcuts .
-								  '("a" "s" "d" "f" "j" "k" "l"))
-  :bind
-  ("C-x o" . switch-window)
-  ("C-<tab>" . other-window))
-
 ;; Split and Follow Functions
 (defun split-and-follow-horizontally ()
   (interactive)
