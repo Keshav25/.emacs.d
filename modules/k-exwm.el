@@ -33,6 +33,8 @@
 		 ("s-TAB" . #'exwm/jump-to-last-exwm)
 		 ("M-t" . #'execute-extended-command)
 		 ("M-!" . #'shell-command)
+		 ("M-o" . #'other-window-alternating)
+		 ("C-<tab>" . other-window)
 		 ("<XF86AudioLowerVolume>" . #'desktop-environment-volume-decrement)
 		 ("<XF86AudioRaiseVolume>" . #'desktop-environment-volume-increment)))
 

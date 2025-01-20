@@ -298,5 +298,28 @@ if there is no window on the right."
   :config
   (context-menu-mode 1))
 
+(leaf other-window
+  :config
+  (defun other-window-mru ()
+	"Select the most recently used window on this frame."
+	(interactive)
+	(when (one-window-p) (split-window-sensibly))
+	(when-let ((mru-window
+				(get-mru-window
+				 nil nil 'not-this-one-dummy)))
+      (select-window mru-window)))
+  (defalias 'other-window-alternating
+    (let ((direction 1))
+      (lambda (&optional arg)
+        "Call `other-window', switching directions each time."
+        (interactive)
+        (if (equal last-command 'other-window-alternating)
+            (other-window (* direction (or arg 1)))
+          (setq direction (- direction))
+          (other-window (* direction (or arg 1)))))))
+  (put 'other-window-alternating 'repeat-map 'other-window-repeat-map)
+  (keymap-set other-window-repeat-map "o" 'other-window-alternating)
+  :bind ("M-o" . other-window-alternating))
+
 (provide 'k-wm)
 ;;; k-wm.el ends here
