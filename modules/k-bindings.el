@@ -161,4 +161,13 @@
   (global-set-key [remap fill-paragraph]
                   #'k/fill-or-unfill))
 
+(leaf toggle-hydra
+  :after (hydra)
+  :init
+  (pretty-hydra-define toggle
+	(:quit-key "C-g")
+	("toggle"
+	 (("v" visual-line-mode))))
+  :bind ("C-c t" . #'toggle/body))
+
 (provide 'k-bindings)
