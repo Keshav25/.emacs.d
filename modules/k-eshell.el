@@ -69,13 +69,13 @@ if needed, then move there."
 (leaf eshell-prompt-extras
   :after (eshell virtualenvwrapper)
   :ensure t
-  :config
+  :init
   (with-eval-after-load "esh-opt"
 	(when (package-installed-p 'virtualenvwrapper)
 	  (progn
 		(require 'virtualenvwrapper)
 		(venv-initialize-eshell))))
-  (autoload 'epe-theme-multiline-with-status "eshell-prompt-extras")
+  (autoload 'epe-theme-lambda "eshell-prompt-extras")
   (setq eshell-highlight-prompt nil
 		eshell-prompt-function 'epe-theme-lambda))
 
