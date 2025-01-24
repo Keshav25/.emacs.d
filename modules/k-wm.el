@@ -322,5 +322,12 @@ if there is no window on the right."
   (keymap-set other-window-repeat-map "o" 'other-window-alternating)
   :bind ("M-o" . other-window-alternating))
 
+(leaf nova
+  :disabled t
+  :ensure t
+  :quelpa (nova :fetcher github :repo "thisisran/nova")
+  :init
+  (nova-vertico-mode 1))
+
 (provide 'k-wm)
 ;;; k-wm.el ends here
