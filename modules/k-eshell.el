@@ -41,6 +41,21 @@
 		  (-flatten args))
 	nil))
 
+(leaf eshell-simple-functions
+  :config
+  (defun eshell/mkcd (dir)
+	"Create the directory DIR and move there.
+If the directory DIR doesn’t exist, create it and its parents
+if needed, then move there."
+	(mkdir dir t)
+	(cd dir))
+  (defun eshell-new ()
+	"Open a new instance of eshell."
+	(interactive)
+	(eshell 'N))
+  :bind
+  ("C-c o e" . eshell-new))
+
 (leaf esh-help
   :after eshell
   :ensure t
