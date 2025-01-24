@@ -62,6 +62,7 @@
 								 "\\*direnv\\*"
 								 "\\*Warnings\\*"
 								 "\\*Bookmark List\\*"
+								 "\\*exwm-edit"
 								 haskell-compilation-mode
 								 compilation-mode
 								 bqn-inferior-mode))
