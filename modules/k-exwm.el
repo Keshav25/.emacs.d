@@ -46,7 +46,7 @@
 			(lambda ()
               (start-process-shell-command
                "xrandr" nil "xrandr --output eDP1 --mode 1920x1080 --pos 0x0 --rotate normal"))))
-(exwm-randr-enable)
+(exwm-randr-mode 1)
 
 ;; TODO Add Volume Control Keybindings
 (setq exwm-input-global-keys
@@ -154,7 +154,7 @@
 (efs/set-wallpaper)
 (require 'exwm-systemtray)
 (setq exwm-systemtray-height 17)
-(exwm-systemtray-enable)
+(exwm-systemtray-mode 1)
 
 ;; Desktop-Environment
 (leaf desktop-environment
