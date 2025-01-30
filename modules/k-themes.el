@@ -146,7 +146,10 @@
   :ensure t)
 
 (leaf cursory
-  :ensure t)
+  :ensure t
+  :config
+  (cursory-mode 1)
+  (cursory-set-preset 'underscore-thin-other-window))
 
 (leaf lin
   :ensure t)
