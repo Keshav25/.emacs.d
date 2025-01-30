@@ -1,9 +1,13 @@
-(winner-mode 1)
+(leaf winner
+  :init
+  (winner-mode 1))
 
 ;; Window Divider Mode
-(setq window-divider-default-places t
-	  window-divider-default-bottom-width 1
-	  window-divider-default-right-width 1)
+(leaf window-divider
+  :init
+  (setq window-divider-default-places t
+		window-divider-default-bottom-width 1
+		window-divider-default-right-width 1))
 
 ;; Split Thresholds
 (setq split-width-threshold 160
