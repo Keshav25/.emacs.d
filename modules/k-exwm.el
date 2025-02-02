@@ -19,6 +19,10 @@
 	"Pass C-a to the EXWM window."
 	(interactive)
 	(execute-kbd-macro (kbd "C-q C-a")))
+  (defun farl-exwm/C-o ()
+	"Pass the equivalent of C-o to the EXWM window."
+	(interactive)
+	(execute-kbd-macro (kbd "<S-return> C-b")))
   ;; Remove ALL bindings
   (define-key exwm-mode-map "\C-c\C-f" nil)
   (define-key exwm-mode-map "\C-c\C-h" nil)
@@ -40,6 +44,7 @@
 		 ("M-o" . #'other-window-alternating)
 		 ("C-<tab>" . other-window)
 		 ("C-x h" . #'farl-exwm/C-a)
+		 ("C-o" . #'farl-exwm/C-o)
 		 ("<XF86AudioLowerVolume>" . #'desktop-environment-volume-decrement)
 		 ("<XF86AudioRaiseVolume>" . #'desktop-environment-volume-increment)))
 
