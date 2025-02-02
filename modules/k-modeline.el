@@ -1,9 +1,16 @@
 (leaf spacious-padding
   :ensure t
   :custom
-  (spacious-padding-widths . '(:internal-border-width 25 :header-line-width 0 :mode-line-width 0 :tab-width 4 :right-divider-width 30 :scroll-bar-width 8 :fringe-width 8))
+  (spacious-padding-widths . '(:internal-border-width 25
+													  :header-line-width 0
+													  :mode-line-width 0
+													  :tab-width 4
+													  :right-divider-width 30
+													  :scroll-bar-width 8
+													  :fringe-width 8))
   :config
-  (spacious-padding-mode 1))
+  ;; (spacious-padding-mode 1)
+  )
 
 (leaf modeline
   :config
