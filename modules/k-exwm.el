@@ -101,11 +101,15 @@
   (add-hook 'exwm-edit-compose-hook 'k/on-exwm-edit-compose))
 
 (setq exwm-input-simulation-keys
-	  '(
+	  `(
 		([?\C-b] . [left])
 		([?\C-f] . [right])
 		([?\C-p] . [up])
 		([?\C-n] . [down])
+		(,(kbd "C-S-b") . [S-left])
+		(,(kbd "C-S-f") . [S-right])
+		(,(kbd "C-S-p") . [S-up])
+		(,(kbd "C-S-n") . [S-down])
 		([?\C-a] . [home])
 		([?\C-e] . [end])
 		([?\M-v] . [prior])
