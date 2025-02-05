@@ -188,4 +188,17 @@
                    :stream t
                    :models '(uncensored-dolphin-mistral:latest))))
 
+
+(leaf casual-suite
+  :ensure t
+  :config
+  (require  'casual-image)
+  ;; Add Meme Commands
+  (defun k-make-meme ()
+	(async-shell-command "convert temp.jpg -gravity North -pointsize 30 -annotate +0+100 'Love you mom' temp1.jpg "))
+  (transient-insert-suffix 'casual-image-tmenu "c"
+	'("M" "add a caption" image-increase-size))
+  :bind (:image-mode
+		 ("C-o" . casual-image-tmenu)))
+
 (provide 'k-misc)
