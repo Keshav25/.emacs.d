@@ -90,6 +90,11 @@
 (leaf mastodon
   :ensure t
   :require t
+  :bind
+  ("C-c C-x C-n" . mastodon-toot)
+  :setq
+  (mastodon-instance-url . "https://mastodon.social/")
+  (mastodon-active-user . "thepoetlogician")
   :config
   (mastodon-discover))
 
