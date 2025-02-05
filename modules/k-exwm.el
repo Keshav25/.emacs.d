@@ -122,12 +122,11 @@
 		([?\C-w] . [?\C-x])
 		([?\C-y] . [?\C-v])
 		([?\C-s] . [?\C-f])
-		([?\C-\_] . [?\C-z])
+		([?\C-/] . [?\C-z])
 		([?\M-f] . [C-right])
 		([?\M-b] . [C-left])
 		([?\M-d] . [C-S-right delete])
-		([?\C-g] . [escape])
-		))
+		([?\C-g] . [escape])))
 
 (setq window-divider-default-bottom-width 2
 	  window-divider-default-right-width 2)
