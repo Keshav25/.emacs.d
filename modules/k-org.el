@@ -46,6 +46,9 @@
   :init
   (leaf ob-go
 	:ensure t)
+  (leaf ob-csharp
+	:quelpa (ob-csharp :fetcher github :repo "samwdp/ob-csharp"))
+
   (setq org-confirm-babel-evaluate nil)
   (setq scimax-src-block-keymaps
 		;; `(("ipython" . ,(let ((map (make-composed-keymap
@@ -114,7 +117,8 @@
 	 (shell . t)
 	 (scheme . t)
 	 (go . t)
-	 (clojure . t))))
+	 (clojure . t)
+	 (csharp .t))))
 
 (leaf org-agenda
   :bind (("C-c a" . org-agenda))
