@@ -135,9 +135,13 @@
   :config
   (leaf vertico-posframe
 	:ensure t
+	:require t
 	:custom
 	(vertico-posframe-border-width . 1)
 	:config
+	(setq vertico-posframe-parameters
+		  '((alpha . 100)
+			(alpha-background . 90)))
 	(vertico-posframe-mode 1))
   (leaf which-key-posframe
 	:after (which-key)
