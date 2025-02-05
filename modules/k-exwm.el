@@ -1,7 +1,7 @@
 (leaf transparent-frame
   :config
-  (set-frame-parameter nil 'alpha-background 95)
-  (add-to-list 'default-frame-alist '(alpha-background . 95)))
+  (set-frame-parameter nil 'alpha-background 80)
+  (add-to-list 'default-frame-alist '(alpha-background . 80)))
 
 (leaf exwm
   :ensure t
