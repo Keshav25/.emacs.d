@@ -2,6 +2,9 @@
   :init
   (winner-mode 1))
 
+(leaf windower
+  :ensure t)
+
 ;; Window Divider Mode
 (leaf window-divider
   :init
