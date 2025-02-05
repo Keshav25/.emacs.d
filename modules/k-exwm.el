@@ -180,7 +180,7 @@
   (desktop-environment-brightness-normal-increment . "5%+")
   (desktop-environment-brightness-normal-decrement . "5%-")
   (exwm-layout-show-all-buffers . t)
-  :config
+  :init
   (desktop-environment-mode 1)
   :bind (:desktop-environment-mode-map
 		 ("s-l" . nil)))
