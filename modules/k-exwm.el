@@ -45,6 +45,7 @@
 		 ("C-<tab>" . other-window)
 		 ("C-x h" . #'farl-exwm/C-a)
 		 ("C-o" . #'farl-exwm/C-o)
+		 ("C-u" . #'universal-argument)
 		 ("<XF86AudioLowerVolume>" . #'desktop-environment-volume-decrement)
 		 ("<XF86AudioRaiseVolume>" . #'desktop-environment-volume-increment)))
 
