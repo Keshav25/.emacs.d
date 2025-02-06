@@ -150,7 +150,7 @@
                 ;; (undecorated . t)
                 (vertical-scroll-bars . nil)
                 (horizontal-scroll-bars . nil)
-				;; (font . "JetBrainsMono-12:weigth=regular:width=normal")
+				(font . "JetBrainsMono-9:weigth=regular:width=normal")
 				))
 
 ;; (push '(menu-bar-lines . 0)   default-frame-alist)
