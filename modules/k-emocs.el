@@ -25,6 +25,7 @@
   :bind (("C-s" . consult-line)
 		 ([remap switch-to-buffer] . consult-buffer)
 		 ("C-y" . consult-yank-pop)
+		 ("C-M-y" . yank)
 		 ("C-S-s" . consult-ripgrep)
 		 ("M-s M-s" . consult-outline))
   :custom
