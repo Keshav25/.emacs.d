@@ -244,6 +244,28 @@
   :config
   (exwm-mff-mode 1))
 
+(leaf ednc
+  :ensure t
+  :config
+  (defun list-notifications ()
+	(mapconcat #'ednc-format-notification (ednc-notifications) ""))
+  (defun stack-notifications (&optional hide)
+	(mapconcat (lambda (notification)
+				 (let ((app-name (ednc-notification-app-name notification)))
+                   (unless (member app-name hide)
+					 (push app-name hide)
+					 (ednc-format-notification notification))))
+               (ednc-notifications) ""))
+  (nconc global-mode-string '((:eval (list-notifications))))  ; or stack
+  (add-hook 'ednc-notification-presentation-functions
+			(lambda (&rest _) (force-mode-line-update t))))
+
+
+
+(leaf ednc-popup
+  :quelpa (ednc-popup :fetcher git :url "https://codeberg.org/akib/emacs-ednc-popup.git")
+  :hook (ednc-notification-presentation-functions . ednc-popup-presentation-function))
+
 (exwm-init)
 
 (provide 'k-exwm)
