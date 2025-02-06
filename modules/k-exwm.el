@@ -1,5 +1,6 @@
 (leaf transparent-frame
   :config
+  (set-frame-parameter nil 'alpha 100)
   (set-frame-parameter nil 'alpha-background 80)
   (add-to-list 'default-frame-alist '(alpha-background . 80)))
 
