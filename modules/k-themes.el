@@ -167,7 +167,7 @@
 (leaf visual-line
   :hook ((visual-line-mode . menu-bar--display-line-numbers-mode-visual))
   :config
-  (global-visual-line-mode))
+  (global-visual-line-mode 1))
 
 (leaf ultra-scroll
   :quelpa (ultra-scroll :fetcher github :repo "jdtsmith/ultra-scroll")
