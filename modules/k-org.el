@@ -21,6 +21,7 @@
   (org-export-with-toc . nil)
   (org-agenda-search-view-always-boolean . t)
   (org-agenda-timegrid-use-ampm . nil)
+  (org-agenda-span . 'day)
   (org-return-follows-link . t)
   (org-mouse-1-follows-link . t)
   (org-refile-use-outline-path . 'file)
@@ -41,6 +42,12 @@
   (org-src-ask-before-returning-to-edit-buffer . nil)
   (org-src-window-setup . 'current-window)
   )
+(leaf org-insert-date
+  :config
+  (defun k-org-insert-date ()
+	(interactive)
+	(insert (shell-command-to-string "date")))
+  :bind (("C-c i d" . k-org-insert-date)))
 
 (leaf org-babel
   :init
