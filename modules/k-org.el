@@ -42,6 +42,12 @@
   (org-src-ask-before-returning-to-edit-buffer . nil)
   (org-src-window-setup . 'current-window)
   )
+(leaf org-insert-date
+  :config
+  (defun k-org-insert-date ()
+	(interactive)
+	(insert (shell-command-to-string "date")))
+  :bind (("C-c i d" . k-org-insert-date)))
 
 (leaf org-babel
   :init
