@@ -189,6 +189,11 @@
                    :models '(uncensored-dolphin-mistral:latest))))
 
 
+(leaf chatgpt-shell
+  :ensure t
+  :custom
+  (chatgpt-shell-model-version . "uncensored-dolphin-mistral"))
+
 (leaf casual-suite
   :ensure t
   :config
