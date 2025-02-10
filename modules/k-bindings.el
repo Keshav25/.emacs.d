@@ -170,4 +170,14 @@
 	 (("v" visual-line-mode))))
   :bind ("C-c t" . #'toggle/body))
 
+(leaf back-button
+  :ensure t
+  :require t
+  :bind (("C-<" . back-button-local-backward)
+		 ("C->" . back-button-local-forward)
+		 ("C-M-<" . back-button-global-backward)
+		 ("C-M->" . back-button-global-forward))
+  :config
+  (back-button-mode 1))
+
 (provide 'k-bindings)
