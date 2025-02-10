@@ -466,7 +466,7 @@
 (leaf symbol-overlay
   :ensure t
   :config
-  (symbol-overlay-mode))
+  (symbol-overlay-mode 1))
 
 (leaf symbol-overlay-mc
   :ensure t)
