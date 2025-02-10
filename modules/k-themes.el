@@ -152,7 +152,9 @@
   (cursory-set-preset 'underscore-thin-other-window))
 
 (leaf lin
-  :ensure t)
+  :ensure t
+  :custom
+  (lin-face . "lin-green"))
 
 (set-face-background 'default nil)
 (set-face-attribute 'default nil)
