@@ -6,6 +6,7 @@
   (:elfeed-show-mode-map
    ("r" . elfeed-update))
   :config
+  (load-file "~/.emacs.d/elfeed-feeds.el")
   (with-eval-after-load 'elfeed
 	(let
 		((leaf--load-file-name "~/.emacs.d/init.el"))
