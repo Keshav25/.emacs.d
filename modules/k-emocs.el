@@ -27,7 +27,8 @@
 		 ("C-y" . consult-yank-pop)
 		 ("C-M-y" . yank)
 		 ("C-S-s" . consult-ripgrep)
-		 ("M-s M-s" . consult-outline))
+		 ("M-s M-s" . consult-outline)
+		 ("M-g k" . consult-global-mark))
   :custom
   ;; (completion-in-region-function . #'consult-completion-in-region)
   (xref-show-xrefs-function . #'consult-xref)
