@@ -180,4 +180,10 @@
   :config
   (back-button-mode 1))
 
+(leaf binky
+  :ensure t
+  :config
+  (binky-mode)
+  (binky-margin-mode))
+
 (provide 'k-bindings)
