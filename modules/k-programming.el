@@ -457,7 +457,8 @@
   :hook ((emacs-lisp-mode . elisp-slime-nav-mode)))
 
 (leaf compile
-  :bind (("C-c y" . 'compile))
+  :bind (("C-c y" . 'compile)
+		 ("<f5>" . 'recompile))
   :custom
   (compilation-scroll-output . t)
   :hook
