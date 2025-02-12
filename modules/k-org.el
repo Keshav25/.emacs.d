@@ -42,12 +42,290 @@
   (org-src-ask-before-returning-to-edit-buffer . nil)
   (org-src-window-setup . 'current-window)
   )
+
+(leaf org-emphasis-kbd
+  :config
+  (add-to-list 'org-emphasis-alist '("%" org-kbd verbatim))
+  (add-to-list 'org-html-text-markup-alist '(kbd . "<kbd>%s</kbd>"))
+
+  (defun org-html-kbd (_kbd contents info)
+  "Transcode KBD from Org to HTML.
+CONTENTS is the text with kbd markup. INFO is a plist holding
+contextual information."
+  (format (or (cdr (assq 'kbd (plist-get info :html-text-markup-alist))) "%s")
+          contents))
+  ;; Not sure if this is necessary.  See `org-element-update-syntax'.
+(org-set-emph-re 'org-emphasis-alist org-emphasis-alist)
+
+(defface org-kbd
+  '((t (:inherit org-verbatim)))
+  "Face for Org keyboard emphasis.")
+
+(defun org-element-kbd-parser ()
+  "Parse kbd object at point, if any.
+When at a kbd object, return a list whose car is `kbd' and cdr
+is a plist with `:begin', `:end', `:contents-begin' and
+`:contents-end' and `:post-blank' keywords. Otherwise, return
+nil.
+Assume point is at the first star marker."
+  (save-excursion
+    (unless (bolp) (backward-char 1))
+    (when (looking-at org-emph-re)
+      (let ((begin (match-beginning 2))
+            (contents-begin (match-beginning 4))
+            (contents-end (match-end 4))
+            (post-blank (progn (goto-char (match-end 2))
+                               (skip-chars-forward " \t")))
+            (end (point)))
+        (list 'kbd
+              (list :begin begin
+                    :end end
+                    :contents-begin contents-begin
+                    :contents-end contents-end
+                    :post-blank post-blank))))))
+
+;; MAYBE: Define a derived backend rather than replacing the HTML one.
+(org-export-define-backend 'html
+  '((kbd . org-html-kbd)
+    (bold . org-html-bold)
+    (center-block . org-html-center-block)
+    (clock . org-html-clock)
+    (code . org-html-code)
+    (drawer . org-html-drawer)
+    (dynamic-block . org-html-dynamic-block)
+    (entity . org-html-entity)
+    (example-block . org-html-example-block)
+    (export-block . org-html-export-block)
+    (export-snippet . org-html-export-snippet)
+    (fixed-width . org-html-fixed-width)
+    (footnote-definition . org-html-footnote-definition)
+    (footnote-reference . org-html-footnote-reference)
+    (headline . org-html-headline)
+    (horizontal-rule . org-html-horizontal-rule)
+    (inline-src-block . org-html-inline-src-block)
+    (inlinetask . org-html-inlinetask)
+    (inner-template . org-html-inner-template)
+    (italic . org-html-italic)
+    (item . org-html-item)
+    (keyword . org-html-keyword)
+    (latex-environment . org-html-latex-environment)
+    (latex-fragment . org-html-latex-fragment)
+    (line-break . org-html-line-break)
+    (link . org-html-link)
+    (node-property . org-html-node-property)
+    (paragraph . org-html-paragraph)
+    (plain-list . org-html-plain-list)
+    (plain-text . org-html-plain-text)
+    (planning . org-html-planning)
+    (property-drawer . org-html-property-drawer)
+    (quote-block . org-html-quote-block)
+    (radio-target . org-html-radio-target)
+    (section . org-html-section)
+    (special-block . org-html-special-block)
+    (src-block . org-html-src-block)
+    (statistics-cookie . org-html-statistics-cookie)
+    (strike-through . org-html-strike-through)
+    (subscript . org-html-subscript)
+    (superscript . org-html-superscript)
+    (table . org-html-table)
+    (table-cell . org-html-table-cell)
+    (table-row . org-html-table-row)
+    (target . org-html-target)
+    (template . org-html-template)
+    (timestamp . org-html-timestamp)
+    (underline . org-html-underline)
+    (verbatim . org-html-verbatim)
+    (verse-block . org-html-verse-block))
+  :filters-alist '((:filter-options . org-html-infojs-install-script)
+                   (:filter-final-output . org-html-final-function))
+  :menu-entry
+  '(?h "Export to HTML"
+       ((?H "As HTML buffer" org-html-export-as-html)
+        (?h "As HTML file" org-html-export-to-html)
+        (?o "As HTML file and open"
+            (lambda (a s v b)
+              (if a (org-html-export-to-html t s v b)
+                (org-open-file (org-html-export-to-html nil s v b)))))))
+  :options-alist
+  '((:html-doctype "HTML_DOCTYPE" nil org-html-doctype)
+    (:html-container "HTML_CONTAINER" nil org-html-container-element)
+    (:description "DESCRIPTION" nil nil newline)
+    (:keywords "KEYWORDS" nil nil space)
+    (:html-html5-fancy nil "html5-fancy" org-html-html5-fancy)
+    (:html-link-use-abs-url nil "html-link-use-abs-url" org-html-link-use-abs-url)
+    (:html-link-home "HTML_LINK_HOME" nil org-html-link-home)
+    (:html-link-up "HTML_LINK_UP" nil org-html-link-up)
+    (:html-mathjax "HTML_MATHJAX" nil "" space)
+    (:html-postamble nil "html-postamble" org-html-postamble)
+    (:html-preamble nil "html-preamble" org-html-preamble)
+    (:html-head "HTML_HEAD" nil org-html-head newline)
+    (:html-head-extra "HTML_HEAD_EXTRA" nil org-html-head-extra newline)
+    (:subtitle "SUBTITLE" nil nil parse)
+    (:html-head-include-default-style
+     nil "html-style" org-html-head-include-default-style)
+    (:html-head-include-scripts nil "html-scripts" org-html-head-include-scripts)
+    (:html-allow-name-attribute-in-anchors
+     nil nil org-html-allow-name-attribute-in-anchors)
+    (:html-divs nil nil org-html-divs)
+    (:html-checkbox-type nil nil org-html-checkbox-type)
+    (:html-extension nil nil org-html-extension)
+    (:html-footnote-format nil nil org-html-footnote-format)
+    (:html-footnote-separator nil nil org-html-footnote-separator)
+    (:html-footnotes-section nil nil org-html-footnotes-section)
+    (:html-format-drawer-function nil nil org-html-format-drawer-function)
+    (:html-format-headline-function nil nil org-html-format-headline-function)
+    (:html-format-inlinetask-function
+     nil nil org-html-format-inlinetask-function)
+    (:html-home/up-format nil nil org-html-home/up-format)
+    (:html-indent nil nil org-html-indent)
+    (:html-infojs-options nil nil org-html-infojs-options)
+    (:html-infojs-template nil nil org-html-infojs-template)
+    (:html-inline-image-rules nil nil org-html-inline-image-rules)
+    (:html-link-org-files-as-html nil nil org-html-link-org-files-as-html)
+    (:html-mathjax-options nil nil org-html-mathjax-options)
+    (:html-mathjax-template nil nil org-html-mathjax-template)
+    (:html-metadata-timestamp-format nil nil org-html-metadata-timestamp-format)
+    (:html-postamble-format nil nil org-html-postamble-format)
+    (:html-preamble-format nil nil org-html-preamble-format)
+    (:html-table-align-individual-fields
+     nil nil org-html-table-align-individual-fields)
+    (:html-table-caption-above nil nil org-html-table-caption-above)
+    (:html-table-data-tags nil nil org-html-table-data-tags)
+    (:html-table-header-tags nil nil org-html-table-header-tags)
+    (:html-table-use-header-tags-for-first-column
+     nil nil org-html-table-use-header-tags-for-first-column)
+    (:html-tag-class-prefix nil nil org-html-tag-class-prefix)
+    (:html-text-markup-alist nil nil org-html-text-markup-alist)
+    (:html-todo-kwd-class-prefix nil nil org-html-todo-kwd-class-prefix)
+    (:html-toplevel-hlevel nil nil org-html-toplevel-hlevel)
+    (:html-use-infojs nil nil org-html-use-infojs)
+    (:html-validation-link nil nil org-html-validation-link)
+    (:html-viewport nil nil org-html-viewport)
+    (:html-inline-images nil nil org-html-inline-images)
+    (:html-table-attributes nil nil org-html-table-default-attributes)
+    (:html-table-row-open-tag nil nil org-html-table-row-open-tag)
+    (:html-table-row-close-tag nil nil org-html-table-row-close-tag)
+    (:html-xml-declaration nil nil org-html-xml-declaration)
+    (:infojs-opt "INFOJS_OPT" nil nil)
+    ;; Redefine regular options.
+    (:creator "CREATOR" nil org-html-creator-string)
+    (:with-latex nil "tex" org-html-with-latex)
+    ;; Retrieve LaTeX header for fragments.
+    (:latex-header "LATEX_HEADER" nil nil newline)))
+
+(defun org-element--object-lex (restriction)
+  "Return next object in current buffer or nil.
+RESTRICTION is a list of object types, as symbols, that should be
+looked after. This function assumes that the buffer is narrowed
+to an appropriate container (e.g., a paragraph)."
+  (if (memq 'table-cell restriction) (org-element-table-cell-parser)
+    (let* ((start (point))
+           (limit
+            (save-excursion
+              (cond ((not org-target-link-regexp) nil)
+                    ((not (memq 'link restriction)) nil)
+                    ((progn
+                       (unless (bolp) (forward-char -1))
+                       (not (re-search-forward org-target-link-regexp nil t)))
+                     nil)
+                    ;; Since we moved backward, we do not want to
+                    ;; match again an hypothetical 1-character long
+                    ;; radio link before us. Realizing that this can
+                    ;; only happen if such a radio link starts at
+                    ;; beginning of line, we prevent this here.
+                    ((and (= start (1+ (line-beginning-position)))
+                          (= start (match-end 1)))
+                     (and (re-search-forward org-target-link-regexp nil t)
+                          (match-beginning 1)))
+                    (t (match-beginning 1)))))
+           found)
+      (save-excursion
+        (while (and (not found)
+                    (re-search-forward org-element--object-regexp limit 'move))
+          (goto-char (match-beginning 0))
+          (let ((result (match-string 0)))
+            (setq found
+                  (cond
+                   ((string-prefix-p "call_" result t)
+                    (and (memq 'inline-babel-call restriction)
+                         (org-element-inline-babel-call-parser)))
+                   ((string-prefix-p "src_" result t)
+                    (and (memq 'inline-src-block restriction)
+                         (org-element-inline-src-block-parser)))
+                   (t
+                    (pcase (char-after)
+                      (?^ (and (memq 'superscript restriction)
+                               (org-element-superscript-parser)))
+                      (?_ (or (and (memq 'subscript restriction)
+                                   (org-element-subscript-parser))
+                              (and (memq 'underline restriction)
+                                   (org-element-underline-parser))))
+                      (?* (and (memq 'bold restriction)
+                               (org-element-bold-parser)))
+                      (?/ (and (memq 'italic restriction)
+                               (org-element-italic-parser)))
+                      (?~ (and (memq 'code restriction)
+                               (org-element-code-parser)))
+                      (?= (and (memq 'verbatim restriction)
+                               (org-element-verbatim-parser)))
+                      (?+ (and (memq 'strike-through restriction)
+                               (org-element-strike-through-parser)))
+                      (?@ (and (memq 'export-snippet restriction)
+                               (org-element-export-snippet-parser)))
+                      (?{ (and (memq 'macro restriction)
+                               (org-element-macro-parser)))
+                      (?$ (and (memq 'latex-fragment restriction)
+                               (org-element-latex-fragment-parser)))
+                      (?<
+                       (if (eq (aref result 1) ?<)
+                           (or (and (memq 'radio-target restriction)
+                                    (org-element-radio-target-parser))
+                               (and (memq 'target restriction)
+                                    (org-element-target-parser)))
+                         (or (and (memq 'timestamp restriction)
+                                  (org-element-timestamp-parser))
+                             (and (or (memq 'link restriction)
+                                      (memq 'simple-link restriction))
+                                  (org-element-link-parser)))))
+                      (?\\
+                       (if (eq (aref result 1) ?\\)
+                           (and (memq 'line-break restriction)
+                                (org-element-line-break-parser))
+                         (or (and (memq 'entity restriction)
+                                  (org-element-entity-parser))
+                             (and (memq 'latex-fragment restriction)
+                                  (org-element-latex-fragment-parser)))))
+                      (?\[
+                       (if (eq (aref result 1) ?\[)
+                           (and (memq 'link restriction)
+                                (org-element-link-parser))
+                         (or (and (memq 'footnote-reference restriction)
+                                  (org-element-footnote-reference-parser))
+                             (and (memq 'timestamp restriction)
+                                  (org-element-timestamp-parser))
+                             (and (memq 'statistics-cookie restriction)
+                                  (org-element-statistics-cookie-parser)))))
+                      ;; NOTE: This is the new code.  I wish this didn't require modifying this function.
+                      (?% (and (memq 'kbd restriction)
+                               (org-element-kbd-parser)))
+                      ;; This is probably a plain link.
+                      (_ (and (or (memq 'link restriction)
+                                  (memq 'simple-link restriction))
+                              (org-element-link-parser)))))))
+            (or (eobp) (forward-char))))
+        (cond (found)
+              (limit (org-element-link-parser))	;radio link
+              (t nil)))))
+Comment
+)
+
 (leaf org-insert-date
   :config
   (defun k-org-insert-date ()
 	(interactive)
 	(insert (shell-command-to-string "date")))
-  :bind (("C-c i d" . k-org-insert-date)))
+  :bind
+  ("C-c i d" . k-org-insert-date))
 
 (leaf org-babel
   :init
