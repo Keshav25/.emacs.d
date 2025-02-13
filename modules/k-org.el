@@ -316,7 +316,6 @@ to an appropriate container (e.g., a paragraph)."
         (cond (found)
               (limit (org-element-link-parser))	;radio link
               (t nil)))))
-Comment
 )
 
 (leaf org-insert-date
