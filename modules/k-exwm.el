@@ -127,7 +127,9 @@
 		([?\M-f] . [C-right])
 		([?\M-b] . [C-left])
 		([?\M-d] . [C-S-right delete])
-		([?\C-g] . [escape])))
+		([?\C-g] . [escape])
+		([?\M-<] . [home])
+		([?\M->] . [end])))
 
 (setq window-divider-default-bottom-width 2
 	  window-divider-default-right-width 2)
