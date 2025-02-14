@@ -921,18 +921,18 @@ to an appropriate container (e.g., a paragraph)."
 (leaf org-latest-git-commits
   :config
   (defun org-dblock-write:github-commits (params)
-    (let* ((user (or (plist-get params :user) "TON-UTILISATEUR"))
-           (repo (or (plist-get params :repo) "TON-DEPOT"))
-           (num (or (plist-get params :n) 5))
-           (url (format "https://api.github.com/repos/%s/%s/commits?per_page=%d" user repo num))
-           (json (with-temp-buffer
-                   (url-insert-file-contents url)
-                   (json-parse-buffer :array-type 'list))))
-      (insert "* Latest commits\n")
-      (dolist (commit json)
-        (let ((sha (substring (gethash "sha" commit) 0 7))
-              (message (gethash "message" (gethash "commit" commit))))
-          (insert (format "- [[https://github.com/%s/%s/commit/%s][%s]] - %s\n"
-                          user repo sha sha message)))))))
+	(cl-destructuring-bind (&key (user "Keshav25") (repo ".emacs.d/") (n 5)
+								 &allow-other-keys) params
+      (let* ((num (max n 1))
+			 (url (format "https://api.github.com/repos/%s/%s/commits?per_page=%d" user repo num))
+			 (json (with-temp-buffer
+					 (url-insert-file-contents url)
+					 (json-parse-buffer :array-type 'list))))
+		(insert "* Latest commits\n")
+		(dolist (commit json)
+          (let ((sha (substring (gethash "sha" commit) 0 7))
+				(message (gethash "message" (gethash "commit" commit))))
+			(insert (format "- [[https://github.com/%s/%s/commit/%s][%s]] - %s\n"
+							user repo sha sha message))))))))
 
 (provide 'k-org)
