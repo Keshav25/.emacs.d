@@ -19,8 +19,8 @@
 
 (packages->manifest (list
 					 git
-					  cmake
-					  k-emacs
-					  ripgrep
-					  picom
-					  git-delta))
+					 cmake
+					 k-emacs
+					 ripgrep
+					 picom
+					 git-delta))
