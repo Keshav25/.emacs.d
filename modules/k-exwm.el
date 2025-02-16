@@ -126,6 +126,8 @@
 		([?\C-/] . [?\C-z])
 		([?\M-f] . [C-right])
 		([?\M-b] . [C-left])
+		(,(kbd "M-S-b") . [C-S-left])
+		(,(kbd "M-S-f") . [C-S-right])
 		([?\M-d] . [C-S-right delete])
 		([?\C-g] . [escape])
 		([?\M-<] . [home])
