@@ -28,6 +28,9 @@
 
 (setq warning-suppress-log-types '((package reinitialization)))
 
+;; disable audio
+(setq ring-bell-function 'ignore)
+
 ;; Because Windows
 (setq gnutls-algorithm-priority "SECURE128:+SECURE192:-VERS-ALL:+VERS-TLS1.2:+VERS-TLS1.3")  
 
