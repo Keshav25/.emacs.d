@@ -31,6 +31,9 @@
 ;; disable audio
 (setq ring-bell-function 'ignore)
 
+;; refresh buffer on file change
+(global-auto-revert-mode t)
+
 ;; Because Windows
 (setq gnutls-algorithm-priority "SECURE128:+SECURE192:-VERS-ALL:+VERS-TLS1.2:+VERS-TLS1.3")  
 
