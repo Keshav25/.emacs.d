@@ -21,6 +21,11 @@
   :hook ((dired-mode-hook . all-the-icons-dired-mode)
 		 (dired-mode-hook . dired-hide-details-mode)))
 
+(leaf dired-subtree
+  :ensure t
+  :bind (:dired-mode-map
+		 ("<tab>" . dired-subtree-toggle)))
+
 (leaf dired-open :ensure t)
 ;; (leaf peep-dired :ensure t)
 (leaf dirvish
