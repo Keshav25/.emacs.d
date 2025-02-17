@@ -1,4 +1,8 @@
 ;; ;; Dired
+(leaf dired
+  :bind (:dired-mode-map
+		 ("k" . dired-create-empty-file)))
+
 (leaf all-the-icons-dired :ensure t
   :hook ((dired-mode-hook . all-the-icons-dired-mode)
 		 (dired-mode-hook . dired-hide-details-mode)))
