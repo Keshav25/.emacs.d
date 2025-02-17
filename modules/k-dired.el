@@ -3,6 +3,20 @@
   :bind (:dired-mode-map
 		 ("k" . dired-create-empty-file)))
 
+(leaf dired-sidebar
+  :ensure t
+  :require t
+  :bind ("C-S-d" . dired-sidebar-toggle-sidebar)
+  :config
+  (defun k/dired-sidebar-hooks ()
+	(unless (file-remote-p default-directory)
+	  (auto-revert-mode)))
+  (push 'toggle-window-split dired-sidebar-toggle-hidden-commands)
+  (push 'rotate-windows dired-sidebar-toggle-hidden-commands)
+  (push 'ace-window dired-sidebar-toggle-hidden-commands)
+  (setq dired-sidebar-use-term-integration t)
+  :hook ((dired-sidebar-mode-hook . k/dired-sidebar-hooks)))
+
 (leaf all-the-icons-dired :ensure t
   :hook ((dired-mode-hook . all-the-icons-dired-mode)
 		 (dired-mode-hook . dired-hide-details-mode)))
