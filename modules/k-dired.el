@@ -1,6 +1,7 @@
 ;; ;; Dired
-;; (leaf all-the-icons-dired :ensure t
-;;   :hook ((dired-mode-hook . all-the-icons-dired-mode)))
+(leaf all-the-icons-dired :ensure t
+  :hook ((dired-mode-hook . all-the-icons-dired-mode)
+		 (dired-mode-hook . dired-hide-details-mode)))
 
 (leaf dired-open :ensure t)
 ;; (leaf peep-dired :ensure t)
