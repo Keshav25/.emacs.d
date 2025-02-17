@@ -183,7 +183,10 @@
 (leaf binky
   :ensure t
   :config
-  (binky-mode)
-  (binky-margin-mode))
+  (binky-mode t)
+  (binky-margin-mode t))
+
+(leaf grugru
+  :ensure t)
 
 (provide 'k-bindings)
