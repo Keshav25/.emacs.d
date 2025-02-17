@@ -781,8 +781,8 @@ to an appropriate container (e.g., a paragraph)."
 (leaf org-unique-id
   :ensure t
   :require t
-  :after (org)
-  :hook ((before-save-hook . org-unique-id)))
+  :after (org))
+;; :hook ((before-save-hook . org-unique-id))
 
 (leaf ox-haunt
   :ensure t)
