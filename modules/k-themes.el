@@ -140,7 +140,7 @@
 							 ("NOTE" success bold)
 							 ("DECPRECATED" font-lock-doc-face bold)))
   :config
-  (hl-todo-mode 1))
+  (global-hl-todo-mode 1))
 
 (leaf fontaine
   :ensure t)
