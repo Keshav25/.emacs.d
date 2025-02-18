@@ -186,5 +186,7 @@
   (binky-mode t)
   (binky-margin-mode t))
 
+(leaf grugru
+  :ensure t)
 
 (provide 'k-bindings)
