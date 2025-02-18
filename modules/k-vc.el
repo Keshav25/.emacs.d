@@ -37,8 +37,14 @@
 
 (leaf diff-hl
   :ensure t
+  :require t
   :init
-  (global-diff-hl-mode 1))
+  (global-diff-hl-mode 1)
+  :hook ((magit-post-refresh-hook . diff-hl-magit-post-refresh))
+  :bind (:diff-hl-mode-map
+		 ("<left-fringe> <mouse-1>" . 'diff-hl-diff-goto-hunk)
+		 ("M-C-]" . 'diff-hl-next-hunk)
+		 ("M-C-[" . 'diff-hl-previous-hunk)))
 
 (leaf git-gutter
   :ensure t)
