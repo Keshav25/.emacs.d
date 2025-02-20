@@ -1,3 +1,9 @@
+(defmacro with-other-window (&rest body)
+  "Execute forms in BODY in the other-window."
+  `(unless (one-window-p)
+     (with-selected-window (other-window-for-scrolling)
+       ,@body)))
+
 (leaf winner
   :init
   (winner-mode 1))
