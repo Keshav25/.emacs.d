@@ -21,7 +21,7 @@
   (org-export-with-toc . nil)
   (org-agenda-search-view-always-boolean . t)
   (org-agenda-timegrid-use-ampm . nil)
-  (org-agenda-span . 'day)
+  (org-agenda-span . 'month)
   (org-return-follows-link . t)
   (org-mouse-1-follows-link . t)
   (org-refile-use-outline-path . 'file)
