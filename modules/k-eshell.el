@@ -10,6 +10,29 @@
 										 eshell-extpipe eshell-glob eshell-hist eshell-ls
 										 eshell-pred eshell-prompt eshell-script eshell-term
 										 eshell-smart eshell-unix eshell-rebind)))
+(leaf run-in-eshell
+  :config
+  (defun run-this-in-eshell (cmd)
+	"Runs the command CMD in Eshell."
+	(let ((eshell-buffer (current-buffer)))  ; Store the current buffer
+      (with-current-buffer eshell-buffer
+		(end-of-buffer)
+		(eshell-kill-input)
+		(message (concat "Running in Eshell: " cmd))
+		(insert cmd)
+		(eshell-send-input)
+		(end-of-buffer)
+		(eshell-bol)
+		(yank)))))
+
+(leaf clear-eshell
+  :after (run-in-eshell)
+  :config
+  (defun eshell/clear1 ()
+	(interactive)
+	(run-this-in-eshell "clear1"))
+  :bind (:eshell-mode-map
+		 ("C-S-l" . eshell/clear1)))
 
 ;; '(eshell-alias eshell-banner eshell-basic eshell-cmpl eshell-dirs
 ;; 			   eshell-extpipe eshell-glob eshell-hist eshell-ls
