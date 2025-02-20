@@ -1,5 +1,7 @@
 ;; ;; Dired
 (leaf dired
+  :custom
+  (dired-dwim-target . t)
   :bind (:dired-mode-map
 		 ("k" . dired-create-empty-file)))
 
