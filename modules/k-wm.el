@@ -134,7 +134,7 @@ When `switch-to-buffer-obey-display-actions' is non-nil,
 	(message "Use `ace-window' to display next command buffer..."))
 
   :bind
-  ("C-x o" . ace-window)
+  ("C-S-o" . ace-window)
   ("M-o" . ace-window-prefix))
 
 (leaf transpose-frame
@@ -343,6 +343,7 @@ if there is no window on the right."
 				(get-mru-window
 				 nil nil 'not-this-one-dummy)))
       (select-window mru-window)))
+
   (defalias 'other-window-alternating
     (let ((direction 1))
       (lambda (&optional arg)
@@ -354,7 +355,7 @@ if there is no window on the right."
           (other-window (* direction (or arg 1)))))))
   (put 'other-window-alternating 'repeat-map 'other-window-repeat-map)
   (keymap-set other-window-repeat-map "o" 'other-window-alternating)
-  :bind ("C-x 4 4" . other-window-alternating))
+  :bind ("C-x o" . other-window))
 
 (leaf nova
   :disabled t
