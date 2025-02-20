@@ -21,6 +21,11 @@
   :hook ((dired-mode-hook . all-the-icons-dired-mode)
 		 (dired-mode-hook . dired-hide-details-mode)))
 
+(leaf diredfl
+  :ensure t
+  :config
+  (diredfl-global-mode t))
+
 (leaf dired-subtree
   :ensure t
   :bind (:dired-mode-map
