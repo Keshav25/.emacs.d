@@ -2,7 +2,7 @@
   :custom
   (elfeed-feeds . '("https://sachachua.com/blog/feed/"))
   :bind
-  (("C-x w" . elfeed))
+  (("C-c o r" . elfeed))
   (:elfeed-show-mode-map
    ("r" . elfeed-update))
   :config
