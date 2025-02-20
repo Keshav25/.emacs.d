@@ -354,7 +354,7 @@ if there is no window on the right."
           (other-window (* direction (or arg 1)))))))
   (put 'other-window-alternating 'repeat-map 'other-window-repeat-map)
   (keymap-set other-window-repeat-map "o" 'other-window-alternating)
-  :bind ("M-o" . other-window-alternating))
+  :bind ("C-x 4 4" . other-window-alternating))
 
 (leaf nova
   :disabled t
