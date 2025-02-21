@@ -177,6 +177,14 @@
 		completions-max-height 20
 		completion-ignore-case t))
 
+(leaf file-previews
+  :config
+  (defun k/find-file-preview ()
+    (interactive)
+    (let ((consult-ripgrep-command "rga --multiline --null --ignore-case --type org --line-buffered --color=always --max-columns=500 --no-heading --line-number . -e ARG OPTS"))
+      (consult-ripgrep)))
+  :bind ("C-x p C-s" . k/find-file-preview))
+
 
 (provide 'k-emocs)
 
