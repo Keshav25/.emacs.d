@@ -935,4 +935,38 @@ to an appropriate container (e.g., a paragraph)."
 			(insert (format "- [[https://github.com/%s/%s/commit/%s][%s]] - %s\n"
 							user repo sha sha message))))))))
 
+(leaf org-sprint
+  :doc "If this works well then generalize it"
+  :config
+  (defun sprint-points-get-row-data ()
+	(let ((row-plist '()))
+      (setq row-plist (plist-put row-plist :title (org-get-heading t t t t))
+			row-plist (plist-put row-plist :points (org-entry-get (point) "POINTS")))
+      row-plist))
+
+  (defun sprint-points-print-rows (rows)
+	(let ((row (car rows)))
+      (if row
+          (let ((title (plist-get row :title))
+				(points (plist-get row :points)))
+			(insert-before-markers "| " title " | " points " |\n")
+			(sprint-points-print-rows (cdr rows))))))
+
+  (defun sprint-points-get-total (rows)
+	(apply '+ (mapcar
+               (lambda (row) (string-to-number (plist-get row :points))) rows)))
+
+  (defun org-dblock-write:sprint-points (params)
+	(let ((entries (org-map-entries
+					'sprint-points-get-row-data
+					"+POINTS>0/!-DONE"
+					'file)))
+      (insert "| Headline | Points |\n")
+      (insert "|-||\n")
+      (sprint-points-print-rows entries)
+      (insert "|-||\n")
+      (insert "| Total | "
+              (number-to-string (sprint-points-get-total entries)) " |"))
+	(org-table-align)))
+
 (provide 'k-org)
