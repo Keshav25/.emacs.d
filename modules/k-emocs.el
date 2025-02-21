@@ -139,7 +139,7 @@
 	:ensure t
 	:require t
 	:custom
-	(vertico-posframe-border-width . 1)
+	(vertico-posframe-border-width . 0)
 	:config
 	(setq vertico-posframe-parameters
 		  '((alpha . 100)
