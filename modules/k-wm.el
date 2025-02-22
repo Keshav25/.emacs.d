@@ -289,16 +289,16 @@ if there is no window on the right."
   (pretty-hydra-define k-window-movement
 	(:color amaranth :quit-key "q" :title "Window Management")
 	("Navigation"
-	 (("h" windmove-left "Move to Left Window")
-	  ("l" windmove-right "Move to Right Window")
-	  ("j" windmove-down "Move Down a Window")
-	  ("k" windmove-up "Move Up a Window"))
+	 (("b" windmove-left "Move to Left Window")
+	  ("f" windmove-right "Move to Right Window")
+	  ("n" windmove-down "Move Down a Window")
+	  ("p" windmove-up "Move Up a Window"))
 	 "Manipulation"
 	 (("s" split-and-follow-vertically "Split Window Horizontally")
 	  ("v" split-and-follow-horizontally "Split Window Vertically")
 	  ("d" delete-window "Delete Window")
-	  ("o" switch-window "Switch Window")
-	  ("f" k-toggle-fullscreen "Un/Maximize a Window")
+	  ("o" ace-window "Swith Window")
+	  ("m" k-toggle-fullscreen "Un/Maximize a Window")
 	  ("R" evil-window-rotate-upwards "Rotate Windows")
 	  ("r" evil-window-rotate-downwards "Reverse Rotate Windows")
 	  ("u" winner-undo "Undo Window Manipulation")
@@ -311,13 +311,13 @@ if there is no window on the right."
 	  ("=" balance-windows "Balance Windows")
 	  (";" enlarge-window "Enlarge Window"))
 	 "Buffer"
-	 (("b" consult-buffer "Change Buffer")
+	 (("l" consult-buffer "Change Buffer")
 	  ("c" centered-window-mode "Un/Center Window"))
 	 "Swap Windows"
-	 (("H" windmove-swap-states-left "Move Window Left")
-	  ("J" windmove-swap-states-down "Move Window Down")
-	  ("K" windmove-swap-states-up "Move Window Up")
-	  ("L" windmove-swap-states-right "Move Window Right"))
+	 (("B" windmove-swap-states-left "Move Window Left")
+	  ("N" windmove-swap-states-down "Move Window Down")
+	  ("P" windmove-swap-states-up "Move Window Up")
+	  ("F" windmove-swap-states-right "Move Window Right"))
 	 "Text"
 	 (("C-=" text-scale-increase "zoom in")
 	  ("C--" text-scale-decrease "zoom out")))))
