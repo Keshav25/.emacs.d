@@ -970,4 +970,8 @@ to an appropriate container (e.g., a paragraph)."
               (number-to-string (sprint-points-get-total entries)) " |"))
 	(org-table-align)))
 
+(leaf org-special-block-extras
+  :ensure t
+  :hook (org-mode . #'org-special-block-extras-mode))
+
 (provide 'k-org)
