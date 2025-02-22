@@ -1,11 +1,11 @@
 (leaf transparent-frame
   :config
   (set-frame-parameter nil 'alpha 100)
-  (add-to-list 'default-frame-alist '(alpha-background . 80))
+  (add-to-list 'default-frame-alist '(alpha-background . 90))
   (defun k/turn-background-transparency-on ()
 	"turn background transparency on and text transparency off"
 	(interactive)
-	(set-frame-parameter nil 'alpha-background 80))
+	(set-frame-parameter nil 'alpha-background 90))
 
   (defun k/turn-background-transparency-off ()
 	"turn background transparency off and text transparency on"
