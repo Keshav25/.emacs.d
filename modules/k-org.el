@@ -44,6 +44,7 @@
   )
 
 (leaf org-emphasis-kbd
+  :disabled
   :config
   (add-to-list 'org-emphasis-alist '("%" org-kbd verbatim))
   (add-to-list 'org-html-text-markup-alist '(kbd . "<kbd>%s</kbd>"))
