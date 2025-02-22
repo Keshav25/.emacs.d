@@ -120,6 +120,7 @@
 		(,(kbd "C-S-f") . [S-right])
 		(,(kbd "C-S-p") . [S-up])
 		(,(kbd "C-S-n") . [S-down])
+		(,(kbd "C-S-<backspace>") . [home S-end delete])
 		([?\C-a] . [home])
 		([?\C-e] . [end])
 		([?\M-v] . [prior])
