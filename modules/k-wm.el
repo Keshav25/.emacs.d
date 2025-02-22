@@ -134,7 +134,6 @@ When `switch-to-buffer-obey-display-actions' is non-nil,
 	(message "Use `ace-window' to display next command buffer..."))
 
   :bind
-  ("C-S-o" . ace-window)
   ("M-o" . ace-window-prefix))
 
 (leaf transpose-frame
@@ -268,6 +267,7 @@ if there is no window on the right."
 	:ensure t
 	:bind
 	("M-SPC" . major-mode-hydra)
+	("C-S-o" . k-window-movement/body)
 	:config
 	(major-mode-hydra-define emacs-lisp-mode
 	  (:quit-key "q")
