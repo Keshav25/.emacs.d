@@ -216,6 +216,6 @@
 ;; load libraries
 ;; (load-library "f")
 
+(put 'dired-find-alternate-file 'disabled nil)
 (load-file "~/.emacs.d/config.el")
 (provide 'init)
-(put 'dired-find-alternate-file 'disabled nil)
