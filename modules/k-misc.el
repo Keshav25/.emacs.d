@@ -206,4 +206,8 @@
   :bind (:image-mode
 		 ("C-o" . casual-image-tmenu)))
 
+(leaf emojs
+  :bind
+  ("C-c i e" . emoji-insert))
+
 (provide 'k-misc)
