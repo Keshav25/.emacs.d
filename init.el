@@ -218,3 +218,4 @@
 
 (load-file "~/.emacs.d/config.el")
 (provide 'init)
+(put 'dired-find-alternate-file 'disabled nil)
