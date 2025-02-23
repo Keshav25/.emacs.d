@@ -11,7 +11,7 @@
 										 eshell-pred eshell-prompt eshell-script eshell-term
 										 eshell-smart eshell-unix eshell-rebind)))
 (leaf run-in-eshell
-  :config
+  :init
   (defun run-this-in-eshell (cmd)
 	"Runs the command CMD in Eshell."
 	(let ((eshell-buffer (current-buffer)))  ; Store the current buffer
@@ -26,8 +26,7 @@
 		(yank)))))
 
 (leaf clear-eshell
-  :after (run-in-eshell)
-  :config
+  :init
   (defun eshell/clear1 ()
 	(interactive)
 	(run-this-in-eshell "clear1"))
