@@ -22,7 +22,16 @@
   :ensure t
   :require t
   :bind
-  (("C-!" . mf/mirror-region-in-multifile)))
+  (("C-!" . mf/mirror-region-in-multifile))
+  :config
+  (defun mf/dired-mirror-marked-files ()
+	"Multifile-mirror the files that are marked in a `dired' buffer."
+	(interactive)
+	(mapcar
+	 (lambda (buffer)
+       (with-current-buffer buffer
+		 (mf/mirror-region-in-multifile (point-min) (point-max))))
+	 (mapcar 'find-file-noselect (dired-get-marked-files)))))
 
 (leaf meow
   :ensure t
