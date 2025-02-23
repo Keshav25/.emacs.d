@@ -217,5 +217,7 @@
 ;; (load-library "f")
 
 (put 'dired-find-alternate-file 'disabled nil)
+(put 'downcase-region 'disabled nil)
+
 (load-file "~/.emacs.d/config.el")
 (provide 'init)
