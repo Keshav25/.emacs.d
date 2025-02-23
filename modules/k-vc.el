@@ -78,9 +78,7 @@
 							   "Add: ") ;; preselect
 			  )
 	  
-	  (add-magit-faces)
-      (evil-insert 1)  ; If you use evil
-      ))
+	  (add-magit-faces)))
 
   (remove-hook 'git-commit-setup-hook 'with-editor-usage-message)
   (add-hook 'git-commit-setup-hook 'magit-commit-prompt)
