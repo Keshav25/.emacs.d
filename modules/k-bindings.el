@@ -187,6 +187,8 @@
 		 ("C-M-<" . back-button-global-backward)
 		 ("C-M->" . back-button-global-forward))
   :config
+  ;; bring back rectangle-mark-mode
+  (keymap-unset back-button-mode-map "C-x SPC")
   (back-button-mode 1))
 
 (leaf binky
