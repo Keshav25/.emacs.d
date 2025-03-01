@@ -146,7 +146,8 @@
 		([?\M-d] . [C-S-right delete])
 		([?\C-g] . [escape])
 		([?\M-<] . [home])
-		([?\M->] . [end])))
+		([?\M->] . [end])
+		(,(kbd "C-x C-s") . [C-s])))
 
 (setq window-divider-default-bottom-width 2
 	  window-divider-default-right-width 2)
