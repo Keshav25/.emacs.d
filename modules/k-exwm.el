@@ -24,14 +24,18 @@
   :hook ((exwm-update-title-hook . (lambda () (exwm-workspace-rename-buffer exwm-title)))
 		 (exwm-input--input-mode-change-hook . force-modeline-update))
   :config
-  (defun farl-exwm/C-a ()
+  (defun k-exwm/C-a ()
 	"Pass C-a to the EXWM window."
 	(interactive)
 	(execute-kbd-macro (kbd "C-q C-a")))
-  (defun farl-exwm/C-o ()
+  (defun k-exwm/C-o ()
 	"Pass the equivalent of C-o to the EXWM window."
 	(interactive)
 	(execute-kbd-macro (kbd "<S-return> C-b")))
+  (defun k-exwm/M-quote ()
+	"double quotes"
+	(interactive)
+	(execute-kbd-macro (kbd "\" <C-right> \"")))
   ;; Remove ALL bindings
   (define-key exwm-mode-map "\C-c\C-f" nil)
   (define-key exwm-mode-map "\C-c\C-h" nil)
@@ -52,9 +56,10 @@
 		 ("M-!" . #'shell-command)
 		 ("M-o" . #'other-window-alternating)
 		 ("C-<tab>" . other-window)
-		 ("C-x h" . #'farl-exwm/C-a)
-		 ("C-o" . #'farl-exwm/C-o)
+		 ("C-x h" . #'k-exwm/C-a)
+		 ("C-o" . #'k-exwm/C-o)
 		 ("C-u" . #'universal-argument)
+		 ("M-\"" . #'k-exwm/M-quote)
 		 ("<XF86AudioLowerVolume>" . #'desktop-environment-volume-decrement)
 		 ("<XF86AudioRaiseVolume>" . #'desktop-environment-volume-increment)))
 
