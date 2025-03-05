@@ -408,19 +408,12 @@ to an appropriate container (e.g., a paragraph)."
 (leaf org-agenda
   :bind (("C-c a" . org-agenda))
   :config
-  (defun k/reload-org-agenda-files ()
-	"Refreshes org-agenda-files directory to get latest updates"
-	(interactive)
-	(setq org-agenda-files (directory-files "~/Documents/notes/" 'full (rx ".org" eos))))
-  
-  (k/reload-org-agenda-files)
   ;; (setq org-agenda-files (directory-files org-directory nil "^\\([^.]\\|\\.[^.]\\|\\.\\..\\)"))
   (setq org-cycle-separator-lines 1)
   :custom
   (org-refile-targets . '((org-agenda-files :maxlevel . 3)))
   (org-agenda-window-setup . 'current-window)
-  :hook ((org-agenda-mode . k/reload-org-agenda-files)
-		 (org-agenda-finalize . org-modern-agenda)
+  :hook ((org-agenda-finalize . org-modern-agenda)
 		 (org-agenda-finalize . hl-line-mode)))
 
 (leaf org-publish
@@ -858,6 +851,16 @@ to an appropriate container (e.g., a paragraph)."
           (denote-save-buffers t)) ; to save again post-rename
       (when (and buffer-file-name (denote-file-is-note-p buffer-file-name))
 		(ignore-errors (denote-rename-file-using-front-matter buffer-file-name))))))
+
+(leaf denote-agenda
+  :ensure t
+  :require t
+  :config
+  (setq denote-agenda-include-journal t)
+  (setq denote-agenda-include-regexp "")
+  :config
+  (require 'denote-journal-extras)
+  (denote-agenda-insinuate))
 
 (leaf denote-menu
   :after (denote)
