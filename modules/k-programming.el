@@ -462,7 +462,10 @@
   :custom
   (compilation-scroll-output . t)
   :hook
-  (compilation-filter-hook . ansi-color-compilation-filter))
+  (compilation-filter-hook . ansi-color-compilation-filter)
+  (eshell-load-hook . compilation-shell-minor-mode)
+  (shell-mode-hook . compilation-shell-minor-mode)
+  (term-load-hook . compilation-shell-minor-mode))
 
 (leaf symbol-overlay
   :ensure t
