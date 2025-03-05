@@ -924,7 +924,8 @@ to an appropriate container (e.g., a paragraph)."
 ;;             (prettify-symbols-mode)))
 
 (leaf corg
-  :quelpa (corg :fetcher github :repo "isamert/corg.el"))
+  :quelpa (corg :fetcher github :repo "isamert/corg.el")
+  :require t)
 
 (leaf org-media-note
   :quelpa (org-media-note :fetcher github :repo "yuchen-lea/org-media-note")
