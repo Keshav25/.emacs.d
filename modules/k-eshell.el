@@ -25,13 +25,13 @@
 		(eshell-bol)
 		(yank)))))
 
-(leaf clear-eshell
-  :init
-  (defun eshell/clear1 ()
+(use-package clear-eshell
+  :config
+  (defun eshell/myclear ()
 	(interactive)
-	(run-this-in-eshell "clear1"))
-  :bind (:eshell-mode-map
-		 ("C-S-l" . eshell/clear1)))
+	(run-this-in-eshell "clear 1"))
+  :bind ((:map eshell-command-map
+			   ("C-c C-S-l" . eshell/myclear))))
 
 ;; '(eshell-alias eshell-banner eshell-basic eshell-cmpl eshell-dirs
 ;; 			   eshell-extpipe eshell-glob eshell-hist eshell-ls
