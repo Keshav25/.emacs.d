@@ -229,4 +229,7 @@
   :bind
   ("C-c i e" . emoji-insert))
 
+(leaf hiccup-cli
+  :ensure t)
+
 (provide 'k-misc)
