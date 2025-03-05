@@ -659,6 +659,9 @@ to an appropriate container (e.g., a paragraph)."
 (leaf org-starter
   :ensure t)
 
+(leaf org-timeblock
+  :ensure t)
+
 (leaf org-context :ensure t)
 (leaf org-hyperscheduler :ensure t)
 (leaf org-custom-cookies :ensure t)
