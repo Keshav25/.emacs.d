@@ -1,3 +1,5 @@
+(require 'cl-lib)
+
 ;;; http://blogs.fluidinfo.com/terry/2011/11/10/emacs-buffer-mode-histogram/
 (defun k-buffer-mode-histogram ()
   "Display a histogram of emacs buffer modes."
@@ -18,7 +20,7 @@
     (setq totals (sort totals (lambda (x y) (> (cadr x) (cadr y)))))
     (with-output-to-temp-buffer "Buffer mode histogram"
       (princ (format "%d buffers open, in %d distinct modes\n\n"
-                      total-buffers (length totals)))
+                     total-buffers (length totals)))
       (dolist (item totals)
         (let
             ((key (car item))
@@ -41,10 +43,16 @@
   "find-file in the given path, for example:
     (k-find-file-in-directory \"~/org\")"
   (let ((default-directory
-		  ;; Checks to see if the path already has a slash at the end
-		  (if (string-suffix-p "/" initial-path)
-			  (expand-file-name initial-path)
-		  (concat (expand-file-name initial-path) "/"))))
+		 ;; Checks to see if the path already has a slash at the end
+		 (if (string-suffix-p "/" initial-path)
+			 (expand-file-name initial-path)
+		   (concat (expand-file-name initial-path) "/"))))
 	(call-interactively #'find-file)))
+
+(defun k-require (&rest libraries)
+  "Require each LIBRARY passed as an argument.
+LIBRARIES should be symbols representing the libraries to load."
+  (dolist (lib libraries)
+    (require lib nil 'noerror)))
 
 (provide 'k-functions)
