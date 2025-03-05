@@ -29,3 +29,7 @@
 /.mc-lists.el
 /request/
 /ielm-history.eld
+/persist/
+/hackernews/
+/forge-database-v13-20250217-1103.sqlite
+/multisession/
