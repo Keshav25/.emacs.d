@@ -188,6 +188,25 @@
                    :stream t
                    :models '(uncensored-dolphin-mistral:latest))))
 
+(leaf corsair
+  :after gptel
+  :ensure t
+  :bind
+  ("C-c g c" . corsair-open-chat-buffer)
+  ("C-c g a c" . corsair-accumulate-file-path-and-contents)
+  ("C-c g a n" . corsair-accumulate-file-name)
+  ("C-c g a v" . corsair-accumulate-file-path)
+  ("C-c g a w" . corsair-accumulate-selected-text)
+  ("C-c g a D" . corsair-drop-accumulated-buffer)
+  ("C-c g f" . corsair-insert-file-or-folder-contents))
+
+;; doesn't install
+(leaf gptel-quick
+  :disabled t
+  :quelpa (gptel-quick :fetcher github :repo "karthink/gptel-quick")
+  :bind (:embark-general-map
+		 ("?" . #'gptel-quick)))
+
 
 (leaf chatgpt-shell
   :ensure t
