@@ -287,7 +287,7 @@ if there is no window on the right."
 		("v" describe-variable "variable")
 		("i" info-lookup-symbol "info lookup")))))
   (pretty-hydra-define k-window-movement
-	(:color amaranth :quit-key "q" :title "Window Management")
+	(:color pink :quit-key "q" :title "Window Management")
 	("Navigation"
 	 (("b" windmove-left "Move to Left Window")
 	  ("f" windmove-right "Move to Right Window")
