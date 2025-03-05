@@ -885,6 +885,12 @@ to an appropriate container (e.g., a paragraph)."
   :after (denote consult)
   :ensure t)
 
+(leaf denote-tree
+  :quelpa (denote-tree :fetcher "github" :repo "sarcom-sar/denote-tree"))
+
+(leaf denote-say
+  :quelpa (denote-say :fetcher "github" :repo "MirkoHernandez/denote-say"))
+
 ;; from https://www.reddit.com/r/emacs/comments/d54ogp/emacs_doom_e17_org_mode_checkboxes/
 ;; (add-hook 'org-mode-hook
 ;; 		  ;; TODO: Use add-to-list prettify-symbols-alist instead of add-to-list"", to avoid duplicates
