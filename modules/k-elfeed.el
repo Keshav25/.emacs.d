@@ -1,17 +1,13 @@
 (leaf elfeed :ensure t
   :custom
-  (elfeed-feeds . '("https://sachachua.com/blog/feed/"))
   :bind
   (("C-c o r" . elfeed))
   (:elfeed-show-mode-map
    ("r" . elfeed-update))
   :config
   (load-file "~/.emacs.d/elfeed-feeds.el")
-  (with-eval-after-load 'elfeed
-	(let
-		((leaf--load-file-name "~/.emacs.d/init.el"))
-	  (setq elfeed-db-directory "~/.emacs.d/elfeed/")
-	  (setq elfeed-show-entry-switch 'display-buffer))))
+  (setq elfeed-db-directory "~/.emacs.d/elfeed/")
+  (setq elfeed-show-entry-switch 'display-buffer))
 
 ;; Elfeed-Web
 (leaf elfeed-web :ensure t)
