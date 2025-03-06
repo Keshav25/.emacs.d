@@ -3,6 +3,7 @@
   :custom
   (dired-dwim-target . t)
   (dired-listing-switches . "-lAh --group-directories-first")
+  (dired-kill-when-opening-new-dired-buffer . t)
   :bind (:dired-mode-map
 		 ("k" . dired-create-empty-file)))
 
