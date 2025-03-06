@@ -993,4 +993,7 @@ to an appropriate container (e.g., a paragraph)."
   :ensure t
   :hook (org-mode . #'org-special-block-extras-mode))
 
+(leaf mermaid-mode
+  :ensure t)
+
 (provide 'k-org)
