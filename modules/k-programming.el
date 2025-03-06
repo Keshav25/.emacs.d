@@ -467,6 +467,13 @@
   (shell-mode-hook . compilation-shell-minor-mode)
   (term-load-hook . compilation-shell-minor-mode))
 
+(leaf fancy-compilation
+  :ensure t
+  :custom
+  (fancy-compilation-override-colors . t)
+  :config
+  (fancy-compilation-mode 1))
+
 (leaf symbol-overlay
   :ensure t
   :config
