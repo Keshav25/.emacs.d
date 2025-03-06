@@ -8,7 +8,17 @@
   ;; theme packages
   (leaf kaolin-themes :ensure t)
   (leaf doom-themes :ensure t)
-  (leaf ef-themes :ensure t)
+  (leaf ef-themes
+	:ensure t
+	:config
+	(setq ef-bio-palette-overrides '((variable fg-main)
+									 (string green-faint)))
+	(setq ef-autumn-palette-overrides '((variable fg-main)
+										(bg-main bg-dim)))
+	(setq ef-cyprus-palette-overrides '((variable fg-main)
+										(bg-main bg-dim)
+										(string green-faint)))
+	)
   (leaf yabaki-theme :ensure t)
   (leaf haki-theme :ensure t)
   (leaf sweet-theme :ensure t)
