@@ -11,8 +11,23 @@
   :hook ((python-mode . blacken-mode)))
 
 (leaf eglot-mode
-  :bind (:eglot-diagnostic
-		 ("M-RET" . eglot-code-actions))
+  :custom
+  (eglot-autoshutdown . t) 
+  (eglot-confirm-server-edits . nil) 
+  (eglot-report-progress . t) 
+  (eglot-extend-to-xref . t) 
+  (eglot-autoreconnect . t)
+  :bind (("C-c d i" . eglot-find-implementation)
+		 ("C-c d e" . eglot)
+		 ("C-c d k" . eglot-shutdown-all)
+		 ("C-c d r" . eglot-rename)
+		 ("C-c d x" . eglot-reconnect)
+		 ("C-c d a" . eglot-code-actions)
+		 ("C-c d m" . eglot-menu)
+		 ("C-c d f" . eglot-format-buffer)
+		 ("C-c d h" . eglot-inlay-hints-mode)
+		 (:eglot-diagnostic
+		  ("M-RET" . eglot-code-actions)))
   :hook ((python-mode . eglot-ensure)))
 
 (leaf pyvenv
