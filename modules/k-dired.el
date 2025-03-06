@@ -33,6 +33,7 @@
 (leaf dired-subtree
   :ensure t
   :bind (:dired-mode-map
+		 ("<mouse-1>" . dired-subtree-toggle)
 		 ("<tab>" . dired-subtree-toggle)))
 
 (leaf dired-open :ensure t)
