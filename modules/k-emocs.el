@@ -28,13 +28,50 @@
 		 ("C-y" . consult-yank-pop)
 		 ("C-M-y" . yank)
 		 ("C-S-s" . consult-ripgrep)
+		 ("C-x r b" . consult-bookmark)
+		 ("C-x p b" . consult-project-buffer) 
 		 ("M-s M-s" . consult-outline)
-		 ("M-g k" . consult-global-mark))
+		 ("M-g e" . consult-compile-error) 
+         ("M-g f" . consult-flymake) 
+         ("M-g g" . consult-goto-line) 
+         ("M-g M-g" . consult-goto-line) 
+         ("M-g o" . consult-outline) 
+         ("M-g m" . consult-mark) 
+         ("M-g k" . consult-global-mark) 
+         ("M-g i" . consult-imenu) 
+         ("M-g I" . consult-imenu-multi) 
+		 ("M-g k" . consult-global-mark)
+		 ("M-s d" . consult-find) 
+         ("M-s D" . consult-locate) 
+         ("M-s g" . consult-grep) 
+         ("M-s G" . consult-git-grep) 
+         ("M-s r" . consult-ripgrep) 
+         ("M-s l" . consult-line) 
+         ("M-s L" . consult-line-multi) 
+         ("M-s k" . consult-keep-lines) 
+         ("M-s u" . consult-focus-lines) 
+         ("M-s e" . consult-isearch-history)
+		 ([f6] . consult-recent-file))
+  :config
+  (advice-add #'register-preview 
+			  :override #'consult-register-window)
+  (consult-customize consult-theme 
+                     :preview-key '(:debounce 0.2 any) 
+                     consult-ripgrep consult-git-grep consult-grep consult-bookmark consult-recent-file consult-xref consult--source-bookmark consult--source-file-register consult--source-recent-file consult--source-project-recent-file 
+                     :preview-key '(:debounce 0.4 any))
+  :hook (completion-list-mode . consult-preview-at-point-mode)
   :custom
   ;; (completion-in-region-function . #'consult-completion-in-region)
   (xref-show-xrefs-function . #'consult-xref)
   (xref-show-definitions-function . #'consult-xref)
-  (consult-project-root-function . #'deadgrep--project-root))
+  (consult-project-root-function . #'deadgrep--project-root)
+  (consult-ripgrep-args . "~/.cargo/bin/rga --null --line-buffered --color=never --max-columns=1000 --path-separator /\
+   --smart-case --no-heading --with-filename --line-number --search-zip")
+  (register-preview-delay . 0.5)
+  (register-preview-function . #'consult-register-format)
+  (xref-show-xrefs-function . #'consult-xref)
+  (xref-show-definitions-function . #'consult-xref)
+  (consult-narrow-key . "<"))
 
 (leaf consult-dir
   :ensure t
