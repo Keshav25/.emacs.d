@@ -139,9 +139,8 @@
 
 (leaf aggressive-indent
   :ensure t
-  :config
-  ;; (global-aggressive-indent-mode 1)
-  )
+  :hook ((emacs-lisp-mode . aggressive-indent-mode)
+		 (scheme-mode . aggressive-indent-mode)))
 
 (leaf rainbow-delimiters
   :ensure t
