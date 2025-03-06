@@ -223,6 +223,8 @@
       (consult-ripgrep)))
   :bind ("C-x p C-s" . k/find-file-preview))
 
+(leaf ripgrep
+  :ensure t)
 
 (provide 'k-emocs)
 
