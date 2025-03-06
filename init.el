@@ -213,6 +213,12 @@
  mouse-wheel-scroll-amount-horizon 2)
 (setq x-stretch-cursor nil)
 
+(savehist-mode 1) 
+(save-place-mode 1) 
+(global-auto-revert-mode 1) 
+(delete-selection-mode +1)
+(defalias 'yes-or-no-p 'y-or-n-p)
+
 ;; load libraries
 ;; (load-library "f")
 
