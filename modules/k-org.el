@@ -333,6 +333,8 @@ to an appropriate container (e.g., a paragraph)."
 	:ensure t)
   (leaf ob-http
 	:ensure t)
+  (leaf ob-mermaid
+	:ensure t)
   (leaf ob-csharp
 	:quelpa (ob-csharp :fetcher github :repo "samwdp/ob-csharp"))
 
