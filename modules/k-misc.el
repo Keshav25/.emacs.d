@@ -240,4 +240,17 @@
   :bind (([M-up] . move-text-up)
 		 ([M-down] . move-text-down)))
 
+(leaf emms
+  :ensure t
+  :config
+  (require 'emms-setup)
+  (require 'emms-mpris)
+  (emms-all)
+  (emms-default-players)
+  (emms-mpris-enable)
+  :bind
+  ("<XF86AudioPrev>" . emms-previous)
+  ("<XF86AudioNext>" . emms-next)
+  ("<XF86AudioPlay>" . emms-pause))
+
 (provide 'k-misc)
