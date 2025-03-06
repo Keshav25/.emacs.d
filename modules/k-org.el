@@ -724,6 +724,8 @@ to an appropriate container (e.g., a paragraph)."
 
 (leaf org-modern
   :ensure t
+  :custom
+  (org-modern-star . 'replace)
   :init
   (global-org-modern-mode))
 
