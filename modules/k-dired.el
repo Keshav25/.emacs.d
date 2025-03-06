@@ -2,6 +2,7 @@
 (leaf dired
   :custom
   (dired-dwim-target . t)
+  (dired-listing-switches . "-lAh --group-directories-first")
   :bind (:dired-mode-map
 		 ("k" . dired-create-empty-file)))
 
