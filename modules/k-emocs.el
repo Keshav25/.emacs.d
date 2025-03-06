@@ -12,8 +12,9 @@
 
 (leaf orderless
   :ensure t
-  :config
-  (setq completion-styles '(orderless)))
+  :custom
+  (completion-styles . '(orderless))
+  (completion-category-overrides . '((file (styles basic partial-completion)))))
 
 (leaf marginalia
   :ensure t
