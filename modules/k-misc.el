@@ -253,4 +253,11 @@
   ("<XF86AudioNext>" . emms-next)
   ("<XF86AudioPlay>" . emms-pause))
 
+(leaf gif-screencast 
+  :quelpa (gif-screencast :fetcher git 
+						  :url "https://gitlab.com/ambrevar/emacs-gif-screencast") 
+  :bind (("<f9>" . gif-screencast-start-or-stop)) 
+  :custom (gif-screencast-program . "flameshot-bash") 
+  (gif-screencast-args . '()))
+
 (provide 'k-misc)
