@@ -114,7 +114,10 @@
   :ensure t)
 
 (leaf jinx
-  :ensure t)
+  :ensure t
+  :bind (([remap ispell-word] . jinx-correct))
+  :config
+  (global-jinx-mode 1))
 
 ;; https://github.com/astoff/jit-spell
 ;; https://github.com/alphapapa/unpackaged.el
