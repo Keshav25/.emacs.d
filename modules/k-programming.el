@@ -460,6 +460,7 @@
 		 ("<f5>" . 'recompile))
   :custom
   (compilation-scroll-output . t)
+  (compilation-always-kill . t)
   :hook
   (compilation-filter-hook . ansi-color-compilation-filter)
   (eshell-load-hook . compilation-shell-minor-mode)
