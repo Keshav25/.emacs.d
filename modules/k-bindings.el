@@ -207,7 +207,8 @@
   (pretty-hydra-define toggle
 	(:quit-key "C-g")
 	("toggle"
-	 (("v" visual-line-mode))))
+	 (("v" visual-line-mode)
+	  ("d" debug-on-error))))
   :bind ("C-c t" . #'toggle/body))
 
 (leaf back-button
