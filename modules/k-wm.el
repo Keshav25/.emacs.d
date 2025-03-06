@@ -312,7 +312,8 @@ if there is no window on the right."
 	  (";" enlarge-window "Enlarge Window"))
 	 "Buffer"
 	 (("l" consult-buffer "Change Buffer")
-	  ("c" centered-window-mode "Un/Center Window"))
+	  ("c" centered-window-mode "Un/Center Window")
+	  ("M-o" ace-window-prefix "Command in a select window"))
 	 "Swap Windows"
 	 (("B" windmove-swap-states-left "Move Window Left")
 	  ("N" windmove-swap-states-down "Move Window Down")
