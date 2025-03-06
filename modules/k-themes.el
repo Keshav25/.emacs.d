@@ -350,5 +350,8 @@
 														   mathematical-symbols
 														   double-struck-letters))))))
 
+(leaf page-break-lines
+  :ensure t)
+
 (provide 'k-themes)
 
