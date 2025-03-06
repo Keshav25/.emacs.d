@@ -155,25 +155,25 @@
   :config
   (prism-mode 1)
   (prism-set-colors
-	:desaturations '(0) ; do not change---may lower the contrast ratio
-	:lightens '(0)      ; same
-	:colors (ef-themes-with-colors
-              (list fg-main
-					magenta
-					cyan-cooler
-					magenta-cooler
-					blue
-					magenta-warmer
-					cyan-warmer
-					red-cooler
-					green
-					fg-main
-					cyan
-					yellow
-					blue-warmer
-					red-warmer
-					green-cooler
-					yellow-faint))))
+   :desaturations '(0) ; do not change---may lower the contrast ratio
+   :lightens '(0)      ; same
+   :colors (ef-themes-with-colors
+             (list fg-main
+				   magenta
+				   cyan-cooler
+				   magenta-cooler
+				   blue
+				   magenta-warmer
+				   cyan-warmer
+				   red-cooler
+				   green
+				   fg-main
+				   cyan
+				   yellow
+				   blue-warmer
+				   red-warmer
+				   green-cooler
+				   yellow-faint))))
 
 (leaf paredit
   :ensure t
