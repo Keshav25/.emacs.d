@@ -482,4 +482,9 @@
 (leaf symbol-overlay-mc
   :ensure t)
 
+(leaf smartparens
+  :ensure t
+  :require smartparens-config
+  :hook ((prog-mode . smartparens-mode)))
+
 (provide 'k-programming)
