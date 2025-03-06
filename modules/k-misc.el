@@ -235,4 +235,9 @@
 (leaf hiccup-cli
   :ensure t)
 
+(leaf move-text
+  :ensure t
+  :bind (([M-up] . move-text-up)
+		 ([M-down] . move-text-down)))
+
 (provide 'k-misc)
