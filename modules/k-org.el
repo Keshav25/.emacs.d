@@ -331,6 +331,8 @@ to an appropriate container (e.g., a paragraph)."
   :init
   (leaf ob-go
 	:ensure t)
+  (leaf ob-http
+	:ensure t)
   (leaf ob-csharp
 	:quelpa (ob-csharp :fetcher github :repo "samwdp/ob-csharp"))
 
