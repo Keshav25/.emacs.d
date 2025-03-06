@@ -320,7 +320,7 @@ to an appropriate container (e.g., a paragraph)."
 	))
 
 (leaf org-insert-date
-  :config
+  :init
   (defun k-org-insert-date ()
 	(interactive)
 	(insert (shell-command-to-string "date")))
