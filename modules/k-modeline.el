@@ -38,18 +38,21 @@ package).")
   (setq-default mode-line-format
 				'("%e"
  				  k-modeline-kbd-macro
+				  k-modeline-buffer-name
                   k-modeline-narrow
                   k-modeline-input-method
                   k-modeline-buffer-status
+				  k-modeline-window-dedicated-status
                   " "
                   k-modeline-buffer-identification
                   "  "
                   k-modeline-major-mode
-                  k-modeline-process
+		          k-modeline-process
                   "  "
                   k-modeline-vc-branch
                   "  "
                   k-modeline-flymake
+				  k-modeline-eglot
 	              k-modeline-misc-info))
 
   (defface k-modeline-background
