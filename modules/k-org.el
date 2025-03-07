@@ -865,10 +865,10 @@ to an appropriate container (e.g., a paragraph)."
   :ensure t
   :require t
   :config
+  (load-library "denote-journal-extras")
   (setq denote-agenda-include-journal t)
   (setq denote-agenda-include-regexp "")
   :config
-  (require 'denote-journal-extras)
   (denote-agenda-insinuate))
 
 (leaf denote-menu
