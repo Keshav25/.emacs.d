@@ -114,6 +114,8 @@
 		 ("M-C-[" . 'diff-hl-previous-hunk)))
 
 (leaf git-gutter
+  ;; no reason to use this
+  :disabled t
   :ensure t)
 
 (leaf code-review
