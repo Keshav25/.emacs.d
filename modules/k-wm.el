@@ -365,5 +365,13 @@ if there is no window on the right."
   :init
   (nova-vertico-mode 1))
 
+(leaf perspective
+  :ensure t
+  :custom
+  (persp-sort . 'created)
+  :config
+  (customize-set-value 'persp-mode-prefix-key (kbd "C-x x"))
+  (persp-mode))
+
 (provide 'k-wm)
 ;;; k-wm.el ends here
