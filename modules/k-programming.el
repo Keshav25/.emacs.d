@@ -436,9 +436,7 @@
 								  (point))))))
 
 (leaf rainbow-mode
-  :ensure t
-  :config
-  (rainbow-mode 1))
+  :ensure t)
 
 (leaf yasnippet
   :ensure t
