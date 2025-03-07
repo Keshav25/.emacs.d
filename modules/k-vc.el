@@ -12,6 +12,11 @@
   :ensure t
   :require t)
 
+(leaf magit-org-todos
+  :ensure t
+  :config
+  (magit-org-todos-autoinsert))
+
 (leaf magit-file-icons
   :ensure t
   :init
