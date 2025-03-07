@@ -996,4 +996,13 @@ to an appropriate container (e.g., a paragraph)."
 (leaf mermaid-mode
   :ensure t)
 
+(leaf calfw
+  :ensure t
+  :require t)
+
+(leaf calfw-org
+  :after calfw
+  :ensure t
+  :require t)
+
 (provide 'k-org)
