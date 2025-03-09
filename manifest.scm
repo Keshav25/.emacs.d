@@ -23,4 +23,5 @@
 					 k-emacs
 					 ripgrep
 					 picom
-					 git-delta))
+					 git-delta
+					 brightnessctl))
