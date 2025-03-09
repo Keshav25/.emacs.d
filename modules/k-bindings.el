@@ -232,4 +232,12 @@
 (leaf grugru
   :ensure t)
 
+(leaf shannon-max
+  :config
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/")
+  (require 'shannon-max)
+  (setq shannon-max-jar-file
+		(expand-file-name "~/.emacs.d/site-lisp/target/emacskeys-0.1.0-SNAPSHOT-standalone.jar"))
+  (shannon-max-start-logger))
+
 (provide 'k-bindings)
