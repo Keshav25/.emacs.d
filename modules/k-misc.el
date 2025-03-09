@@ -214,7 +214,7 @@
 (leaf chatgpt-shell
   :ensure t
   :custom
-  (chatgpt-shell-model-version . "uncensored-dolphin-mistral"))
+  (chatgpt-shell-model-version . "uncensored-dolphin-mistral:latest"))
 
 (leaf casual-suite
   :ensure t
