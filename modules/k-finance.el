@@ -1,10 +1,10 @@
 
 (leaf ledger-mode
-  :ensure t)
+  :elpaca t)
 
 (leaf evil-ledger
   :after (evil)
-  :ensure t
+  :elpaca t
   :hook ((ledger-mode-hook . evil-ledger-mode)))
 
 (provide 'k-finance)

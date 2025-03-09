@@ -80,16 +80,16 @@ if needed, then move there."
 
 (leaf esh-help
   :after eshell
-  :ensure t
+  :elpaca t
   :require t
   :config
   (setup-esh-help-eldoc))
 
 (leaf virtualenvwrapper
-  :ensure t)
+  :elpaca t)
 
 (leaf eshell-prompt-extras
-  :ensure t
+  :elpaca t
   :config
   (when (package-installed-p 'virtualenvwrapper)
 	(progn
@@ -101,39 +101,39 @@ if needed, then move there."
 
 (leaf eshell-z
   :after eshell
-  :ensure t
+  :elpaca t
   :require t)
 
 (leaf eshell-vterm
   :after (eshell vterm)
-  :ensure t
+  :elpaca t
   :config
   (eshell-vterm-mode 1)
   (defalias 'eshell/v 'eshell-exec-visual))
 
 (leaf eshell-bookmark
   :after eshell
-  :ensure t)
+  :elpaca t)
 
 (leaf eshell-did-you-mean
   :after eshell
-  :ensure t
+  :elpaca t
   :config
   (eshell-did-you-mean-setup))
 
 (leaf eshell-syntax-highlighting
   :after eshell
-  :ensure t)
+  :elpaca t)
 
 (leaf eat
   :after eshell
-  :ensure t
+  :elpaca t
   :hook ((eshell-load-hook . eat-eshell-mode)
 		 ;; since htop doesn't work with the former
 		 (eshell-load-hook . eat-eshell-visual-command-mode)))
 
 (leaf comint-mime
-  :ensure t
+  :elpaca t
   :hook (shell-mode-hook . comint-mime-setup)
   (inferior-python-code-mode . comint-mime-setup)
   :config

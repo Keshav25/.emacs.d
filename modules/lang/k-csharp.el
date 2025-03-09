@@ -1,5 +1,5 @@
 (leaf dotnet
-  :ensure t
+  :elpaca t
   :hook (csharp-mode . dotnet-mode))
 
 

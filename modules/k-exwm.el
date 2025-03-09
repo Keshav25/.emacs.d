@@ -13,7 +13,7 @@
 	(set-frame-parameter nil 'alpha-background 100)))
 
 (leaf exwm
-  :ensure t
+  :elpaca t
   :custom
   (use-dialog-box . nil)
   (exwm-input-line-mode-passthrough . t)
@@ -64,49 +64,89 @@
 		 ("<XF86AudioRaiseVolume>" . #'desktop-environment-volume-increment)))
 
 (leaf exwm-randr
+  :after exwm
   :config
   (require 'exwm-randr)
   (setq exwm-randr-workspace-monitor-plist '(0 "eDP1"))
   (add-hook 'exwm-randr-screen-change-hook
 			(lambda ()
               (start-process-shell-command
-               "xrandr" nil "xrandr --output eDP1 --mode 1920x1080 --pos 0x0 --rotate normal"))))
-(exwm-randr-mode 1)
+               "xrandr" nil "xrandr --output eDP1 --mode 1920x1080 --pos 0x0 --rotate normal")))
+  (exwm-randr-mode 1))
 
-;; TODO Add Volume Control Keybindings
-(setq exwm-input-global-keys
-      `(
-        ([?\s-b] . windmove-left)
-        ([?\s-f] . windmove-right)
-        ([?\s-p] . windmove-up)
-        ([?\s-n] . windmove-down)
-        ([?\s-`] . (lambda () (interactive) (exwm-workspace-switch-create 0)))
-        ([?\s-w] . exwm-workspace-switch)
-		([?\s-m] . (lambda () (interactive) (exwm-layout-toggle-model-line) (exwm-workspace-toggle-minibuffer)))
-		([?\s-i] . exwm-input-toggle-keyboard)
-		(,(kbd "s-<tab>") . windower-switch-to-last-buffer) ;; Switch to last open buffer in current window
-        (,(kbd "s-o") . windower-toggle-single) ;; Toggle between multiple windows, and a single window
-        (,(kbd "s-O") . windower-toggle-split)  ;; Toggle between vertical and horizontal split. Only works with exactly two windows.
-        (,(kbd "s-B") . windower-swap-left)  ;; Swap current window with the window to the left
-        (,(kbd "s-N") . windower-swap-below) ;; Swap current window with the window below
-        (,(kbd "s-P") . windower-swap-above) ;; Swap current window with the window above
-        (,(kbd "s-F") . windower-swap-right) ;; Swap current window with the window to the right
-        (,(kbd "s-\\") . exwm-floating-toggle-floating) ;; Toggle the current window between floating and non-floating states
-        (,(kbd "s-Q") . exwm-layout-toggle-fullscreen) ;; Toggle fullscreen mode, when in an EXWM window.
-        (,(kbd "s-D") . kill-this-buffer)
-		(,(kbd "s-s") . split-and-follow-vertically)
-		(,(kbd "s-'") . fhd/toggle-exwm-input-line-mode-passthrough)
-        (,(kbd "s-c") . kill-buffer-and-window)
-		(,(kbd "C-`") . popper-toggle)
-		(,(kbd "C-S-o") . ace-window)
-        ,@(mapcar (lambda (i)
-                    `(,(kbd (format "s-%d" i)) .
-                      (lambda ()
-                        (interactive)
-                        (exwm-workspace-switch-create ,i))))
-                  (number-sequence 0 9))))
+
+(leaf exwm-key
+  :after exwm
+  :config
+  (setq exwm-input-global-keys
+		`(
+          ([?\s-b] . windmove-left)
+          ([?\s-f] . windmove-right)
+          ([?\s-p] . windmove-up)
+          ([?\s-n] . windmove-down)
+          ([?\s-`] . (lambda () (interactive) (exwm-workspace-switch-create 0)))
+          ([?\s-w] . exwm-workspace-switch)
+		  ([?\s-m] . (lambda () (interactive) (exwm-layout-toggle-model-line) (exwm-workspace-toggle-minibuffer)))
+		  ([?\s-i] . exwm-input-toggle-keyboard)
+		  (,(kbd "s-<tab>") . windower-switch-to-last-buffer) ;; Switch to last open buffer in current window
+          (,(kbd "s-o") . windower-toggle-single) ;; Toggle between multiple windows, and a single window
+          (,(kbd "s-O") . windower-toggle-split)  ;; Toggle between vertical and horizontal split. Only works with exactly two windows.
+          (,(kbd "s-B") . windower-swap-left)  ;; Swap current window with the window to the left
+          (,(kbd "s-N") . windower-swap-below) ;; Swap current window with the window below
+          (,(kbd "s-P") . windower-swap-above) ;; Swap current window with the window above
+          (,(kbd "s-F") . windower-swap-right) ;; Swap current window with the window to the right
+          (,(kbd "s-\\") . exwm-floating-toggle-floating) ;; Toggle the current window between floating and non-floating states
+          (,(kbd "s-Q") . exwm-layout-toggle-fullscreen) ;; Toggle fullscreen mode, when in an EXWM window.
+          (,(kbd "s-D") . kill-this-buffer)
+		  (,(kbd "s-s") . split-and-follow-vertically)
+		  (,(kbd "s-'") . fhd/toggle-exwm-input-line-mode-passthrough)
+          (,(kbd "s-c") . kill-buffer-and-window)
+		  (,(kbd "C-`") . popper-toggle)
+		  (,(kbd "C-S-o") . ace-window)
+          ,@(mapcar (lambda (i)
+                      `(,(kbd (format "s-%d" i)) .
+						(lambda ()
+                          (interactive)
+                          (exwm-workspace-switch-create ,i))))
+					(number-sequence 0 9))))
+
+  (setq exwm-input-simulation-keys
+		`(
+		  ([?\C-b] . [left])
+		  ([?\C-f] . [right])
+		  ([?\C-p] . [up])
+		  ([?\C-n] . [down])
+		  (,(kbd "C-S-b") . [S-left])
+		  (,(kbd "C-S-f") . [S-right])
+		  (,(kbd "C-S-p") . [S-up])
+		  (,(kbd "C-S-n") . [S-down])
+		  (,(kbd "C-S-<backspace>") . [home S-end delete])
+		  ([?\C-a] . [home])
+		  ([?\C-e] . [end])
+		  ([?\M-v] . [prior])
+		  ([?\C-v] . [next])
+		  ([?\C-d] . [delete])
+		  ([?\C-k] . [S-end delete])
+		  ([?\C-m] . [return])
+		  ([?\C-i] . [tab])
+		  ([?\M-w] . [?\C-c])
+		  ([?\C-w] . [?\C-x])
+		  ([?\C-y] . [?\C-v])
+		  ([?\C-s] . [?\C-f])
+		  ([?\C-/] . [?\C-z])
+		  ([?\M-f] . [C-right])
+		  ([?\M-b] . [C-left])
+		  (,(kbd "M-S-b") . [C-S-left])
+		  (,(kbd "M-S-f") . [C-S-right])
+		  ([?\M-d] . [C-S-right delete])
+		  ([?\C-g] . [escape])
+		  ([?\M-<] . [home])
+		  ([?\M->] . [end])
+		  (,(kbd "C-x C-s") . [C-s]))))
+
 (leaf exwm-edit
-  :ensure t
+  :after exwm-keys
+  :elpaca t
   :config
   (add-to-list 'exwm-input-global-keys '([?\C-c ?\'] . exwm-edit--compose))
   (add-to-list 'exwm-input-global-keys '([?\C-c ?\'] . exwm-edit--compose))
@@ -115,85 +155,49 @@
   ;; exwm-edit-compose-hook
   (add-hook 'exwm-edit-compose-hook 'k/on-exwm-edit-compose))
 
-(setq exwm-input-simulation-keys
-	  `(
-		([?\C-b] . [left])
-		([?\C-f] . [right])
-		([?\C-p] . [up])
-		([?\C-n] . [down])
-		(,(kbd "C-S-b") . [S-left])
-		(,(kbd "C-S-f") . [S-right])
-		(,(kbd "C-S-p") . [S-up])
-		(,(kbd "C-S-n") . [S-down])
-		(,(kbd "C-S-<backspace>") . [home S-end delete])
-		([?\C-a] . [home])
-		([?\C-e] . [end])
-		([?\M-v] . [prior])
-		([?\C-v] . [next])
-		([?\C-d] . [delete])
-		([?\C-k] . [S-end delete])
-		([?\C-m] . [return])
-		([?\C-i] . [tab])
-		([?\M-w] . [?\C-c])
-		([?\C-w] . [?\C-x])
-		([?\C-y] . [?\C-v])
-		([?\C-s] . [?\C-f])
-		([?\C-/] . [?\C-z])
-		([?\M-f] . [C-right])
-		([?\M-b] . [C-left])
-		(,(kbd "M-S-b") . [C-S-left])
-		(,(kbd "M-S-f") . [C-S-right])
-		([?\M-d] . [C-S-right delete])
-		([?\C-g] . [escape])
-		([?\M-<] . [home])
-		([?\M->] . [end])
-		(,(kbd "C-x C-s") . [C-s])))
-
-(setq window-divider-default-bottom-width 2
-	  window-divider-default-right-width 2)
-
-(window-divider-mode 1)
-
-(defun fhd/toggle-exwm-input-line-mode-passthrough ()
-  (interactive)
-  (if exwm-input-line-mode-passthrough
+(leaf exwm-functions
+  :after exwm-keys
+  (defun fhd/toggle-exwm-input-line-mode-passthrough ()
+	(interactive)
+	(if exwm-input-line-mode-passthrough
+		(progn
+          (setq exwm-input-line-mode-passthrough nil)
+          (message "App receives all the keys now (with some simulation)"))
       (progn
-        (setq exwm-input-line-mode-passthrough nil)
-        (message "App receives all the keys now (with some simulation)"))
-    (progn
-      (setq exwm-input-line-mode-passthrough t)
-      (message "emacs receives all the keys now"))))
+		(setq exwm-input-line-mode-passthrough t)
+		(message "emacs receives all the keys now"))))
 
-(defun efs/set-wallpaper ()
-  (interactive)
-  (start-process-shell-command
-   "feh" nil  "feh --bg-scale ~/Pictures/wallpaper.jpg"))
+  (defun efs/set-wallpaper ()
+	(interactive)
+	(start-process-shell-command
+	 "feh" nil  "feh --bg-scale ~/Pictures/wallpaper.jpg"))
 
-(defun efs/exwm-init-hook ()
-  (exwm-workspace-switch-create 1))
+  (defun efs/exwm-init-hook ()
+	(exwm-workspace-switch-create 1))
 
-(display-battery-mode 1)
-(setq display-time-day-and-date t)
-(display-time-mode 1)
+  (display-battery-mode 1)
+  (setq display-time-day-and-date t)
+  (display-time-mode 1)
 
-(defun efs/run-in-background (command)
-  (let ((command-parts (split-string command "[ ]+")))
-    (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
+  (defun efs/run-in-background (command)
+	(let ((command-parts (split-string command "[ ]+")))
+      (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
 
-(defun efs/exwm-update-class ()
-  (exwm-workspace-rename-buffer exwm-class-name))
+  (defun efs/exwm-update-class ()
+	(exwm-workspace-rename-buffer exwm-class-name))
 
-(add-hook 'exwm-update-class-hook #'efs/exwm-update-class)
-(add-hook 'exwm-init-hook #'efs/exwm-init-hook)
-(efs/set-wallpaper)
-(require 'exwm-systemtray)
-(setq exwm-systemtray-height 17)
-(exwm-systemtray-mode 1)
+  (add-hook 'exwm-update-class-hook #'efs/exwm-update-class)
+  (add-hook 'exwm-init-hook #'efs/exwm-init-hook)
+  (efs/set-wallpaper)
+  (require 'exwm-systemtray)
+  (setq exwm-systemtray-height 17)
+  (exwm-systemtray-mode 1)
+  )
 
 ;; Desktop-Environment
 (leaf desktop-environment
-  :ensure t
-  :after exwm
+  :elpaca t
+  :after exwm-keys
   :custom
   (desktop-environment-brightness-small-increment . "2%+")
   (desktop-environment-brightness-small-decrement . "2%-")
@@ -255,16 +259,18 @@
   (centered-window-mode))
 
 (leaf exwm-background
-  :quelpa (exwm-background :fetcher github :repo "keshav25/exwm-background")
+  :after exwm-keys
+  :elpaca (exwm-background :host github :repo "keshav25/exwm-background")
   :require t)
 
 (leaf exwm-mff
-  :ensure t
+  :after exwm-keys
+  :elpaca t
   :config
   (exwm-mff-mode 1))
 
 (leaf ednc
-  :ensure t
+  :elpaca t
   :config
   (defun list-notifications ()
 	(mapconcat #'ednc-format-notification (ednc-notifications) ""))
@@ -279,13 +285,16 @@
   (add-hook 'ednc-notification-presentation-functions
 			(lambda (&rest _) (force-mode-line-update t))))
 
-
-
 (leaf ednc-popup
-  :quelpa (ednc-popup :fetcher git :url "https://codeberg.org/akib/emacs-ednc-popup.git")
+  :after ednc
+  :elpaca (ednc-popup :host git :url "https://codeberg.org/akib/emacs-ednc-popup.git")
   :hook (ednc-notification-presentation-functions . ednc-popup-presentation-function))
 
-(exwm-init)
+(leaf initialize-exwm
+  :after exwm-keys
+  :config
+  (require 'exwm)
+  (exwm-init))
 
 (provide 'k-exwm)
 

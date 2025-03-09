@@ -1,4 +1,4 @@
-(leaf geiser-guile :ensure t)
-(leaf guix :ensure t)
+(leaf geiser-guile :elpaca t)
+(leaf guix :elpaca t)
 
 (provide 'k-guix)

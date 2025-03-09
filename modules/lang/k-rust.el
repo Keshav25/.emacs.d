@@ -4,7 +4,7 @@
 ;; rustfmt
 
 (leaf rustic
-  :ensure t
+  :elpaca t
   :custom
   (rust-format-on-save . t)
   :bind (:rustic-mode-map
@@ -40,10 +40,10 @@
 
 
 (leaf rust-playground
-  :ensure t)
+  :elpaca t)
 
 (leaf toml-mode
-  :ensure t)
+  :elpaca t)
 
 (leaf lsp-rust
   :after (lsp)

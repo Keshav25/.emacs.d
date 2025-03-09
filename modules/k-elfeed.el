@@ -1,4 +1,4 @@
-(leaf elfeed :ensure t
+(leaf elfeed :elpaca t
   :custom
   :bind
   (("C-c o r" . elfeed))
@@ -10,11 +10,11 @@
   (setq elfeed-show-entry-switch 'display-buffer))
 
 ;; Elfeed-Web
-(leaf elfeed-web :ensure t)
+;; (leaf elfeed-web :after elfeed :elpaca t)
 
 ;; Elfeed-Org
 (leaf elfeed-org
-  :ensure t
+  :elpaca t
   :config
   (with-eval-after-load 'elfeed-org
 	(setq elfeed-show-entry-switch 'display-buffer)
@@ -23,7 +23,7 @@
 
 ;; Elfeed For Youtube
 (leaf elfeed-tube
-  :ensure t
+  :elpaca t
   :config
   (elfeed-tube-setup)
   :bind (:elfeed-show-mode-map
@@ -34,7 +34,7 @@
    ([remap save-buffer] . elfeed-tube-save)))
 
 (leaf elfeed-tube-mpv
-  :ensure t
+  :elpaca t
   :bind (:elfeed-show-mode-map
 		 ("C-c C-f" . elfeed-tube-mpv-follow-mode)
 		 ("C-c C-w" . elfeed-tube-mpv-where)))
@@ -43,7 +43,7 @@
   :hook (eww-after-render-hook . eww-readable)
   :config
   (leaf shrface
-	:ensure t
+	:elpaca t
 	:hook (eww-mode . shrface-mode)))
 
 (provide 'k-elfeed)

@@ -1,5 +1,5 @@
 (leaf spacious-padding
-  :ensure t
+  :elpaca t
   :custom
   (spacious-padding-widths . '(:internal-border-width 25
 													  :header-line-width 0
@@ -575,7 +575,7 @@ Read Info node `(elisp) Pixel Specification'.")
 
 
 (leaf keycast
-  :ensure t
+  :elpaca t
   :require t
   :config
   (setq keycast-mode-line-format "%2s%k%c%R")

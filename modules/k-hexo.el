@@ -1,5 +1,5 @@
 (leaf hexo
-  :ensure t
+  :elpaca t
   :config
   (defun hexo-my-blog ()
 	(interactive)

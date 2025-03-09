@@ -1,6 +1,6 @@
 (leaf evil
   :disabled t
-  :ensure t
+  :elpaca t
   :after (key-chord)
   :leaf-defer nil
   :setq
@@ -47,7 +47,7 @@
 
 ;; Evil Collection
 (leaf evil-collection
-  :ensure t
+  :elpaca t
   :after evil
   :setq
   (evil-collection-mode-list . '(dashboard dired buffer))
@@ -57,31 +57,31 @@
 ;; Honestly might be better to make my own package
 (leaf evil-extra-operator
   :after evil
-  :ensure t
+  :elpaca t
   :bind (:evil-motion-state-map
 		 ("gs" . evil-operator-google-translate))
   :config
   (require 'evil-extra-operator)
   (evil-define-operator evil-operator-google-search (beg end type)
-						"Evil operator for google search."
-						:move-point nil
-						(interactive "<R>")
-						(browse-url
-						 (concat "http://www.startpage.com/search?q="
-								 (url-hexify-string
-								  (.eeo/make-url-args beg end type)))))
+	"Evil operator for google search."
+	:move-point nil
+	(interactive "<R>")
+	(browse-url
+	 (concat "http://www.startpage.com/search?q="
+			 (url-hexify-string
+			  (.eeo/make-url-args beg end type)))))
   (global-evil-extra-operator-mode 1))
 
 (leaf evil-exchange
   :after evil
-  :ensure t
+  :elpaca t
   :config
   (evil-exchange-install))
 
 ;; Evil Escape
 (leaf evil-escape
   :after evil
-  :ensure t
+  :elpaca t
   :config
   (evil-escape-mode)
   :setq-default
@@ -92,7 +92,7 @@
 
 (leaf evil-goggles
   :after evil
-  :ensure t
+  :elpaca t
   :config
   (evil-goggles-mode)
   :setq
@@ -102,25 +102,25 @@
 ;; Evil Surround
 (leaf evil-surround
   :after evil
-  :ensure t
+  :elpaca t
   :config
   (global-evil-surround-mode 1))
 
 (leaf evil-nerd-commenter
   :after evil
-  :ensure t
+  :elpaca t
   :init
   (evilnc-default-hotkeys t) ;;only enables for emacs state
   )
 
 ;; ;; Evil TextObj Treesitter
 ;; ;; Seems to not work with the Emacs 29 treesitter feature yet
-;; (leaf evil-textobj-tree-sitter :ensure t
+;; (leaf evil-textobj-tree-sitter :elpaca t
 ;;   :bind (:evil-outer-text-objects-map
 ;; 		 ("f" . (evil-textobj-tree-sitter-get-textobj "function.outer"))))
 ;; ;; `M-x combobulate' (or `C-c o o') to start using Combobulate
 ;; (leaf treesit
-;;   :ensure t
+;;   :elpaca t
 ;;   :preface
 ;;   (defun mp-setup-install-grammars ()
 ;;     "Install Tree-sitter grammars if they are absent."
@@ -159,7 +159,7 @@
 ;;   ;;  M-x customize-group RET combobulate RET
 ;;   ;;
 ;;   (leaf combobulate
-;; 	:ensure t
+;; 	:elpaca t
 ;;     ;; Optional, but recommended.
 ;;     ;;
 ;;     ;; You can manually enable Combobulate with `M-x
@@ -174,7 +174,7 @@
 
 (leaf evil-god-state
   :after evil
-  :ensure t
+  :elpaca t
   :bind (:evil-normal-state-map
 		 (",". evil-execute-in-god-state)
 		 ((kbd "ĵ") . god-local-mode))
@@ -182,19 +182,19 @@
    ([escape] . evil-god-state-bail)))
 
 ;; Needs better evil integration and try undo-in-region
-(leaf vundo :emacs>= 28.1 :ensure t
+(leaf vundo :emacs>= 28.1 :elpaca t
   :bind
   (:evil-normal-state-map
    ("C-M-u" . 'vundo)))
 
 ;; don't really like multicursors, maybe in the future
 ;; (leaf evil-mc
-;; :ensure t
+;; :elpaca t
 ;; :init
 ;; (global-evil-mc-mode 1))
 
 ;; (leaf undo-tree
-;;   :ensure t
+;;   :elpaca t
 ;;   :custom
 ;;   (evil-undo-system . 'undo-tree)
 ;;   :config
@@ -202,12 +202,12 @@
 
 (leaf evil-embrace
   :after evil
-  :ensure t)
+  :elpaca t)
 
 (leaf evil-textobj-tree-sitter
   :after (which-key evil)
   :require t
-  :ensure t
+  :elpaca t
   :custom
   (tree-sitter-debug-jump-buttons . t)
   (tree-sitter-debug-highlight-jump-region . t)
@@ -241,4 +241,17 @@
   ;;  ("v" . (+tree-sitter-goto-textobj "conditional.outer"))
   ;; ("l" . (+tree-sitter-goto-textobj "loop.outer")))
   )
+
+;; Evil Org
+(leaf evil-org
+  :disabled t
+  :elpaca t
+  :after (evil org)
+  :hook (org-mode . (lambda () (evil-org-mode)))
+  :config
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys)
+  :setq (evil-want-C-i-jump . nil))
+
+
 (provide 'k-evil)

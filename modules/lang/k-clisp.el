@@ -1,24 +1,24 @@
 (leaf slime
-  :ensure t)
+  :elpaca t)
 
 (leaf ac-slime
-  :ensure t)
+  :elpaca t)
 
 (leaf slime-company
-  :ensure t)
+  :elpaca t)
 
 (leaf slime-repl-ansi-color
-  :ensure t)
+  :elpaca t)
 
 (leaf paredit
-  :ensure t)
+  :elpaca t)
 
 (leaf separedit
-  :ensure t)
+  :elpaca t)
 
 (leaf evil-paredit
   :after evil
-  :ensure t)
+  :elpaca t)
 
 (leaf sly-quicklisp
-  :ensure t)
+  :elpaca t)

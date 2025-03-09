@@ -43,14 +43,14 @@
   (("C-," . duplicate-dwim)))
 
 (leaf expand-region
-  :ensure t
+  :elpaca t
   :bind (("C-=" . er/expand-region)))
 
 (leaf embrace
-  :ensure t)
+  :elpaca t)
 
 (leaf multifiles
-  :ensure t
+  :elpaca t
   :require t
   :bind
   (("C-!" . mf/mirror-region-in-multifile))
@@ -65,7 +65,7 @@
 	 (mapcar 'find-file-noselect (dired-get-marked-files)))))
 
 (leaf meow
-  :ensure t
+  :elpaca t
   :require t
   :config
   (defun meow-setup ()
@@ -158,8 +158,8 @@
 (leaf meow-for-commands
   :after (hydra)
   :init
-  (leaf meow :ensure t :require t)
-  (leaf evil :ensure t :require t)
+  (leaf meow :elpaca t :require t)
+  (leaf evil :elpaca t :require t)
   (pretty-hydra-define text-objects
 	(:quit-key "C-g" :title "motions")
 	("direction"
@@ -181,7 +181,7 @@
 
 (leaf meow-tree-sitter
   :after (meow)
-  :ensure t
+  :elpaca t
   :require t
   :config
   (meow-tree-sitter-register-defaults))
@@ -212,7 +212,7 @@
   :bind ("C-c t" . #'toggle/body))
 
 (leaf back-button
-  :ensure t
+  :elpaca t
   :require t
   :bind (("C-<" . back-button-local-backward)
 		 ("C->" . back-button-local-forward)
@@ -224,13 +224,13 @@
   (back-button-mode 1))
 
 (leaf binky
-  :ensure t
+  :elpaca t
   :config
   (binky-mode t)
   (binky-margin-mode t))
 
 (leaf grugru
-  :ensure t)
+  :elpaca t)
 
 (leaf shannon-max
   :config

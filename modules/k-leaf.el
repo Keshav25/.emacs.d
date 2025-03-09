@@ -2,35 +2,18 @@
 ;; Leaf and Repositories
 (require 'package)
 
+
 (when istermux
   (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"))
 
-(eval-and-compile
-  (customize-set-variable
+(customize-set-variable
    'package-archives '(("melpa" . "https://melpa.org/packages/")
                        ("gnu" . "https://elpa.gnu.org/packages/")
 					   ("nongnu" . "https://elpa.nongnu.org/nongnu/")) t)
+
   (package-initialize)
-  (unless (package-installed-p 'leaf)
-    (package-refresh-contents)
-    (package-install 'leaf))
 
-  (defvar bootstrap-version)
-  (let ((bootstrap-file
-		 (expand-file-name
-          "straight/repos/straight.el/bootstrap.el"
-          (or (bound-and-true-p straight-base-dir)
-              user-emacs-directory)))
-		(bootstrap-version 7))
-	(unless (file-exists-p bootstrap-file)
-      (with-current-buffer
-          (url-retrieve-synchronously
-           "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-           'silent 'inhibit-cookies)
-		(goto-char (point-max))
-		(eval-print-last-sexp)))
-	(load bootstrap-file nil 'nomessage)))
-
+(setq elpaca-core-date "20250309")
 (defvar elpaca-installer-version 0.10)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
@@ -70,7 +53,13 @@
 (add-hook 'after-init-hook #'elpaca-process-queues)
 (elpaca `(,@elpaca-order))
 
-(straight-use-package 'use-package)
+  (unless (elpaca-installed-p 'leaf)
+    (elpaca leaf)
+	(elpaca leaf-keywords
+	  :config
+	  (leaf-keywords-init))
+
+  (elpaca-wait))
 
 ;; Auto Package Update
 ;; (leaf auto-package-update
@@ -132,7 +121,7 @@
 
 
 (leaf leaf
-  :bind (("C-c f l" . leaf-find)))
+ :bind (("C-c f l" . leaf-find)))
 
 ;; (leaf leaf-elpaca
 ;;   :config
@@ -161,46 +150,31 @@
 ;;                                    "  Error msg: %s")
 ;; 								 (error-message-string err)))))))))))
 
-(leaf quelpa :ensure t)
-
-(leaf quelpa-leaf
-  :after leaf
-  :ensure t
-  :require t
-  :config
-  (quelpa-leaf-init))
-
 ;; key-chords
 (leaf key-chord
   :require t
-  :ensure t
+  :elpaca t
   :config
   (key-chord-mode 1))
 
-;; leaf-keywords
-(leaf leaf-keywords
-  :after leaf
-  :ensure t
-  :config
-  (leaf-keywords-init))
 
 ;; leaf-convert
 (leaf leaf-convert
   :after leaf
-  :ensure t)
+  :elpaca t)
 
 ;; leaf-manager
 (leaf leaf-manager
   :after leaf
-  :ensure t)
+  :elpaca t)
 
 ;; macrostep
 (leaf macrostep
-  :ensure t
+  :elpaca t
   :bind (("C-c m e" . macrostep-expand)
 		 ("C-c m c" . macrostep-collapse)))
 
 (leaf system-packages
-  :ensure t)
+  :elpaca t)
 
 (provide 'k-leaf)

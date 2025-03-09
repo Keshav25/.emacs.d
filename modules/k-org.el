@@ -1,5 +1,5 @@
 (leaf org
-  :ensure t
+  :elpaca t
   :bind (("C-c l" . org-store-link)
 		 ("C-c C-M-l" . org-toggle-link-display))
   :hook (org-mode . (turn-on-visual-line-mode))
@@ -44,7 +44,7 @@
   )
 
 (leaf org-emphasis-kbd
-  :disabled
+  :disabled t
   :config
   (add-to-list 'org-emphasis-alist '("%" org-kbd verbatim))
   (add-to-list 'org-html-text-markup-alist '(kbd . "<kbd>%s</kbd>"))
@@ -87,132 +87,132 @@ Assume point is at the first star marker."
 
   ;; MAYBE: Define a derived backend rather than replacing the HTML one.
   (org-export-define-backend 'html
-	'((kbd . org-html-kbd)
-      (bold . org-html-bold)
-      (center-block . org-html-center-block)
-      (clock . org-html-clock)
-      (code . org-html-code)
-      (drawer . org-html-drawer)
-      (dynamic-block . org-html-dynamic-block)
-      (entity . org-html-entity)
-      (example-block . org-html-example-block)
-      (export-block . org-html-export-block)
-      (export-snippet . org-html-export-snippet)
-      (fixed-width . org-html-fixed-width)
-      (footnote-definition . org-html-footnote-definition)
-      (footnote-reference . org-html-footnote-reference)
-      (headline . org-html-headline)
-      (horizontal-rule . org-html-horizontal-rule)
-      (inline-src-block . org-html-inline-src-block)
-      (inlinetask . org-html-inlinetask)
-      (inner-template . org-html-inner-template)
-      (italic . org-html-italic)
-      (item . org-html-item)
-      (keyword . org-html-keyword)
-      (latex-environment . org-html-latex-environment)
-      (latex-fragment . org-html-latex-fragment)
-      (line-break . org-html-line-break)
-      (link . org-html-link)
-      (node-property . org-html-node-property)
-      (paragraph . org-html-paragraph)
-      (plain-list . org-html-plain-list)
-      (plain-text . org-html-plain-text)
-      (planning . org-html-planning)
-      (property-drawer . org-html-property-drawer)
-      (quote-block . org-html-quote-block)
-      (radio-target . org-html-radio-target)
-      (section . org-html-section)
-      (special-block . org-html-special-block)
-      (src-block . org-html-src-block)
-      (statistics-cookie . org-html-statistics-cookie)
-      (strike-through . org-html-strike-through)
-      (subscript . org-html-subscript)
-      (superscript . org-html-superscript)
-      (table . org-html-table)
-      (table-cell . org-html-table-cell)
-      (table-row . org-html-table-row)
-      (target . org-html-target)
-      (template . org-html-template)
-      (timestamp . org-html-timestamp)
-      (underline . org-html-underline)
-      (verbatim . org-html-verbatim)
-      (verse-block . org-html-verse-block))
-	:filters-alist '((:filter-options . org-html-infojs-install-script)
-					 (:filter-final-output . org-html-final-function))
-	:menu-entry
-	'(?h "Export to HTML"
-		 ((?H "As HTML buffer" org-html-export-as-html)
-          (?h "As HTML file" org-html-export-to-html)
-          (?o "As HTML file and open"
-              (lambda (a s v b)
-				(if a (org-html-export-to-html t s v b)
-                  (org-open-file (org-html-export-to-html nil s v b)))))))
-	:options-alist
-	'((:html-doctype "HTML_DOCTYPE" nil org-html-doctype)
-      (:html-container "HTML_CONTAINER" nil org-html-container-element)
-      (:description "DESCRIPTION" nil nil newline)
-      (:keywords "KEYWORDS" nil nil space)
-      (:html-html5-fancy nil "html5-fancy" org-html-html5-fancy)
-      (:html-link-use-abs-url nil "html-link-use-abs-url" org-html-link-use-abs-url)
-      (:html-link-home "HTML_LINK_HOME" nil org-html-link-home)
-      (:html-link-up "HTML_LINK_UP" nil org-html-link-up)
-      (:html-mathjax "HTML_MATHJAX" nil "" space)
-      (:html-postamble nil "html-postamble" org-html-postamble)
-      (:html-preamble nil "html-preamble" org-html-preamble)
-      (:html-head "HTML_HEAD" nil org-html-head newline)
-      (:html-head-extra "HTML_HEAD_EXTRA" nil org-html-head-extra newline)
-      (:subtitle "SUBTITLE" nil nil parse)
-      (:html-head-include-default-style
-       nil "html-style" org-html-head-include-default-style)
-      (:html-head-include-scripts nil "html-scripts" org-html-head-include-scripts)
-      (:html-allow-name-attribute-in-anchors
-       nil nil org-html-allow-name-attribute-in-anchors)
-      (:html-divs nil nil org-html-divs)
-      (:html-checkbox-type nil nil org-html-checkbox-type)
-      (:html-extension nil nil org-html-extension)
-      (:html-footnote-format nil nil org-html-footnote-format)
-      (:html-footnote-separator nil nil org-html-footnote-separator)
-      (:html-footnotes-section nil nil org-html-footnotes-section)
-      (:html-format-drawer-function nil nil org-html-format-drawer-function)
-      (:html-format-headline-function nil nil org-html-format-headline-function)
-      (:html-format-inlinetask-function
-       nil nil org-html-format-inlinetask-function)
-      (:html-home/up-format nil nil org-html-home/up-format)
-      (:html-indent nil nil org-html-indent)
-      (:html-infojs-options nil nil org-html-infojs-options)
-      (:html-infojs-template nil nil org-html-infojs-template)
-      (:html-inline-image-rules nil nil org-html-inline-image-rules)
-      (:html-link-org-files-as-html nil nil org-html-link-org-files-as-html)
-      (:html-mathjax-options nil nil org-html-mathjax-options)
-      (:html-mathjax-template nil nil org-html-mathjax-template)
-      (:html-metadata-timestamp-format nil nil org-html-metadata-timestamp-format)
-      (:html-postamble-format nil nil org-html-postamble-format)
-      (:html-preamble-format nil nil org-html-preamble-format)
-      (:html-table-align-individual-fields
-       nil nil org-html-table-align-individual-fields)
-      (:html-table-caption-above nil nil org-html-table-caption-above)
-      (:html-table-data-tags nil nil org-html-table-data-tags)
-      (:html-table-header-tags nil nil org-html-table-header-tags)
-      (:html-table-use-header-tags-for-first-column
-       nil nil org-html-table-use-header-tags-for-first-column)
-      (:html-tag-class-prefix nil nil org-html-tag-class-prefix)
-      (:html-text-markup-alist nil nil org-html-text-markup-alist)
-      (:html-todo-kwd-class-prefix nil nil org-html-todo-kwd-class-prefix)
-      (:html-toplevel-hlevel nil nil org-html-toplevel-hlevel)
-      (:html-use-infojs nil nil org-html-use-infojs)
-      (:html-validation-link nil nil org-html-validation-link)
-      (:html-viewport nil nil org-html-viewport)
-      (:html-inline-images nil nil org-html-inline-images)
-      (:html-table-attributes nil nil org-html-table-default-attributes)
-      (:html-table-row-open-tag nil nil org-html-table-row-open-tag)
-      (:html-table-row-close-tag nil nil org-html-table-row-close-tag)
-      (:html-xml-declaration nil nil org-html-xml-declaration)
-      (:infojs-opt "INFOJS_OPT" nil nil)
-      ;; Redefine regular options.
-      (:creator "CREATOR" nil org-html-creator-string)
-      (:with-latex nil "tex" org-html-with-latex)
-      ;; Retrieve LaTeX header for fragments.
-      (:latex-header "LATEX_HEADER" nil nil newline)))
+							 '((kbd . org-html-kbd)
+							   (bold . org-html-bold)
+							   (center-block . org-html-center-block)
+							   (clock . org-html-clock)
+							   (code . org-html-code)
+							   (drawer . org-html-drawer)
+							   (dynamic-block . org-html-dynamic-block)
+							   (entity . org-html-entity)
+							   (example-block . org-html-example-block)
+							   (export-block . org-html-export-block)
+							   (export-snippet . org-html-export-snippet)
+							   (fixed-width . org-html-fixed-width)
+							   (footnote-definition . org-html-footnote-definition)
+							   (footnote-reference . org-html-footnote-reference)
+							   (headline . org-html-headline)
+							   (horizontal-rule . org-html-horizontal-rule)
+							   (inline-src-block . org-html-inline-src-block)
+							   (inlinetask . org-html-inlinetask)
+							   (inner-template . org-html-inner-template)
+							   (italic . org-html-italic)
+							   (item . org-html-item)
+							   (keyword . org-html-keyword)
+							   (latex-environment . org-html-latex-environment)
+							   (latex-fragment . org-html-latex-fragment)
+							   (line-break . org-html-line-break)
+							   (link . org-html-link)
+							   (node-property . org-html-node-property)
+							   (paragraph . org-html-paragraph)
+							   (plain-list . org-html-plain-list)
+							   (plain-text . org-html-plain-text)
+							   (planning . org-html-planning)
+							   (property-drawer . org-html-property-drawer)
+							   (quote-block . org-html-quote-block)
+							   (radio-target . org-html-radio-target)
+							   (section . org-html-section)
+							   (special-block . org-html-special-block)
+							   (src-block . org-html-src-block)
+							   (statistics-cookie . org-html-statistics-cookie)
+							   (strike-through . org-html-strike-through)
+							   (subscript . org-html-subscript)
+							   (superscript . org-html-superscript)
+							   (table . org-html-table)
+							   (table-cell . org-html-table-cell)
+							   (table-row . org-html-table-row)
+							   (target . org-html-target)
+							   (template . org-html-template)
+							   (timestamp . org-html-timestamp)
+							   (underline . org-html-underline)
+							   (verbatim . org-html-verbatim)
+							   (verse-block . org-html-verse-block))
+							 :filters-alist '((:filter-options . org-html-infojs-install-script)
+											  (:filter-final-output . org-html-final-function))
+							 :menu-entry
+							 '(?h "Export to HTML"
+								  ((?H "As HTML buffer" org-html-export-as-html)
+								   (?h "As HTML file" org-html-export-to-html)
+								   (?o "As HTML file and open"
+									   (lambda (a s v b)
+										 (if a (org-html-export-to-html t s v b)
+										   (org-open-file (org-html-export-to-html nil s v b)))))))
+							 :options-alist
+							 '((:html-doctype "HTML_DOCTYPE" nil org-html-doctype)
+							   (:html-container "HTML_CONTAINER" nil org-html-container-element)
+							   (:description "DESCRIPTION" nil nil newline)
+							   (:keywords "KEYWORDS" nil nil space)
+							   (:html-html5-fancy nil "html5-fancy" org-html-html5-fancy)
+							   (:html-link-use-abs-url nil "html-link-use-abs-url" org-html-link-use-abs-url)
+							   (:html-link-home "HTML_LINK_HOME" nil org-html-link-home)
+							   (:html-link-up "HTML_LINK_UP" nil org-html-link-up)
+							   (:html-mathjax "HTML_MATHJAX" nil "" space)
+							   (:html-postamble nil "html-postamble" org-html-postamble)
+							   (:html-preamble nil "html-preamble" org-html-preamble)
+							   (:html-head "HTML_HEAD" nil org-html-head newline)
+							   (:html-head-extra "HTML_HEAD_EXTRA" nil org-html-head-extra newline)
+							   (:subtitle "SUBTITLE" nil nil parse)
+							   (:html-head-include-default-style
+								nil "html-style" org-html-head-include-default-style)
+							   (:html-head-include-scripts nil "html-scripts" org-html-head-include-scripts)
+							   (:html-allow-name-attribute-in-anchors
+								nil nil org-html-allow-name-attribute-in-anchors)
+							   (:html-divs nil nil org-html-divs)
+							   (:html-checkbox-type nil nil org-html-checkbox-type)
+							   (:html-extension nil nil org-html-extension)
+							   (:html-footnote-format nil nil org-html-footnote-format)
+							   (:html-footnote-separator nil nil org-html-footnote-separator)
+							   (:html-footnotes-section nil nil org-html-footnotes-section)
+							   (:html-format-drawer-function nil nil org-html-format-drawer-function)
+							   (:html-format-headline-function nil nil org-html-format-headline-function)
+							   (:html-format-inlinetask-function
+								nil nil org-html-format-inlinetask-function)
+							   (:html-home/up-format nil nil org-html-home/up-format)
+							   (:html-indent nil nil org-html-indent)
+							   (:html-infojs-options nil nil org-html-infojs-options)
+							   (:html-infojs-template nil nil org-html-infojs-template)
+							   (:html-inline-image-rules nil nil org-html-inline-image-rules)
+							   (:html-link-org-files-as-html nil nil org-html-link-org-files-as-html)
+							   (:html-mathjax-options nil nil org-html-mathjax-options)
+							   (:html-mathjax-template nil nil org-html-mathjax-template)
+							   (:html-metadata-timestamp-format nil nil org-html-metadata-timestamp-format)
+							   (:html-postamble-format nil nil org-html-postamble-format)
+							   (:html-preamble-format nil nil org-html-preamble-format)
+							   (:html-table-align-individual-fields
+								nil nil org-html-table-align-individual-fields)
+							   (:html-table-caption-above nil nil org-html-table-caption-above)
+							   (:html-table-data-tags nil nil org-html-table-data-tags)
+							   (:html-table-header-tags nil nil org-html-table-header-tags)
+							   (:html-table-use-header-tags-for-first-column
+								nil nil org-html-table-use-header-tags-for-first-column)
+							   (:html-tag-class-prefix nil nil org-html-tag-class-prefix)
+							   (:html-text-markup-alist nil nil org-html-text-markup-alist)
+							   (:html-todo-kwd-class-prefix nil nil org-html-todo-kwd-class-prefix)
+							   (:html-toplevel-hlevel nil nil org-html-toplevel-hlevel)
+							   (:html-use-infojs nil nil org-html-use-infojs)
+							   (:html-validation-link nil nil org-html-validation-link)
+							   (:html-viewport nil nil org-html-viewport)
+							   (:html-inline-images nil nil org-html-inline-images)
+							   (:html-table-attributes nil nil org-html-table-default-attributes)
+							   (:html-table-row-open-tag nil nil org-html-table-row-open-tag)
+							   (:html-table-row-close-tag nil nil org-html-table-row-close-tag)
+							   (:html-xml-declaration nil nil org-html-xml-declaration)
+							   (:infojs-opt "INFOJS_OPT" nil nil)
+							   ;; Redefine regular options.
+							   (:creator "CREATOR" nil org-html-creator-string)
+							   (:with-latex nil "tex" org-html-with-latex)
+							   ;; Retrieve LaTeX header for fragments.
+							   (:latex-header "LATEX_HEADER" nil nil newline)))
 
   (defun org-element--object-lex (restriction)
 	"Return next object in current buffer or nil.
@@ -330,13 +330,13 @@ to an appropriate container (e.g., a paragraph)."
 (leaf org-babel
   :init
   (leaf ob-go
-	:ensure t)
+	:elpaca t)
   (leaf ob-http
-	:ensure t)
+	:elpaca t)
   (leaf ob-mermaid
-	:ensure t)
+	:elpaca t)
   (leaf ob-csharp
-	:quelpa (ob-csharp :fetcher github :repo "samwdp/ob-csharp"))
+	:elpaca (ob-csharp :host github :repo "samwdp/ob-csharp"))
 
   (setq org-confirm-babel-evaluate nil)
   (setq scimax-src-block-keymaps
@@ -539,25 +539,15 @@ to an appropriate container (e.g., a paragraph)."
 (leaf org-journal
   :doc "using denote journal features instead now"
   :disabled t
-  :ensure t
+  :elpaca t
   :custom
   (org-journal-file-format . "%Y%m%d.org")
   :bind
   ("C-c C-j" . org-journal-new-entry))
 
-;; Evil Org
-(leaf evil-org
-  :ensure t
-  :after (evil org)
-  :hook (org-mode . (lambda () (evil-org-mode)))
-  :config
-  (require 'evil-org-agenda)
-  (evil-org-agenda-set-keys)
-  :setq (evil-want-C-i-jump . nil))
-
 ;; PDF Tools
 (leaf pdf-tools
-  :ensure t
+  :elpaca t
   :hook ((doc-view-mode-hook . (lambda () (require 'pdf-tools))))
   :config
   (pdf-tools-install)
@@ -566,7 +556,7 @@ to an appropriate container (e.g., a paragraph)."
 
 ;; Calibre integration
 (leaf calibredb
-  :ensure t
+  :elpaca t
   :config
   (setq calibredb-root-dir "~/Calibre Library")
   (setq calibredb-db-dir (expand-file-name "metadata.db" calibredb-root-dir))
@@ -576,11 +566,11 @@ to an appropriate container (e.g., a paragraph)."
 
 ;; read epub files
 (leaf nov
-  :ensure t)
+  :elpaca t)
 
 ;; https://depp.brause.cc/nov.el/
 ;; (use-package nov-xwidget
-;;   :ensure t
+;;   :elpaca t
 ;;   :demand t
 ;;   :after nov
 ;;   :config
@@ -588,24 +578,24 @@ to an appropriate container (e.g., a paragraph)."
 ;;   (add-hook 'nov-mode-hook 'nov-xwidget-inject-all-files))
 
 ;; Org-Noter
-(leaf org-noter :ensure t)
-(leaf org-noter-pdftools :ensure t)
+(leaf org-noter :elpaca t)
+(leaf org-noter-pdftools :elpaca t)
 
 (leaf org-ehtml
   :require t
-  :ensure t
+  :elpaca t
   :setq
   (org-ehtml-docroot . '(expand-file-name "~/org/roam"))
-  (org-ehtml-everything-editable . t))
-
-(defun start-ehtml ()
-  (interactive)
-  (ws-start org-ethml-handler 8888))
+  (org-ehtml-everything-editable . t)
+  :config 
+  (defun start-ehtml ()
+	(interactive)
+	(ws-start org-ethml-handler 8888)))
 
 ;; Org-Roam
 (leaf org-roam
   :disabled t
-  :ensure t
+  :elpaca t
   :custom
   (org-roam-directory . "~/org/roam")
   (org-roam-completion-everywhere . t)
@@ -622,13 +612,13 @@ to an appropriate container (e.g., a paragraph)."
   :config
   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   (org-roam-db-autosync-mode)
-  (require 'org-roam-protocol))
+  (require 'org-roam-protocol)
 
-;; Disable Warning About Org-Roamv2
-(setq org-roam-v2-ack t)
+  ;; Disable Warning About Org-Roamv2
+  (setq org-roam-v2-ack t))
 
 (leaf org-roam-ui
-  :ensure t
+  :elpaca t
   :config
   (setq org-roam-ui-sync-theme t
 		org-roam-ui-follow t
@@ -661,33 +651,33 @@ to an appropriate container (e.g., a paragraph)."
 
 ;; Org-Starter
 (leaf org-starter
-  :ensure t)
+  :elpaca t)
 
 (leaf org-timeblock
-  :ensure t)
+  :elpaca t)
 
-(leaf org-context :ensure t)
-(leaf org-hyperscheduler :ensure t)
-(leaf org-custom-cookies :ensure t)
-(leaf org-wild-notifier :ensure t)
-(leaf org-transclusion :ensure t)
-(leaf org-time-budgets :ensure t)
-(leaf org-ref-prettify :ensure t)
-(leaf org-drill-table :ensure t)
-(leaf org-auto-tangle :ensure t)
-(leaf org-tree-slide :ensure t)
-(leaf org-tanglesync :ensure t)
-(leaf org-randomnote :ensure t)
-(leaf org-projectile :ensure t)
-(leaf org-inline-pdf :ensure t)
-(leaf citar-org-roam :ensure t)
-(leaf org-web-tools :ensure t)
-(leaf org-treeusage :ensure t)
-(leaf org-rich-yank :ensure t)
-(leaf org-review :ensure t)
+(leaf org-context :elpaca t)
+(leaf org-hyperscheduler :elpaca t)
+(leaf org-custom-cookies :elpaca t)
+(leaf org-wild-notifier :elpaca t)
+(leaf org-transclusion :elpaca t)
+(leaf org-time-budgets :elpaca t)
+(leaf org-ref-prettify :elpaca t)
+(leaf org-drill-table :elpaca t)
+(leaf org-auto-tangle :elpaca t)
+(leaf org-tree-slide :elpaca t)
+(leaf org-tanglesync :elpaca t)
+(leaf org-randomnote :elpaca t)
+(leaf org-projectile :elpaca t)
+(leaf org-inline-pdf :elpaca t)
+(leaf citar-org-roam :elpaca t)
+(leaf org-web-tools :elpaca t)
+(leaf org-treeusage :elpaca t)
+(leaf org-rich-yank :elpaca t)
+(leaf org-review :elpaca t)
 
 (leaf org-re-reveal
-  :ensure t
+  :elpaca t
   :setq
   (org-re-reveal-root . "~/src/reveal.js")
   (org-re-reveal-subtree-with-title-slide . t)
@@ -695,48 +685,47 @@ to an appropriate container (e.g., a paragraph)."
   (add-to-list 'org-structure-template-alist '("R" . "#+REVEAL_HTML: ?\n")))
 
 
-(leaf org-pdftools :ensure t)
-(leaf org-mind-map :ensure t)
-(leaf org-make-toc :ensure t)
+(leaf org-pdftools :elpaca t)
+(leaf org-mind-map :elpaca t)
+(leaf org-make-toc :elpaca t)
 
 (leaf org-download
-  :ensure t
+  :elpaca t
   :hook ((Dir . org-download-enable)
 		 (org-mode . org-download-enable)))
 
-(leaf org-contacts :ensure t)
+(leaf org-contacts :elpaca t)
 
 (leaf org-tagged
-  :ensure t
+  :elpaca t
   :emacs>= 28.1)
 
-(leaf org-kanban :ensure t)
-(leaf org-appear :ensure t)
-(leaf org-emms :ensure t)
-(leaf org-evil :after evil :ensure t)
-(leaf org-edna :ensure t)
-(leaf org-ref :ensure t)
-(leaf org-msg :ensure t)
-(leaf org-gtd :ensure t)
-(leaf org-wc :ensure t)
-(leaf org-if :ensure t)
-(leaf org-fancy-priorities :ensure t)
+(leaf org-kanban :elpaca t)
+(leaf org-appear :elpaca t)
+(leaf org-emms :elpaca t)
+(leaf org-edna :elpaca t)
+(leaf org-ref :elpaca t)
+(leaf org-msg :elpaca t)
+(leaf org-gtd :elpaca t)
+(leaf org-wc :elpaca t)
+(leaf org-if :elpaca t)
+(leaf org-fancy-priorities :elpaca t)
 
 (leaf org-modern
-  :ensure t
+  :elpaca t
   :custom
   (org-modern-star . 'replace)
   :init
   (global-org-modern-mode))
 
 (leaf org-present
-  :ensure t)
+  :elpaca t)
 
 (leaf cdlatex
-  :ensure t
+  :elpaca t
   :hook ((org-mode . turn-on-org-cd-latex)))
 
-(leaf org-mime :ensure t)
+(leaf org-mime :elpaca t)
 
 (leaf writing-function
   :config
@@ -751,16 +740,16 @@ to an appropriate container (e.g., a paragraph)."
 	(visual-line-mode 0)
 	(org-modern-mode 0)))
 
-(leaf pandoc :ensure t)
-(leaf pandoc-mode :ensure t)
-(leaf ox-pandoc :ensure t)
-(leaf copyit-pandoc :ensure t)
+(leaf pandoc :elpaca t)
+(leaf pandoc-mode :elpaca t)
+(leaf ox-pandoc :elpaca t)
+(leaf copyit-pandoc :elpaca t)
 
-(leaf gnuplot :ensure t)
-(leaf htmlize :ensure t)
+(leaf gnuplot :elpaca t)
+(leaf htmlize :elpaca t)
 
 (leaf org-novelist
-  :quelpa (org-novelist :fetcher github :repo "sympodius/org-novelist")
+  :elpaca (org-novelist :host github :repo "sympodius/org-novelist")
   :setq
   (org-novelist-language-tag ."en-US")
   (org-novelist-author . user-full-name)
@@ -768,7 +757,7 @@ to an appropriate container (e.g., a paragraph)."
 
 (leaf ankifier
   :after (expand-region)
-  :quelpa (ankifier :fetcher github :repo "adham-omran/ankifier")
+  :elpaca (ankifier :host github :repo "adham-omran/ankifier")
   :setq
   (ankifier-insert-elsewhere . t)
   (ankifier-anki-basic-note-type . "E-Basic")
@@ -777,44 +766,44 @@ to an appropriate container (e.g., a paragraph)."
   (ankifier-context-question . t))
 
 (leaf org-pretty-tags
-  :ensure t
+  :elpaca t
   :init
   (org-pretty-tags-global-mode 1))
 
 (leaf org-unique-id
-  :ensure t
+  :elpaca t
   :require t
   :after (org))
 ;; :hook ((before-save-hook . org-unique-id))
 
 (leaf ox-haunt
-  :ensure t)
+  :elpaca t)
 
 (leaf hyperbole
   :disabled t
-  :ensure t
+  :elpaca t
   :config
   (hyperbole-mode 1))
 
 (leaf org-ql
-  :quelpa (org-ql :fetcher github :repo "alphapapa/org-ql"
+  :elpaca (org-ql :host github :repo "alphapapa/org-ql"
 				  :files (:defaults (:exclude "helm-org-ql.el"))))
 
 (leaf org-sticky-header
-  :ensure t)
+  :elpaca t)
 
 (leaf org-bookmark-heading
-  :ensure t)
+  :elpaca t)
 
 (leaf hammy
-  :quelpa (hammy :fetcher github :repo "alphapapa/hammy.el"))
+  :elpaca (hammy :host github :repo "alphapapa/hammy.el"))
 
 (leaf weblorg
-  :ensure t
+  :elpaca t
   :require t)
 
 (leaf denote
-  :ensure t
+  :elpaca t
   :require t
   :init
   (denote-rename-buffer-mode 1)
@@ -862,40 +851,38 @@ to an appropriate container (e.g., a paragraph)."
 		(ignore-errors (denote-rename-file-using-front-matter buffer-file-name))))))
 
 (leaf denote-agenda
-  :ensure t
-  :require t
+  :elpaca t
   :config
   (load-library "denote-journal-extras")
   (setq denote-agenda-include-journal t)
   (setq denote-agenda-include-regexp "")
-  :config
   (denote-agenda-insinuate))
 
 (leaf denote-menu
   :after (denote)
-  :ensure t)
+  :elpaca t)
 
 (leaf denote-refs
   :after (denote)
-  :ensure t)
+  :elpaca t)
 
 (leaf citar-denote
   :after (denote citar)
-  :ensure t)
+  :elpaca t)
 
 (leaf denote-explore
   :after (denote)
-  :ensure t)
+  :elpaca t)
 
 (leaf consult-denote
   :after (denote consult)
-  :ensure t)
+  :elpaca t)
 
 (leaf denote-tree
-  :quelpa (denote-tree :fetcher "github" :repo "sarcom-sar/denote-tree"))
+  :elpaca (denote-tree :host "github" :repo "sarcom-sar/denote-tree"))
 
 (leaf denote-say
-  :quelpa (denote-say :fetcher "github" :repo "MirkoHernandez/denote-say"))
+  :elpaca (denote-say :host "github" :repo "MirkoHernandez/denote-say"))
 
 ;; from https://www.reddit.com/r/emacs/comments/d54ogp/emacs_doom_e17_org_mode_checkboxes/
 ;; (add-hook 'org-mode-hook
@@ -930,11 +917,11 @@ to an appropriate container (e.g., a paragraph)."
 ;;             (prettify-symbols-mode)))
 
 (leaf corg
-  :quelpa (corg :fetcher github :repo "isamert/corg.el")
+  :elpaca (corg :host github :repo "isamert/corg.el")
   :require t)
 
 (leaf org-media-note
-  :quelpa (org-media-note :fetcher github :repo "yuchen-lea/org-media-note")
+  :elpaca (org-media-note :host github :repo "yuchen-lea/org-media-note")
   :config
   (setq org-media-note-screenshot-image-dir "~/Document/notes/imgs/'"))
 
@@ -990,19 +977,19 @@ to an appropriate container (e.g., a paragraph)."
 	(org-table-align)))
 
 (leaf org-special-block-extras
-  :ensure t
+  :elpaca t
   :hook (org-mode . #'org-special-block-extras-mode))
 
 (leaf mermaid-mode
-  :ensure t)
+  :elpaca t)
 
 (leaf calfw
-  :ensure t
+  :elpaca t
   :require t)
 
 (leaf calfw-org
   :after calfw
-  :ensure t
+  :elpaca t
   :require t)
 
 (provide 'k-org)

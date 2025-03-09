@@ -1,4 +1,9 @@
+(leaf transient
+  :elpaca t)
+
 (leaf magit
+  :after (transient)
+  :elpaca t
   :bind
   ("C-x g" . 'magit-status)
   :custom
@@ -6,20 +11,24 @@
 
 (leaf magit-delta
   :after magit
-  :ensure t)
+  :elpaca t)
 
 (leaf magit-todos
-  :ensure t
+  :after (magit)
+  :elpaca t
   :require t)
 
 (leaf magit-org-todos
-  :ensure t
+  :after (magit)
+  :elpaca t
   :config
   (magit-org-todos-autoinsert))
 
 (leaf magit-file-icons
-  :ensure t
-  :init
+  :disabled t
+  :after (magit)
+  :elpaca t
+  :config
   (magit-file-icons-mode 1)
   :custom
   ;; These are the default values:
@@ -28,6 +37,7 @@
   (magit-file-icons-enable-diffstat-icons . t))
 
 (leaf pretty-magit
+  :after (magit)
   :config
   (defmacro pretty-magit (WORD ICON PROPS &optional NO-PROMPT?)
 	"Replace sanitized WORD with ICON, PROPS and by default add to prompts."
@@ -91,19 +101,19 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (leaf orgit											  ;;
-;;   :quelpa (orgit :fetcher github :repo "magit/orgit")) ;;
+;;   :elpaca (orgit :host github :repo "magit/orgit")) ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (leaf forge
   :after (magit)
-  :ensure t
+  :elpaca t
   :config
   ;; hack to eliminate weirdness
   (unless (boundp 'bug-reference-auto-setup-functions)
 	(defvar bug-reference-auto-setup-functions '())))
 
 (leaf diff-hl
-  :ensure t
+  :elpaca t
   :require t
   :init
   (global-diff-hl-mode 1)
@@ -116,17 +126,17 @@
 (leaf git-gutter
   ;; no reason to use this
   :disabled t
-  :ensure t)
+  :elpaca t)
 
 (leaf code-review
-  :ensure t
+  :elpaca t
   :after (magit)
   :bind ((:forge-topic-mode-map ("C-c r" . #'code-review-forge-pr-at-point))
 		 (:code-review-mode-map (("C-c n" . #'code-review-comment-jump-next)
 								 ("C-c p" . #'code-review-comment-jump-previous)))))
 
 (leaf blamer
-  :ensure t
+  :elpaca t
   :config
   (global-blamer-mode 1))
 

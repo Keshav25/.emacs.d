@@ -1,5 +1,5 @@
 (leaf vertico
-  :ensure t
+  :elpaca t
   :init
   (vertico-mode 1)
   (vertico-mouse-mode 1)
@@ -11,18 +11,18 @@
 		 ("C-c C-c" . vertico-exit-input)))
 
 (leaf orderless
-  :ensure t
+  :elpaca t
   :custom
   (completion-styles . '(orderless))
   (completion-category-overrides . '((file (styles basic partial-completion)))))
 
 (leaf marginalia
-  :ensure t
+  :elpaca t
   :config
   (marginalia-mode 1))
 
 (leaf consult
-  :ensure t
+  :elpaca t
   :bind (("C-s" . consult-line)
 		 ([remap switch-to-buffer] . consult-buffer)
 		 ("C-y" . consult-yank-pop)
@@ -74,7 +74,7 @@
   (consult-narrow-key . "<"))
 
 (leaf consult-dir
-  :ensure t
+  :elpaca t
   :bind (("C-x C-d" . consult-dir)
 		 (:minibuffer-local-completion-map
 		  ("C-x C-d" . consult-dir)
@@ -82,14 +82,14 @@
 
 (leaf embark-consult
   :after (embark consult)
-  :ensure t
+  :elpaca t
   :hook ((embark-collect-mode . consult-preview-at-point-mode)))
 
 (leaf consult-notes
-  :ensure t)
+  :elpaca t)
 
-(use-package consult-omni
-  :straight (consult-omni :type git :host github :repo "armindarvish/consult-omni" :branch "main" :files (:defaults "sources/*.el"))
+(leaf consult-omni
+  :elpaca (consult-omni :host github :repo "armindarvish/consult-omni" :branch "main" :files (:defaults "sources/*.el"))
   :after consult
   :config
   ;; Load Sources Core code
@@ -101,22 +101,22 @@
 
 (leaf consult-org-roam
   :after (org-roam)
-  :ensure t
+  :elpaca t
   :config
   (consult-org-roam-mode))
 
 (leaf avy
-  :ensure t
+  :elpaca t
   :bind
   (("M-N" . avy-goto-char)))
 
 (leaf avy-embark-collect
   :after (embark avy)
-  :ensure t)
+  :elpaca t)
 
 ;; Which-Key
 (leaf which-key
-  :ensure t
+  :elpaca t
   :custom
   (which-key-allow-multiple-replacements . t)
   (which-key-min-display-lines . 1)
@@ -128,7 +128,7 @@
 (leaf cape)
 
 (leaf embark
-  :ensure t
+  :elpaca t
   :hook ((embark-collect-mode . display-line-numbers-mode))
   :bind (("C-c h a" . embark-act)
 		 ("C-c h d" . embark-dwim)
@@ -150,31 +150,31 @@
 				 (window-parameters (mode-line-format . none)))))
 
 (leaf consult-gh
-  :quelpa (consult-gh :fetcher github :repo "armindarvish/consult-gh"))
+  :elpaca (consult-gh :host github :repo "armindarvish/consult-gh"))
 
 (leaf placeholder
   ;; TODO Remember to bind EXT key + top row for these bindings on the ZSA Voyager
-  :quelpa (placeholder :fetcher github :repo "oantolin/placeholder")
+  :elpaca (placeholder :host github :repo "oantolin/placeholder")
   :bind (("C-c p n" . placeholder-forward)
 		 ("C-c p p" . placeholder-backward)
 		 ("C-c p i" . placeholder-insert)))
 
 ;; (leaf hyperbole
-;;   :ensure t)
+;;   :elpaca t)
 
 (leaf eev
   :disabled t
-  :ensure t)
+  :elpaca t)
 
 (leaf rg
-  :ensure t
+  :elpaca t
   :config
   (setq rg-executable (executable-find "rga")))
 
 (leaf posframe
   :config
   (leaf vertico-posframe
-	:ensure t
+	:elpaca t
 	:require t
 	:custom
 	(vertico-posframe-border-width . 0)
@@ -185,26 +185,25 @@
 	(vertico-posframe-mode 1))
   (leaf which-key-posframe
 	:after (which-key)
-	:ensure t
+	:elpaca t
 	:config
 	(which-key-posframe-mode 1))
   (leaf transient-posframe
 	:after (magit)
-	:ensure t
+	:elpaca t
 	:config
 	(transient-posframe-mode 1))
   (leaf flycheck-posframe
 	:after (flycheck)
-	:ensure t
+	:elpaca t
 	:hook
 	(flycheck-mode . flycheck-posframe-mode)))
 
 (leaf bufler
-  :ensure t
+  :elpaca t
   :bind (([remap list-buffers] . bufler)))
 
 (leaf completion-preview
-  :ensure t
   :config
   (global-completion-preview-mode)
   (push 'org-self-insert-command completion-preview-mode)
@@ -224,7 +223,12 @@
   :bind ("C-x p C-s" . k/find-file-preview))
 
 (leaf ripgrep
-  :ensure t)
+  :elpaca t)
+
+(leaf p-search
+  :elpaca (p-search :host github :repo "zkry/p-search")
+  :require t)
+
 
 (provide 'k-emocs)
 

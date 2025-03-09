@@ -9,7 +9,7 @@
   (winner-mode 1))
 
 (leaf windower
-  :ensure t)
+  :elpaca t)
 
 ;; Window Divider Mode
 (leaf window-divider
@@ -55,10 +55,10 @@
 
 (global-set-key (kbd "C-x 1") 'k-toggle-fullscreen)
 
-(leaf zoom :ensure t)
+(leaf zoom :elpaca t)
 
 (leaf popper
-  :ensure t
+  :elpaca t
   :bind (("C-`" . popper-toggle)
 		 ("M-`" . popper-cycle)
 		 ("C-M-`" . popper-toggle-type))
@@ -86,16 +86,16 @@
   (popper-echo-mode 1))
 
 (leaf shackle
-  :ensure t
+  :elpaca t
   :custom
   (shackle-default-rule . '(:same t))
   (shackle-rules . `(,popper-reference-buffers :align t :size 0.4)))
 
 
-(leaf tabspaces :ensure t)
+(leaf tabspaces :elpaca t)
 
 (leaf ace-window
-  :ensure t
+  :elpaca t
   :config
   (setq aw-keys '(?i ?s ?r ?t ?g ?p ?n ?e ?o)
 		aw-background nil)
@@ -137,13 +137,13 @@ When `switch-to-buffer-obey-display-actions' is non-nil,
   ("M-o" . ace-window-prefix))
 
 (leaf transpose-frame
-  :ensure t)
+  :elpaca t)
 
 (leaf centered-window
-  :ensure t)
+  :elpaca t)
 
 (leaf balanced-windows
-  :ensure t
+  :elpaca t
   :config
   (balanced-windows-mode 1))
 
@@ -177,7 +177,7 @@ When `switch-to-buffer-obey-display-actions' is non-nil,
 		  (if this-win-2nd (other-window 1))))))
 
 ;; (leaf perspective
-;;   :ensure t  ; use `:straight t` if using straight.el!
+;;   :elpaca t  ; use `:straight t` if using straight.el!
 ;;   :bind (("C-x k" . persp-kill-buffer*)
 ;; 		 (:persp-mode-map
 ;; 		  ("s" . persp-switch)))
@@ -257,14 +257,14 @@ if there is no window on the right."
       (i3-command 0 "move right"))))
 
 (leaf golden-ratio
-  :ensure t
+  :elpaca t
   :config)
 
 (leaf hydra
-  :ensure t
+  :elpaca t
   :config
   (leaf major-mode-hydra
-	:ensure t
+	:elpaca t
 	:bind
 	("M-SPC" . major-mode-hydra)
 	("C-S-o" . k-window-movement/body)
@@ -326,7 +326,7 @@ if there is no window on the right."
 ;; https://github.com/alphapapa/yequake
 
 (leaf good-scroll
-  :ensure t
+  :elpaca t
   :config
   (good-scroll-mode 1))
 
@@ -360,13 +360,13 @@ if there is no window on the right."
 
 (leaf nova
   :disabled t
-  :ensure t
-  :quelpa (nova :fetcher github :repo "thisisran/nova")
+  :elpaca t
+  :elpaca (nova :host github :repo "thisisran/nova")
   :init
   (nova-vertico-mode 1))
 
 (leaf perspective
-  :ensure t
+  :elpaca t
   :custom
   (persp-sort . 'created)
   :config

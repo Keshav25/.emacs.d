@@ -1,5 +1,5 @@
 (leaf clomacs
-  :ensure t
+  :elpaca t
   :require t
   :config
   (clomacs-httpd-start))

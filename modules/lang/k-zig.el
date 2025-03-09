@@ -1,5 +1,5 @@
 (leaf zig-mode
-  :ensure t
+  :elpaca t
   :config
   (flycheck-define-checker zig
 	"zig"

@@ -1,5 +1,5 @@
 (leaf dashboard
-  :ensure t
+  :elpaca t
   :config
   (dashboard-setup-startup-hook)
   :setq
@@ -17,9 +17,9 @@
   (dashboard-filter-agenda-entry . 'dashboard-no-filter-agenda)
   :config
   (setq dashboard-banner-logo-title (concat "Welcome " user-full-name))
-  (leaf org-dashboard :ensure t)
-  (leaf dashboard-ls :ensure t)
-  (leaf elfeed-dashboard :ensure t)
-  (leaf dashboard-hackernews :ensure t))
+  (leaf org-dashboard :elpaca t)
+  (leaf dashboard-ls :elpaca t)
+  (leaf elfeed-dashboard :elpaca t)
+  (leaf dashboard-hackernews :elpaca t))
 
 (provide 'k-dashboard)

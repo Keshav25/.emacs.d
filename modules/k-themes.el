@@ -6,10 +6,10 @@
 (leaf theme
   :init
   ;; theme packages
-  (leaf kaolin-themes :ensure t)
-  (leaf doom-themes :ensure t)
+  (leaf kaolin-themes :elpaca t)
+  (leaf doom-themes :elpaca t)
   (leaf ef-themes
-	:ensure t
+	:elpaca t
 	:config
 	(setq ef-bio-palette-overrides '((variable fg-main)
 									 (string green-faint)))
@@ -19,9 +19,9 @@
 										(bg-main bg-dim)
 										(string green-faint)))
 	)
-  (leaf yabaki-theme :ensure t)
-  (leaf haki-theme :ensure t)
-  (leaf sweet-theme :ensure t)
+  (leaf yabaki-theme :elpaca t)
+  (leaf haki-theme :elpaca t)
+  (leaf sweet-theme :elpaca t)
   :config
   ;; load the actual theme
   (load-theme 'ef-dark t)
@@ -51,32 +51,32 @@
 ;; Solaire
 (leaf solaire-mode
   :disabled t
-  :ensure t
+  :elpaca t
   :config
   (solaire-global-mode 1))
 
 ;; Diminish
 (leaf diminish
-  :ensure t)
+  :elpaca t)
 
 (leaf all-the-icons
-  :ensure t
+  :elpaca t
   :config
   (leaf all-the-icons-ibuffer
-	:ensure t)
+	:elpaca t)
   (leaf all-the-icons-completion
-	:ensure t))
+	:elpaca t))
 
 ;; (leaf nerd-icons
-;;   :ensure t
+;;   :elpaca t
 ;;   :require t
 ;;   :custom
 ;;   (nerd-icons-font-family . "JetbrainsMono Nerd Font"))
 
 ;; (leaf all-the-icons-nerd-fonts
 ;;   :require t
-;;   :quelpa
-;;   (all-the-icons-nerd-fonts :fetcher github :repo "mohkale/all-the-icons-nerd-fonts")
+;;   :elpaca
+;;   (all-the-icons-nerd-fonts :host github :repo "mohkale/all-the-icons-nerd-fonts")
 ;;   :require t
 ;;   :after (all-the-icons)
 ;;   :config
@@ -84,11 +84,11 @@
 
 ;; (leaf nerd-fonts
 ;;   :require t
-;;   :quelpa
-;;   (nerd-fonts :fetcher github :repo "twlz0ne/nerd-fonts.el"))
+;;   :elpaca
+;;   (nerd-fonts :host github :repo "twlz0ne/nerd-fonts.el"))
 
 ;; (leaf lambda-line
-;;   :quelpa (lambda-line :fetcher github :repo "lambda-emacs/lambda-line") 
+;;   :elpaca (lambda-line :host github :repo "lambda-emacs/lambda-line") 
 ;;   :custom
 ;;   (lambda-line-icon-time . t) ;; requires ClockFace font (see below)
 ;;   (lambda-line-clockface-update-fontset . "ClockFaceRect") ;; set clock icon
@@ -124,22 +124,22 @@
 ;;				t 'symbol "Symbola" nil)))
 
 (leaf highlight-numbers
-  :ensure t
+  :elpaca t
   :config
   (highlight-numbers-mode 1))
 
 (leaf highlight-quoted
-  :ensure t
+  :elpaca t
   :hook
   (emacs-lisp-mode . highlight-quoted-mode))
 
 (leaf highlight-defined
-  :ensure t
+  :elpaca t
   :hook
   (emacs-lisp-mode . highlight-defined-mode))
 
 (leaf hl-todo
-  :ensure t
+  :elpaca t
   :custom
   (hl-todo-color-background . t)
   (hl-todo-highlight-punctuation . ":")
@@ -153,16 +153,16 @@
   (global-hl-todo-mode 1))
 
 (leaf fontaine
-  :ensure t)
+  :elpaca t)
 
 (leaf cursory
-  :ensure t
+  :elpaca t
   :config
   (cursory-mode 1)
   (cursory-set-preset 'underscore-thin-other-window))
 
 (leaf lin
-  :ensure t
+  :elpaca t
   :custom
   (lin-face . "lin-green"))
 
@@ -170,7 +170,7 @@
 (set-face-attribute 'default nil)
 
 (leaf doom-modeline
-  :ensure t
+  :elpaca t
   :config
   ;; slows down emacs
   ;;(doom-modeline-mode 1)
@@ -184,7 +184,7 @@
   (global-visual-line-mode 1))
 
 (leaf ultra-scroll
-  :quelpa (ultra-scroll :fetcher github :repo "jdtsmith/ultra-scroll")
+  :elpaca (ultra-scroll :host github :repo "jdtsmith/ultra-scroll")
   :setq
   (scroll-conservatively . 101)
   (scroll-margin . 0)
@@ -193,7 +193,7 @@
 
 
 (leaf pretty-symbols
-  :ensure t
+  :elpaca t
   :config
   (defvar double-struck-letters
 	'(("|A|" . ?𝔸)
@@ -351,7 +351,7 @@
 														   double-struck-letters))))))
 
 (leaf page-break-lines
-  :ensure t)
+  :elpaca t)
 
 (provide 'k-themes)
 

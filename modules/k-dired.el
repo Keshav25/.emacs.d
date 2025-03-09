@@ -8,7 +8,7 @@
 		 ("k" . dired-create-empty-file)))
 
 (leaf dired-sidebar
-  :ensure t
+  :elpaca t
   :require t
   :bind ("C-S-d" . dired-sidebar-toggle-sidebar)
   :config
@@ -21,25 +21,25 @@
   (setq dired-sidebar-use-term-integration t)
   :hook ((dired-sidebar-mode-hook . k/dired-sidebar-hooks)))
 
-(leaf all-the-icons-dired :ensure t
+(leaf all-the-icons-dired :elpaca t
   :hook ((dired-mode-hook . all-the-icons-dired-mode)
 		 (dired-mode-hook . dired-hide-details-mode)))
 
 (leaf diredfl
-  :ensure t
+  :elpaca t
   :config
   (diredfl-global-mode t))
 
 (leaf dired-subtree
-  :ensure t
+  :elpaca t
   :bind (:dired-mode-map
 		 ("<mouse-1>" . dired-subtree-toggle)
 		 ("<tab>" . dired-subtree-toggle)))
 
-(leaf dired-open :ensure t)
-;; (leaf peep-dired :ensure t)
+(leaf dired-open :elpaca t)
+;; (leaf peep-dired :elpaca t)
 (leaf dirvish
-  :ensure t
+  :elpaca t
   :config
   (dirvish-override-dired-mode)
   :bind (:dirvish-directory-view-mode-map
@@ -58,7 +58,7 @@
 (leaf dired-preview
   :doc "disabled in favor of dirvish"
   :disabled t
-  :ensure t
+  :elpaca t
   :config
   (dired-preview-global-mode 1))
 

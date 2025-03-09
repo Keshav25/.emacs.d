@@ -3,11 +3,11 @@
 		   (python-indent-guess-indent-offset-verbose . nil)))
 
 (leaf anaconda-mode
-  :ensure t
+  :elpaca t
   :hook ((python-mode . anaconda-mode)))
 
 (leaf blacken
-  :ensure t
+  :elpaca t
   :hook ((python-mode . blacken-mode)))
 
 (leaf eglot-mode
@@ -31,7 +31,7 @@
   :hook ((python-mode . eglot-ensure)))
 
 (leaf pyvenv
-  :ensure t
+  :elpaca t
   :hook ((python-mode . pyvenv-mode)
 		 (python-mode . pyvenv-tracking-mode)
 		 (pyvenv-post-activate-hooks . pyvenc-restart-python))
@@ -39,11 +39,11 @@
   (pyvenv-default-virtual-env-name . "venv"))
 
 (leaf numpydoc
-  :ensure t
+  :elpaca t
   :hook ((python-mode . eldoc-mode)))
 
 (leaf ein
-  :ensure t
+  :elpaca t
   :setq
   (ein:polymode . t)
   (ein:output-area-inlined-images . t))

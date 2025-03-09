@@ -1,5 +1,5 @@
 (leaf dyalog-mode
-  :ensure t)
+  :elpaca t)
 
 (leaf bqn-mode
-  :ensure t)
+  :elpaca t)

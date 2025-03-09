@@ -17,12 +17,12 @@
 (leaf consult-eglot
   :after (eglot)
   :disabled t
-  :ensure t
+  :elpaca t
   :bind (:eglot-mode-map ("s-t" . #'consult-eglot-symbols)))
 
 (leaf corfu
   :disabled t
-  :ensure t
+  :elpaca t
   :require t
   :setq
   (completion-cycle-threshold . 3)
@@ -36,13 +36,13 @@
 
 (leaf corfu-terminal
   :after corfu
-  :ensure t
+  :elpaca t
   :config
   (unless (display-graphic-p)
 	(corfu-terminal-mode +1)))
 
 (leaf kind-icon
-  :ensure t
+  :elpaca t
   :require t
   :after (corfu)
   :custom
@@ -55,7 +55,7 @@
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
 (leaf cape
-  :ensure t
+  :elpaca t
   :require t
   ;; Bind dedicated completion commands
   ;; Alternative prefix keys: C-c p, M-p, M-+, ...
@@ -92,7 +92,7 @@
   )
 
 (leaf treesit-auto
-  :ensure t
+  :elpaca t
   :require t
   :setq
   (treesit-auto-install . 'prompt)
@@ -100,57 +100,57 @@
   (global-treesit-auto-mode))
 
 (leaf envrc
-  :ensure t)
+  :elpaca t)
 
 (leaf flycheck
-  :ensure t
+  :elpaca t
   :config
   (global-flycheck-mode 1)
   
   (leaf avy-flycheck
 	:after (flycheck avy)
-	:ensure t)
+	:elpaca t)
   
   (leaf flycheck-eglot
 	:after (flycheck eglot)
-	:ensure t)
+	:elpaca t)
   
   (leaf flycheck-guile
 	:after (flycheck)
-	:ensure t)
+	:elpaca t)
   
   (leaf flycheck-ledger
 	:after (flycheck)
-	:ensure t)
+	:elpaca t)
   
   (leaf consult-flycheck
 	:after (flycheck consult)
-	:ensure t)
+	:elpaca t)
   
   (leaf flycheck-inline
 	:after (flycheck)
-	:ensure t))
+	:elpaca t))
 
 (leaf treemacs
-  :ensure t
+  :elpaca t
   :setq
   (treemacs-width . 25)
   :hook (treemacs-mode-hook . '(text-scale-adjust -1)))
 
 (leaf aggressive-indent
-  :ensure t
+  :elpaca t
   :hook ((emacs-lisp-mode . aggressive-indent-mode)
 		 (scheme-mode . aggressive-indent-mode)))
 
 (leaf rainbow-delimiters
-  :ensure t
+  :elpaca t
   :hook
   (prog-mode-hook . (rainbow-delimiters-mode))
   (text-mode-hool . (rainbow-delimiters-mode)))
 
 (leaf prism
   :disabled t
-  :ensure t
+  :elpaca t
   :after ef-themes
   :config
   (prism-mode 1)
@@ -176,7 +176,7 @@
 				   yellow-faint))))
 
 (leaf paredit
-  :ensure t
+  :elpaca t
   :hook (emacs-lisp-mode-hook . enable-paredit-mode))
 
 (leaf paredit-everywhere
@@ -226,7 +226,7 @@
   )
 
 (leaf paredit-menu
-  :ensure t)
+  :elpaca t)
 
 (leaf moldable-emacs
   :disabled t
@@ -249,7 +249,7 @@
   (me-setup-molds))
 
 (leaf lsp-mode
-  :ensure t
+  :elpaca t
   :require t
   :init
   (setq lsp-keymap-prefix "C-c C-y")
@@ -263,14 +263,14 @@
   (python-ts-mode . lsp))
 
 (leaf lsp-ui
-  :ensure t
+  :elpaca t
   :custom
   (lsp-ui-peek-always-show . t)
   (lsp-ui-sideline-show-hover . t)
   (lsp-ui-doc-enable . nil))
 
 (leaf dap-mode
-  :ensure t
+  :elpaca t
   :bind (:dap-mode-map
 		 ("C-c d b" . dap-breakpoint-toggle)
 		 ("C-c d r" . dap-debug-restart)
@@ -286,7 +286,7 @@
   (dap-gdb-lldb-setup))
 
 (leaf direnv
-  :ensure t
+  :elpaca t
   :config (direnv-mode))
 
 (leaf tramp
@@ -335,34 +335,34 @@
   )
 
 (leaf restclient
-  :ensure t
+  :elpaca t
   :mode  ("\\.restclient$" . restclient-mode))
 
 (leaf yaml-mode
-  :ensure t)
+  :elpaca t)
 
 (leaf dockerfile-mode
-  :ensure t)
+  :elpaca t)
 
 (leaf toml-mode
-  :ensure t)
+  :elpaca t)
 
 (leaf dape
-  :ensure t
+  :elpaca t
   :url "https://github.com/svaante/dape")
 
 (leaf apheleia
-  :ensure t
+  :elpaca t
   :doc "reformats code on file save"
   :config
   (apheleia-global-mode 1))
 
 (leaf turbo-log
-  :quelpa (turbo-log :fetcher github :repo "artawower/turbo-log.el"))
+  :elpaca (turbo-log :host github :repo "artawower/turbo-log.el"))
 
 (leaf macrursors
   :disabled t  
-  :quelpa (macrusors :fetcher github :repo "corytertel/macrursors")
+  :elpaca (macrusors :host github :repo "corytertel/macrursors")
   :require t
   :config
   (dolist (mode '(corfu-mode goggles-mode beacon-mode))
@@ -384,20 +384,20 @@
   (define-key macrursors-mark-map (kbd "r") #'macrursors-mark-all-lines))
 
 (leaf devdocs
-  :ensure t
+  :elpaca t
   :bind ("C-h D" . 'devdocs-lookup))
 
 (leaf code-cells
-  :ensure t)
+  :elpaca t)
 
 (leaf buffer-env
-  :ensure t)
+  :elpaca t)
 
 (leaf obvious
-  :quelpa (obvious :fetcher github :repo "alphapapa/obvious.el"))
+  :elpaca (obvious :host github :repo "alphapapa/obvious.el"))
 
 (leaf repl-driven-development
-  :ensure t
+  :elpaca t
   :require t
   :config
   (repl-driven-development [C-x C-j] java)       
@@ -406,7 +406,7 @@
   (repl-driven-development [C-x C-t] terminal))
 
 (leaf cider
-  :ensure t
+  :elpaca t
   :require t
   :config
   (autoload 'cider--make-result-overlay "cider-overlays")
@@ -436,10 +436,10 @@
 								  (point))))))
 
 (leaf rainbow-mode
-  :ensure t)
+  :elpaca t)
 
 (leaf yasnippet
-  :ensure t
+  :elpaca t
   :config
   (yas-global-mode)
   (yas-reload-all)
@@ -450,7 +450,7 @@
   (yas-prompt-functions . '(yas-completing-prompt)))
 
 (leaf elisp-slime-nav
-  :ensure t
+  :elpaca t
   :hook ((emacs-lisp-mode . elisp-slime-nav-mode)))
 
 (leaf compile
@@ -466,22 +466,22 @@
   (term-load-hook . compilation-shell-minor-mode))
 
 (leaf fancy-compilation
-  :ensure t
+  :elpaca t
   :custom
   (fancy-compilation-override-colors . t)
   :config
   (fancy-compilation-mode 1))
 
 (leaf symbol-overlay
-  :ensure t
+  :elpaca t
   :config
   (symbol-overlay-mode 1))
 
 (leaf symbol-overlay-mc
-  :ensure t)
+  :elpaca t)
 
 (leaf smartparens
-  :ensure t
+  :elpaca t
   :require smartparens-config
   :hook ((prog-mode . smartparens-mode)))
 

@@ -1,7 +1,7 @@
 ;; For any packages that integrate with an OS
 
 (leaf alert
-  :ensure t
+  :elpaca t
   :require t
   :config
   (if istermux
@@ -21,10 +21,10 @@
 		  ("q" . kill-current-buffer))))
 
 (leaf prodigy
-  :ensure t)
+  :elpaca t)
 
 (leaf edit-server
-  :ensure t
+  :elpaca t
   :commands edit-server-start
   :setq
   (edit-server-new-frame . nil)
@@ -36,15 +36,15 @@
 				  (edit-server-start)))))
 
 (leaf eaf
+  :elpaca (eaf :host github :repo "emacs-eaf/emacs-application-framework")
   :disabled t
-  :load-path "~/.emacs.d/quelpa/build/eaf"
-  :quelpa (eaf :fetcher github :repo "emacs-eaf/emacs-application-framework")
+  :require t
   :init
-  (leaf epc :ensure t)
-  (leaf ctable :ensure t)
-  (leaf deferred :ensure t)
-  (leaf s :ensure t)
-  ;; (require 'eaf)
+  (leaf epc :elpaca t)
+  (leaf ctable :elpaca t)
+  (leaf deferred :elpaca t)
+  (leaf s :elpaca t)
+  (add-to-list 'load-path "~/.emacs.d/quelpa/build/eaf")
   :setq
   (browser-url-browser-function . 'eaf-open-browser)
   (eaf-browser-default-search-engine . "duckduckgo")
@@ -133,25 +133,25 @@
 							  ("<f12>" . "open_devtools")
 							  ("<C-return>" . "eaf-send-ctrl-return-sequence")))
   :config
-  (require 'eaf-browser)
-  (require 'eaf-terminal)
-  (require 'eaf-org-previewer)
-  (require 'eaf-mindmap)
-  (require 'eaf-pdf-viewer)
-  (require 'eaf-video-player)
-  (require 'eaf-markdown-previewer)
-  (require 'eaf-music-player)
-  (require 'eaf-rss-reader)
-  (require 'eaf-file-manager)
-  (require 'eaf-jupyter)
-  (require 'eaf-image-viewer)
-  (require 'eaf-camera)
-  (require 'eaf-system-monitor)
-  (require 'eaf-file-browser)
-  (require 'eaf-file-sender)
-  (require 'eaf-airshare)
-  (require 'eaf-netease-cloud-music))
-
+  ;; (require 'eaf-browser)
+  ;; (require 'eaf-terminal)
+  ;; (require 'eaf-org-previewer)
+  ;; (require 'eaf-mindmap)
+  ;; (require 'eaf-pdf-viewer)
+  ;; (require 'eaf-video-player)
+  ;; (require 'eaf-markdown-previewer)
+  ;; (require 'eaf-music-player)
+  ;; (require 'eaf-rss-reader)
+  ;; (require 'eaf-file-manager)
+  ;; (require 'eaf-jupyter)
+  ;; (require 'eaf-image-viewer)
+  ;; (require 'eaf-camera)
+  ;; (require 'eaf-system-monitor)
+  ;; (require 'eaf-file-browser)
+  ;; (require 'eaf-file-sender)
+  ;; (require 'eaf-airshare)
+  ;; (require 'eaf-netease-cloud-music))
+  )
 ;; TEL
 (leaf TEL
   :when istermux
@@ -187,14 +187,15 @@ sCommand: ")
 	(let ((file (wsl-path buffer-file-name)))
       (wsl (format "%s %s" command file)))))
 
+
 (leaf powershell
   :disabled (not iswindows)
-  :ensure t)
+  :elpaca t)
 
 (leaf spookfox
   :doc "only works on linux"
   :disabled t
-  :quelpa (spookfox :fetcher github
+  :elpaca (spookfox :host github
 					:repo "bitspook/spookfox"
 					:files ("lisp/*.el" "lisp/apps/*.el"))
   :require t
@@ -203,16 +204,16 @@ sCommand: ")
   (spookfox-init))
 
 (leaf whicher
-  :quelpa (whicher :fetcher github
+  :elpaca (whicher :host github
 				   :repo "abo-abo/whicher"
 				   :files ("*.el")))
 
 (leaf define-word
-  :quelpa (define-word :fetcher github
+  :elpaca (define-word :host github
 					   :repo "abo-abo/define-word"
 					   :files ("*.el")))
 
-(leaf dmenu :ensure t)
+(leaf dmenu :elpaca t)
 
 (leaf sudo-edit
   :after (embark)

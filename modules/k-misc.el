@@ -8,12 +8,12 @@
 
 ;; Async
 (leaf async
-  :ensure t
+  :elpaca t
   :init
   (dired-async-mode 1))
 
 ;; (use-package detached
-;;   :ensure t
+;;   :elpaca t
 ;;   ;; :ensure-system-package "dtach"
 ;;   :init
 ;;   (detached-init)
@@ -28,22 +28,22 @@
 ;;            (detached-terminal-data-command system-type)))
 
 ;; (leaf detached
-;;   :ensure t
+;;   :elpaca t
 ;;   :ensure-system-package dtach
 ;;   :config
 ;;   (detached-init))
 
 ;; keep emacs clean
-(leaf no-littering :ensure t)
+(leaf no-littering :elpaca t)
 
 ;; Gcmh
 (leaf gcmh
-  :ensure t
+  :elpaca t
   :config
   (gcmh-mode 1))
 
 (leaf helpful
-  :ensure t
+  :elpaca t
   :bind
   ("C-h f" . 'helpful-callable)
   ("C-h v" . 'helpful-variable)
@@ -58,37 +58,37 @@
    ([remap revert-buffer] . 'helpful-update)))
 
 (leaf inform
-  :ensure t)
+  :elpaca t)
 
 
 (leaf elisp-demos
-  :ensure t
+  :elpaca t
   :after (helpful)
   :require t
   :advice
   (:after helpful-update elisp-demos-advice-helpful-update))
 
 (leaf elisp-autofmt
-  :ensure t
+  :elpaca t
   :commands (elisp-autofmt-mode elisp-autofmt-buffer)
   :hook (emacs-lisp-mode . elisp-autofmt-mode))
 
 (setq browse-url-browser-function 'browse-url-xdg-open)
 
 (leaf ement
-  :ensure t)
+  :elpaca t)
 
 (leaf plz
-  :ensure t)
+  :elpaca t)
 
 (leaf plz-see
-  :ensure t)
+  :elpaca t)
 
 (leaf verb
-  :ensure t)
+  :elpaca t)
 
 (leaf mastodon
-  :ensure t
+  :elpaca t
   :require t
   :bind
   ("C-c C-x C-n" . mastodon-toot)
@@ -99,22 +99,22 @@
   (mastodon-discover))
 
 (leaf bbdb
-  :ensure t)
+  :elpaca t)
 
 (leaf speed-type
-  :ensure t)
+  :elpaca t)
 
 (leaf subed
-  :ensure t)
+  :elpaca t)
 
 (leaf electric-ospl
-  :ensure t)
+  :elpaca t)
 
 (leaf pair-tree
-  :ensure t)
+  :elpaca t)
 
 (leaf jinx
-  :ensure t
+  :elpaca t
   :bind (([remap ispell-word] . jinx-correct))
   :config
   (global-jinx-mode 1))
@@ -123,26 +123,26 @@
 ;; https://github.com/alphapapa/unpackaged.el
 
 (leaf ts
-  :ensure t)
+  :elpaca t)
 
 (leaf altcaps
-  :ensure t)
+  :elpaca t)
 
 (leaf hyperdrive
-  :ensure t)
+  :elpaca t)
 
 (leaf browser-hist
   :after embark
-  :quelpa (browser-hist :fetcher github :repo "agzam/browser-hist.el")
+  :elpaca (browser-hist :host github :repo "agzam/browser-hist.el")
   :config
   (setq browser-hist-default-browser 'firefox)
   :commands (browser-hist-search))
 
 (leaf atomic-chrome
   :doc "must have Chrome Emacs extension in Chromium installed"
-  :quelpa (atomic-chrome
+  :elpaca (atomic-chrome
 		   :repo "KarimAziev/atomic-chrome"
-		   :fetcher github)
+		   :host github)
   :commands (atomic-chrome-start-server)
   :config
   (setq-default atomic-chrome-extension-type-list '(atomic-chrome))
@@ -151,10 +151,10 @@
 (leaf casual
   :disabled t
   :doc "calculator program based on calc"
-  :ensure t)
+  :elpaca t)
 
 (leaf number
-  :ensure t
+  :elpaca t
   :require t
   ;; example keybindings
   ;; (global-set-key (kbd "C-c C-+") 'number/add)
@@ -167,10 +167,10 @@
 
 (leaf expreg
   :doc "alternative to expand-region that defers to treesitter when possible"
-  :ensure t)
+  :elpaca t)
 
 (leaf dir-config
-  :quelpa (dir-config :fetcher github :repo "jamescherti/dir-config.el")
+  :elpaca (dir-config :host github :repo "jamescherti/dir-config.el")
   :custom
   (dir-config-file-names . '(".dir-config.el"))
   ;;(dir-config-allowed-directories '("~/src" "~/projects"))
@@ -178,10 +178,10 @@
   (dir-config-mode))
 
 (leaf sotclojure
-  :ensure t)
+  :elpaca t)
 
 (leaf gptel
-  :ensure t
+  :elpaca t
   :config
   (setq gptel-default-mode #'org-mode)
   (setq
@@ -193,7 +193,7 @@
 
 (leaf corsair
   :after gptel
-  :ensure t
+  :elpaca t
   :bind
   ("C-c g c" . corsair-open-chat-buffer)
   ("C-c g a c" . corsair-accumulate-file-path-and-contents)
@@ -206,18 +206,18 @@
 ;; doesn't install
 (leaf gptel-quick
   :disabled t
-  :quelpa (gptel-quick :fetcher github :repo "karthink/gptel-quick")
+  :elpaca (gptel-quick :host github :repo "karthink/gptel-quick")
   :bind (:embark-general-map
 		 ("?" . #'gptel-quick)))
 
 
 (leaf chatgpt-shell
-  :ensure t
+  :elpaca t
   :custom
   (chatgpt-shell-model-version . "uncensored-dolphin-mistral:latest"))
 
 (leaf casual-suite
-  :ensure t
+  :elpaca t
   :config
   (require  'casual-image)
   ;; Add Meme Commands
@@ -233,15 +233,15 @@
   ("C-c i e" . emoji-insert))
 
 (leaf hiccup-cli
-  :ensure t)
+  :elpaca t)
 
 (leaf move-text
-  :ensure t
+  :elpaca t
   :bind (([M-up] . move-text-up)
 		 ([M-down] . move-text-down)))
 
 (leaf emms
-  :ensure t
+  :elpaca t
   :config
   (require 'emms-setup)
   (require 'emms-mpris)
@@ -254,14 +254,14 @@
   ("<XF86AudioPlay>" . emms-pause))
 
 (leaf gif-screencast 
-  :quelpa (gif-screencast :fetcher git 
-						  :url "https://gitlab.com/ambrevar/emacs-gif-screencast") 
+  :elpaca (gif-screencast :host gitlab
+						  :repo "https://gitlab.com/ambrevar/emacs-gif-screencast") 
   :bind (("<f9>" . gif-screencast-start-or-stop)) 
   :custom (gif-screencast-program . "flameshot-bash") 
   (gif-screencast-args . '()))
 
 (leaf detached
-  :ensure t
+  :elpaca t
   :config
   (detached-init)
   :bind
