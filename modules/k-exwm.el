@@ -13,7 +13,8 @@
 	(set-frame-parameter nil 'alpha-background 100)))
 
 (leaf exwm
-  :elpaca t
+  :ensure t
+  :require t
   :custom
   (use-dialog-box . nil)
   (exwm-input-line-mode-passthrough . t)
@@ -24,6 +25,35 @@
   :hook ((exwm-update-title-hook . (lambda () (exwm-workspace-rename-buffer exwm-title)))
 		 (exwm-input--input-mode-change-hook . force-modeline-update))
   :config
+  (defun fhd/toggle-exwm-input-line-mode-passthrough ()
+	(interactive)
+	(if exwm-input-line-mode-passthrough
+		(progn
+          (setq exwm-input-line-mode-passthrough nil)
+          (message "App receives all the keys now (with some simulation)"))
+      (progn
+		(setq exwm-input-line-mode-passthrough t)
+		(message "emacs receives all the keys now"))))
+
+  (defun efs/exwm-init-hook ()
+	(exwm-workspace-switch-create 1))
+
+  (display-battery-mode 1)
+  (setq display-time-day-and-date t)
+  (display-time-mode 1)
+
+  (defun efs/run-in-background (command)
+	(let ((command-parts (split-string command "[ ]+")))
+      (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
+
+  (defun efs/exwm-update-class ()
+	(exwm-workspace-rename-buffer exwm-class-name))
+
+  (add-hook 'exwm-update-class-hook #'efs/exwm-update-class)
+  (add-hook 'exwm-init-hook #'efs/exwm-init-hook)
+  (require 'exwm-systemtray)
+  (setq exwm-systemtray-height 17)
+  (exwm-systemtray-mode 1)
   (defun k-exwm/C-a ()
 	"Pass C-a to the EXWM window."
 	(interactive)
@@ -64,7 +94,6 @@
 		 ("<XF86AudioRaiseVolume>" . #'desktop-environment-volume-increment)))
 
 (leaf exwm-randr
-  :after exwm
   :config
   (require 'exwm-randr)
   (setq exwm-randr-workspace-monitor-plist '(0 "eDP1"))
@@ -75,8 +104,7 @@
   (exwm-randr-mode 1))
 
 
-(leaf exwm-key
-  :after exwm
+(leaf exwm-keys
   :config
   (setq exwm-input-global-keys
 		`(
@@ -145,8 +173,7 @@
 		  (,(kbd "C-x C-s") . [C-s]))))
 
 (leaf exwm-edit
-  :after exwm-keys
-  :elpaca t
+  :ensure t
   :config
   (add-to-list 'exwm-input-global-keys '([?\C-c ?\'] . exwm-edit--compose))
   (add-to-list 'exwm-input-global-keys '([?\C-c ?\'] . exwm-edit--compose))
@@ -155,49 +182,11 @@
   ;; exwm-edit-compose-hook
   (add-hook 'exwm-edit-compose-hook 'k/on-exwm-edit-compose))
 
-(leaf exwm-functions
-  :after exwm-keys
-  (defun fhd/toggle-exwm-input-line-mode-passthrough ()
-	(interactive)
-	(if exwm-input-line-mode-passthrough
-		(progn
-          (setq exwm-input-line-mode-passthrough nil)
-          (message "App receives all the keys now (with some simulation)"))
-      (progn
-		(setq exwm-input-line-mode-passthrough t)
-		(message "emacs receives all the keys now"))))
 
-  (defun efs/set-wallpaper ()
-	(interactive)
-	(start-process-shell-command
-	 "feh" nil  "feh --bg-scale ~/Pictures/wallpaper.jpg"))
-
-  (defun efs/exwm-init-hook ()
-	(exwm-workspace-switch-create 1))
-
-  (display-battery-mode 1)
-  (setq display-time-day-and-date t)
-  (display-time-mode 1)
-
-  (defun efs/run-in-background (command)
-	(let ((command-parts (split-string command "[ ]+")))
-      (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
-
-  (defun efs/exwm-update-class ()
-	(exwm-workspace-rename-buffer exwm-class-name))
-
-  (add-hook 'exwm-update-class-hook #'efs/exwm-update-class)
-  (add-hook 'exwm-init-hook #'efs/exwm-init-hook)
-  (efs/set-wallpaper)
-  (require 'exwm-systemtray)
-  (setq exwm-systemtray-height 17)
-  (exwm-systemtray-mode 1)
-  )
 
 ;; Desktop-Environment
 (leaf desktop-environment
-  :elpaca t
-  :after exwm-keys
+  :ensure t
   :custom
   (desktop-environment-brightness-small-increment . "2%+")
   (desktop-environment-brightness-small-decrement . "2%-")
@@ -213,7 +202,7 @@
 ;; stole from https://github.com/domenzain/evil-exwm-state/tree/master
 ;; (leaf evil-exwm-state
 ;;   :disabled t
-;;   :after (evil exwm)
+
 ;;   :config
 
 ;;   (evil-define-state exwm
@@ -259,18 +248,16 @@
   (centered-window-mode))
 
 (leaf exwm-background
-  :after exwm-keys
   :elpaca (exwm-background :host github :repo "keshav25/exwm-background")
   :require t)
 
 (leaf exwm-mff
-  :after exwm-keys
-  :elpaca t
+  :ensure t
   :config
   (exwm-mff-mode 1))
 
 (leaf ednc
-  :elpaca t
+  :ensure t
   :config
   (defun list-notifications ()
 	(mapconcat #'ednc-format-notification (ednc-notifications) ""))
@@ -286,16 +273,10 @@
 			(lambda (&rest _) (force-mode-line-update t))))
 
 (leaf ednc-popup
-  :after ednc
   :elpaca (ednc-popup :host git :url "https://codeberg.org/akib/emacs-ednc-popup.git")
   :hook (ednc-notification-presentation-functions . ednc-popup-presentation-function))
 
-(leaf initialize-exwm
-  :after exwm-keys
-  :config
-  (require 'exwm)
-  (exwm-init))
-
+(exwm-init)
 (provide 'k-exwm)
 
 ;; (leaf exwm
