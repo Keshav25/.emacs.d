@@ -273,5 +273,20 @@
   (detached-show-output-on-attach . t)
   (detached-terminal-data-command . system-type))
 
+(leaf rx
+  :elpaca t)
+
+(leaf xr
+  :elpaca t)
+
+(leaf relint
+  :elpaca t)
+
+(leaf tiny
+  :elpaca t)
+
+
+
+
 
 (provide 'k-misc)
