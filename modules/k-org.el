@@ -690,7 +690,9 @@ to an appropriate container (e.g., a paragraph)."
   :emacs>= 28.1)
 
 (leaf org-kanban :elpaca t)
-(leaf org-appear :elpaca t)
+(leaf org-appear
+  :elpaca t
+  :hook ((org-mode . org-appear-mode)))
 (leaf org-emms :elpaca t)
 (leaf org-edna :elpaca t)
 (leaf org-ref :elpaca t)
