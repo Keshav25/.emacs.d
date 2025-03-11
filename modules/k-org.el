@@ -843,6 +843,7 @@ to an appropriate container (e.g., a paragraph)."
 
 (leaf denote-agenda
   :elpaca t
+  :require t
   :config
   (load-library "denote-journal-extras")
   (setq denote-agenda-include-journal t)
