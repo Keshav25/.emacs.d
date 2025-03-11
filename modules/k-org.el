@@ -581,17 +581,6 @@ to an appropriate container (e.g., a paragraph)."
 (leaf org-noter :elpaca t)
 (leaf org-noter-pdftools :elpaca t)
 
-(leaf org-ehtml
-  :require t
-  :elpaca t
-  :setq
-  (org-ehtml-docroot . '(expand-file-name "~/org/roam"))
-  (org-ehtml-everything-editable . t)
-  :config 
-  (defun start-ehtml ()
-	(interactive)
-	(ws-start org-ethml-handler 8888)))
-
 ;; Org-Roam
 (leaf org-roam
   :disabled t
