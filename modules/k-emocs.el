@@ -150,7 +150,7 @@
 				 (window-parameters (mode-line-format . none)))))
 
 (leaf consult-gh
-  :elpaca (consult-gh :host github :repo "armindarvish/consult-gh"))
+  :elpaca t)
 
 (leaf placeholder
   ;; TODO Remember to bind EXT key + top row for these bindings on the ZSA Voyager
