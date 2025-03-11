@@ -351,7 +351,14 @@
 														   double-struck-letters))))))
 
 (leaf page-break-lines
-  :elpaca t)
+  :elpaca t
+  :config
+  (page-break-lines-mode 1))
+
+(leaf breadcrumb
+  :elpaca t
+  :config
+  (breadcrumb-mode 1))
 
 (provide 'k-themes)
 
