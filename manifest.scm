@@ -20,12 +20,14 @@
 						   libxrender
 						   libxt)))))
 
-(packages->manifest (list
-					 git
+(packages->manifest '(git
 					 cmake
 					 k-emacs
 					 ripgrep
 					 picom
 					 git-delta
 					 brightnessctl
-					 dtach))
+					 dtach
+					 nushell
+					 flameshot
+					 mpv))
