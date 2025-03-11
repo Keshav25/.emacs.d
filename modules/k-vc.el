@@ -198,21 +198,24 @@
 	(lexical-let ((files (or files (dired-get-marked-files)))
 				  (quit-hook quit-hook)
 				  (wnd (current-window-configuration)))
-				 (if (<= (length files) 2)
-					 (let ((file1 (car files))
-						   (file2 (if (cdr files)
-									  (cadr files)
-									(read-file-name
-									 "file: "
-									 (dired-dwim-target-directory)))))
-					   (if (file-newer-than-file-p file1 file2)
-						   (ediff-files file2 file1)
-						 (ediff-files file1 file2))
-					   (add-hook 'ediff-after-quit-hook-internal
-								 (lambda ()
-								   (setq ediff-after-quit-hook-internal nil)
-								   (when quit-hook (funcall quit-hook))
-								   (set-window-configuration wnd))))
-				   (error "no more than 2 files should be marked")))))
+	  (if (<= (length files) 2)
+		  (let ((file1 (car files))
+				(file2 (if (cdr files)
+						   (cadr files)
+						 (read-file-name
+						  "file: "
+						  (dired-dwim-target-directory)))))
+			(if (file-newer-than-file-p file1 file2)
+				(ediff-files file2 file1)
+			  (ediff-files file1 file2))
+			(add-hook 'ediff-after-quit-hook-internal
+					  (lambda ()
+						(setq ediff-after-quit-hook-internal nil)
+						(when quit-hook (funcall quit-hook))
+						(set-window-configuration wnd))))
+		(error "no more than 2 files should be marked")))))
+
+(leaf git-timemachine
+  :elpaca t)
 
 (provide 'k-vc)
