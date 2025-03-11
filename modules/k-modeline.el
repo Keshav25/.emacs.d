@@ -35,25 +35,25 @@ package).")
   
   (force-mode-line-update)
 
-  (setq-default mode-line-format
-				'("%e"
- 				  k-modeline-kbd-macro
-				  k-modeline-buffer-name
-                  k-modeline-narrow
-                  k-modeline-input-method
-                  k-modeline-buffer-status
-				  k-modeline-window-dedicated-status
-                  " "
-                  k-modeline-buffer-identification
-                  "  "
-                  k-modeline-major-mode
-		          k-modeline-process
-                  "  "
-                  k-modeline-vc-branch
-                  "  "
-                  k-modeline-flymake
-				  k-modeline-eglot
-	              k-modeline-misc-info))
+  (setq mode-line-format
+		'("%e"
+		  k-modeline-buffer-name
+ 		  k-modeline-kbd-macro
+          k-modeline-narrow
+          k-modeline-input-method
+          k-modeline-buffer-status
+		  k-modeline-window-dedicated-status
+          " "
+          k-modeline-buffer-identification
+          "  "
+          k-modeline-major-mode
+		  k-modeline-process
+          "  "
+          k-modeline-vc-branch
+          "  "
+          k-modeline-flymake
+		  k-modeline-eglot
+	      k-modeline-misc-info))
 
   (defface k-modeline-background
 	'((t :background "#3355bb" :foreground "white" :inherit bold))
@@ -175,7 +175,7 @@ Also see `k-modeline-string-abbreviate'."
 	"Mode line construct displaying `mode-line-defining-kbd-macro'.
 Specific to the current window's mode line.")
 
-  (put 'k-modeline-buffer-name 'risky-local-variable t)
+  (put 'k-modeline-kbd-macro 'risky-local-variable t)
 
 ;;;; Narrow indicator
 
@@ -187,6 +187,7 @@ Specific to the current window's mode line.")
           (propertize " Narrow " 'face 'k-modeline-indicator-cyan-bg)))
 	"Mode line construct to report the narrowed state of the current buffer.")
 
+  (put 'k-modeline-narrow 'risky-local-variable t)
 ;;;; Input method
 
   (defvar-local k-modeline-input-method
@@ -196,6 +197,8 @@ Specific to the current window's mode line.")
                       'face 'k-modeline-indicator-green-bg
                       'mouse-face 'mode-line-highlight)))
 	"Mode line construct to report the multilingual environment.")
+
+  (put 'k-modeline-input-method 'risky-local-variable t)
 
 ;;;; Buffer status
 
@@ -209,6 +212,8 @@ Specific to the current window's mode line.")
                       'mouse-face 'mode-line-highlight)))
 	"Mode line construct for showing remote file name.")
 
+  (put 'k-modeline-buffer-status 'risky-local-variable t)
+
 ;;;; Dedicated window
 
   (defvar-local k-modeline-window-dedicated-status
@@ -219,6 +224,7 @@ Specific to the current window's mode line.")
                       'mouse-face 'mode-line-highlight)))
 	"Mode line construct for dedicated window indicator.")
 
+  (put 'k-modeline-window-dedicated-status 'risky-local-variable t)
 ;;;; Buffer name and modified status
 
   (defun k-modeline-buffer-identification-face ()
@@ -267,6 +273,8 @@ See `k-modeline-string-cut-middle'."
 Propertize the current buffer with the `mode-line-buffer-id'
 face.  Let other buffers have no face.")
 
+  (put 'k-modeline-buffer-identification 'risky-local-variable t)
+
 ;;;; Major mode
 
   (defun k-modeline-major-mode-indicator ()
@@ -304,9 +312,13 @@ face.  Let other buffers have no face.")
        (propertize "%]" 'face 'k-modeline-indicator-red))
 	"Mode line construct for displaying major modes.")
 
+  (put 'k-modeline-major-mode 'risky-local-variable t)
+
   (defvar-local k-modeline-process
       (list '("" mode-line-process))
 	"Mode line construct for the running process indicator.")
+
+  (put 'k-modeline-process 'risky-local-variable t)
 
 ;;;; Git branch and diffstat
 
@@ -404,6 +416,8 @@ than `split-width-threshold'."
           (k-modeline--vc-details file branch face)))
 	"Mode line construct to return propertized VC branch.")
 
+  (put 'k-modeline-vc-branch 'risky-local-variable t)
+
 ;;;; Flymake errors, warnings, notes
 
   (declare-function flymake--severity "flymake" (type))
@@ -460,6 +474,8 @@ TYPE is usually keyword `:error', `:warning' or `:note'."
 	"Mode line construct displaying `flymake-mode-line-format'.
 Specific to the current window's mode line.")
 
+  (put 'k-modeline-flymake 'risky-local-variable t)
+
 ;;;; Eglot
 
   (with-eval-after-load 'eglot
@@ -473,6 +489,8 @@ Specific to the current window's mode line.")
 	"Mode line construct displaying Eglot information.
 Specific to the current window's mode line.")
 
+  (put 'k-modeline-eglot 'risky-local-variable t)
+
 ;;;; Miscellaneous
 
   (defvar-local k-modeline-notmuch-indicator
@@ -482,6 +500,8 @@ Specific to the current window's mode line.")
                   notmuch-indicator--counters))))
 	"The equivalent of `notmuch-indicator-mode-line-construct'.
 Display the indicator only on the focused window's mode line.")
+
+  (put 'k-modeline-notmuch-indicator 'risky-local-variable t)
 
   (defvar-local k-modeline-misc-info
       '(:eval
@@ -588,5 +608,10 @@ Read Info node `(elisp) Pixel Specification'.")
 
   (dolist (event '(mouse-event-p mouse-movement-p mwheel-scroll))
 	(add-to-list 'keycast-substitute-alist `(,event nil))))
+
+(leaf mlscroll
+  :elpaca t
+  :config
+  (mlscroll-mode 1))
 
 (provide 'k-modeline)
