@@ -870,11 +870,16 @@ to an appropriate container (e.g., a paragraph)."
   :after (denote consult)
   :elpaca t)
 
-(leaf denote-tree
-  :elpaca (denote-tree :host "github" :repo "sarcom-sar/denote-tree"))
 
-(leaf denote-say
-  :elpaca (denote-say :host "github" :repo "MirkoHernandez/denote-say"))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Not working with elpaca for some reason										   ;;
+;; (leaf denote-tree															   ;;
+;;   :elpaca (denote-tree :host "github" :repo "sarcom-sar/denote-tree"))		   ;;
+;; 																				   ;;
+;; (leaf denote-say																   ;;
+;;   :elpaca (denote-say :host "github.com" :repo "MirkoHernandez/denote-say.el")) ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 ;; from https://www.reddit.com/r/emacs/comments/d54ogp/emacs_doom_e17_org_mode_checkboxes/
 ;; (add-hook 'org-mode-hook
