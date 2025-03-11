@@ -76,6 +76,7 @@
 								 "\\*Warnings\\*"
 								 "\\*Bookmark List\\*"
 								 "\\*exwm-edit"
+								 "\\*elfeed-entry\\*"
 								 haskell-compilation-mode
 								 compilation-mode
 								 bqn-inferior-mode))
