@@ -28,6 +28,8 @@
 
 (setq warning-suppress-log-types '((package reinitialization)))
 
+(setq vc-handled-backends '(Git))
+
 ;; disable audio
 (setq ring-bell-function 'ignore)
 
