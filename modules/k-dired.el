@@ -2,8 +2,9 @@
 (leaf dired
   :custom
   (dired-dwim-target . t)
-  (dired-listing-switches . "-lAh --group-directories-first")
+  (dired-listing-switches . "-lgoAh --group-directories-first --time-style=long-iso")
   (dired-kill-when-opening-new-dired-buffer . t)
+  (delete-by-moving-to-trash t)
   :bind (:dired-mode-map
 		 ("k" . dired-create-empty-file)))
 
