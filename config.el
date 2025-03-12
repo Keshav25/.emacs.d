@@ -18,6 +18,9 @@
   ;; Window-Management
   (require 'k-wm)
 
+  ;; Hydra
+  (require 'k-hydra)
+
   ;; Completion Framework
   (require 'k-emocs)
 
