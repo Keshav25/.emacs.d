@@ -881,6 +881,7 @@ to an appropriate container (e.g., a paragraph)."
   (after-save-hook . k/denote-always-rename-on-save)
   :config
   (require 'denote-journal-extras)
+  (require 'denote-org-extras)
   (defun k/publish-denote ()
 	(interactive)
 	(mapc (lambda (file) (org-ehtml-export-file file))
@@ -895,7 +896,24 @@ to an appropriate container (e.g., a paragraph)."
 	(let ((denote-rename-confirmations nil)
           (denote-save-buffers t)) ; to save again post-rename
       (when (and buffer-file-name (denote-file-is-note-p buffer-file-name))
-		(ignore-errors (denote-rename-file-using-front-matter buffer-file-name))))))
+		(ignore-errors (denote-rename-file-using-front-matter buffer-file-name)))))
+  (defun k-denote-assign-para ()
+    (interactive)
+	(if-let* ((file (buffer-file-name))
+              ((denote-filename-is-note-p file))
+              (all-keywords (string-split (denote-retrieve-filename-keywords file) "_"))
+              (keywords (seq-remove (lambda (keyword)
+                                      (member keyword denote-para-keywords))
+									all-keywords))
+              (para (completing-read "Select category: " denote-para-keywords))
+              (new-keywords (push para keywords)))
+		(denote-rename-file
+		 file
+		 (denote-retrieve-title-or-filename file (denote-filetype-heuristics file))
+		 new-keywords
+		 (denote-retrieve-filename-signature file))
+      (message "Current buffer is not a Denote file.")))
+  )
 
 (leaf denote-agenda
   :elpaca t
