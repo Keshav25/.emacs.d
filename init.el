@@ -225,6 +225,7 @@
 (delete-selection-mode +1)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (setq use-short-answers t)
+(setq sentence-end-double-space nil)
 
 ;; load libraries
 ;; (load-library "f")
