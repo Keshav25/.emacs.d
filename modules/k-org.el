@@ -8,8 +8,12 @@
   (org-startup-numerated . 1)
   (org-startup-truncated . 1)
   (org-startup-indented . 1)
+  (org-startup-with-inline-images . t)
+  (org-image-actual-width . '(450))
   (org-appear-mode . 1)
   (org-use-speed-commands . 1)
+  (org-id-link-to-org-use-id . t)
+  (org-pretty-entities . t)
   (org-special-ctrl-a . 1)
   (org-special-ctrl-k . 1)
   (org-fontify-done-headline . t)
@@ -22,6 +26,10 @@
   (org-agenda-search-view-always-boolean . t)
   (org-agenda-timegrid-use-ampm . nil)
   (org-agenda-span . 'month)
+  (org-export-with-drawers . nil)
+  (org-export-with-todo-keywords . nil)
+  (org-export-with-smart-quotes . t)
+  (org-export-date-timestamp-format . "%e %B %Y")
   (org-return-follows-link . t)
   (org-mouse-1-follows-link . t)
   (org-refile-use-outline-path . 'file)
@@ -40,8 +48,35 @@
   (org-directory . "~/Documents/org")
   (org-file-apps . '((auto-mode . emacs)))
   (org-src-ask-before-returning-to-edit-buffer . nil)
-  (org-src-window-setup . 'current-window)
-  )
+  (org-src-window-setup . 'current-window))
+
+(leaf org-drawers
+  :config
+  (defun k-org-insert-notes-drawer ()
+	"Generate or open a NOTES drawer under the current heading.
+If a drawer exists for this section, a new line is created at the end of the
+current note."
+	(interactive)
+	(push-mark)
+	(org-previous-visible-heading 1)
+	(forward-line)
+	(if (looking-at-p "^[ \t]*:NOTES:")
+		(progn
+          (org-fold-hide-drawer-toggle 'off)
+          (re-search-forward "^[ \t]*:END:" nil t)
+          (forward-line -1)
+          (org-end-of-line)
+          (org-return))
+      (org-insert-drawer nil "NOTES")))
+  (defun k-org-count-words ()
+	"Add word count to each heading property drawer in an Org mode buffer."
+	(interactive)
+	(org-map-entries
+	 (lambda ()
+       (let* ((start (point))
+              (end (save-excursion (org-end-of-subtree)))
+              (word-count (count-words start end)))
+		 (org-set-property "WORDCOUNT" (number-to-string word-count)))))))
 
 (leaf org-emphasis-kbd
   :disabled t
