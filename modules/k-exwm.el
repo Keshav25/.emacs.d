@@ -5,12 +5,18 @@
   (defun k/turn-background-transparency-on ()
 	"turn background transparency on and text transparency off"
 	(interactive)
+	(set-frame-parameter nil 'alpha 100)
 	(set-frame-parameter nil 'alpha-background 65))
 
   (defun k/turn-background-transparency-off ()
 	"turn background transparency off and text transparency on"
 	(interactive)
-	(set-frame-parameter nil 'alpha-background 100)))
+	(set-frame-parameter nil 'alpha 100)
+	(set-frame-parameter nil 'alpha-background 100))
+
+  (defun k/turn-alpha-transparency-on ()
+	(interactive)
+	(set-frame-parameter nil 'alpha 80)))
 
 (leaf exwm
   :ensure t
