@@ -217,6 +217,9 @@
   :custom
   (chatgpt-shell-model-version . "uncensored-dolphin-mistral:latest"))
 
+(leaf ollama-buddy
+  :elpaca t)
+
 (leaf aidermacs
   :ensure t
   :require t
