@@ -47,6 +47,7 @@
   :bind
   ("C-h f" . 'helpful-callable)
   ("C-h v" . 'helpful-variable)
+  ("C-h V" . 'customize-variable)
   ("C-h k" . 'helpful-key)
   ("C-h x" . 'helpful-command)
   ("C-h o" . 'helpful-symbol)
