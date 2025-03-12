@@ -874,6 +874,8 @@ to an appropriate container (e.g., a paragraph)."
   (denote-org-capture-specifiers . "%?")
   (denote-date-prompt-use-org-read-date . t)
   (denote-journal-extras-title-format . 'day-date-month-year)
+  :custom-face
+  (denote-faces-link . '((t (:slant italic))))
   :hook
   (dired-mode-hook . denote-dired-mode)
   (after-save-hook . k/denote-always-rename-on-save)
