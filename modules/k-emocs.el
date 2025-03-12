@@ -186,8 +186,8 @@
 	(vertico-posframe-border-width . 0)
 	:config
 	(setq vertico-posframe-parameters
-		  '((alpha . 100)
-			(alpha-background . 90)))
+		  '((alpha . 90)
+			(alpha-background . 80)))
 	(vertico-posframe-mode 1))
   (leaf which-key-posframe
 	:after (which-key)
