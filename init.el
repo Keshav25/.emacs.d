@@ -226,6 +226,7 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 (setq use-short-answers t)
 (setq sentence-end-double-space nil)
+(setq  save-interprogram-paste-before-kill t)
 
 ;; load libraries
 ;; (load-library "f")
