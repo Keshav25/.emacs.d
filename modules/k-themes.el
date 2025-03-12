@@ -192,6 +192,16 @@
   :config
   (ultra-scroll-mode 1))
 
+(leaf touchpad
+  :disabled nil
+  :elpaca (touchpad :host github :repo "awu7/touchpad-scroll-mode")
+  :config
+  (load "touchpad")
+  (touchpad-scroll-mode)
+  (setq touchpad-scroll-speed 3)
+  (setq touchpad-pixel-scroll t)
+  (setq touchpad--ultra-scroll t))
+
 
 (leaf pretty-symbols
   :elpaca t
