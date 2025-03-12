@@ -51,6 +51,7 @@
          ("M-s k" . consult-keep-lines) 
          ("M-s u" . consult-focus-lines) 
          ("M-s e" . consult-isearch-history)
+		 ("C-c n t" . consult-org-heading)
 		 ([f6] . consult-recent-file))
   :config
   (advice-add #'register-preview 
