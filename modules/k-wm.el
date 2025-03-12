@@ -69,6 +69,7 @@
 								 help-mode
 								 prodigy-mode
 								 "COMMIT_EDITMSG"
+								 embark-collect-mode
 								 "\\*deadgrep.\*"
 								 "\\*eldoc.\*"
 								 "\\*xref\\*"
