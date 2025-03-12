@@ -990,4 +990,17 @@ to an appropriate container (e.g., a paragraph)."
   :elpaca t
   :require t)
 
+(leaf flyspell
+  :elpaca t
+  :custom
+  (ispell-program-name . "hunspell")
+  (ispell-dictionary . "en_US")
+  (flyspell-mark-duplications-flag . nil)
+  (org-fold-core-style . 'overlays)
+  :config
+  (ispell-set-spellchecker-params)
+  (ispell-hunspell-add-multi-dic "en_US")
+  :hook
+  (text-mode . flyspell-mode))
+
 (provide 'k-org)
