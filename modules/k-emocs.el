@@ -87,7 +87,12 @@
   :hook ((embark-collect-mode . consult-preview-at-point-mode)))
 
 (leaf consult-notes
-  :elpaca t)
+  :elpaca t
+  :bind
+  ("C-c n f" . consult-notes)
+  ("C-c n s" . consult-notes-search-in-all-notes)
+  :config
+  (consult-notes-denote-mode t))
 
 (leaf consult-omni
   :elpaca (consult-omni :host github :repo "armindarvish/consult-omni" :branch "main" :files (:defaults "sources/*.el"))
