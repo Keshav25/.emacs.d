@@ -853,7 +853,14 @@ to an appropriate container (e.g., a paragraph)."
   :custom
   (denote-directory . "~/Documents/notes/")
   (denote-save-buffer-after-creation . nil)
-  (denote-known-keywords . '("emacs"
+  (denote-para-keywords . '("projects" "areas"
+							"resources" "archives"))
+  (denote-known-keywords . '(;; PARA
+							 "projects"
+							 "areas"
+							 "resources"
+							 "archives"
+							 "emacs"
 							 "philosophy"
 							 "politics"
 							 "economics"
