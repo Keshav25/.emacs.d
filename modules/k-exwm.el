@@ -282,6 +282,9 @@
   :elpaca (ednc-popup :host git :url "https://codeberg.org/akib/emacs-ednc-popup.git")
   :hook (ednc-notification-presentation-functions . ednc-popup-presentation-function))
 
+(leaf perspective-exwm
+  :elpaca t)
+
 (exwm-init)
 (provide 'k-exwm)
 
