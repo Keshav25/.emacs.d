@@ -846,7 +846,10 @@ to an appropriate container (e.g., a paragraph)."
   ("C-c n i" . denote-link-or-create)
   ("C-c n c" . denote-open-or-create)
   ("C-c n j" . denote-journal-extras-new-or-existing-entry)
-  ("C-c C-j" . denote-journal-extras-new-or-existing-entry)
+  ("C-c n b" . denote-find-backlink)
+  ("C-c n d" . denote-date)
+  ("C-c n l" . denote-find-link)
+  ("C-c n h" . denote-org-extras-link-to-heading)
   :custom
   (denote-directory . "~/Documents/notes/")
   (denote-save-buffer-after-creation . nil)
