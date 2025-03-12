@@ -860,7 +860,11 @@ to an appropriate container (e.g., a paragraph)."
 
 (leaf citar-denote
   :after (denote citar)
-  :elpaca t)
+  :elpaca t
+  :custom
+  (citar-open-always-create-notes . t)
+  :init
+  (citar-denote-mode t))
 
 (leaf denote-explore
   :after (denote)
