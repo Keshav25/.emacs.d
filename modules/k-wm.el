@@ -178,15 +178,6 @@ When `switch-to-buffer-obey-display-actions' is non-nil,
 		  (select-window first-win)
 		  (if this-win-2nd (other-window 1))))))
 
-;; (leaf perspective
-;;   :elpaca t  ; use `:straight t` if using straight.el!
-;;   :bind (("C-x k" . persp-kill-buffer*)
-;; 		 (:persp-mode-map
-;; 		  ("s" . persp-switch)))
-;;   :custom ((persp-mode-prefix-key . "C-x x"))
-;;   :init
-;;   (persp-mode))
-
 (leaf other-wm
   ;; need to replace i3-command with xdotools or something that works on wayland
   :disabled t
@@ -261,69 +252,6 @@ if there is no window on the right."
 (leaf golden-ratio
   :elpaca t
   :config)
-
-(leaf hydra
-  :elpaca t
-  :config
-  (leaf major-mode-hydra
-	:elpaca t
-	:bind
-	("M-SPC" . major-mode-hydra)
-	("C-S-o" . k-window-movement/body)
-	:config
-	(major-mode-hydra-define emacs-lisp-mode
-	  (:quit-key "q")
-	  ("Eval"
-	   (("b" eval-buffer "buffer")
-		("e" eval-defun "defun")
-		("r" eval-region "region"))
-	   "REPL"
-	   (("I" ielm "ielm"))
-	   "Test"
-	   (("t" ert "prompt")
-		("T" (ert t) "all")
-		("F" (ert :failed) "failed"))
-	   "Doc"
-	   (("d" describe-foo-at-point "thing-at-pt")
-		("f" describe-function "function")
-		("v" describe-variable "variable")
-		("i" info-lookup-symbol "info lookup")))))
-  (pretty-hydra-define k-window-movement
-	(:color pink :quit-key "q" :title "Window Management")
-	("Navigation"
-	 (("b" windmove-left "Move to Left Window")
-	  ("f" windmove-right "Move to Right Window")
-	  ("n" windmove-down "Move Down a Window")
-	  ("p" windmove-up "Move Up a Window"))
-	 "Manipulation"
-	 (("s" split-and-follow-vertically "Split Window Horizontally")
-	  ("v" split-and-follow-horizontally "Split Window Vertically")
-	  ("d" delete-window "Delete Window")
-	  ("o" ace-window "Swith Window")
-	  ("m" k-toggle-fullscreen "Un/Maximize a Window")
-	  ("R" evil-window-rotate-upwards "Rotate Windows")
-	  ("r" evil-window-rotate-downwards "Reverse Rotate Windows")
-	  ("u" winner-undo "Undo Window Manipulation")
-	  ("U" winner-redo "Redo Window Manipulation"))
-	 "Size"
-	 (("+" evil-window-increase-height "Increase Height")
-	  ("-" evil-window-decrease-height "Decrease Heigth")
-	  ("<" evil-window-decrease-width "Decrease Width")
-	  (">" evil-window-increase-width "Increase Width")
-	  ("=" balance-windows "Balance Windows")
-	  (";" enlarge-window "Enlarge Window"))
-	 "Buffer"
-	 (("l" consult-buffer "Change Buffer")
-	  ("c" centered-window-mode "Un/Center Window")
-	  ("M-o" ace-window-prefix "Command in a select window"))
-	 "Swap Windows"
-	 (("B" windmove-swap-states-left "Move Window Left")
-	  ("N" windmove-swap-states-down "Move Window Down")
-	  ("P" windmove-swap-states-up "Move Window Up")
-	  ("F" windmove-swap-states-right "Move Window Right"))
-	 "Text"
-	 (("C-=" text-scale-increase "zoom in")
-	  ("C--" text-scale-decrease "zoom out")))))
 
 ;; https://github.com/alphapapa/yequake
 
