@@ -33,3 +33,10 @@
 /hackernews/
 /forge-database-v13-20250217-1103.sqlite
 /multisession/
+.aider*
+/places
+/modules/.nrepl-port
+/history
+/diredful-conf.el
+/elfeed-feeds.el
+/detached/
