@@ -437,6 +437,7 @@ to an appropriate container (e.g., a paragraph)."
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((python . t)
+	 (dot . t)
 	 (emacs-lisp . t)
 	 (shell . t)
 	 (scheme . t)
