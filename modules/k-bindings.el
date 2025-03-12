@@ -240,4 +240,12 @@
 		(expand-file-name "~/.emacs.d/site-lisp/target/emacskeys-0.1.0-SNAPSHOT-standalone.jar"))
   (shannon-max-start-logger))
 
+(leaf undo-tree
+  :elpaca t
+  :require t
+  :config
+  (global-undo-tree-mode t)
+  :custom
+  (undo-tree-auto-save-history . nil))
+
 (provide 'k-bindings)
