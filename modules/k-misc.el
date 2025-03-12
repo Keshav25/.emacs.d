@@ -293,8 +293,28 @@
 (leaf tiny
   :elpaca t)
 
+(leaf winnow
+  :elpaca t
+  :hook ((ag-mode-hook . winnow-mode)
+		 (occur-mode-hook . winnow-mode)
+		 (compilation-mode-hook . winnow-mode))
+  :config
+  (defun winnow-results-start ()
+	"Find the start position of the compilation output."
+	(save-excursion
+      (goto-char (point-min))
+      (when (derived-mode-p 'compilation-mode)  ; Only call in compilation-mode or derived modes
+		(compilation-next-error 1))
+      (line-beginning-position 1)))  ; Use line-beginning-position instead of point-at-bol
 
-
+  (defun winnow-results-end ()
+	"Find the end position of the compilation output."
+	(save-excursion
+      (goto-char (point-max))
+      (when (derived-mode-p 'compilation-mode)  ; Only call in compilation-mode or derived modes
+		(compilation-next-error -1))
+      (line-beginning-position 2)))  ; Use line-beginning-position instead of point-at-bol
+  )
 
 
 (provide 'k-misc)
