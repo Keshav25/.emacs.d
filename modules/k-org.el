@@ -453,6 +453,14 @@ to an appropriate container (e.g., a paragraph)."
   :custom
   (org-refile-targets . '((org-agenda-files :maxlevel . 3)))
   (org-agenda-window-setup . 'current-window)
+  (org-agenda-custom-commands .
+							  '(("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
+								("e" "Agenda, next actions and waiting"
+								 ((agenda "" ((org-agenda-overriding-header "Next three days:")
+											  (org-agenda-span 3)
+											  (org-agenda-start-on-weekday nil)))
+								  (todo "NEXT" ((org-agenda-overriding-header "Next Actions:")))
+								  (todo "WAIT" ((org-agenda-overriding-header "Waiting:")))))))
   :hook ((org-agenda-finalize . org-modern-agenda)
 		 (org-agenda-finalize . hl-line-mode)))
 
