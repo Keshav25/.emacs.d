@@ -371,5 +371,10 @@
   :config
   (breadcrumb-mode 1))
 
+(leaf mixed-pitch
+  :elpaca t
+  :hook
+  (org-mode . mixed-pitch-mode))
+
 (provide 'k-themes)
 
