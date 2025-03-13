@@ -1,7 +1,5 @@
 ;; k-leaf
 ;; Leaf and Repositories
-(require 'package)
-
 
 (when istermux
   (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"))
@@ -61,6 +59,7 @@
 
   (elpaca-wait))
 
+(require 'package)
 ;; Auto Package Update
 ;; (leaf auto-package-update
 ;; :setq
