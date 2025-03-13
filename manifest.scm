@@ -869,5 +869,7 @@ login, Google login and login via Microsoft Office 365 Account).")
 						  ;; nushell
 						  flameshot
 						  mpv
-						  python-aider-chat
+						  clojure
+						  openjdk
+						  ;; python-aider-chat
 						  ))
