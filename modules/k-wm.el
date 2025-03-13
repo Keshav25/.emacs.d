@@ -303,5 +303,13 @@ if there is no window on the right."
   (customize-set-value 'persp-mode-prefix-key (kbd "C-x x"))
   (persp-mode))
 
+(defun kill-other-buffers ()
+  "Kill all other buffers but this one.  Leave one frame open."
+  (interactive)
+  (mapc 'kill-buffer
+		(delq (current-buffer) (buffer-list)))
+  (delete-other-windows))
+
+
 (provide 'k-wm)
 ;;; k-wm.el ends here
