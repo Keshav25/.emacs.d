@@ -3,8 +3,6 @@
 
 ;; (set-fontset-font "fontset-default" 'unicode "Noto Color Emoji" nil 'prepend)
 
-(leaf theme
-  :init
   ;; theme packages
   (leaf kaolin-themes :elpaca t)
   (leaf doom-themes :elpaca t)
@@ -18,15 +16,18 @@
 	(setq ef-cyprus-palette-overrides '((variable fg-main)
 										(bg-main bg-dim)
 										(string green-faint)))
-	)
+	  (load-theme 'ef-bio t)
+  (set-foreground-color "lightblue")
+  (global-hl-line-mode 1))
   (leaf yabaki-theme :elpaca t)
   (leaf haki-theme :elpaca t)
   (leaf sweet-theme :elpaca t)
+
+(leaf load-theme
+  :after ef-themes
   :config
   ;; load the actual theme
-  (load-theme 'ef-dark t)
-  (set-foreground-color "lightblue")
-  (global-hl-line-mode 1))
+
 
 ;; ;; Option 1: Simply do (make sure it is in 'custom-theme-directory')
 ;; (setq haki-region "#2e8b6d")
@@ -46,8 +47,8 @@
 ;; 			 ;; For meow/evil users (change border of mode-line according to modal states)
 ;; 			 (add-hook 'post-command-hook #'haki-modal-mode-line)
 
-;; 			 (load-theme 'haki t))
-
+;; 			 (load-theme 'haki t)))
+)
 ;; Solaire
 (leaf solaire-mode
   :disabled t
