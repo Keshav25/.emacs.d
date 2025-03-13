@@ -289,6 +289,21 @@
   (detached-terminal-data-command . system-type))
 
 (leaf xr
+  :config
+  (defun unpackaged/query-replace-rx (&rest _)
+	"Call `query-replace-regexp', reading regexp in `rx' syntax.
+Automatically wraps in parens and adds `seq' to the beginning of
+the form."
+	(interactive)
+	(cl-letf (((symbol-function #'query-replace-read-from) (lambda (&rest _)
+															 (--> (read-string "rx form: ")
+                                                                  (concat "'(seq " it ")")
+                                                                  (read it)
+                                                                  (cadr it)
+                                                                  (rx-to-string it)))))
+      (call-interactively #'query-replace-regexp))))
+
+(leaf xr
   :elpaca t)
 
 (leaf relint
