@@ -5,6 +5,9 @@
 (defun k/main-configuration ()
   ;; Leaf
   (require 'k-leaf)
+  
+  ;; Keybindings
+  (require 'k-bindings)
 
   ;; Dashboard
   (require 'k-dashboard)
@@ -71,9 +74,6 @@
 
   ;; OS
   (require 'k-os)
-
-  ;; Meow
-  (require 'k-bindings)
 
   ;; Modeline
   (require 'k-modeline))
