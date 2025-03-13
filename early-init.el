@@ -5,4 +5,5 @@
 	  frame-inhibit-implied-resize t
 	  inhibit-startup-screen t
 	  warning-minimum-level :error
-	  byte-compile-ignore-files t)
+	  byte-compile-ignore-files t
+	  load-prefer-newer t)
