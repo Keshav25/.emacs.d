@@ -418,6 +418,7 @@ to an appropriate container (e.g., a paragraph)."
 	:elpaca (ob-csharp :host github :repo "samwdp/ob-csharp"))
 
   (setq org-confirm-babel-evaluate nil)
+  (require 'outline)
   (setq scimax-src-block-keymaps
 		;; `(("ipython" . ,(let ((map (make-composed-keymap
 		;; 							`(,elpy-mode-map ,python-mode-map ,pyvenv-mode-map)
@@ -494,6 +495,63 @@ to an appropriate container (e.g., a paragraph)."
   :config
   ;; (setq org-agenda-files (directory-files org-directory nil "^\\([^.]\\|\\.[^.]\\|\\.\\..\\)"))
   (setq org-cycle-separator-lines 1)
+  (defvar org-agenda-overriding-header)
+  (defvar org-agenda-sorting-strategy)
+  (defvar org-agenda-restrict)
+  (defvar org-agenda-restrict-begin)
+  (defvar org-agenda-restrict-end)
+
+  (defun unpackaged/org-agenda-current-subtree-or-region (only-todos)
+	"Display an agenda view for the current subtree or region.
+ With prefix, display only TODO-keyword items."
+	(interactive "P")
+	(let ((starting-point (point))
+          header)
+      (with-current-buffer (or (buffer-base-buffer (current-buffer))
+                               (current-buffer))
+		(if (use-region-p)
+			(progn
+              (setq header "Region")
+              (put 'org-agenda-files 'org-restrict (list (buffer-file-name (current-buffer))))
+              (setq org-agenda-restrict (current-buffer))
+              (move-marker org-agenda-restrict-begin (region-beginning))
+              (move-marker org-agenda-restrict-end
+                           (save-excursion
+							 ;; If point is at beginning of line, include
+							 ;; heading on that line by moving forward 1.
+							 (goto-char (1+ (region-end)))
+							 (org-end-of-subtree))))
+          ;; No region; restrict to subtree.
+          (save-excursion
+			(save-restriction
+              ;; In case the command was called from an indirect buffer, set point
+              ;; in the base buffer to the same position while setting restriction.
+              (widen)
+              (goto-char starting-point)
+              (setq header "Subtree")
+              (org-agenda-set-restriction-lock))))
+		;; NOTE: Unlike other agenda commands, binding `org-agenda-sorting-strategy'
+		;; around `org-search-view' seems to have no effect.
+		(let ((org-agenda-sorting-strategy '(priority-down timestamp-up))
+              (org-agenda-overriding-header header))
+          (org-search-view (if only-todos t nil) "*"))
+		(org-agenda-remove-restriction-lock t)
+		(message nil))))
+  
+  (defun unpackaged/org-agenda-olp (outline-path &optional file only-todos)
+	"Show an agenda restricted to subtree at OUTLINE-PATH.
+FILE may be a filename to search in, or nil to look in the
+current buffer.  If ONLY-TODOS is non-nil, show only to-do
+items. OUTLINE-PATH is a list of strings which are outline
+headings.  See function `org-find-olp'."
+	(when file
+      (push file outline-path))
+	(let ((marker (org-find-olp outline-path (not file))))
+      (with-current-buffer (marker-buffer marker)
+		(org-with-wide-buffer
+		 (goto-char marker)
+		 (unpackaged/org-agenda-current-subtree-or-region only-todos)))))
+  
   :custom
   (org-refile-targets . '((org-agenda-files :maxlevel . 3)))
   (org-agenda-window-setup . 'current-window)
@@ -884,7 +942,7 @@ to an appropriate container (e.g., a paragraph)."
 (leaf denote
   :elpaca t
   :require t
-  :init
+  :config
   (denote-rename-buffer-mode 1)
   :bind
   ("C-c n i" . denote-link-or-create)
@@ -932,7 +990,7 @@ to an appropriate container (e.g., a paragraph)."
 		  (seq-filter (apply-partially #'string-match-p "_programming")
 					  (denote-directory-files)))
 	(shell-command (concat "mv "
-						   (concat (denote-directory) "*.html ")
+						   [O [I			   (concat (denote-directory) "*.html ")]]
 						   (concat (denote-directory) "blog/posts/"))))
   (defun k/denote-always-rename-on-save ()
 	"Rename the current Denote file upon saving the file.
@@ -960,6 +1018,7 @@ to an appropriate container (e.g., a paragraph)."
   )
 
 (leaf denote-agenda
+  :after denote
   :elpaca t
   :require t
   :config
@@ -992,10 +1051,12 @@ to an appropriate container (e.g., a paragraph)."
   :after (denote consult)
   :elpaca t)
 
-
+(leaf denote-search
+  :elpaca t)
 
 
 (leaf denote-tree
+  :disabled t
   :after (denote)
   :elpaca (denote-tree :host "github.com" :repo "sarcom-sar/denote-tree.el"))
 
@@ -1124,5 +1185,14 @@ to an appropriate container (e.g., a paragraph)."
   (ispell-hunspell-add-multi-dic "en_US")
   :hook
   (text-mode . flyspell-mode))
+
+(leaf org-pomodoro
+  :elpaca t)
+
+(leaf org-supertag
+  :elpaca (org-supertag :host github :repo "yibie/org-supertag")
+  :after org
+  :config
+  (org-supertag-setup))
 
 (provide 'k-org)
