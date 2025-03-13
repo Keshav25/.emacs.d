@@ -77,6 +77,47 @@ current note."
               (word-count (count-words start end)))
 		 (org-set-property "WORDCOUNT" (number-to-string word-count)))))))
 
+(leaf org-angenda-preview
+  :config
+  (require 'ov)
+  (defface unpackaged/org-agenda-preview
+	'((t (:background "black")))
+	"Face for Org Agenda previews."
+	:group 'org)
+
+  (defun unpackaged/org-agenda-toggle-preview ()
+	"Toggle overlay of current item in agenda."
+	(interactive)
+	(if-let* ((overlay (ov-in 'unpackaged/org-agenda-preview t (line-end-position) (line-end-position))))
+		;; Hide existing preview
+		(ov-reset overlay)
+      ;; Show preview
+      (let* ((entry-contents (--> (org-agenda-with-point-at-orig-entry
+									  nil (buffer-substring (save-excursion
+															  (unpackaged/org-forward-to-entry-content t)
+															  (point))
+															(org-entry-end-position)))
+                                  s-trim
+                                  (concat "\n" it "\n"))))
+		(add-face-text-property 0 (length entry-contents)
+								'unpackaged/org-agenda-preview nil entry-contents)
+		(ov (line-end-position) (line-end-position)
+			'unpackaged/org-agenda-preview t
+			'before-string entry-contents))))
+
+  (defun unpackaged/org-forward-to-entry-content (&optional unsafe)
+	"Skip headline, planning line, and all drawers in current entry.
+If UNSAFE is non-nil, assume point is on headline."
+	(unless unsafe
+      ;; To improve performance in loops (e.g. with `org-map-entries')
+      (org-back-to-heading))
+	(cl-loop for element = (org-element-at-point)
+			 for pos = (pcase element
+						 (`(headline . ,_) (org-element-property :contents-begin element))
+						 (`(,(or 'planning 'property-drawer 'drawer) . ,_) (org-element-property :end element)))
+			 while pos
+			 do (goto-char pos))))
+
 (leaf org-emphasis-kbd
   :disabled t
   :config
