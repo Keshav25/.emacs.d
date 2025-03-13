@@ -220,15 +220,16 @@
 (leaf ollama-buddy
   :elpaca t)
 
-(leaf aidermacs
-  :ensure t
-  :require t
-  ;; think of a binding for aidermacs-transient-menu
-  :config
-  (aidermacs-setup-minor-mode)
-  (setq aidermacs-use-architect-mode t)
-  (customize-set-value aidermacs-default-model "ollama/uncensored-dolphin-mistral:latest")
-  )
+;; Weird issue about sonnet, which I don't even have
+;; (leaf aidermacs
+;;   :ensure t
+;;   :require t
+;;   ;; think of a binding for aidermacs-transient-menu
+;;   :config
+;;   (aidermacs-setup-minor-mode)
+;;   (setq aidermacs-use-architect-mode t)
+;;   (customize-set-value aidermacs-default-model "ollama/uncensored-dolphin-mistral:latest")
+;;   )
 
 (leaf casual-suite
   :elpaca t
