@@ -19,6 +19,7 @@
 	(set-frame-parameter nil 'alpha 80)))
 
 (leaf exwm
+  :after (desktop-environment)
   :ensure t
   :require t
   :custom
@@ -72,46 +73,6 @@
 	"double quotes"
 	(interactive)
 	(execute-kbd-macro (kbd "\" <C-right> \"")))
-  ;; Remove ALL bindings
-  (define-key exwm-mode-map "\C-c\C-f" nil)
-  (define-key exwm-mode-map "\C-c\C-h" nil)
-  (define-key exwm-mode-map "\C-c\C-k" nil)
-  (define-key exwm-mode-map "\C-c\C-m" nil)
-  (define-key exwm-mode-map "\C-c\C-q" nil)
-  (define-key exwm-mode-map "\C-c\C-t\C-f" nil)
-  (define-key exwm-mode-map "\C-c\C-t\C-m" nil)
-  :bind (:exwm-mode-map
-		 ("C-q" . #'exwm-input-send-next-key)
-		 ("s-i" . #'exwm-input-toggle-keyboard)
-		 ("s-e" . #'switch-to-buffer)
-		 ("s-r" . #'dmenu)
-		 ("s-w" . #'exwm-workspace-switch)
-		 ("s-D" . #'kill-this-buffer)
-		 ("s-TAB" . #'exwm/jump-to-last-exwm)
-		 ("M-t" . #'execute-extended-command)
-		 ("M-!" . #'shell-command)
-		 ("M-o" . #'other-window-alternating)
-		 ("C-<tab>" . other-window)
-		 ("C-x h" . #'k-exwm/C-a)
-		 ("C-o" . #'k-exwm/C-o)
-		 ("C-u" . #'universal-argument)
-		 ("M-\"" . #'k-exwm/M-quote)
-		 ("<XF86AudioLowerVolume>" . #'desktop-environment-volume-decrement)
-		 ("<XF86AudioRaiseVolume>" . #'desktop-environment-volume-increment)))
-
-(leaf exwm-randr
-  :config
-  (require 'exwm-randr)
-  (setq exwm-randr-workspace-monitor-plist '(0 "eDP1"))
-  (add-hook 'exwm-randr-screen-change-hook
-			(lambda ()
-              (start-process-shell-command
-               "xrandr" nil "xrandr --output eDP1 --mode 1920x1080 --pos 0x0 --rotate normal")))
-  (exwm-randr-mode 1))
-
-
-(leaf exwm-keys
-  :config
   (setq exwm-input-global-keys
 		`(
           ([?\s-b] . windmove-left)
@@ -143,7 +104,6 @@
                           (interactive)
                           (exwm-workspace-switch-create ,i))))
 					(number-sequence 0 9))))
-
   (setq exwm-input-simulation-keys
 		`(
 		  ([?\C-b] . [left])
@@ -176,9 +136,43 @@
 		  ([?\C-g] . [escape])
 		  ([?\M-<] . [home])
 		  ([?\M->] . [end])
-		  (,(kbd "C-x C-s") . [C-s]))))
+		  (,(kbd "C-x C-s") . [C-s])))
+  (require 'exwm-randr)
+  (setq exwm-randr-workspace-monitor-plist '(0 "eDP1"))
+  (add-hook 'exwm-randr-screen-change-hook
+			(lambda ()
+              (start-process-shell-command
+               "xrandr" nil "xrandr --output eDP1 --mode 1920x1080 --pos 0x0 --rotate normal")))
+  (exwm-randr-mode 1)
+  ;; Remove ALL bindings
+  (define-key exwm-mode-map "\C-c\C-f" nil)
+  (define-key exwm-mode-map "\C-c\C-h" nil)
+  (define-key exwm-mode-map "\C-c\C-k" nil)
+  (define-key exwm-mode-map "\C-c\C-m" nil)
+  (define-key exwm-mode-map "\C-c\C-q" nil)
+  (define-key exwm-mode-map "\C-c\C-t\C-f" nil)
+  (define-key exwm-mode-map "\C-c\C-t\C-m" nil)
+  :bind (:exwm-mode-map
+		 ("C-q" . #'exwm-input-send-next-key)
+		 ("s-i" . #'exwm-input-toggle-keyboard)
+		 ("s-e" . #'switch-to-buffer)
+		 ("s-r" . #'dmenu)
+		 ("s-w" . #'exwm-workspace-switch)
+		 ("s-D" . #'kill-this-buffer)
+		 ("s-TAB" . #'exwm/jump-to-last-exwm)
+		 ("M-t" . #'execute-extended-command)
+		 ("M-!" . #'shell-command)
+		 ("M-o" . #'other-window-alternating)
+		 ("C-<tab>" . other-window)
+		 ("C-x h" . #'k-exwm/C-a)
+		 ("C-o" . #'k-exwm/C-o)
+		 ("C-u" . #'universal-argument)
+		 ("M-\"" . #'k-exwm/M-quote)
+		 ("<XF86AudioLowerVolume>" . #'desktop-environment-volume-decrement)
+		 ("<XF86AudioRaiseVolume>" . #'desktop-environment-volume-increment)))
 
 (leaf exwm-edit
+  :after (exwm)
   :ensure t
   :config
   (add-to-list 'exwm-input-global-keys '([?\C-c ?\'] . exwm-edit--compose))
@@ -285,7 +279,11 @@
 (leaf perspective-exwm
   :elpaca t)
 
-(exwm-init)
+(leaf exwm-initialization
+  :after (exwm exwm-edit)
+  :config
+  (exwm-init))
+
 (provide 'k-exwm)
 
 ;; (leaf exwm
