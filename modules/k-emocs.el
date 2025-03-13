@@ -113,6 +113,8 @@
 
 (leaf avy
   :elpaca t
+  :custom
+  (avy-keys . '(?i ?s ?r ?t ?g ?p ?n ?e ?o))
   :bind
   (("M-N" . avy-goto-char)))
 
