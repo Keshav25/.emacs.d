@@ -1,5 +1,4 @@
 (leaf org
-  :elpaca t
   :bind (("C-c l" . org-store-link)
 		 ("C-c C-M-l" . org-toggle-link-display))
   :hook (org-mode . (turn-on-visual-line-mode))
