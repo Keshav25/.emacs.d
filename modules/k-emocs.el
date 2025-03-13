@@ -178,32 +178,37 @@
   (setq rg-executable (executable-find "rga")))
 
 (leaf posframe
+  :elpaca t)
+
+(leaf which-key-posframe
+  :after (which-key posframe)
+  :elpaca t
   :config
-  (leaf vertico-posframe
-	:elpaca t
-	:require t
-	:custom
-	(vertico-posframe-border-width . 0)
-	:config
-	(setq vertico-posframe-parameters
-		  '((alpha . 90)
-			(alpha-background . 80)))
-	(vertico-posframe-mode 1))
-  (leaf which-key-posframe
-	:after (which-key)
-	:elpaca t
-	:config
-	(which-key-posframe-mode 1))
-  (leaf transient-posframe
-	:after (magit)
-	:elpaca t
-	:config
-	(transient-posframe-mode 1))
-  (leaf flycheck-posframe
-	:after (flycheck)
-	:elpaca t
-	:hook
-	(flycheck-mode . flycheck-posframe-mode)))
+  (which-key-posframe-mode 1))
+
+(leaf transient-posframe
+  :after (magit transient posframe)
+  :elpaca t
+  :config
+  (transient-posframe-mode 1))
+
+(leaf flycheck-posframe
+  :after (flycheck posframe)
+  :elpaca t
+  :hook
+  (flycheck-mode . flycheck-posframe-mode))
+
+(leaf vertico-posframe
+  :after (vertico posframe)
+  :require t
+  :elpaca t
+  :custom
+  (vertico-posframe-border-width . 0)
+  :config
+  (setq vertico-posframe-parameters
+		'((alpha . 90)
+		  (alpha-background . 80)))
+  (vertico-posframe-mode 1))
 
 (leaf bufler
   :elpaca t
