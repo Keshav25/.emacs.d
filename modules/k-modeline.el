@@ -614,4 +614,8 @@ Read Info node `(elisp) Pixel Specification'.")
   :config
   (mlscroll-mode 1))
 
+(leaf mode-line-keyboard
+  :disabled t
+  :elpaca t)
+
 (provide 'k-modeline)
