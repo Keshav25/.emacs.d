@@ -402,6 +402,10 @@ to an appropriate container (e.g., a paragraph)."
   :bind
   ("C-c i d" . k-org-insert-date))
 
+(leaf org-inline-anim
+  :elpaca t
+  :hook (org-mode . org-inline-anim-mode))
+
 (leaf org-babel
   :init
   (leaf ob-go
