@@ -89,5 +89,3 @@
 
 (if istermux
 	(k/phone-configuration))
-
-(alert "emacs has loaded")
