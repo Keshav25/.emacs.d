@@ -509,4 +509,7 @@
 		  ("p" . lispy-up)
 		  ("n" . lispy-down))))
 
+(leaf eldoc
+  :setq
+  (eldoc-documentation-strategy . 'eldoc-documentation-compose-eagerly))
 (provide 'k-programming)
