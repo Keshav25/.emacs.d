@@ -6,4 +6,5 @@
 	  inhibit-startup-screen t
 	  warning-minimum-level :error
 	  byte-compile-ignore-files t
-	  load-prefer-newer t)
+	  load-prefer-newer t
+	  redisplay-skip-fontification-on-input t)
