@@ -620,6 +620,12 @@ Read Info node `(elisp) Pixel Specification'.")
   :disabled t
   :elpaca t)
 
+(leaf cursor-intangible
+  :config
+  (setq minibuffer-prompt-properties
+		'(read-only t intangible t cursor-intangible t face minibuffer-prompt))
+  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode))
+
 (leaf vim-tab-bar
   :elpaca t
   :config
