@@ -492,4 +492,12 @@
   :commands outline-indent-minor-mode
   :custom
   (outline-indent-ellipsis . " ▼ "))
+(leaf disproject
+  :elpaca t
+  ;; Replace `project-prefix-map' with `disproject-dispatch'.
+  :custom
+  (disproject-switch-to-buffer-command . 'consult-project-buffer)
+  :bind (:ctl-x-map
+         ("p" . disproject-dispatch)))
+
 (provide 'k-programming)
