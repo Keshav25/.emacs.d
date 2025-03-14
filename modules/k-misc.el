@@ -250,8 +250,9 @@
 	(async-shell-command "convert temp.jpg -gravity North -pointsize 30 -annotate +0+100 'Love you mom' temp1.jpg "))
   (transient-insert-suffix 'casual-image-tmenu "c"
 	'("M" "add a caption" image-increase-size))
-  :bind (:image-mode
-		 ("C-o" . casual-image-tmenu)))
+  :bind (("C-c C-y" . casual-make-tmenu)
+		 (:image-mode
+		  ("C-o" . casual-image-tmenu))))
 
 (leaf emojs
   :bind
