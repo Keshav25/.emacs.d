@@ -459,6 +459,8 @@
   :custom
   (compilation-scroll-output . t)
   (compilation-always-kill . t)
+  (compilation-scroll-output . 'first-error)
+  (next-error-recenter . '(4))
   :hook
   (compilation-filter-hook . ansi-color-compilation-filter)
   (eshell-load-hook . compilation-shell-minor-mode)
