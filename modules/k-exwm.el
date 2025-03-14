@@ -20,7 +20,7 @@
 
 (leaf exwm
   :after (desktop-environment)
-  :ensure t
+  :elpaca t
   :require t
   :custom
   (use-dialog-box . nil)
@@ -173,7 +173,7 @@
 
 (leaf exwm-edit
   :after (exwm)
-  :ensure t
+  :elpaca t
   :config
   (add-to-list 'exwm-input-global-keys '([?\C-c ?\'] . exwm-edit--compose))
   (add-to-list 'exwm-input-global-keys '([?\C-c ?\'] . exwm-edit--compose))
@@ -186,7 +186,7 @@
 
 ;; Desktop-Environment
 (leaf desktop-environment
-  :ensure t
+  :elpaca t
   :custom
   (desktop-environment-brightness-small-increment . "2%+")
   (desktop-environment-brightness-small-decrement . "2%-")
@@ -252,12 +252,12 @@
   :require t)
 
 (leaf exwm-mff
-  :ensure t
+  :elpaca t
   :config
   (exwm-mff-mode 1))
 
 (leaf ednc
-  :ensure t
+  :elpaca t
   :config
   (defun list-notifications ()
 	(mapconcat #'ednc-format-notification (ednc-notifications) ""))
@@ -283,6 +283,14 @@
   :after (exwm exwm-edit)
   :config
   (exwm-init))
+
+(leaf exwm-float
+  :elpaca t
+  :init
+  (setq exwm-float-modify-amount '(:move-slow 20 :move-fast 100 :resize 50)
+        exwm-float-border '(:stationary ("navy" . 1) :moving ("maroon" . 2)))
+  (exwm-float-setup)
+  (exwm-input-set-key (kbd "C-c M-f") #'exwm-float-mode))
 
 (provide 'k-exwm)
 
