@@ -208,8 +208,8 @@
   (vertico-posframe-border-width . 0)
   :config
   (setq vertico-posframe-parameters
-		'((alpha . 90)
-		  (alpha-background . 80)))
+		'((alpha . 100)
+		  (alpha-background . 90)))
   (vertico-posframe-mode 1))
 
 (leaf bufler
