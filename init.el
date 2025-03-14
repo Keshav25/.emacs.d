@@ -227,7 +227,36 @@
 (setq use-short-answers t)
 (setq sentence-end-double-space nil)
 (setq  save-interprogram-paste-before-kill t)
+(setq truncate-string-ellipsis "...")
+(setq eval-expression-print-length nil
+      eval-expression-print-level nil)
+(setq x-underline-at-descent-line t)
 
+;; Delete by moving to trash in interactive mode
+(setq delete-by-moving-to-trash (not noninteractive))
+(setq remote-file-name-inhibit-delete-by-moving-to-trash t)
+
+;; Ignoring this is acceptable since it will redirect to the buffer regardless.
+(setq find-file-suppress-same-file-warnings t)
+
+;; Resolve symlinks so that operations are conducted from the file's directory
+(setq find-file-visit-truename t
+      vc-follow-symlinks t)
+
+(setq confirm-nonexistent-file-or-buffer nil)
+
+;;; Auto revert
+;; Auto-revert in Emacs is a feature that automatically updates the contents of
+;; a buffer to reflect changes made to the underlying file.
+(setq revert-without-query (list ".")  ; Do not prompt
+      auto-revert-stop-on-user-input nil
+      auto-revert-verbose t)
+
+;; Revert other buffers (e.g, Dired)
+(setq global-auto-revert-non-file-buffers t)
+(setq global-auto-revert-ignore-modes '(Buffer-menu-mode))
+
+(setq-default word-wrap t)
 ;; load libraries
 ;; (load-library "f")
 
