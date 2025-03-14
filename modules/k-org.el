@@ -1195,4 +1195,9 @@ headings.  See function `org-find-olp'."
   :config
   (org-supertag-setup))
 
+(leaf org-embed
+  :elpaca (org-embed :host github :repo "yibie/org-embed")
+  :require t)
+
+
 (provide 'k-org)
