@@ -487,4 +487,9 @@
   :require smartparens-config
   :hook ((prog-mode . smartparens-mode)))
 
+(leaf outline-indent
+  :elpaca t
+  :commands outline-indent-minor-mode
+  :custom
+  (outline-indent-ellipsis . " ▼ "))
 (provide 'k-programming)
