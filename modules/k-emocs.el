@@ -29,7 +29,6 @@
 		 ("C-M-y" . yank)
 		 ("C-S-s" . consult-ripgrep)
 		 ("C-x r b" . consult-bookmark)
-		 ("C-x p b" . consult-project-buffer) 
 		 ("M-s M-s" . consult-outline)
 		 ("M-g e" . consult-compile-error) 
          ("M-g f" . consult-flymake) 
