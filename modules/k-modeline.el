@@ -620,4 +620,9 @@ Read Info node `(elisp) Pixel Specification'.")
   :disabled t
   :elpaca t)
 
+(leaf vim-tab-bar
+  :elpaca t
+  :config
+  (vim-tab-bar-mode 1))
+
 (provide 'k-modeline)
