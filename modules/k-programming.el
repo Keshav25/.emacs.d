@@ -500,4 +500,13 @@
   :bind (:ctl-x-map
          ("p" . disproject-dispatch)))
 
+(leaf lispy
+  :elpaca t
+  :doc "https://github.com/abo-abo/lispy?tab=readme-ov-file#ide-like-features"
+  ;; TODO: Stop lispy bindings when writing comments
+  ;; TODO: Relace Vim-Like bindings with Emacs ones
+  :bind ((:lispy-mode-map
+		  ("p" . lispy-up)
+		  ("n" . lispy-down))))
+
 (provide 'k-programming)
