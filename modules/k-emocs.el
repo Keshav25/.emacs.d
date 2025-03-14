@@ -242,6 +242,13 @@
   :elpaca (p-search :host github :repo "zkry/p-search")
   :require t)
 
+(leaf affe
+  :elpaca t
+  :config
+  (defun affe-orderless-regexp-compiler (input _type _ignorecase)
+	(setq input (cdr (orderless-compile input)))
+	(cons input (apply-partially #'orderless--highlight input t)))
+  (setq affe-regexp-compiler #'affe-orderless-regexp-compiler))
 
 (provide 'k-emocs)
 
