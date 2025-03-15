@@ -262,6 +262,7 @@
 
 (put 'dired-find-alternate-file 'disabled nil)
 (put 'downcase-region 'disabled nil)
+(put 'set-goal-column 'disabled nil)
 
 (load-file "~/.emacs.d/config.el")
 (provide 'init)
