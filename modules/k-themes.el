@@ -3,25 +3,25 @@
 
 ;; (set-fontset-font "fontset-default" 'unicode "Noto Color Emoji" nil 'prepend)
 
-  ;; theme packages
-  (leaf kaolin-themes :elpaca t)
-  (leaf doom-themes :elpaca t)
-  (leaf ef-themes
-	:elpaca t
-	:config
-	(setq ef-bio-palette-overrides '((variable fg-main)
-									 (string green-faint)))
-	(setq ef-autumn-palette-overrides '((variable fg-main)
-										(bg-main bg-dim)))
-	(setq ef-cyprus-palette-overrides '((variable fg-main)
-										(bg-main bg-dim)
-										(string green-faint)))
-	  (load-theme 'ef-bio t)
+;; theme packages
+(leaf kaolin-themes :elpaca t)
+(leaf doom-themes :elpaca t)
+(leaf ef-themes
+  :elpaca t
+  :config
+  (setq ef-bio-palette-overrides '((variable fg-main)
+								   (string green-faint)))
+  (setq ef-autumn-palette-overrides '((variable fg-main)
+									  (bg-main bg-dim)))
+  (setq ef-cyprus-palette-overrides '((variable fg-main)
+									  (bg-main bg-dim)
+									  (string green-faint)))
+  (load-theme 'ef-bio t)
   (set-foreground-color "lightblue")
   (global-hl-line-mode 1))
-  (leaf yabaki-theme :elpaca t)
-  (leaf haki-theme :elpaca t)
-  (leaf sweet-theme :elpaca t)
+(leaf yabaki-theme :elpaca t)
+(leaf haki-theme :elpaca t)
+(leaf sweet-theme :elpaca t)
 
 (leaf load-theme
   :after ef-themes
@@ -29,26 +29,26 @@
   ;; load the actual theme
 
 
-;; ;; Option 1: Simply do (make sure it is in 'custom-theme-directory')
-;; (setq haki-region "#2e8b6d")
-;; (load-theme 'haki t)
+  ;; ;; Option 1: Simply do (make sure it is in 'custom-theme-directory')
+  ;; (setq haki-region "#2e8b6d")
+  ;; (load-theme 'haki t)
 
-;; ;; Option 2: with 'use-package'
-;; (use-package haki-theme
-;; 			 :config
-;; 			 (setq haki-region "#2e8b6d"
-;; 				   ;; If you skip setting this, it will use 'default' font.
-;; 				   haki-heading-font "Comic Mono"
-;; 				   haki-sans-font "Iosevka Comfy Motion"
-;; 				   haki-title-font "Impress BT"
-;; 				   haki-link-font "VictorMono Nerd Font" ;; or Maple Mono looks good
-;; 				   haki-code-font "Maple Mono") ;; inline code/verbatim (org,markdown..)
+  ;; ;; Option 2: with 'use-package'
+  ;; (use-package haki-theme
+  ;; 			 :config
+  ;; 			 (setq haki-region "#2e8b6d"
+  ;; 				   ;; If you skip setting this, it will use 'default' font.
+  ;; 				   haki-heading-font "Comic Mono"
+  ;; 				   haki-sans-font "Iosevka Comfy Motion"
+  ;; 				   haki-title-font "Impress BT"
+  ;; 				   haki-link-font "VictorMono Nerd Font" ;; or Maple Mono looks good
+  ;; 				   haki-code-font "Maple Mono") ;; inline code/verbatim (org,markdown..)
 
-;; 			 ;; For meow/evil users (change border of mode-line according to modal states)
-;; 			 (add-hook 'post-command-hook #'haki-modal-mode-line)
+  ;; 			 ;; For meow/evil users (change border of mode-line according to modal states)
+  ;; 			 (add-hook 'post-command-hook #'haki-modal-mode-line)
 
-;; 			 (load-theme 'haki t)))
-)
+  ;; 			 (load-theme 'haki t)))
+  )
 ;; Solaire
 (leaf solaire-mode
   :disabled t
