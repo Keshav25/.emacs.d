@@ -139,7 +139,7 @@
 
 (leaf aggressive-indent
   :elpaca t
-  :hook ((emacs-lisp-mode . aggressive-indent-mode)
+  :hook ((emacs-lisp-mode-hook . aggressive-indent-mode)
 		 (scheme-mode . aggressive-indent-mode)))
 
 (leaf rainbow-delimiters
@@ -451,7 +451,7 @@
 
 (leaf elisp-slime-nav
   :elpaca t
-  :hook ((emacs-lisp-mode . elisp-slime-nav-mode)))
+  :hook ((emacs-lisp-mode-hook . elisp-slime-nav-mode)))
 
 (leaf compile
   :bind (("C-c y" . 'compile)
@@ -505,6 +505,7 @@
   :doc "https://github.com/abo-abo/lispy?tab=readme-ov-file#ide-like-features"
   ;; TODO: Stop lispy bindings when writing comments
   ;; TODO: Relace Vim-Like bindings with Emacs ones
+  :hook ((emacs-lisp-mode-hook . lispy-mode))
   :bind ((:lispy-mode-map
 		  ("p" . lispy-up)
 		  ("n" . lispy-down))))

@@ -72,7 +72,7 @@
 (leaf elisp-autofmt
   :elpaca t
   :commands (elisp-autofmt-mode elisp-autofmt-buffer)
-  :hook (emacs-lisp-mode . elisp-autofmt-mode))
+  :hook (emacs-lisp-mode-hook . elisp-autofmt-mode))
 
 (setq browse-url-browser-function 'browse-url-xdg-open)
 
