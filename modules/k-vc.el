@@ -8,7 +8,9 @@
   ("C-x g" . 'magit-status)
   :custom
   (magit-display-buffer-function . 'magit-display-buffer-same-window-except-diff-v1)
-  :hook ((magit-log-mode-hook . display-line-numbers-mode))
+  :hook ((magit-mode . magit-delta-mode)
+		 (magit-log-mode-hook . display-line-numbers-mode)
+		 (magit-log-mode-hook . unpackaged/magit-log-date-headers-mode))
   :config
   (defun unpackaged/magit-log--add-date-headers (&rest _ignore)
 	"Add date headers to Magit log buffers."
