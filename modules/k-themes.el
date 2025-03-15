@@ -132,12 +132,12 @@
 (leaf highlight-quoted
   :elpaca t
   :hook
-  (emacs-lisp-mode . highlight-quoted-mode))
+  (emacs-lisp-mode-hook . highlight-quoted-mode))
 
 (leaf highlight-defined
   :elpaca t
   :hook
-  (emacs-lisp-mode . highlight-defined-mode))
+  (emacs-lisp-mode-hook . highlight-defined-mode))
 
 (leaf hl-todo
   :elpaca t
