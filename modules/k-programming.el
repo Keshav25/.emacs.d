@@ -506,9 +506,19 @@
   ;; TODO: Stop lispy bindings when writing comments
   ;; TODO: Relace Vim-Like bindings with Emacs ones
   :hook ((emacs-lisp-mode-hook . lispy-mode))
-  :bind ((:lispy-mode-map
-		  ("p" . lispy-up)
-		  ("n" . lispy-down))))
+  :custom
+  (lispy-compat . '(edebug cider))
+  :bind (:lispy-mode-map
+		 ("C-y" . 'consult-yank-from-kill-ring))
+
+  :config
+  ;;  TODO: this just straight up doesn't work
+  (lispy-define-key lispy-mode-map "n" 'lispy-down)
+  (lispy-define-key lispy-mode-map "p" 'lispy-up)
+  (lispy-define-key lispy-mode-map "f" 'lispy-right)
+  (lispy-define-key lispy-mode-map "b" 'lispy-left)
+  (lispy-define-key lispy-mode-map "h" 'lispy-back)
+  (lispy-define-key lispy-mode-map "l" 'lispy-flow))
 
 (leaf eldoc
   :setq
