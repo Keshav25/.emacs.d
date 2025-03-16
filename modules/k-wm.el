@@ -78,6 +78,7 @@
 								 "\\*Bookmark List\\*"
 								 "\\*exwm-edit"
 								 "\\*elfeed-entry\\*"
+								 "*Guix REPL*"
 								 haskell-compilation-mode
 								 compilation-mode
 								 bqn-inferior-mode))
