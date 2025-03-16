@@ -34,6 +34,19 @@
 	  q      (select-window (previous-window))
       (unless elfeed-search-remain-on-entry (forward-line -1)))))
 
+
+;; for nano-elfeed
+(leaf stripes
+  :elpaca t)
+
+;; for nano-elfeed
+(leaf relative-date
+  :elpaca (relative-date :host github :url "https://github.com/rougier/relative-date/"))
+
+(leaf nano-elfeed
+  :elpaca (nano-elfeed :host github :url "https://github.com/rougier/nano-elfeed")
+  :require t)
+
 ;; Elfeed-Web
 ;; (leaf elfeed-web :after elfeed :elpaca t)
 
