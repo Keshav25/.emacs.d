@@ -282,8 +282,8 @@
 (leaf gif-screencast 
   :elpaca (gif-screencast :host gitlab
 						  :repo "https://gitlab.com/ambrevar/emacs-gif-screencast") 
-  :bind (("<f9>" . gif-screencast-start-or-stop)) 
-  :custom (gif-screencast-program . "flameshot-bash") 
+  :bind (("C-c g g" . gif-screencast-start-or-stop)) 
+  :custom (gif-screencast-program . "flameshot") 
   (gif-screencast-args . '()))
 
 (leaf detached
