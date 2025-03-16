@@ -440,6 +440,9 @@
 
 (leaf yasnippet
   :elpaca t
+  :require t
+  :bind
+  ("C-S-e" . yas-expand)
   :config
   (yas-global-mode)
   (yas-reload-all)
@@ -448,6 +451,9 @@
   (text-mode-hook . yas-minor-mode)
   :custom
   (yas-prompt-functions . '(yas-completing-prompt)))
+
+(leaf yasnippet-snippets
+  :elpaca t)
 
 (leaf elisp-slime-nav
   :elpaca t
