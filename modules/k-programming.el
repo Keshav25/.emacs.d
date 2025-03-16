@@ -509,24 +509,21 @@
 (leaf lispy
   :elpaca t
   :doc "https://github.com/abo-abo/lispy?tab=readme-ov-file#ide-like-features"
-  ;; TODO: Stop lispy bindings when writing comments
   ;; TODO: Relace Vim-Like bindings with Emacs ones
   :hook ((emacs-lisp-mode-hook . lispy-mode))
   :custom
   (lispy-compat . '(edebug cider))
   :bind (:lispy-mode-map
-		 ("C-y" . 'consult-yank-from-kill-ring))
-
-  :config
-  ;;  TODO: this just straight up doesn't work
-  (lispy-define-key lispy-mode-map "n" 'lispy-down)
-  (lispy-define-key lispy-mode-map "p" 'lispy-up)
-  (lispy-define-key lispy-mode-map "f" 'lispy-right)
-  (lispy-define-key lispy-mode-map "b" 'lispy-left)
-  (lispy-define-key lispy-mode-map "h" 'lispy-back)
-  (lispy-define-key lispy-mode-map "l" 'lispy-flow))
+		 ("C-y" . 'consult-yank-from-kill-ring)
+		 ("n" . 'special-lispy-down)	
+		 ("p" . 'special-lispy-up)	
+		 ("f" . 'special-lispy-right)
+		 ("b" . 'special-lispy-left)	
+		 ("h" . 'special-lispy-back)	
+		 ("l" . 'special-lispy-flow)))
 
 (leaf eldoc
   :setq
-  (eldoc-documentation-strategy . 'eldoc-documentation-compose-eagerly))
+  (eldoc-documentation-strategy . 'eldoc-documentation-default))
+
 (provide 'k-programming)
