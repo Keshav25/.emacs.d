@@ -6,7 +6,8 @@
   (dired-kill-when-opening-new-dired-buffer . t)
   (delete-by-moving-to-trash . t)
   :bind (:dired-mode-map
-		 ("k" . dired-create-empty-file)))
+		 ("k" . dired-create-empty-file)
+		 ("e" . wdired-change-to-wdired-mode)))
 
 (leaf dired-sidebar
   :elpaca t
