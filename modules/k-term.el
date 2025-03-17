@@ -2,7 +2,7 @@
 
 (leaf exec-path-from-shell
   :when (not iswindows)
-yy  :elpaca t
+  :elpaca t
   :config
   (exec-path-from-shell-initialize))
 
