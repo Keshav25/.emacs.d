@@ -33,6 +33,9 @@
   ;; Org-Mode
   (require 'k-org)
 
+  ;; Denote
+  (require 'k-denote)
+  
   ;; Elfeed
   (require 'k-elfeed)
 
