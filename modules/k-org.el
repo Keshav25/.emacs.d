@@ -1228,18 +1228,18 @@ headings.  See function `org-find-olp'."
   :elpaca t
   :require t)
 
-(leaf flyspell
-  :elpaca t
-  :custom
-  (ispell-program-name . "hunspell")
-  (ispell-dictionary . "en_US")
-  (flyspell-mark-duplications-flag . nil)
-  (org-fold-core-style . 'overlays)
-  :config
-  (ispell-set-spellchecker-params)
-  (ispell-hunspell-add-multi-dic "en_US")
-  :hook
-  (text-mode . flyspell-mode))
+;; (leaf flyspell
+;;   :elpaca t
+;;   :custom
+;;   (ispell-program-name . "hunspell")
+;;   (ispell-dictionary . "en_US")
+;;   (flyspell-mark-duplications-flag . nil)
+;;   (org-fold-core-style . 'overlays)
+;;   :config
+;;   (ispell-set-spellchecker-params)
+;;   (ispell-hunspell-add-multi-dic "en_US")
+;;   :hook
+;;   (text-mode . flyspell-mode))
 
 (leaf org-pomodoro
   :elpaca t)
