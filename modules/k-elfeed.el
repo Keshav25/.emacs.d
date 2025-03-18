@@ -2,14 +2,7 @@
 
 (leaf elfeed
   :elpaca t
-  :bind
-  (("C-c o r" . elfeed))
-  (:elfeed-show-mode-map
-   ("r" . elfeed-update))
-  (:elfeed-search-mode-map
-   ("n" . (elfeed-search-show-entry-pre +1))
-   ("p" . (elfeed-search-show-entry-pre -1))
-   ("M-RET" . (elfeed-search-show-entry-pre)))
+  :require t
   :config
   (load-file "~/.emacs.d/elfeed-feeds.el")
   (setq elfeed-db-directory "~/.emacs.d/elfeed/")
@@ -31,8 +24,12 @@
       (forward-line (* times (or  lines 0)))
       (recenter)
       (call-interactively #'elfeed-search-show-entry)
-	  q      (select-window (previous-window))
-      (unless elfeed-search-remain-on-entry (forward-line -1)))))
+	  (select-window (previous-window))
+      (unless elfeed-search-remain-on-entry (forward-line -1))))
+  :bind
+  (("C-c o r" . elfeed))
+  (:elfeed-show-mode-map
+   ("r" . elfeed-update)))
 
 
 ;; for nano-elfeed
@@ -57,7 +54,7 @@
   (with-eval-after-load 'elfeed-org
 	(setq elfeed-show-entry-switch 'display-buffer)
 	(setq rmh-elfeed-org-files
-		  (list "~/org/elfeed.org"))))
+		  (list "~/.emacs.d/elfeed.org"))))
 
 ;; Elfeed For Youtube
 (leaf elfeed-tube
