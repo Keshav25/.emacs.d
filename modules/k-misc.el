@@ -192,12 +192,12 @@
                    :stream t
                    :models '(uncensored-dolphin-mistral:latest))))
 
-(leaf fabric-gpt.el
-  :after gptel
-  :require t
-  :elpaca (fabric-gpt.el :host github :repo "rajp152k/fabric-gpt.el")
-  :config
-  (fabric-gpt.el-sync-patterns))
+;; (leaf fabric-gpt.el
+;;   :after gptel
+;;   :require t
+;;   :elpaca (fabric-gpt.el :host github :repo "rajp152k/fabric-gpt.el")
+;;   :config
+;;   (fabric-gpt.el-sync-patterns))
 
 (leaf corsair
   :after gptel
