@@ -248,4 +248,18 @@
   :custom
   (undo-tree-auto-save-history . nil))
 
+(leaf better-C-a
+  :config
+  ;; smart beginning-of-line (BOL)
+  (defadvice move-beginning-of-line (around smarter-bol activate)
+	;; Move to requested line if needed.
+	(let ((arg (or (ad-get-arg 0) 1)))
+      (when (/= arg 1)
+		(forward-line (1- arg))))
+	;; Move to indentation on first call, then to actual BOL on second.
+	(let ((pos (point)))
+	  (back-to-indentation)
+	  (when (= pos (point))
+		ad-do-it))))
+
 (provide 'k-bindings)
