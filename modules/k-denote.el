@@ -115,6 +115,9 @@
   (setq denote-agenda-include-regexp "")
   (denote-agenda-insinuate))
 
+(leaf denote-journal
+  :elpaca t)
+
 (leaf denote-project-notes
   :elpaca t
   :require t)
