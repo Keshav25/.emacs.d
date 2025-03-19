@@ -80,6 +80,9 @@
 		  ("C-x C-d" . consult-dir)
 		  ("C-x C-j" . consult-dir-jump-file))))
 
+(leaf embark
+  :elpaca t)
+
 (leaf embark-consult
   :after (embark consult)
   :elpaca t
