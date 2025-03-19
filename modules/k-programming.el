@@ -146,7 +146,7 @@
   :elpaca t
   :hook
   (prog-mode-hook . (rainbow-delimiters-mode))
-  (text-mode-hool . (rainbow-delimiters-mode)))
+  (text-mode-hook . (rainbow-delimiters-mode)))
 
 (leaf prism
   :disabled t
