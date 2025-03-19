@@ -285,4 +285,10 @@ for the \"main\" or \"master\" branch."
 (leaf git-timemachine
   :elpaca t)
 
+(leaf difftastic
+  :elpaca (difftastic :host github :repo "pkryger/difftastic.el")
+  :require t difftastic-bindings
+  :config
+  (difftastic-bindings-mode))
+
 (provide 'k-vc)
