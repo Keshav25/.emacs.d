@@ -1069,5 +1069,29 @@ headings.  See function `org-find-olp'."
   :elpaca (org-embed :host github :repo "yibie/org-embed")
   :require t)
 
+(leaf clever-cite
+  :require t
+  :elpaca (clever-cite :host github :repo "Hugo-Heagren/clever-cite")
+  :config
+  (defun my/org-clever-cite-quote-string (str cite-key &optional ref)
+    "Insert STR inside an org quote block, ending with a CITE-KEY citation.
+If REF is non-nil, inlude it in the citation. Fill the text with
+`org-fill-paragraph'."
+    (insert "#+begin_quote\n")
+    (let ((beg (point))
+		  (_ (progn (insert str "\n"))))
+      (insert
+       (if cite-key
+		   (format "\n[cite:@%s%s]\n"
+				   cite-key
+				   (if ref (format " %s" ref) "")))
+       "#+end_quote\n")
+      (save-mark-and-excursion
+		(set-mark beg)
+		;; Use Org's own filling machinery
+		(org-fill-paragraph nil 'region)))
+    ;; Signal that we have handled insertion
+    t))
+
 
 (provide 'k-org)
