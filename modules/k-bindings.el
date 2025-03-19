@@ -248,6 +248,29 @@
   :custom
   (undo-tree-auto-save-history . nil))
 
+(leaf recursive-narrow
+  :elpaca t
+  :require t
+  :bind
+  ("C-x n w" . recursive-widen)
+  ("C-x n n" . recursive-narrow-or-widen-dwim)
+  :config
+  (defun recursive-narrow-or-widen-dwim ()
+	"If the region is active, narrow to that region.
+Otherwise, narrow to the current function. If this has no effect,
+widen the buffer. You can add more functions to
+`recursive-narrow-dwim-functions'."
+	(interactive)
+	(recursive-narrow-save-position
+	 (cond ((region-active-p) (narrow-to-region (region-beginning) (region-end)))
+           ((run-hook-with-args-until-success 'recursive-narrow-dwim-functions))
+           ((derived-mode-p 'prog-mode) (narrow-to-defun))
+           ((derived-mode-p 'org-mode) (org-narrow-to-subtree)))
+	 ;; If we don't narrow
+	 (progn
+       (message "Recursive settings: %d" (length recursive-narrow-settings))
+       (recursive-widen)))))
+
 (leaf better-C-a
   :config
   ;; smart beginning-of-line (BOL)
