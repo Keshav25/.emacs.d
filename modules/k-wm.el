@@ -61,7 +61,8 @@
   :elpaca t
   :bind (("C-`" . popper-toggle)
 		 ("M-`" . popper-cycle)
-		 ("C-M-`" . popper-toggle-type))
+		 ("C-M-`" . popper-toggle-type)
+		 ([remap kill-window] . popper-kill-latest-popup))
   :custom
   (popper-reference-buffers .  '("\\*Messages\\*"
 								 "Output\\*$"
