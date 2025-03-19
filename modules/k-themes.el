@@ -15,10 +15,7 @@
 									  (bg-main bg-dim)))
   (setq ef-cyprus-palette-overrides '((variable fg-main)
 									  (bg-main bg-dim)
-									  (string green-faint)))
-  (load-theme 'ef-bio t)
-  (set-foreground-color "lightblue")
-  (global-hl-line-mode 1))
+									  (string green-faint))))
 (leaf yabaki-theme :elpaca t)
 (leaf haki-theme :elpaca t)
 (leaf sweet-theme :elpaca t)
@@ -376,6 +373,11 @@
   :elpaca t
   :hook
   (org-mode . mixed-pitch-mode))
+
+(load-theme 'doom-tokyo-night t)
+(set-foreground-color "lightblue")
+(set-face-foreground 'font-lock-comment-face "dark cyan")
+(global-hl-line-mode 1)
 
 (provide 'k-themes)
 
