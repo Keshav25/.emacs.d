@@ -526,4 +526,13 @@
   :setq
   (eldoc-documentation-strategy . 'eldoc-documentation-default))
 
+(leaf hideshow
+  :hook ((prog-mode . hs-minor-mode))
+  :config
+  (defun toggle-fold ()
+	(interactive)
+	(save-excursion
+      (end-of-line)
+      (hs-toggle-hiding))))
+
 (provide 'k-programming)
