@@ -535,4 +535,12 @@
       (end-of-line)
       (hs-toggle-hiding))))
 
+(leaf eglot-inactive-regions
+  :elpaca t
+  :custom
+  (eglot-inactive-regions-style . 'darken-foreground)
+  (eglot-inactive-regions-opacity . 0.4)
+  :config
+  (eglot-inactive-regions-mode 1))
+
 (provide 'k-programming)
