@@ -632,4 +632,9 @@ Read Info node `(elisp) Pixel Specification'.")
   :config
   (vim-tab-bar-mode 1))
 
+(leaf miniedit
+  :elpaca t
+  :commands minibuffer-edit
+  :init (miniedit-install))
+
 (provide 'k-modeline)
