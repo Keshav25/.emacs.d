@@ -78,10 +78,11 @@
 								 "\\*Warnings\\*"
 								 "\\*Bookmark List\\*"
 								 "\\*exwm-edit"
-								 "\\*elfeed-entry\\*"
+								 elfeed-show-mode
 								 "*Guix REPL*"
 								 haskell-compilation-mode
 								 compilation-mode
+								 detached-compilation-mode
 								 bqn-inferior-mode))
   (popper-display-control . t)
   (popper-display-function . #'display-buffer-at-bottom)
