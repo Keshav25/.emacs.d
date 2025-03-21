@@ -81,7 +81,9 @@
 		  ("C-x C-j" . consult-dir-jump-file))))
 
 (leaf embark
-  :elpaca t)
+  :elpaca t
+  :setq
+  (prefix-help-command . 'embark-prefix-help-command))
 
 (leaf embark-consult
   :after (embark consult)
