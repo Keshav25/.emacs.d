@@ -158,22 +158,22 @@
    :desaturations '(0) ; do not change---may lower the contrast ratio
    :lightens '(0)      ; same
    :colors (ef-themes-with-colors
-             (list fg-main
-				   magenta
-				   cyan-cooler
-				   magenta-cooler
-				   blue
-				   magenta-warmer
-				   cyan-warmer
-				   red-cooler
-				   green
-				   fg-main
-				   cyan
-				   yellow
-				   blue-warmer
-				   red-warmer
-				   green-cooler
-				   yellow-faint))))
+            (list fg-main
+				  magenta
+				  cyan-cooler
+				  magenta-cooler
+				  blue
+				  magenta-warmer
+				  cyan-warmer
+				  red-cooler
+				  green
+				  fg-main
+				  cyan
+				  yellow
+				  blue-warmer
+				  red-warmer
+				  green-cooler
+				  yellow-faint))))
 
 (leaf paredit
   :elpaca t
@@ -442,7 +442,7 @@
   :elpaca t
   :require t
   :bind
-  ("C-S-e" . yas-expand)
+  ("C-<escape>" . yas-expand)
   :config
   (yas-global-mode)
   (yas-reload-all)
