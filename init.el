@@ -158,12 +158,8 @@
 				(alpha . 100)
                 ;; (undecorated . t)
                 (vertical-scroll-bars . nil)
-                (horizontal-scroll-bars . nil)))
-
-(let ((f "JetbrainsMono"))
-  (when (member f (font-family-list))
-    (set-face-attribute 'default nil :font f)
-	(add-to-list 'default-frame-alist '(font . "JetBrainsMono-8:weigth=regular:width=normal"))))
+                (horizontal-scroll-bars . nil)
+				(font . "JetBrainsMono-12:weigth=regular:width=normal")))
 
 ;; (push '(menu-bar-lines . 0)   default-frame-alist)
 ;; (push '(tool-bar-lines . 0)   default-frame-alist)
