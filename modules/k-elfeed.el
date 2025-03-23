@@ -4,7 +4,6 @@
   :elpaca t
   :require t
   :config
-  (load-file "~/.emacs.d/elfeed-feeds.el")
   (setq elfeed-db-directory "~/.emacs.d/elfeed/")
 
   (defun browse-url-mpv (url &optional single)
