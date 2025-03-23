@@ -49,11 +49,12 @@
 ;; Elfeed-Org
 (leaf elfeed-org
   :elpaca t
+  :require t
   :config
-  (with-eval-after-load 'elfeed-org
-	(setq elfeed-show-entry-switch 'display-buffer)
-	(setq rmh-elfeed-org-files
-		  (list "~/.emacs.d/elfeed.org"))))
+  (setq elfeed-show-entry-switch 'display-buffer)
+  (setq rmh-elfeed-org-files
+		(list "~/.emacs.d/elfeed.org"))
+  (elfeed-org))
 
 ;; Elfeed For Youtube
 (leaf elfeed-tube
