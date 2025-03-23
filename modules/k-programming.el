@@ -543,4 +543,7 @@
   :config
   (eglot-inactive-regions-mode 1))
 
+(leaf bookmark-in-project
+  :elpaca t)
+
 (provide 'k-programming)
