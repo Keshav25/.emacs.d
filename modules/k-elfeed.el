@@ -76,9 +76,10 @@
 
 (leaf eww
   :hook (eww-after-render-hook . eww-readable)
-  :config
-  (leaf shrface
-	:elpaca t
-	:hook (eww-mode . shrface-mode)))
+  :config)
+
+(leaf shrface
+  :elpaca t
+  :hook (eww-mode . shrface-mode))
 
 (provide 'k-elfeed)
