@@ -1,6 +1,6 @@
 (leaf eshell
   :require t
-  :require 'em-smart
+  :require 'em-smart 'em-alias
   :custom
   (eshell-where-to-jump . 'begin)
   (eshell-review-quick-commands . nil)
