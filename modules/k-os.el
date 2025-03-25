@@ -35,18 +35,21 @@
 			  #'(lambda nil
 				  (edit-server-start)))))
 
+(leaf concurrent :elpaca t)
+(leaf epc :elpaca t)
+(leaf ctable :elpaca t)
+(leaf deferred :elpaca t)
+(leaf s :elpaca t)
+
 (leaf eaf
-  :elpaca (eaf :host github :repo "emacs-eaf/emacs-application-framework")
-  :disabled t
-  :require t
-  :init
-  (leaf epc :elpaca t)
-  (leaf ctable :elpaca t)
-  (leaf deferred :elpaca t)
-  (leaf s :elpaca t)
-  (add-to-list 'load-path "~/.emacs.d/quelpa/build/eaf")
-  :setq
-  (browser-url-browser-function . 'eaf-open-browser)
+  :load-path "~/.emacs.d/site-lisp/emacs-application-framework"
+  :custom
+										; See https://github.com/emacs-eaf/emacs-application-framework/wiki/Customization
+  (eaf-browser-continue-where-left-off . t)
+  (eaf-browser-enable-adblocker . t)
+  (eaf-browser-enable-tampermonkey . t)
+  (eaf-browser-tampermonkey-location . "/home/kesh/tampermonkey/")
+  (browse-url-browser-function . 'eaf-open-browser)
   (eaf-browser-default-search-engine . "duckduckgo")
   (eaf-browser-keybinding . '(("C--" . "zoom_out")
 							  ("C-=" . "zoom_in")
@@ -133,25 +136,11 @@
 							  ("<f12>" . "open_devtools")
 							  ("<C-return>" . "eaf-send-ctrl-return-sequence")))
   :config
-  ;; (require 'eaf-browser)
-  ;; (require 'eaf-terminal)
-  ;; (require 'eaf-org-previewer)
-  ;; (require 'eaf-mindmap)
-  ;; (require 'eaf-pdf-viewer)
-  ;; (require 'eaf-video-player)
-  ;; (require 'eaf-markdown-previewer)
-  ;; (require 'eaf-music-player)
-  ;; (require 'eaf-rss-reader)
-  ;; (require 'eaf-file-manager)
-  ;; (require 'eaf-jupyter)
-  ;; (require 'eaf-image-viewer)
-  ;; (require 'eaf-camera)
-  ;; (require 'eaf-system-monitor)
-  ;; (require 'eaf-file-browser)
-  ;; (require 'eaf-file-sender)
-  ;; (require 'eaf-airshare)
-  ;; (require 'eaf-netease-cloud-music))
-  )
+  (defalias 'browse-web #'eaf-open-browser)
+  (eaf-bind-key scroll_up "C-n" eaf-pdf-viewer-keybinding)  (eaf-bind-key scroll_down "C-p" eaf-pdf-viewer-keybinding)
+  (eaf-bind-key take_photo "p" eaf-camera-keybinding)
+  (eaf-bind-key nil "M-q" eaf-browser-keybinding))
+
 ;; TEL
 (leaf TEL
   :when istermux
