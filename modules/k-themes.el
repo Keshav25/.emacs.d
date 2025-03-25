@@ -353,9 +353,9 @@
   (org-mode . mixed-pitch-mode))
 
 (load-theme 'doom-tokyo-night t)
+(set-background-color "#0f111a")
 (set-foreground-color "lightblue")
 (set-face-foreground 'font-lock-comment-face "dark cyan")
 (global-hl-line-mode 1)
 
 (provide 'k-themes)
-
