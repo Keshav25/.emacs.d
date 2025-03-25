@@ -35,12 +35,12 @@
 		(yank)))))
 
 (use-package clear-eshell
-  :config
+  :init
   (defun eshell/myclear ()
 	(interactive)
 	(run-this-in-eshell "clear 1"))
   :bind ((:map eshell-command-map
-			   ("C-c C-S-l" . eshell/myclear))))
+			   ("C-c C-l" . eshell/myclear))))
 
 ;; '(eshell-alias eshell-banner eshell-basic eshell-cmpl eshell-dirs
 ;; 			   eshell-extpipe eshell-glob eshell-hist eshell-ls
