@@ -389,6 +389,20 @@ Tries to intelligently handle components based on their prefix:
 	 (("tn" "+news")))))
 
 
+(defhydra hydra-vi (:pre (progn (set-cursor-color "#40e0d0")
+								(cursory-set-preset "block"))
+						 :post (progn
+								 (set-cursor-color "#ffffff")
+								 (cursory-set-preset "underscore-thin-other-window")
+								 (message
+								  "Thank you, come again.")))
+  "vi"
+  ("l" forward-char)
+  ("h" backward-char)
+  ("j" next-line)
+  ("k" previous-line)
+  ("q" nil "quit"))
+
 ;; (define-prefix-command 'endless/toggle-map)
 ;; ;; The manual recommends C-c for user keys, but C-x t is
 ;; ;; always free, whereas C-c t is used by some modes.
