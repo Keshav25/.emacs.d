@@ -11,12 +11,6 @@
 										 eshell-pred eshell-prompt eshell-script eshell-term
 										 eshell-smart eshell-unix eshell-rebind))
   :config
-  (defun eshell/mkcd (dir)
-	"Create the directory DIR and move there.
-If the directory DIR doesn’t exist, create it and its parents
-if needed, then move there."
-	(mkdir dir t)
-	(cd dir))
   (defun eshell-new ()
 	"Open a new instance of eshell."
 	(interactive)
