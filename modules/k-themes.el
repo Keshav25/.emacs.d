@@ -20,32 +20,10 @@
 (leaf haki-theme :elpaca t)
 (leaf sweet-theme :elpaca t)
 
-(leaf load-theme
-  :after ef-themes
-  :config
-  ;; load the actual theme
+(leaf material-ocean
+  :elpaca (material-ocean-dark-theme :host github :repo "Patrick-Poitras/emacs-material-ocean"
+									 ))
 
-
-  ;; ;; Option 1: Simply do (make sure it is in 'custom-theme-directory')
-  ;; (setq haki-region "#2e8b6d")
-  ;; (load-theme 'haki t)
-
-  ;; ;; Option 2: with 'use-package'
-  ;; (use-package haki-theme
-  ;; 			 :config
-  ;; 			 (setq haki-region "#2e8b6d"
-  ;; 				   ;; If you skip setting this, it will use 'default' font.
-  ;; 				   haki-heading-font "Comic Mono"
-  ;; 				   haki-sans-font "Iosevka Comfy Motion"
-  ;; 				   haki-title-font "Impress BT"
-  ;; 				   haki-link-font "VictorMono Nerd Font" ;; or Maple Mono looks good
-  ;; 				   haki-code-font "Maple Mono") ;; inline code/verbatim (org,markdown..)
-
-  ;; 			 ;; For meow/evil users (change border of mode-line according to modal states)
-  ;; 			 (add-hook 'post-command-hook #'haki-modal-mode-line)
-
-  ;; 			 (load-theme 'haki t)))
-  )
 ;; Solaire
 (leaf solaire-mode
   :disabled t
