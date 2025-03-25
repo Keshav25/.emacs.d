@@ -166,7 +166,7 @@
     (unless (equal p dir)
       p)))
 
-(defun dotnet-select-project-or-solution ()
+(defun golang-select-project-or-solution ()
   "Prompt for the project/solution file or directory.  Try projectile root first, else use current buffer's directory."
   (let ((default-dir-prompt "?"))
     (ignore-errors
