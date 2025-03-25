@@ -99,6 +99,15 @@
   :config
   (global-treesit-auto-mode))
 
+(leaf combobulate
+  :elpaca (combobulate :host github :repo "mickeynp/combobulate")
+  :config
+  (setq combobulate-key-prefix "C-c o")
+  :hook
+  ((python-ts-mode . combobulate-mode)
+   (js-ts-mode . combobulate-mode)
+   (go-ts-mode . combobulate-mode)))
+
 (leaf envrc
   :elpaca t)
 
