@@ -49,7 +49,6 @@
   (eaf-browser-enable-adblocker . t)
   (eaf-browser-enable-tampermonkey . t)
   (eaf-browser-tampermonkey-location . "/home/kesh/tampermonkey/")
-  (browse-url-browser-function . 'eaf-open-browser)
   (eaf-browser-default-search-engine . "duckduckgo")
   (eaf-browser-keybinding . '(("C--" . "zoom_out")
 							  ("C-=" . "zoom_in")
