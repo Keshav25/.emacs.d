@@ -32,15 +32,11 @@
 
 
 ;; for nano-elfeed
-(leaf stripes
-  :elpaca t)
-
-;; for nano-elfeed
 (leaf relative-date
   :elpaca (relative-date :host github :url "https://github.com/rougier/relative-date/"))
 
 (leaf nano-elfeed
-  :elpaca (nano-elfeed :host github :url "https://github.com/rougier/nano-elfeed")
+  :elpaca (nano-elfeed :host github :repo "Keshav25/nano-elfeed")
   :require t)
 
 ;; Elfeed-Web
