@@ -242,6 +242,10 @@
 (leaf ripgrep
   :elpaca t)
 
+(leaf wgrep
+  :elpaca t
+  :require t)
+
 (leaf p-search
   :elpaca (p-search :host github :repo "zkry/p-search")
   :require t)
