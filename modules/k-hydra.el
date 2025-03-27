@@ -397,10 +397,11 @@ Tries to intelligently handle components based on their prefix:
 								 (message
 								  "Thank you, come again.")))
   "vi"
-  ("l" forward-char)
-  ("h" backward-char)
-  ("j" next-line)
-  ("k" previous-line)
+  ("a" forward-char)
+  ("p" backward-char)
+  ("n" next-line)
+  ("e" previous-line)
+  ("I" end-of-line :color blue)
   ("q" nil "quit"))
 
 ;; (define-prefix-command 'endless/toggle-map)
