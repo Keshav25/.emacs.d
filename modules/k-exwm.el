@@ -23,7 +23,6 @@
   :elpaca t
   :require t
   :custom
-  (use-dialog-box . nil)
   (exwm-input-line-mode-passthrough . t)
   (mouse-autoselect-window . t)
   (exwm-input-line-mode-passthrough . nil)
