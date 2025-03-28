@@ -30,9 +30,6 @@
 
 (setq vc-handled-backends '(Git))
 
-;; disable audio
-(setq ring-bell-function 'ignore)
-
 ;; refresh buffer on file change
 (global-auto-revert-mode t)
 
@@ -142,32 +139,6 @@
         (expand-file-name (format "emacs-custom-$s.el" (user-uid))
                           temporary-file-directory)))
 
-
-;; Visual Settings
-(setq frame-resize-pixelwise t)
-(setq window-resize-pixelwise nil)
-(setq
- indicate-buffer-boundaries nil
- indicate-empty-lines nil)
-
-;; Disable Graphical Menus
-(setq-default default-frame-alist
-              '((tool-bar-lines . 0)
-                (menu-bar-lines . 0)
-				(alpha-background . 90)
-				(alpha . 100)
-                ;; (undecorated . t)
-                (vertical-scroll-bars . nil)
-                (horizontal-scroll-bars . nil)
-				(font . "JetBrainsMono-12:weigth=regular:width=normal")))
-
-;; (push '(menu-bar-lines . 0)   default-frame-alist)
-;; (push '(tool-bar-lines . 0)   default-frame-alist)
-;; (push '(vertical-scroll-bars) default-frame-alist)
-
-;; (setq menu-bar-mode nil
-;; tool-bar-mode nil
-;; scroll-bar-mode nil)
 
 (setq initial-frame-alist
       '((right-divider-width . 24) (internal-border-width. 24)))
