@@ -6,17 +6,26 @@
 	"turn background transparency on and text transparency off"
 	(interactive)
 	(set-frame-parameter nil 'alpha 100)
-	(set-frame-parameter nil 'alpha-background 90))
+	(set-frame-parameter nil 'alpha-background 90)
+	(setq vertico-posframe-parameters
+		  '((alpha . 100)
+			(alpha-background . 90))))
 
   (defun k/turn-background-transparency-off ()
 	"turn background transparency off and text transparency on"
 	(interactive)
 	(set-frame-parameter nil 'alpha 100)
-	(set-frame-parameter nil 'alpha-background 100))
+	(set-frame-parameter nil 'alpha-background 100)
+	(setq vertico-posframe-parameters
+		  '((alpha . 100)
+			(alpha-background . 100))))
 
   (defun k/turn-alpha-transparency-on ()
 	(interactive)
-	(set-frame-parameter nil 'alpha 90)))
+	(set-frame-parameter nil 'alpha 90))
+  (setq vertico-posframe-parameters
+		'((alpha . 100)
+		  (alpha-background . 90))))
 
 (leaf exwm
   :after (desktop-environment)
