@@ -2,9 +2,6 @@
 
 ;;; Commentary:
 
-;; User Information
-(setq user-full-name "Keshav Italia"
-	  user-mail-address "keshavitalia0@gmail.com")
 
 ;; Async
 (leaf async
