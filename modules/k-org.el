@@ -47,7 +47,11 @@
   (org-directory . "~/Documents/org")
   (org-file-apps . '((auto-mode . emacs)))
   (org-src-ask-before-returning-to-edit-buffer . nil)
-  (org-src-window-setup . 'current-window)
+  (org-src-window-setup . 'current-window))
+
+
+(leaf org-speed-commands
+  :init
   (org-speed-commands .
 					  '(("Outline Navigation")
 						("n" . (org-speed-move-safe 'org-next-visible-heading))
