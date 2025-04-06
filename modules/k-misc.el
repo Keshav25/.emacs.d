@@ -388,4 +388,15 @@ the form."
 	(when (minibuffer)
 	  (superword-mode 1)))
   :hook (minibuffer-setup-hook . activate-superword-mode-in-minibuffer))
+
+(leaf eee
+  ;; TODO needs devicon-lookup
+  :require t
+  :custom
+  (ee-terminal-command . "kitty")
+  :elpaca (eee :host github :repo "eval-exec/eee.el"
+			   :files (:defaults "*.el" "*.sh"))
+  :bind-keymap
+  ("s-e" . ee-keymap))
+
 (provide 'k-misc)
