@@ -97,7 +97,7 @@
 		  ([?\s-m] . (lambda () (interactive) (exwm-layout-toggle-model-line) (exwm-workspace-toggle-minibuffer)))
 		  ([?\s-i] . exwm-input-toggle-keyboard)
 		  (,(kbd "s-<tab>") . windower-switch-to-last-buffer) ;; Switch to last open buffer in current window
-          (,(kbd "s-o") . windower-toggle-single) ;; Toggle between multiple windows, and a single window
+          (,(kbd "s-o") . dmenu) ;; Toggle between multiple windows, and a single window
           (,(kbd "s-O") . windower-toggle-split)  ;; Toggle between vertical and horizontal split. Only works with exactly two windows.
           (,(kbd "s-B") . windower-swap-left)  ;; Swap current window with the window to the left
           (,(kbd "s-N") . windower-swap-below) ;; Swap current window with the window below
