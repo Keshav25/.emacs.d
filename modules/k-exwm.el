@@ -159,6 +159,13 @@
               (start-process-shell-command
                "xrandr" nil "xrandr --output eDP1 --mode 1920x1080 --pos 0x0 --rotate normal")))
   (exwm-randr-mode 1)
+  (defun efs/configure-window-by-class ()
+	(interactive)
+	(pcase exwm-class-name
+      ("kitty" (exwm-floating-toggle-floating)
+       (exwm-layout-toggle-mode-line))))
+  (add-hook 'exwm-manage-finish-hook
+			#'efs/configure-window-by-class)
   ;; Remove ALL bindings
   (define-key exwm-mode-map "\C-c\C-f" nil)
   (define-key exwm-mode-map "\C-c\C-h" nil)
