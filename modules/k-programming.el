@@ -517,6 +517,7 @@
          ("p" . disproject-dispatch)))
 
 (leaf lispy
+  :disabled t
   :elpaca t
   :doc "https://github.com/abo-abo/lispy?tab=readme-ov-file#ide-like-features"
   ;; TODO: Relace Vim-Like bindings with Emacs ones
