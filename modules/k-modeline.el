@@ -24,10 +24,10 @@ Modify this face to, for example, add a :box attribute to all
 relevant indicators (combines nicely with my `spacious-padding'
 package).")
   (defun k/modeline-spacious-indicators ()
-    "Set box attribute to `'k-modeline-indicator-button' if spacious-padding is enabled."
-    (if (bound-and-true-p spacious-padding-mode)
-        (set-face-attribute 'k-modeline-indicator-button nil :box t)
-      (set-face-attribute 'k-modeline-indicator-button nil :box 'unspecified)))
+	"Set box attribute to `'k-modeline-indicator-button' if spacious-padding is enabled."
+	(if (bound-and-true-p spacious-padding-mode)
+		(set-face-attribute 'k-modeline-indicator-button nil :box t)
+	  (set-face-attribute 'k-modeline-indicator-button nil :box 'unspecified)))
 
   (k/modeline-spacious-indicators)
 
@@ -39,21 +39,21 @@ package).")
 		'("%e"
 		  k-modeline-buffer-name
  		  k-modeline-kbd-macro
-          k-modeline-narrow
-          k-modeline-input-method
-          k-modeline-buffer-status
+		  k-modeline-narrow
+		  k-modeline-input-method
+		  k-modeline-buffer-status
 		  k-modeline-window-dedicated-status
-          " "
-          k-modeline-buffer-identification
-          "  "
-          k-modeline-major-mode
+		  " "
+		  k-modeline-buffer-identification
+		  "  "
+		  k-modeline-major-mode
 		  k-modeline-process
-          "  "
-          k-modeline-vc-branch
-          "  "
-          k-modeline-flymake
+		  "  "
+		  k-modeline-vc-branch
+		  "  "
+		  k-modeline-flymake
 		  k-modeline-eglot
-	      k-modeline-misc-info))
+		  k-modeline-misc-info))
 
   (defface k-modeline-background
 	'((t :background "#3355bb" :foreground "white" :inherit bold))
@@ -64,9 +64,9 @@ package).")
 	(format " %s " (buffer-name)))
 
   (defvar-local k-modeline-buffer-name
-      '(:eval
+	  '(:eval
 		(when (mode-line-window-selected-p)
-          (propertize (k-modeline--buffer-name) 'face 'k-modeline-background)))
+		  (propertize (k-modeline--buffer-name) 'face 'k-modeline-background)))
 	"Mode line construct to display the buffer name.")
 
   (put 'k-modeline-buffer-name 'risky-local-variable t)
@@ -76,7 +76,7 @@ package).")
 	(capitalize (symbol-name major-mode)))
 
   (defvar-local k-modeline-major-mode
-      '(:eval
+	  '(:eval
 		(list
 		 (propertize "λ" 'face 'shadow)
 		 " "
@@ -92,7 +92,7 @@ constructs to allow altering the look of the mode line depending
 on whether the mode line belongs to the currently selected window
 or not."
 	(let ((window (selected-window)))
-      (or (eq window (old-selected-window))
+	  (or (eq window (old-selected-window))
 		  (and (minibuffer-window-active-p (minibuffer-window))
 			   (with-selected-window (minibuffer-window)
 				 (eq window (minibuffer-selected-window)))))))
@@ -101,12 +101,12 @@ or not."
 	"Return non-nil if STR should be truncated."
 	(cond
 	 ((or (not (stringp str))
-          (string-empty-p str)
-          (string-blank-p str))
-      nil)
+		  (string-empty-p str)
+		  (string-blank-p str))
+	  nil)
 	 ((and (prot-common-window-narrow-p)
-           (> (length str) prot-modeline-string-truncate-length)
-           (not (one-window-p :no-minibuffer))))))
+		   (> (length str) prot-modeline-string-truncate-length)
+		   (not (one-window-p :no-minibuffer))))))
 
   (defun k-modeline--truncate-p ()
 	"Return non-nil if truncation should happen.
@@ -121,7 +121,7 @@ Cut off the end of STR by counting from its start up to
 `k-modeline-string-truncate-length'."
 	(if (k-modeline--string-truncate-p str)
 		(concat (substring str 0 k-modeline-string-truncate-length) "...")
-      str))
+	  str))
 
   (defun k-modeline-string-cut-beginning (str)
 	"Return truncated STR, if appropriate, else return STR.
@@ -129,7 +129,7 @@ Cut off the beginning of STR by counting from its end up to
 `k-modeline-string-truncate-length'."
 	(if (k-modeline--string-truncate-p str)
 		(concat "..." (substring str (- k-modeline-string-truncate-length)))
-      str))
+	  str))
 
   (defun k-modeline-string-cut-middle (str)
 	"Return truncated STR, if appropriate, else return STR.
@@ -137,8 +137,8 @@ Cut off the middle of STR by counting half of
 `k-modeline-string-truncate-length' both from its beginning
 and end."
 	(let ((half (floor k-modeline-string-truncate-length 2)))
-      (if (k-modeline--string-truncate-p str)
-          (concat (substring str 0 half) "..." (substring str (- half)))
+	  (if (k-modeline--string-truncate-p str)
+		  (concat (substring str 0 half) "..." (substring str (- half)))
 		str)))
 
   (defun k-modeline--first-char (str)
@@ -150,28 +150,28 @@ and end."
 Also see `k-modeline-string-abbreviate-but-last'."
 	(if (k-modeline--string-truncate-p str)
 		(mapconcat #'k-modeline--first-char (split-string str "[_-]") "-")
-      str))
+	  str))
 
   (defun k-modeline-string-abbreviate-but-last (str nthlast)
 	"Abbreviate STR, keeping NTHLAST words intact.
 Also see `k-modeline-string-abbreviate'."
 	(if (k-modeline--string-truncate-p str)
 		(let* ((all-strings (split-string str "[_-]"))
-               (nbutlast-strings (nbutlast (copy-sequence all-strings) nthlast))
-               (last-strings (nreverse (ntake nthlast (nreverse (copy-sequence all-strings)))))
-               (first-component (mapconcat #'k-modeline--first-char nbutlast-strings "-"))
-               (last-component (mapconcat #'identity last-strings "-")))
-          (if (string-empty-p first-component)
-              last-component
+			   (nbutlast-strings (nbutlast (copy-sequence all-strings) nthlast))
+			   (last-strings (nreverse (ntake nthlast (nreverse (copy-sequence all-strings)))))
+			   (first-component (mapconcat #'k-modeline--first-char nbutlast-strings "-"))
+			   (last-component (mapconcat #'identity last-strings "-")))
+		  (if (string-empty-p first-component)
+			  last-component
 			(concat first-component "-" last-component)))
-      str))
+	  str))
 
 ;;;; Keyboard macro indicator
 
   (defvar-local k-modeline-kbd-macro
-      '(:eval
+	  '(:eval
 		(when (and (mode-line-window-selected-p) defining-kbd-macro)
-          (propertize " KMacro " 'face 'k-modeline-indicator-blue-bg)))
+		  (propertize " KMacro " 'face 'k-modeline-indicator-blue-bg)))
 	"Mode line construct displaying `mode-line-defining-kbd-macro'.
 Specific to the current window's mode line.")
 
@@ -180,22 +180,22 @@ Specific to the current window's mode line.")
 ;;;; Narrow indicator
 
   (defvar-local k-modeline-narrow
-      '(:eval
+	  '(:eval
 		(when (and (mode-line-window-selected-p)
-                   (buffer-narrowed-p)
-                   (not (derived-mode-p 'Info-mode 'help-mode 'special-mode 'message-mode)))
-          (propertize " Narrow " 'face 'k-modeline-indicator-cyan-bg)))
+				   (buffer-narrowed-p)
+				   (not (derived-mode-p 'Info-mode 'help-mode 'special-mode 'message-mode)))
+		  (propertize " Narrow " 'face 'k-modeline-indicator-cyan-bg)))
 	"Mode line construct to report the narrowed state of the current buffer.")
 
   (put 'k-modeline-narrow 'risky-local-variable t)
 ;;;; Input method
 
   (defvar-local k-modeline-input-method
-      '(:eval
+	  '(:eval
 		(when current-input-method-title
-          (propertize (format " %s " current-input-method-title)
-                      'face 'k-modeline-indicator-green-bg
-                      'mouse-face 'mode-line-highlight)))
+		  (propertize (format " %s " current-input-method-title)
+					  'face 'k-modeline-indicator-green-bg
+					  'mouse-face 'mode-line-highlight)))
 	"Mode line construct to report the multilingual environment.")
 
   (put 'k-modeline-input-method 'risky-local-variable t)
@@ -205,11 +205,11 @@ Specific to the current window's mode line.")
   ;; TODO 2023-07-05: What else is there beside remote files?  If
   ;; nothing, this must be renamed accordingly.
   (defvar-local k-modeline-buffer-status
-      '(:eval
+	  '(:eval
 		(when (file-remote-p default-directory)
-          (propertize " @ "
-                      'face 'k-modeline-indicator-red-bg
-                      'mouse-face 'mode-line-highlight)))
+		  (propertize " @ "
+					  'face 'k-modeline-indicator-red-bg
+					  'mouse-face 'mode-line-highlight)))
 	"Mode line construct for showing remote file name.")
 
   (put 'k-modeline-buffer-status 'risky-local-variable t)
@@ -217,11 +217,11 @@ Specific to the current window's mode line.")
 ;;;; Dedicated window
 
   (defvar-local k-modeline-window-dedicated-status
-      '(:eval
+	  '(:eval
 		(when (window-dedicated-p)
-          (propertize " = "
-                      'face 'k-modeline-indicator-gray-bg
-                      'mouse-face 'mode-line-highlight)))
+		  (propertize " = "
+					  'face 'k-modeline-indicator-gray-bg
+					  'mouse-face 'mode-line-highlight)))
 	"Mode line construct for dedicated window indicator.")
 
   (put 'k-modeline-window-dedicated-status 'risky-local-variable t)
@@ -230,27 +230,27 @@ Specific to the current window's mode line.")
   (defun k-modeline-buffer-identification-face ()
 	"Return appropriate face or face list for `k-modeline-buffer-identification'."
 	(let ((file (buffer-file-name)))
-      (cond
-       ((and (mode-line-window-selected-p)
+	  (cond
+	   ((and (mode-line-window-selected-p)
 			 file
 			 (buffer-modified-p))
 		'(italic mode-line-buffer-id))
-       ((and file (buffer-modified-p))
+	   ((and file (buffer-modified-p))
 		'italic)
-       ((mode-line-window-selected-p)
+	   ((mode-line-window-selected-p)
 		'mode-line-buffer-id))))
 
   (defun k-modeline--buffer-name ()
 	"Return `buffer-name', truncating it if necessary.
 See `k-modeline-string-cut-middle'."
 	(when-let* ((name (buffer-name)))
-      (k-modeline-string-cut-middle name)))
+	  (k-modeline-string-cut-middle name)))
 
   (defun k-modeline-buffer-name ()
 	"Return buffer name, with read-only indicator if relevant."
 	(let ((name (k-modeline--buffer-name)))
-      (if buffer-read-only
-          (format "%s %s" (char-to-string #xE0A2) name)
+	  (if buffer-read-only
+		  (format "%s %s" (char-to-string #xE0A2) name)
 		name)))
 
   (defun k-modeline-buffer-name-help-echo ()
@@ -259,12 +259,12 @@ See `k-modeline-string-cut-middle'."
 	 (propertize (buffer-name) 'face 'mode-line-buffer-id)
 	 "\n"
 	 (propertize
-      (or (buffer-file-name)
-          (format "No underlying file.\nDirectory is: %s" default-directory))
-      'face 'font-lock-doc-face)))
+	  (or (buffer-file-name)
+		  (format "No underlying file.\nDirectory is: %s" default-directory))
+	  'face 'font-lock-doc-face)))
 
   (defvar-local k-modeline-buffer-identification
-      '(:eval
+	  '(:eval
 		(propertize (k-modeline-buffer-name)
 					'face (k-modeline-buffer-identification-face)
 					'mouse-face 'mode-line-highlight
@@ -280,11 +280,11 @@ face.  Let other buffers have no face.")
   (defun k-modeline-major-mode-indicator ()
 	"Return appropriate propertized mode line indicator for the major mode."
 	(let ((indicator (cond
-                      ((derived-mode-p 'text-mode) "§")
-                      ((derived-mode-p 'prog-mode) "λ")
-                      ((derived-mode-p 'comint-mode) ">_")
-                      (t "◦"))))
-      (propertize indicator 'face 'shadow)))
+					  ((derived-mode-p 'text-mode) "§")
+					  ((derived-mode-p 'prog-mode) "λ")
+					  ((derived-mode-p 'comint-mode) ">_")
+					  (t "◦"))))
+	  (propertize indicator 'face 'shadow)))
 
   (defun k-modeline-major-mode-name ()
 	"Return capitalized `major-mode' without the -mode suffix."
@@ -294,28 +294,28 @@ face.  Let other buffers have no face.")
 	"Return `help-echo' value for `k-modeline-major-mode'."
 	(if-let* ((parent (get major-mode 'derived-mode-parent)))
 		(format "Symbol: `%s'.  Derived from: `%s'" major-mode parent)
-      (format "Symbol: `%s'." major-mode)))
+	  (format "Symbol: `%s'." major-mode)))
 
   (defvar-local k-modeline-major-mode
-      (list
-       (propertize "%[" 'face 'k-modeline-indicator-red)
-       '(:eval
+	  (list
+	   (propertize "%[" 'face 'k-modeline-indicator-red)
+	   '(:eval
 		 (concat
-          (k-modeline-major-mode-indicator)
-          " "
-          (propertize
-           (k-modeline-string-abbreviate-but-last
+		  (k-modeline-major-mode-indicator)
+		  " "
+		  (propertize
+		   (k-modeline-string-abbreviate-but-last
 			(k-modeline-major-mode-name)
 			2)
-           'mouse-face 'mode-line-highlight
-           'help-echo (k-modeline-major-mode-help-echo))))
-       (propertize "%]" 'face 'k-modeline-indicator-red))
+		   'mouse-face 'mode-line-highlight
+		   'help-echo (k-modeline-major-mode-help-echo))))
+	   (propertize "%]" 'face 'k-modeline-indicator-red))
 	"Mode line construct for displaying major modes.")
 
   (put 'k-modeline-major-mode 'risky-local-variable t)
 
   (defvar-local k-modeline-process
-      (list '("" mode-line-process))
+	  (list '("" mode-line-process))
 	"Mode line construct for the running process indicator.")
 
   (put 'k-modeline-process 'risky-local-variable t)
@@ -329,7 +329,7 @@ face.  Let other buffers have no face.")
 	(when-let* ((rev (vc-working-revision file backend))
 				(branch (or (vc-git--symbolic-ref file)
 							(substring rev 0 7))))
-      (capitalize branch)))
+	  (capitalize branch)))
 
 										; NOTE 2023-07-27: This is a good idea, but it hardcodes Git, whereas
   ;; I want a generic VC method.  Granted, I only use Git but I still
@@ -341,23 +341,23 @@ face.  Let other buffers have no face.")
 				(stats (split-string output "[\s\t]" :omit-nulls "[\s\f\t\n\r\v]+"))
 				(added (nth 0 stats))
 				(deleted (nth 1 stats)))
-      (cond
-       ((and (equal added "0") (equal deleted "0"))
+	  (cond
+	   ((and (equal added "0") (equal deleted "0"))
 		"")
-       ((and (not (equal added "0")) (equal deleted "0"))
+	   ((and (not (equal added "0")) (equal deleted "0"))
 		(propertize (format "+%s" added) 'face 'shadow))
-       ((and (equal added "0") (not (equal deleted "0")))
+	   ((and (equal added "0") (not (equal deleted "0")))
 		(propertize (format "-%s" deleted) 'face 'shadow))
-       (t
+	   (t
 		(propertize (format "+%s -%s" added deleted) 'face 'shadow)))))
 
   (declare-function vc-git-working-revision "vc-git" (file))
 
   (defvar k-modeline-vc-map
 	(let ((map (make-sparse-keymap)))
-      (define-key map [mode-line down-mouse-1] 'vc-diff)
-      (define-key map [mode-line down-mouse-3] 'vc-root-diff)
-      map)
+	  (define-key map [mode-line down-mouse-1] 'vc-diff)
+	  (define-key map [mode-line down-mouse-3] 'vc-root-diff)
+	  map)
 	"Keymap to display on VC indicator.")
 
   (defun k-modeline--vc-help-echo (file)
@@ -389,12 +389,12 @@ than `split-width-threshold'."
 
   (defvar k-modeline--vc-faces
 	'((added . vc-locally-added-state)
-      (edited . vc-edited-state)
-      (removed . vc-removed-state)
-      (missing . vc-missing-state)
-      (conflict . vc-conflict-state)
-      (locked . vc-locked-state)
-      (up-to-date . vc-up-to-date-state))
+	  (edited . vc-edited-state)
+	  (removed . vc-removed-state)
+	  (missing . vc-missing-state)
+	  (conflict . vc-conflict-state)
+	  (locked . vc-locked-state)
+	  (up-to-date . vc-up-to-date-state))
 	"VC state faces.")
 
   (defun k-modeline--vc-get-face (key)
@@ -406,14 +406,14 @@ than `split-width-threshold'."
 	(k-modeline--vc-get-face (vc-state file backend)))
 
   (defvar-local k-modeline-vc-branch
-      '(:eval
+	  '(:eval
 		(when-let* (((mode-line-window-selected-p))
 					(file (buffer-file-name))
 					(backend (vc-backend file))
 					;; ((vc-git-registered file))
 					(branch (k-modeline--vc-branch-name file backend))
 					(face (k-modeline--vc-face file backend)))
-          (k-modeline--vc-details file branch face)))
+		  (k-modeline--vc-details file branch face)))
 	"Mode line construct to return propertized VC branch.")
 
   (put 'k-modeline-vc-branch 'risky-local-variable t)
@@ -428,49 +428,49 @@ than `split-width-threshold'."
 	"Compute number of diagnostics in buffer with TYPE's severity.
 TYPE is usually keyword `:error', `:warning' or `:note'."
 	(let ((count 0))
-      (dolist (d (flymake-diagnostics))
+	  (dolist (d (flymake-diagnostics))
 		(when (= (flymake--severity type)
 				 (flymake--severity (flymake-diagnostic-type d)))
-          (cl-incf count)))
-      (when (cl-plusp count)
+		  (cl-incf count)))
+	  (when (cl-plusp count)
 		(number-to-string count))))
 
   (defvar k-modeline-flymake-map
 	(let ((map (make-sparse-keymap)))
-      (define-key map [mode-line down-mouse-1] 'flymake-show-buffer-diagnostics)
-      (define-key map [mode-line down-mouse-3] 'flymake-show-project-diagnostics)
-      map)
+	  (define-key map [mode-line down-mouse-1] 'flymake-show-buffer-diagnostics)
+	  (define-key map [mode-line down-mouse-3] 'flymake-show-project-diagnostics)
+	  map)
 	"Keymap to display on Flymake indicator.")
 
   (defmacro k-modeline-flymake-type (type indicator &optional face)
 	"Return function that handles Flymake TYPE with stylistic INDICATOR and FACE."
 	`(defun ,(intern (format "k-modeline-flymake-%s" type)) ()
-       (when-let* ((count (k-modeline-flymake-counter
-                           ,(intern (format ":%s" type)))))
+	   (when-let* ((count (k-modeline-flymake-counter
+						   ,(intern (format ":%s" type)))))
 		 (concat
-          (propertize ,indicator 'face 'shadow)
-          (propertize count
-                      'face ',(or face type)
-                      'mouse-face 'mode-line-highlight
-                      ;; FIXME 2023-07-03: Clicking on the text with
-                      ;; this buffer and a single warning present, the
-                      ;; diagnostics take up the entire frame.  Why?
-                      'local-map k-modeline-flymake-map
-                      'help-echo "mouse-1: buffer diagnostics\nmouse-3: project diagnostics")))))
+		  (propertize ,indicator 'face 'shadow)
+		  (propertize count
+					  'face ',(or face type)
+					  'mouse-face 'mode-line-highlight
+					  ;; FIXME 2023-07-03: Clicking on the text with
+					  ;; this buffer and a single warning present, the
+					  ;; diagnostics take up the entire frame.  Why?
+					  'local-map k-modeline-flymake-map
+					  'help-echo "mouse-1: buffer diagnostics\nmouse-3: project diagnostics")))))
 
   (k-modeline-flymake-type error "☣")
   (k-modeline-flymake-type warning "!")
   (k-modeline-flymake-type note "·" success)
 
   (defvar-local k-modeline-flymake
-      `(:eval
+	  `(:eval
 		(when (and (bound-and-true-p flymake-mode)
-                   (mode-line-window-selected-p))
-          (list
-           ;; See the calls to the macro `k-modeline-flymake-type'
-           '(:eval (k-modeline-flymake-error))
-           '(:eval (k-modeline-flymake-warning))
-           '(:eval (k-modeline-flymake-note)))))
+				   (mode-line-window-selected-p))
+		  (list
+		   ;; See the calls to the macro `k-modeline-flymake-type'
+		   '(:eval (k-modeline-flymake-error))
+		   '(:eval (k-modeline-flymake-warning))
+		   '(:eval (k-modeline-flymake-note)))))
 	"Mode line construct displaying `flymake-mode-line-format'.
 Specific to the current window's mode line.")
 
@@ -480,12 +480,12 @@ Specific to the current window's mode line.")
 
   (with-eval-after-load 'eglot
 	(setq mode-line-misc-info
-          (delete '(eglot--managed-mode (" [" eglot--mode-line-format "] ")) mode-line-misc-info)))
+		  (delete '(eglot--managed-mode (" [" eglot--mode-line-format "] ")) mode-line-misc-info)))
 
   (defvar-local k-modeline-eglot
-      `(:eval
+	  `(:eval
 		(when (and (featurep 'eglot) (mode-line-window-selected-p))
-          '(eglot--managed-mode eglot--mode-line-format)))
+		  '(eglot--managed-mode eglot--mode-line-format)))
 	"Mode line construct displaying Eglot information.
 Specific to the current window's mode line.")
 
@@ -494,103 +494,103 @@ Specific to the current window's mode line.")
 ;;;; Miscellaneous
 
   (defvar-local k-modeline-notmuch-indicator
-      '(notmuch-indicator-mode
+	  '(notmuch-indicator-mode
 		(" "
 		 (:eval (when (mode-line-window-selected-p)
-                  notmuch-indicator--counters))))
+				  notmuch-indicator--counters))))
 	"The equivalent of `notmuch-indicator-mode-line-construct'.
 Display the indicator only on the focused window's mode line.")
 
   (put 'k-modeline-notmuch-indicator 'risky-local-variable t)
 
   (defvar-local k-modeline-misc-info
-      '(:eval
+	  '(:eval
 		(when (mode-line-window-selected-p)
-          mode-line-misc-info))
+		  mode-line-misc-info))
 	"Mode line construct displaying `mode-line-misc-info'.
-Specific to the current window's mode line."))
+Specific to the current window's mode line.")
 
-(put 'k-modeline-misc-info 'risky-local-variable t)
+  (put 'k-modeline-misc-info 'risky-local-variable t)
 
-;; ;;;; Right side alignment
-;;
-(defun prot-modeline--right-align-rest ()
-  "Return string if everything after `prot-modeline-align-right'."
-  (format-mode-line
-   `(""
-     ,@(cdr (memq 'prot-modeline-align-right mode-line-format)))))
+  ;; ;;;; Right side alignment
+  ;;
+  (defun prot-modeline--right-align-rest ()
+	"Return string if everything after `prot-modeline-align-right'."
+	(format-mode-line
+	 `(""
+       ,@(cdr (memq 'prot-modeline-align-right mode-line-format)))))
 
-(defun prot-modeline--right-align-width ()
-  "Return pixel width of `prot-modeline--right-align-rest'."
-  (string-pixel-width (prot-modeline--right-align-rest)))
+  (defun prot-modeline--right-align-width ()
+	"Return pixel width of `prot-modeline--right-align-rest'."
+	(string-pixel-width (prot-modeline--right-align-rest)))
 
-(defun prot-modeline--box-p ()
-  "Return non-nil if the `mode-line' has a box attribute."
-  (when-let ((box (face-attribute 'mode-line :box))
-             ((null (eq (face-attribute 'mode-line :box) 'unspecified))))
-    (or (plist-get box :line-width)
-        t)))
-;;
-;; ;; NOTE 2023-07-13: I could also do what I am doing in
-;; ;; `fontaine--family-list-variable-pitch' and check if the family is a
-;; ;; member of those, but I don't need that as I always inherit
-;; ;; `variable-pitch' in my themes instead of hardcoding the family.
-(defun prot-modeline--variable-pitch-p ()
-  "Return non-nil if the `mode-line' inherits `variable-pitch'."
-  (when-let* ((mode-line-inherit (face-attribute 'mode-line :inherit))
-              ((string-match-p "variable-pitch" (symbol-name mode-line-inherit)))
-              (family-face (face-attribute mode-line-inherit :inherit))
-              (variable-pitch
-               (if (listp family-face)
-                   (memq 'variable-pitch family-face)
-                 (eq 'variable-pitch family-face))))
-    variable-pitch))
+  (defun prot-modeline--box-p ()
+	"Return non-nil if the `mode-line' has a box attribute."
+	(when-let ((box (face-attribute 'mode-line :box))
+               ((null (eq (face-attribute 'mode-line :box) 'unspecified))))
+      (or (plist-get box :line-width)
+          t)))
+  ;;
+  ;; ;; NOTE 2023-07-13: I could also do what I am doing in
+  ;; ;; `fontaine--family-list-variable-pitch' and check if the family is a
+  ;; ;; member of those, but I don't need that as I always inherit
+  ;; ;; `variable-pitch' in my themes instead of hardcoding the family.
+  (defun prot-modeline--variable-pitch-p ()
+	"Return non-nil if the `mode-line' inherits `variable-pitch'."
+	(when-let* ((mode-line-inherit (face-attribute 'mode-line :inherit))
+				((string-match-p "variable-pitch" (symbol-name mode-line-inherit)))
+				(family-face (face-attribute mode-line-inherit :inherit))
+				(variable-pitch
+				 (if (listp family-face)
+					 (memq 'variable-pitch family-face)
+                   (eq 'variable-pitch family-face))))
+      variable-pitch))
 
-;; ;; I just came up with this experimentally, but I am not sure if it is
-;; ;; the best approach.
-(defun prot-modeline--magic-number ()
-  "Return constant for use in `prot-modeline-align-right'."
-  (let ((height (face-attribute 'mode-line :height nil 'default))
-        (m-width (string-pixel-width (propertize "m" 'face 'mode-line))))
-    (round height (* m-width (* height m-width 0.001)))))
+  ;; ;; I just came up with this experimentally, but I am not sure if it is
+  ;; ;; the best approach.
+  (defun prot-modeline--magic-number ()
+	"Return constant for use in `prot-modeline-align-right'."
+	(let ((height (face-attribute 'mode-line :height nil 'default))
+          (m-width (string-pixel-width (propertize "m" 'face 'mode-line))))
+      (round height (* m-width (* height m-width 0.001)))))
 
-(defvar-local k-modeline-align-right
-    '(:eval
-      (propertize
-       " "
-       'display
-       (let* ((box (prot-modeline--box-p))
-              (box-natnum-p (natnump box))
-              (variable-pitch-p (prot-modeline--variable-pitch-p))
-              (magic-number (prot-modeline--magic-number)))
-         `(space
-           :align-to
-           (- right
-              right-fringe
-              right-margin
-              ,(ceiling
-                (prot-modeline--right-align-width)
-                (string-pixel-width (propertize "m" 'face 'mode-line)))
-              ,(cond
-                ;; FIXME 2023-07-13: These hardcoded numbers are
-                ;; probably wrong in some case.  I am still testing.
-                ((and box-natnum-p variable-pitch-p)
-                 (+ (* box 2.375) magic-number))
-                (box-natnum-p
-                 (* magic-number (* box 1.15)))
-                ((and variable-pitch-p box)
-                 (* magic-number 0.5))
-                ((and (not variable-pitch-p) box)
-                 (* magic-number 0.25))
-                ((and variable-pitch-p (not box))
-                 0)
-                ;; No box, no variable pitch, but I am keeping it as
-                ;; the fallback for the time being.
-                (t (* magic-number -0.1))))))))
-  "Mode line construct to align following elements to the right.
+  (defvar-local k-modeline-align-right
+      '(:eval
+		(propertize
+		 " "
+		 'display
+		 (let* ((box (prot-modeline--box-p))
+				(box-natnum-p (natnump box))
+				(variable-pitch-p (prot-modeline--variable-pitch-p))
+				(magic-number (prot-modeline--magic-number)))
+           `(space
+			 :align-to
+			 (- right
+				right-fringe
+				right-margin
+				,(ceiling
+                  (prot-modeline--right-align-width)
+                  (string-pixel-width (propertize "m" 'face 'mode-line)))
+				,(cond
+                  ;; FIXME 2023-07-13: These hardcoded numbers are
+                  ;; probably wrong in some case.  I am still testing.
+                  ((and box-natnum-p variable-pitch-p)
+                   (+ (* box 2.375) magic-number))
+                  (box-natnum-p
+                   (* magic-number (* box 1.15)))
+                  ((and variable-pitch-p box)
+                   (* magic-number 0.5))
+                  ((and (not variable-pitch-p) box)
+                   (* magic-number 0.25))
+                  ((and variable-pitch-p (not box))
+                   0)
+                  ;; No box, no variable pitch, but I am keeping it as
+                  ;; the fallback for the time being.
+                  (t (* magic-number -0.1))))))))
+	"Mode line construct to align following elements to the right.
 Read Info node `(elisp) Pixel Specification'.")
 
-(put 'k-modeline-align-right 'risky-local-variable t)
+  (put 'k-modeline-align-right 'risky-local-variable t))
 
 
 
@@ -629,6 +629,8 @@ Read Info node `(elisp) Pixel Specification'.")
 
 (leaf vim-tab-bar
   :elpaca t
+  :custom
+  (auto-resize-tab-bars . nil)
   :config
   (vim-tab-bar-mode 1))
 
