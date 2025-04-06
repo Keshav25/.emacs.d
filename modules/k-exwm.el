@@ -9,6 +9,9 @@
 	(set-frame-parameter nil 'alpha-background 90)
 	(setq vertico-posframe-parameters
 		  '((alpha . 100)
+			(alpha-background . 90)))
+	(setq which-key-posframe-parameters
+		  '((alpha . 100)
 			(alpha-background . 90))))
 
   (defun k/turn-background-transparency-off ()
@@ -18,27 +21,29 @@
 	(set-frame-parameter nil 'alpha-background 100)
 	(setq vertico-posframe-parameters
 		  '((alpha . 100)
+			(alpha-background . 100)))
+	(setq which-key-posframe-parameters
+		  '((parent-frame . nil)
+			(alpha . 100)
 			(alpha-background . 100))))
 
   (defun k/turn-alpha-transparency-on ()
 	(interactive)
-	(set-frame-parameter nil 'alpha 90))
-  (setq vertico-posframe-parameters
-		'((alpha . 100)
-		  (alpha-background . 90))))
+	(set-frame-parameter nil 'alpha 90)
+	(setq vertico-posframe-parameters
+		  '((alpha . 100)
+			(alpha-background . 90)))))
 
 (leaf exwm
   :after (desktop-environment)
   :elpaca t
   :require t
   :custom
-  (exwm-input-line-mode-passthrough . t)
-  (mouse-autoselect-window . t)
   (exwm-input-line-mode-passthrough . nil)
+  (mouse-autoselect-window . t)
   (ediff-window-setup-function . 'ediff-setup-windows-plain)
   (focus-follows-mouse . t)
-  :hook ((exwm-update-title-hook . (lambda () (exwm-workspace-rename-buffer exwm-title)))
-		 (exwm-input--input-mode-change-hook . force-modeline-update))
+  :hook ((exwm-input--input-mode-change-hook . force-modeline-update))
   :config
   (defun fhd/toggle-exwm-input-line-mode-passthrough ()
 	(interactive)
