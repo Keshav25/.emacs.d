@@ -29,6 +29,11 @@
 
 ;;   (add-hook 'isrt-mode-hook #'isrt-mode-swap-C-t-C-x))
 
+(leaf goto
+  :bind
+  ("M-g M-g" . beginning-of-buffer)
+  ("M-G" . end-of-buffer))
+
 (leaf isrt
   :init
   (key-translate "C-t" "C-x")
