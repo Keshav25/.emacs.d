@@ -353,4 +353,32 @@ the form."
 			 (line-beginning-position 2))))))
 
 
+(leaf increase-text
+  :config
+  (defun increase-text-and-pane ()
+	"Increase text size and adjust window width proportionally."
+	(interactive)
+	(let* ((orig-scale (or (car (get 'text-scale-mode-amount 'customized-value))
+                           text-scale-mode-amount))
+           (new-scale (+ orig-scale 1))
+           (scale-factor (/ (float (expt text-scale-mode-step new-scale))
+							(float (expt text-scale-mode-step orig-scale)))))
+      (text-scale-increase 1)
+      (enlarge-window-horizontally (round (* (window-width) (- scale-factor 1))))))
+
+  (global-set-key (kbd "C-M-+") 'increase-text-and-pane)
+
+  (defun decrease-text-and-pane ()
+	"Decrease text size and adjust window width proportionally."
+	(interactive)
+	(let* ((orig-scale (or (car (get 'text-scale-mode-amount 'customized-value))
+                           text-scale-mode-amount))
+           (new-scale (- orig-scale 1))
+           (scale-factor (/ (float (expt text-scale-mode-step new-scale))
+							(float (expt text-scale-mode-step orig-scale)))))
+      (text-scale-decrease 1)
+      (shrink-window-horizontally (round (* (window-width) (- 1 scale-factor))))))
+
+  (global-set-key (kbd "C-M-_") 'decrease-text-and-pane))
+
 (provide 'k-misc)
