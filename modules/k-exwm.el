@@ -314,6 +314,28 @@
   (exwm-float-setup)
   (exwm-input-set-key (kbd "C-c M-f") #'exwm-float-mode))
 
+(leaf consult-exwm
+  :init
+  (defvar +consult-exwm-filter "\\`\\*exwm")
+  (add-to-list 'consult-buffer-filter +consult-exwm-filter)
+  (defvar +consult-source-exwm
+	`(:name      "EXWM"
+				 :narrow    ?x
+				 ;; :hidden t
+				 :category  buffer
+				 :face      consult-buffer
+				 :history   buffer-name-history
+				 ;; Specify either :action or :state
+				 :action    ,#'consult--buffer-action ;; No preview
+				 ;; :state  ,#'consult--buffer-state  ;; Preview
+				 :items
+				 ,(lambda () (consult--buffer-query
+							  :sort 'visibility
+							  :as #'buffer-name
+							  :exclude (remq +consult-exwm-filter consult-buffer-filter)
+							  :mode 'exwm-mode)))
+	"EXWM buffer source."))
+
 (provide 'k-exwm)
 
 ;; (leaf exwm
