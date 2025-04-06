@@ -136,7 +136,9 @@
   :init
   (which-key-mode 1))
 
-(leaf corfu)
+(leaf corfu
+  :require t)
+
 (leaf cape)
 
 (leaf embark
@@ -226,7 +228,22 @@
 		completions-format 'one-column
 		completions-sort 'historical
 		completions-max-height 20
-		completion-ignore-case t))
+		completion-ignore-case t)
+  (setopt completion-preview-sort-function #'corfu-sort-function)
+  (add-variable-watcher 'corfu-sort-function
+						(lambda (_symbol newval operation where)
+                          "Match the value of `completion-preview-sort-function' to `corfu-sort-function'.
+If `corfu-sort-function' is set buffer-locally, also set
+`completion-preview-sort-function' buffer-locally.  Otherwise, change
+the default value of `completion-preview-sort-function' accordingly.
+
+This action only applies when the value of `corfu-sort-function' is
+set (i.e., OPERATION is \\='set).  This excludes, e.g., let bindings."
+                          (when (equal operation 'set)
+							(if where
+								(with-current-buffer where
+                                  (setq-local completion-preview-sort-function newval))
+                              (setopt completion-preview-sort-function newval))))))
 
 (leaf file-previews
   :config
@@ -255,6 +272,34 @@
 	(cons input (apply-partially #'orderless--highlight input t)))
   (setq affe-regexp-compiler #'affe-orderless-regexp-compiler))
 
-(provide 'k-emocs)
+(leaf prescient
+  :elpaca t
+  :require t
+  :config
+  (prescient-persist-mode 1))
 
+(leaf vertico-prescient
+  :elpaca t
+  :after (vertico prescient)
+  :custom
+  (vertico-prescient-enable-sorting . t)
+  (vertico-prescient-override-sorting . nil) ; Don't override `display-sort-function')
+  ;; Filtering
+  (vertico-prescient-enable-filtering . nil) ; We want orderless to do the filtering
+  :config
+  (vertico-prescient-mode 1))
+
+(leaf corfu-prescient
+  :elpaca t
+  :after (corfu prescient)
+  :custom
+  ;; Sorting
+  (corfu-prescient-enable-sorting . t)
+  (corfu-prescient-override-sorting . nil)
+  ;; Keep the filtering done by orderless
+  (corfu-prescient-enable-filtering . nil)
+  :config
+  (corfu-prescient-mode 1))
+
+(provide 'k-emocs)
 ;;; k-emocs.el ends here
