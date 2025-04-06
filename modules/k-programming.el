@@ -507,6 +507,7 @@
   :commands outline-indent-minor-mode
   :custom
   (outline-indent-ellipsis . " ▼ "))
+
 (leaf disproject
   :elpaca t
   ;; Replace `project-prefix-map' with `disproject-dispatch'.
