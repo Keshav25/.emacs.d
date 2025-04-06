@@ -62,6 +62,7 @@
   :hook (completion-list-mode . consult-preview-at-point-mode)
   :custom
   ;; (completion-in-region-function . #'consult-completion-in-region)
+  (consult-preview-excluded-buffers . '(major-mode . exwm-mode))
   (xref-show-xrefs-function . #'consult-xref)
   (xref-show-definitions-function . #'consult-xref)
   (consult-project-root-function . #'deadgrep--project-root)
