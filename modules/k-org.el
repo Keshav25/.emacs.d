@@ -1094,4 +1094,8 @@ If REF is non-nil, inlude it in the citation. Fill the text with
     t))
 
 
+;; TODO: Configure Org-Invoice-Table
+(leaf org-invoice-table
+  :elpaca t)
+
 (provide 'k-org)
