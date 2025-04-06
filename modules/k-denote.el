@@ -28,7 +28,7 @@
                             "* %(denote-journal-capture-timestamp) %^{Subject?}"))))
 
 (leaf denote
-  :elpaca t
+  :elpaca (denote :host github :repo "protesilaos/denote")
   :require t
   :config
   (denote-rename-buffer-mode 1)
