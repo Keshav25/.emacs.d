@@ -354,7 +354,7 @@
 
 (defun k-theme-load ()
   (interactive)
-  (load-theme 'doom-tokyo-night t)
+  (load-theme 'material-ocean t)
   (set-background-color "#0f111a")
   (set-foreground-color "lightblue")
   (set-face-foreground 'font-lock-comment-face "dark cyan")
@@ -363,7 +363,8 @@
 (defun k-streaming-theme ()
   (interactive)
   (load-theme 'haki t)
+  (set-foreground-color "green")
+  (set-face-foreground 'font-lock-comment-face "dark cyan")
   (set-frame-parameter nil 'alpha-background 30))
-
 
 (provide 'k-themes)
