@@ -557,4 +557,31 @@
 (leaf bookmark-in-project
   :elpaca t)
 
+(leaf eval-in-repl
+  ;; This file alone is not functional. Also require the following depending
+  ;; on your needs.
+
+  ;; eval-in-repl-ielm.el    for Emacs Lisp    (via ielm)
+  ;; eval-in-repl-cider.el   for Clojure       (via cider.el)
+  ;; eval-in-repl-slime.el   for Common Lisp   (via slime.el)
+  ;; eval-in-repl-geiser.el  for Racket/Scheme (via geiser.el)
+  ;; eval-in-repl-racket.el  for Racket        (via racket-mode.el)
+  ;; eval-in-repl-scheme.el  for Scheme        (via scheme.el and cmuscheme.el)
+  ;; eval-in-repl-hy.el      for Hy            (via hy-mode.el and inf-lisp.el)
+
+  ;; eval-in-repl-python.el  for Python        (via python.el)
+  ;; eval-in-repl-ruby.el    for Ruby          (via ruby-mode.el, and inf-ruby.el)
+  ;; eval-in-repl-sml.el     for Standard ML   (via sml-mode.el)
+  ;; eval-in-repl-ocaml.el   for OCaml         (via tuareg.el)
+  ;; eval-in-repl-prolog.el  for Prolog        (via prolog.el)
+  ;; eval-in-repl-javascript.el for Javascript (via js3-mode.el, js2-mode.el, and js-comint.el)
+
+  ;; eval-in-repl-shell.el   for Shell         (via native shell support)
+
+  :elpaca t)
+
+(leaf org-babel-eval-in-repl
+  :elpaca t)
+
+
 (provide 'k-programming)
