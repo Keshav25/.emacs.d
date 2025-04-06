@@ -12,6 +12,10 @@
  gc-cons-threshold most-positive-fixnum
  gc-cons-percentage 0.6)
 
+;; Process performance tuning
+(setq read-process-output-max (* 4 1024 1024))
+(setq process-adaptive-read-buffering nil)
+
 ;; startup message
 ;; (add-hook 'emacs-startup-hook
 ;; 		  (lambda ()
