@@ -21,7 +21,6 @@
   :bind (:eglot-mode-map ("s-t" . #'consult-eglot-symbols)))
 
 (leaf corfu
-  :disabled t
   :elpaca t
   :require t
   :setq
@@ -29,10 +28,16 @@
   (tab-always-indent . t)
   (corfu-quit-no-match . 'separator)
   (corfu-auto . nil)
-  :init
+  :config
   (global-corfu-mode 1)
+  (corfu-popupinfo-mode 1)
   :bind ((:corfu-map
-		  ("RET" . newline))))
+		  ("RET" . #'corfu-insert)
+		  ("C-n" . #'corfu-next)
+		  ("C-p" . #'corfu-previous)
+		  ("<escape>" . #'corfu-quit)
+		  ("M-d" . #'corfu-popupinfo-documentation)
+		  ("M-l" . #'corfu-popupinfo-location))))
 
 (leaf corfu-terminal
   :after corfu
