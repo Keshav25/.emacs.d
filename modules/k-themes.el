@@ -22,7 +22,9 @@
 
 (leaf material-ocean
   :elpaca (material-ocean-dark-theme :host github :repo "Patrick-Poitras/emacs-material-ocean"
-									 ))
+									 )
+  :config
+  (load-theme 'material-ocean-dark t))
 
 ;; Solaire
 ;; (leaf solaire-mode
