@@ -57,6 +57,3 @@
 (setq menu-bar-mode nil
 	  tool-bar-mode nil
 	  scroll-bar-mode nil)
-
-(if (file-exists-p "~/.emacs.d/elpaca/builds/material-ocean-dark-theme/material-ocean-dark-theme.el")
-	(load-theme 'material-ocean-dark t))
