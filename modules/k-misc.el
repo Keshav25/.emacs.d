@@ -381,13 +381,13 @@ the form."
 
   (global-set-key (kbd "C-M-_") 'decrease-text-and-pane))
 
-(leaf superword-in-minibuffer
-  :init
-  (defun activate-superword-mode-in-minibuffer ()
-	"Activate superword-mode in the minibuffer."
-	(when (minibuffer)
-	  (superword-mode 1)))
-  :hook (minibuffer-setup-hook . activate-superword-mode-in-minibuffer))
+;; (leaf superword-in-minibuffer
+;;   :init
+;;   (defun activate-superword-mode-in-minibuffer ()
+;; 	"Activate superword-mode in the minibuffer."
+;; 	(when (minibuffer)
+;; 	  (superword-mode 1)))
+;;   :hook (minibuffer-setup-hook . activate-superword-mode-in-minibuffer))
 
 (leaf eee
   ;; TODO needs devicon-lookup
