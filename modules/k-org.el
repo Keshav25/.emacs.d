@@ -1051,6 +1051,7 @@ headings.  See function `org-find-olp'."
   :require t)
 
 (leaf flyspell
+  :disabled t
   :elpaca t
   :custom
   (ispell-program-name . "hunspell")
@@ -1103,6 +1104,7 @@ If REF is non-nil, inlude it in the citation. Fill the text with
 
 ;; TODO: Configure Org-Invoice-Table
 (leaf org-invoice-table
+  :disabled t
   :elpaca t)
 
 (provide 'k-org)
