@@ -1,9 +1,14 @@
-;; Temporarily increase GC threshold during startup
-(setq gc-cons-threshold most-positive-fixnum)
+;; Doom Emacs Performance Improvements
+(defvar last-file-name-handler-alist file-name-handler-alist)
+(setq gc-cons-threshold most-positive-fixnum
+	  gc-cons-percentage 0.6
+	  file-name-handler-alist nil)
 
 ;; Restore to normal value after startup (e.g. 50MB)
 (add-hook 'emacs-startup-hook
-          (lambda () (setq gc-cons-threshold (* 50 1024 1024))))
+          (lambda () (setq gc-cons-threshold (* 50 1024 1024)
+					  gc-cons-percentage 0.1
+					  file-name-handler-alist last-file-name-handler-alist)))
 
 
 ;; User Information
