@@ -25,11 +25,11 @@
 									 ))
 
 ;; Solaire
-(leaf solaire-mode
-  :disabled t
-  :elpaca t
-  :config
-  (solaire-global-mode 1))
+;; (leaf solaire-mode
+;;   :disabled t
+;;   :elpaca t
+;;   :config
+;;   (solaire-global-mode 1))
 
 ;; Diminish
 (leaf diminish
