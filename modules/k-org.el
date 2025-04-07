@@ -465,6 +465,8 @@ to an appropriate container (e.g., a paragraph)."
   :elpaca t
   :hook (org-mode . org-inline-anim-mode))
 
+(leaf ob-rust :elpaca t)
+
 (leaf org-babel
   :init
   (leaf ob-go
@@ -546,6 +548,7 @@ to an appropriate container (e.g., a paragraph)."
 	 (shell . t)
 	 (scheme . t)
 	 (go . t)
+	 (rust . t)
 	 (clojure . t)
 	 (csharp .t))))
 

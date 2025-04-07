@@ -7,6 +7,7 @@
   :elpaca t
   :custom
   (rust-format-on-save . t)
+  (rustic-babel-display-error-popup . nil)
   :bind (:rustic-mode-map
 		 ("M-j" . lsp-ui-imenu)
 		 ("M-?" . lsp-find-references)
