@@ -106,6 +106,7 @@
   )
 
 (leaf denote-agenda
+  :disabled t
   :after denote
   :elpaca t
   :require t
