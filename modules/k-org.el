@@ -51,7 +51,7 @@
 
 
 (leaf org-speed-commands
-  :init
+  :custom
   (org-speed-commands .
 					  '(("Outline Navigation")
 						("n" . (org-speed-move-safe 'org-next-visible-heading))
