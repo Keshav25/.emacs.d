@@ -336,6 +336,11 @@
 							  :mode 'exwm-mode)))
 	"EXWM buffer source."))
 
+(leaf perspective-exwm
+  :after (perspective)
+  :require t
+  :elpaca t)
+
 (provide 'k-exwm)
 
 ;; (leaf exwm

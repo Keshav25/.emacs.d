@@ -300,10 +300,12 @@ if there is no window on the right."
 
 (leaf perspective
   :elpaca t
+  :require t
   :custom
   (persp-sort . 'created)
   :config
-  (customize-set-value 'persp-mode-prefix-key (kbd "C-x x"))
+  ;; overrides overrides tab-mode functions
+  (setopt persp-mode-prefix-key (kbd "C-x t"))
   (persp-mode))
 
 (defun kill-other-buffers ()
