@@ -115,10 +115,20 @@
   :elpaca t
   :config
   (consult-org-roam-mode))
+
 (leaf avy
   :elpaca t
   :custom
   (avy-keys . '(?i ?s ?r ?t ?g ?p ?n ?e ?o))
+  (avy-dispatch-alist . `((120 . avy-action-kill-move)
+						  (88 . avy-action-kill-stay)
+						  (116 . avy-action-teleport)
+						  (109 . avy-action-mark)
+						  (?c . avy-action-copy)
+						  (121 . avy-action-yank)
+						  (89 . avy-action-yank-line)
+						  (105 . avy-action-ispell)
+						  (122 . avy-action-zap-to-char)))
   :bind
   (("M-n" . avy-goto-char)
    ("M-/" . avy-goto-line)))
@@ -126,6 +136,34 @@
 (leaf avy-embark-collect
   :after (embark avy)
   :elpaca t)
+
+;; TODO: first I need to turn this into a delay then I can bind C-s to isearch
+(leaf ace-isearch
+  :after (avy consult)
+  :elpaca t
+  :require t
+  :custom
+  (ace-isearch-input-length . 6)
+  (ace-isearch-function-from-isearch .'ace-isearch-consult-line-from-isearch)
+  (ace-isearch-fallback-function . 'ace-isearch-consult-line-from-isearch)
+  (ace-isearch-jump-based-on-one-char . nil))
+
+;; TODO: Maybe integrate with ibuffer, consult-buffer, project, or perspective
+;; TODO: search the buffer list
+(leaf ace-jump-buffer
+  :disabled t
+  :after (consult)
+  :elpaca t)
+
+(leaf avy-act
+  :elpaca t
+  :require t)
+
+;; TODO: Replace with Avy but have it only operate on links
+(leaf link-hint
+  :elpaca t
+  :bind
+  ("C-L" . link-hint-open-link))
 
 ;; Which-Key
 (leaf which-key
