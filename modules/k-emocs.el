@@ -198,6 +198,8 @@
 (leaf transient-posframe
   :after (magit transient posframe)
   :elpaca t
+  :custom
+  (transient-posframe-parameters . '((alpha . 100) (alpha-background . 90)))
   :config
   (transient-posframe-mode 1))
 
