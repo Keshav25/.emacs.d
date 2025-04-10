@@ -152,7 +152,6 @@
 ;; TODO: search the buffer list
 (leaf ace-jump-buffer
   :disabled t
-  :after (consult)
   :elpaca t)
 
 (leaf avy-act
