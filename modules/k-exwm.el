@@ -163,6 +163,8 @@
 	(interactive)
 	(pcase exwm-class-name
       ("kitty" (exwm-floating-toggle-floating)
+       (exwm-layout-toggle-mode-line))
+	  ("Alacritty" (exwm-floating-toggle-floating)
        (exwm-layout-toggle-mode-line))))
   (add-hook 'exwm-manage-finish-hook
 			#'efs/configure-window-by-class)
