@@ -315,6 +315,11 @@ if there is no window on the right."
 		(delq (current-buffer) (buffer-list)))
   (delete-other-windows))
 
+(leaf perspective-project-bridge)
 
+(leaf treemacs-perspective)
+;; TODO: buffler integration with perspective and project
+;; TODO: avy with perspective and consult buffer
+;; TODO: hydra for perspective
 (provide 'k-wm)
 ;;; k-wm.el ends here
