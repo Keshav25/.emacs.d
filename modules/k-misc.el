@@ -388,9 +388,8 @@ the form."
   ;; TODO needs devicon-lookup
   :require t
   :custom
-  (ee-terminal-command . "kitty")
-  :elpaca (eee :host github :repo "eval-exec/eee.el"
   (ee-terminal-command . "alacritty")
+  :elpaca (eee :host github :repo "Keshav25/eee.el"
 			   :files (:defaults "*.el" "*.sh"))
   :bind-keymap
   ("s-e" . ee-keymap))
