@@ -390,6 +390,7 @@ the form."
   :custom
   (ee-terminal-command . "kitty")
   :elpaca (eee :host github :repo "eval-exec/eee.el"
+  (ee-terminal-command . "alacritty")
 			   :files (:defaults "*.el" "*.sh"))
   :bind-keymap
   ("s-e" . ee-keymap))
