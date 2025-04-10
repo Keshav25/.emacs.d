@@ -806,7 +806,6 @@ headings.  See function `org-find-olp'."
 (leaf org-tree-slide :elpaca t)
 (leaf org-tanglesync :elpaca t)
 (leaf org-randomnote :elpaca t)
-(leaf org-projectile :elpaca t)
 (leaf org-inline-pdf :elpaca t)
 (leaf citar-org-roam :elpaca t)
 (leaf org-web-tools :elpaca t)
