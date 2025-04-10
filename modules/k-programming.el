@@ -540,9 +540,7 @@
 		 ("n" . 'special-lispy-down)	
 		 ("p" . 'special-lispy-up)	
 		 ("f" . 'special-lispy-right)
-		 ("b" . 'special-lispy-left)	
-		 ("h" . 'special-lispy-back)	
-		 ("l" . 'special-lispy-flow)))
+		 ("b" . 'special-lispy-left)))
 
 (leaf eldoc
   :setq
