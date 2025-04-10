@@ -297,6 +297,9 @@ set (i.e., OPERATION is \\='set).  This excludes, e.g., let bindings."
 (leaf ripgrep
   :elpaca t)
 
+(leaf deadgrep
+  :elpaca t)
+
 (leaf wgrep
   :elpaca t
   :require t)
