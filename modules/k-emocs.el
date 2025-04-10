@@ -159,12 +159,6 @@
   :elpaca t
   :require t)
 
-;; TODO: Replace with Avy but have it only operate on links
-(leaf link-hint
-  :elpaca t
-  :bind
-  ("C-L" . link-hint-open-link))
-
 ;; Which-Key
 (leaf which-key
   :elpaca t
