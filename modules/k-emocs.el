@@ -229,13 +229,13 @@
 
 (leaf which-key-posframe
   :after (which-key posframe)
-  :elpaca t
+  :elpaca (which-key-posframe :repo "Keshav25/which-key-posframe")
   :config
   (which-key-posframe-mode 1))
 
 (leaf transient-posframe
   :after (magit transient posframe)
-  :elpaca t
+  :elpaca (transient-posframe :repo "Keshav25/transient-posframe")
   :custom
   (transient-posframe-parameters . '((alpha . 100) (alpha-background . 90)))
   :config
