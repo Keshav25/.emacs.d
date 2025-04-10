@@ -481,6 +481,10 @@
   (compilation-always-kill . t)
   (compilation-scroll-output . 'first-error)
   (next-error-recenter . '(4))
+  :config
+  (defadvice compile (before ad-compile-smart activate)
+	"Advises `compile' so it sets the argument COMINT to t."
+	(ad-set-arg 1 t))
   :hook
   (compilation-filter-hook . ansi-color-compilation-filter)
   (eshell-load-hook . compilation-shell-minor-mode)
