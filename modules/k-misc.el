@@ -216,11 +216,6 @@
 		 ("?" . #'gptel-quick)))
 
 
-(leaf chatgpt-shell
-  :elpaca t
-  :custom
-  (chatgpt-shell-model-version . "uncensored-dolphin-mistral:latest"))
-
 (leaf ollama-buddy
   :elpaca t)
 
