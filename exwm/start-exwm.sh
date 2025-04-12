@@ -11,7 +11,7 @@ test -e $HOME/.Xresources && {
 }
 
 picom &
-sudo tlp &
+sudo tlp start &
 sudo thermald &
 kde-indicator &
 emacs --fullscreen --eval "(exwm-enable)"
