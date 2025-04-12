@@ -1,34 +1,3 @@
-;; (leaf isrt
-;;   :init
-;;   (defvar isrt-mode-map
-;; 	(let ((m (make-sparse-keymap)))
-;; 	  (define-key m (kbd "M-x") 'transpose-words)
-;; 	  (define-key m (kbd "M-t") 'execute-extended-command)
-;; 	  (define-key m (kbd "M-T") 'execute-extended-comd-for-buffer)
-;; 	  m)
-;; 	"Keymap for `isrt-mode`")
-
-;;   (define-minor-mode isrt-mode
-;; 	"Swaps C-t and C-x for use with the ISRT keyboard layout"
-;; 	:keymap isrt-mode-map)
-
-;;   (define-global-minor-mode isrt-global-mode isrt-mode
-;; 	(lambda ()
-;;       (unless (minibufferp)
-;; 		(isrt-mode 1)))
-;; 	:group 'meow
-;; 	(if isrt-mode
-;; 		(isrt--global-enable)
-;;       (isrt--global-disable)))
-
-
-;;   (defun isrt-mode-swap-C-t-C-x ()
-;; 	(interactive)
-;; 	(keyboard-translate ?\C-t ?\C-x)
-;; 	(keyboard-translate ?\C-x ?\C-t))
-
-;;   (add-hook 'isrt-mode-hook #'isrt-mode-swap-C-t-C-x))
-
 (leaf goto
   :bind
   ("M-g M-g" . beginning-of-buffer)
