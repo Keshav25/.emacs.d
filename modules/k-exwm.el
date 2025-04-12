@@ -317,7 +317,8 @@
   (exwm-input-set-key (kbd "C-c M-f") #'exwm-float-mode))
 
 (leaf consult-exwm
-  :init
+  :after (consult)
+  :config
   (defvar +consult-exwm-filter "\\`\\*exwm")
   (add-to-list 'consult-buffer-filter +consult-exwm-filter)
   (defvar +consult-source-exwm
