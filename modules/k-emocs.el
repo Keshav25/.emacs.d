@@ -22,6 +22,7 @@
   (marginalia-mode 1))
 
 (leaf consult
+  :require t
   :elpaca t
   :bind (("C-s" . consult-line)
 		 ([remap switch-to-buffer] . consult-buffer)
