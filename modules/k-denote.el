@@ -160,9 +160,9 @@
 
 (leaf howm
   :elpaca t
+  :require 'howm-org
   :require t
   :config
-  (require 'howm-org)
   (setopt howm-file-name-format "%Y%m%dT%H%M%S.org")
   (setopt howm-view-title-header "#+title:")
   ;; Advise `howm-view-item-basename' so that if its return value
