@@ -44,8 +44,10 @@
   :elpaca t
   :config
   (dirvish-override-dired-mode)
-  :bind (:dirvish-directory-view-mode-map
-		 ("q" . 'dirvish-quit)))
+  :bind
+  ("C-x d" . 'dirvish)
+  (:dirvish-directory-view-mode-map
+   ("q" . 'dirvish-quit)))
 
 ;; Get file icons in dired
 ;; (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
