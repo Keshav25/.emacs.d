@@ -53,12 +53,20 @@
 		 ("C-c n t" . consult-org-heading)
 		 ([f6] . consult-recent-file))
   :config
-  (advice-add #'register-preview 
+  (advice-add #'register-preview
 			  :override #'consult-register-window)
-  (consult-customize consult-theme 
-                     :preview-key '(:debounce 0.2 any) 
-                     consult-ripgrep consult-git-grep consult-grep consult-bookmark consult-recent-file consult-xref consult--source-bookmark consult--source-file-register consult--source-recent-file consult--source-project-recent-file 
-                     :preview-key '(:debounce 0.4 any))
+  (consult-customize consult-theme
+					 :preview-key '(:debounce 0.2 any)
+					 consult-ripgrep consult-git-grep consult-grep consult-bookmark consult-recent-file consult-xref consult--source-bookmark consult--source-file-register consult--source-recent-file consult--source-project-recent-file
+					 :preview-key '(:debounce 0.4 any)
+					 consult-line)
+
+  (consult-customize consult-line
+					 :add-history (seq-some #'thing-at-point '(region symbol)))
+
+  (defalias 'consult-line-thing-at-point 'consult-line)
+  (consult-customize consult-line-thing-at-point
+					 :initial (thing-at-point 'symbol))
   :hook (completion-list-mode . consult-preview-at-point-mode)
   :custom
   ;; (completion-in-region-function . #'consult-completion-in-region)
