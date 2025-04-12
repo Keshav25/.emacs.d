@@ -162,6 +162,12 @@
   :disabled t
   :elpaca t)
 
+(leaf ace-mc
+  :elpaca t)
+
+(leaf ace-popup-menu
+  :elpaca t)
+
 (leaf avy-act
   :elpaca t
   :require t)
