@@ -40,6 +40,7 @@
 
 (leaf dired-open :elpaca t)
 ;; (leaf peep-dired :elpaca t)
+
 (leaf dirvish
   :elpaca t
   :config
