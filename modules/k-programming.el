@@ -557,6 +557,7 @@
 
 (leaf eglot-inactive-regions
   :elpaca t
+  :require t
   :custom
   (eglot-inactive-regions-style . 'darken-foreground)
   (eglot-inactive-regions-opacity . 0.4)
