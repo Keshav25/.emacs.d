@@ -189,6 +189,8 @@
                    :stream t
                    :models '(uncensored-dolphin-mistral:latest))))
 
+(leaf gptel-aibo :elpaca t)
+
 ;; (leaf fabric-gpt.el
 ;;   :after gptel
 ;;   :require t
