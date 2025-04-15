@@ -466,10 +466,13 @@ to an appropriate container (e.g., a paragraph)."
   :hook (org-mode . org-inline-anim-mode))
 
 (leaf ob-rust :elpaca t)
+
 (leaf ob-http
   :elpaca t)
+
 (leaf ob-mermaid
   :elpaca t)
+
 (leaf ob-csharp
   :elpaca (ob-csharp :host github :repo "samwdp/ob-csharp"))
 
