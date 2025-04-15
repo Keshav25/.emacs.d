@@ -475,6 +475,7 @@ to an appropriate container (e.g., a paragraph)."
 
 (leaf ob-elixir :elpaca t)
 
+(leaf ob-compile :elpaca t)
 
 (leaf org-babel
   :config
