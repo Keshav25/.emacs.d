@@ -554,8 +554,10 @@ to an appropriate container (e.g., a paragraph)."
 	 (go . t)
 	 (rust . t)
 	 (clojure . t)
-	 (csharp .t)
-	 (elixir . t))))
+	 (csharp .t )
+	 (elixir . t)
+	 (compile . t)
+	 (C . t))))
 
 (leaf org-agenda
   :bind (("C-c a" . org-agenda))
