@@ -90,8 +90,8 @@
 	  (require 'virtualenvwrapper)
 	  (venv-initialize-eshell)))
   (autoload 'epe-theme-lambda "eshell-prompt-extras")
-  (setq eshell-highlight-prompt nil
-		eshell-prompt-function 'epe-theme-lambda))
+  (setopt eshell-highlight-prompt nil
+		  eshell-prompt-function 'epe-theme-lambda))
 
 (leaf eshell-z
   :after eshell
