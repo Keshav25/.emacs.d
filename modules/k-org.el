@@ -475,8 +475,8 @@ to an appropriate container (e.g., a paragraph)."
 
 (leaf ob-elixir :elpaca t)
 
+
 (leaf org-babel
-  :after (org)
   :config
   (setq org-confirm-babel-evaluate nil)
   (require 'outline)
