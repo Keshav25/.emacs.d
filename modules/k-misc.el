@@ -174,6 +174,12 @@
 (leaf sotclojure
   :elpaca t)
 
+
+(leaf sotlisp
+  :elpaca t
+  :config
+  )
+
 (leaf gptel
   :elpaca t
   :config
