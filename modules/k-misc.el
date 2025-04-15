@@ -24,11 +24,6 @@
 ;;   :custom ((detached-show-output-on-attach t)
 ;;            (detached-terminal-data-command system-type)))
 
-;; (leaf detached
-;;   :elpaca t
-;;   :ensure-system-package dtach
-;;   :config
-;;   (detached-init))
 
 ;; keep emacs clean
 (leaf no-littering :elpaca t)
@@ -57,6 +52,7 @@
 
 (leaf inform
   :elpaca t)
+
 
 
 (leaf elisp-demos
@@ -294,6 +290,7 @@
   (detached-terminal-data-command . system-type))
 
 (leaf xr
+  :elpaca t
   :config
   (defun unpackaged/query-replace-rx (&rest _)
 	"Call `query-replace-regexp', reading regexp in `rx' syntax.
@@ -307,9 +304,6 @@ the form."
                                                                   (cadr it)
                                                                   (rx-to-string it)))))
       (call-interactively #'query-replace-regexp))))
-
-(leaf xr
-  :elpaca t)
 
 (leaf relint
   :elpaca t)
