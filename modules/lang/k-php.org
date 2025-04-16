@@ -1,0 +1,37 @@
+#+TITLE: K-PHP
+#+PROPERTY: header-args :tangle no :comments both
+#+OPTIONS: toc:2 num:nil
+The PHP Configuration for [[https://www.github.com/Keshav25/.emacs.d/][my emacs configuration]].
+
+* Project Support
+Currently this package uses =projectile= but I will eventually rewrite this to use the built-in =project.el=
+
+#+begin_src elisp
+  (leaf projectile-laravel
+	:elpaca (projectile-laravel :type git :host github :repo "strikerlulu/projectile-laravel"))
+#+end_src
+
+* Keybindings
+useful keybindings to insert into php-ts-mode
+#+begin_src elisp
+  (defun k/insert-backslash ()
+	(interactive)
+	(insert "\\"))
+
+  (defun k/insert-forwardslash ()
+	(interactive)
+	(insert "/"))
+
+  (defun k/insert-arrow ()
+	(interactive)
+	(insert "->"))
+
+  (define-key php-ts-mode-map "\\" 'k/insert-forwardslash)
+  (define-key php-ts-mode-map "/" 'k/insert-backslash)
+  (define-key php-ts-mode-map "." 'k/insert-arrow)
+#+end_src
+
+* Footer
+#+begin_src elisp
+  (provide 'k-php)
+ #+end_src
