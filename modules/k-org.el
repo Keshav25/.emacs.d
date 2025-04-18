@@ -136,7 +136,7 @@ current note."
               (word-count (count-words start end)))
 		 (org-set-property "WORDCOUNT" (number-to-string word-count)))))))
 
-(leaf org-angenda-preview
+(leaf org-agenda-preview
   :config
   (require 'ov)
   (defface unpackaged/org-agenda-preview
