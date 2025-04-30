@@ -79,7 +79,8 @@
   (require 'k-os)
 
   ;; Modeline
-  (require 'k-modeline))
+  ;; (require 'k-modeline)
+  )
 
 (defun k/phone-configuration ()
   ;; Evil
