@@ -10,7 +10,16 @@
 ;; Garbage Collection
 (setq
  gc-cons-threshold most-positive-fixnum
- gc-cons-percentage 0.6)
+ gc-cons-percentage 0.1)
+
+(defun my-minibuffer-setup-hook ()
+  (setq gc-cons-threshold most-positive-fixnum))
+
+(defun my-minibuffer-exit-hook ()
+  (setq gc-cons-threshold 800000))
+
+(add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
+(add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
 
 ;; Process performance tuning
 (setq read-process-output-max (* 4 1024 1024))
