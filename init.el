@@ -71,11 +71,8 @@
 	,(expand-file-name "tmp/auto-saves/" user-emacs-directory)
 	t)))
 
-(setq
- projectile-known-projects-file
- (expand-file-name "tmp/projectile-bookmarks.eld"
-				   user-emacs-directory)
- lsp-session-file (expand-file-name "tmp/.lsp-session-v1" user-emacs-directory))
+(setq lsp-session-file
+	  (expand-file-name "tmp/.lsp-session-v1" user-emacs-directory))
 
 (setq
  backup-by-copying t ; don't clobber symlinks
