@@ -63,9 +63,6 @@
   ;; Python
   (require 'k-python)
 
-  ;; PHP
-  (org-babel-load-file "~/.emacs.d/modules/lang/k-php.org")
-  
   ;; Rust
   (require 'k-rust)
 
