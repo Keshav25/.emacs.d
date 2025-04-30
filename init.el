@@ -241,4 +241,6 @@
 
 (load-file "~/.emacs.d/config.el")
 
+(setopt gc-cons-threshold 100000000)
+
 (provide 'init)
