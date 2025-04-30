@@ -281,6 +281,7 @@
   (exwm-mff-mode 1))
 
 (leaf ednc
+  :require t
   :elpaca t
   :config
   (defun list-notifications ()
