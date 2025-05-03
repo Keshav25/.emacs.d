@@ -10,6 +10,10 @@
 				 file-name-handler-alist last-file-name-handler-alist)))
 
 
+;; LSP Mode
+(setenv "LSP_USE_PLISTS" "true")
+(setq lsp-use-plists t)
+
 ;; User Information
 (setq user-full-name "Keshav Italia"
 	  user-mail-address "keshavitalia0@gmail.com")
