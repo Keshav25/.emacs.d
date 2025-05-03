@@ -187,11 +187,11 @@
   :config
   (setq gptel-default-mode #'org-mode)
   (setq
-   gptel-model 'uncensored-dolphin-mistral:latest
+   gptel-model 'uncensored-deep
    gptel-backend (gptel-make-ollama "Ollama"
                    :host "localhost:11434"
                    :stream t
-                   :models '(uncensored-dolphin-mistral:latest))))
+                   :models '(uncensored-deep:latest))))
 
 (leaf gptel-aibo :elpaca t)
 
