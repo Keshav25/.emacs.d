@@ -4,11 +4,10 @@
 	  gc-cons-percentage 0.6
 	  file-name-handler-alist nil)
 
-;; Restore to normal value after startup (e.g. 50MB)
+;; set back to normal
 (add-hook 'emacs-startup-hook
-          (lambda () (setq gc-cons-threshold (* 50 1024 1024)
-					  gc-cons-percentage 0.1
-					  file-name-handler-alist last-file-name-handler-alist)))
+          (lambda () (setq
+				 file-name-handler-alist last-file-name-handler-alist)))
 
 
 ;; User Information
