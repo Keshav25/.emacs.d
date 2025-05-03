@@ -151,7 +151,7 @@
   :elpaca t
   :config
   ;; slows down emacs
-  ;;(doom-modeline-mode 1)
+  (doom-modeline-mode 1)
   )
 
 (leaf visual-line
