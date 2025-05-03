@@ -1,18 +1,18 @@
 (require 'clomacs)
-(clomacs-defun cm-test-md-to-html-wrapper
-               cm-test.core/my-md-to-html-string
+(clomacs-defun cm-test-output-kesh
+               cm-test.core/output-kesh
                :lib-name "cm-test"
                :namespace cm-test.core
-               :doc "Convert markdown to html via Clojure lib.")
+               :doc "Output Kesh's astrological information")
 
-(defun cm-test-mdarkdown-to-html (beg end)
+(defun cm-test-output-kesh-in-region (beg end)
   "Add to the selected markdown text it's html representation."
   (interactive "r")
   (save-excursion
     (if (< (point) (mark))
         (exchange-point-and-mark))
     (insert
-     (concat "\n" (cm-test-md-to-html-wrapper
-                   (buffer-substring beg end))))))
+     (concat "\n" (cm-test-output-kesh)
+             (buffer-substring beg end)))))
 
 (provide 'cm-test)
