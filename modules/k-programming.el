@@ -148,8 +148,7 @@
 (leaf treemacs
   :elpaca t
   :setq
-  (treemacs-width . 25)
-  :hook (treemacs-mode-hook . '(text-scale-adjust -1)))
+  (treemacs-width . 25))
 
 (leaf aggressive-indent
   :elpaca t
