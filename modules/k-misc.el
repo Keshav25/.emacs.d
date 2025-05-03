@@ -252,7 +252,7 @@
 		 (:image-mode
 		  ("C-o" . casual-image-tmenu))))
 
-(leaf emojs
+(leaf emojis
   :bind
   ("C-c i e" . emoji-insert))
 
