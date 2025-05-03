@@ -421,6 +421,8 @@
 (leaf cider
   :elpaca t
   :require t
+  :custom
+  (nrepl-use-ssh-fallback-for-remote-hosts . t)
   :config
   (autoload 'cider--make-result-overlay "cider-overlays")
   
