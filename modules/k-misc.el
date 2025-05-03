@@ -231,12 +231,14 @@
   :require t
   ;; think of a binding for aidermacs-transient-menu
   :config
+  (setenv "OLLAMA_BASE_URL" "http://localhost:11434")
+  (setenv "OLLAMA_API_BASE" "http://localhost:11434")
   (aidermacs-setup-minor-mode)
   (setq aidermacs-use-architect-mode t)
   :custom
-  (aidermacs-default-model . "ollama_chat/uncensored-dolphin-mistral:latest")
-  (aidermacs-editor-model . "ollama_chat/uncensored-dolphin-mistral:latest")
-  (aidermacs-architect-model . "ollama_chat/uncensored-dolphin-mistral:latest")
+  (aidermacs-default-model . "ollama_chat/uncensored-deep:latest")
+  (aidermacs-editor-model . "ollama_chat/uncensored-deep:latest")
+  (aidermacs-architect-model . "ollama_chat/uncensored-deep:latest")
   )
 
 (leaf casual-suite
