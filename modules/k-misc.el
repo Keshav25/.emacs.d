@@ -31,6 +31,8 @@
 ;; Gcmh
 (leaf gcmh
   :elpaca t
+  :setq
+  (gcmh-low-cons-threshold . 100000000)
   :config
   (gcmh-mode 1))
 
