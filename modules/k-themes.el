@@ -156,9 +156,9 @@
 
 (leaf visual-line
   :hook ((visual-line-mode . menu-bar--display-line-numbers-mode-visual)
-		 (text-mode . visual-line-mode)
-		 (prog-mode . visual-line-mode)
-		 (org-mode . visual-line-mode))
+		 (text-mode . turn-on-visual-line-mode)
+		 (prog-mode . turn-on-visual-line-mode)
+		 (org-mode . turn-on-visual-line-mode))
   :config
   (global-visual-line-mode 1))
 
