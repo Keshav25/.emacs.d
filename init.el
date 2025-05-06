@@ -200,7 +200,6 @@
  mouse-wheel-scroll-amount-horizon 2)
 (setq x-stretch-cursor nil)
 
-(global-auto-revert-mode 1) 
 (delete-selection-mode +1)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (setq use-short-answers t)
