@@ -74,6 +74,12 @@
   :require t
   :hook (eww-after-render-hook . eww-readable))
 
+(leaf eww-lnum
+  :elpaca t
+  :bind (:eww-mode-map
+		 ("f" . 'eww-lnum-follow)
+		 ("F" . 'eww-lnum-universal)))
+
 (leaf shrface
   :elpaca t
   :hook (eww-mode . shrface-mode))
