@@ -20,7 +20,7 @@
 
 (setq package-enable-at-startup nil
 	  package-native-compile t
-	  native-comp-always-compile t
+	  native-comp-always-compile nil ;; it compiles way too much for me
 	  native-comp-async-jobs-number (- (string-to-number (string-trim-right (shell-command-to-string "nproc"))) 1)
 	  native-comp-async-report-warnings-errors 'silent
 	  window-resize-pixelwise nil
@@ -29,7 +29,6 @@
 	  inhibit-startup-screen t
 	  warning-minimum-level :error
 	  byte-compile-ignore-files t
-	  load-prefer-newer t
 	  auto-mode-case-fold nil
 	  bidi-display-reordering 'left-to-right
       bidi-paragraph-direction 'left-to-right
