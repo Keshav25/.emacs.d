@@ -1,0 +1,15 @@
+#+TITLE: K-Haskell
+#+PROPERTY: header-args :tangle yes :comments both
+#+OPTIONS: toc:2 num:nil
+The Haskell Configuration for [[https://www.github.com/Keshav25/.emacs.d/][my emacs configuration]].
+
+* LSP
+#+begin_src emacs-lisp
+  (leaf lsp-haskell
+    :elpaca t)
+#+end_src
+
+* Footer
+#+begin_src emacs-lisp
+  (provide 'k-haskell)
+#+end_src
