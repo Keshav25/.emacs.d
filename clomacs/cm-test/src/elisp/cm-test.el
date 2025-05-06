@@ -1,5 +1,5 @@
 (require 'clomacs)
-(clomacs-defun cm-test-output-kesh
+(clomacs-defun cm-test-output-kesh-wrapper
                cm-test.core/output-kesh
                :lib-name "cm-test"
                :namespace cm-test.core
@@ -12,7 +12,7 @@
     (if (< (point) (mark))
         (exchange-point-and-mark))
     (insert
-     (concat "\n" (cm-test-output-kesh)
-             (buffer-substring beg end)))))
+     (concat "\n" (cm-test-output-kesh-wrapper
+				   (buffer-substring beg end))))))
 
 (provide 'cm-test)

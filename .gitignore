@@ -56,3 +56,5 @@
 /newsticker/
 /modules/lang/*.el
 /skewer-cache/
+/clomacs/*/cache/
+/clomacs/*/.cpcache/

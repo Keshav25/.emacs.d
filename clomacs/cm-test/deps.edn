@@ -1,0 +1,24 @@
+i{:paths ["src/clj" "resources"]
+ :deps {org.clojure/clojure {:mvn/version "1.11.1"}
+        com.github.discljord/discljord {:mvn/version "1.3.1"}
+        clj-http {:mvn/version "3.12.3"}
+        cheshire {:mvn/version "5.11.0"}
+        clomacs/clomacs {:mvn/version "0.0.5-SNAPSHOT"}
+        org.clojure/data.json {:mvn/version "2.4.0"}
+        hickory {:mvn/version "0.7.1"}
+        ;; for python interop
+        org.ow2.asm/asm {:mvn/version "9.0"}
+        clj-python/libpython-clj {:mvn/version "2.026"}
+        cnuernber/dtype-next {:mvn/version "10.135"}
+        ;; for ollama
+        hellonico/pyjama {:git/url "https://github.com/hellonico/pyjama.git"
+                          :git/sha "ec753eebffd422fd2d02eb1c93957a9f8adb0016"}
+        ;; cider
+        nrepl/nrepl {:mvn/version "1.3.1"}
+        cider/cider-nrepl {:mvn/version "0.52.1"}}
+ :aliases {:dev
+           {:jdk-17
+            {:jvm-opts ["--add-modules" "jdk.incubator.foreign" "--enable-native-access=ALL-UNNAMED"]}}
+           :nREPL
+           {:extra-deps
+            {nrepl/nrepl {:mvn/version "1.3.1"}}}}}
