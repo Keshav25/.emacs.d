@@ -305,6 +305,12 @@
   ("<XF86AudioNext>" . emms-next)
   ("<XF86AudioPlay>" . emms-pause))
 
+(leaf empv
+  :elpaca t
+  :require t
+  :custom
+  (empv-invidious-instance . "https://inv.nadeko.net/api/v1"))
+
 (leaf gif-screencast 
   :elpaca (gif-screencast :host gitlab
 						  :repo "https://gitlab.com/ambrevar/emacs-gif-screencast") 
