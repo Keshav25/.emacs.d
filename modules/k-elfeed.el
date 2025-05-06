@@ -71,8 +71,8 @@
 		 ("C-c C-w" . elfeed-tube-mpv-where)))
 
 (leaf eww
-  :hook (eww-after-render-hook . eww-readable)
-  :config)
+  :require t
+  :hook (eww-after-render-hook . eww-readable))
 
 (leaf shrface
   :elpaca t
