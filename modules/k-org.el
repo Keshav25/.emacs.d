@@ -1113,4 +1113,20 @@ If REF is non-nil, inlude it in the citation. Fill the text with
   :disabled t
   :elpaca t)
 
+(leaf org-feh
+  :require 'ol
+
+  :config
+  (defun feh-org-link-init ()
+	"Setup org link with `mpv' prefix."
+	(require 'org)
+	(org-link-set-parameters "feh"
+							 :follow #'org-feh-open)
+	)
+  (org-link-set-parameters  "feh"
+							:follow #'org-feh-open)
+
+  (defun org-feh-open (path _)
+	(async-shell-command  (concat  "gthumb " path))))
+
 (provide 'k-org)
