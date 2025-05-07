@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 ;; For any packages that integrate with an OS
 
 (leaf alert

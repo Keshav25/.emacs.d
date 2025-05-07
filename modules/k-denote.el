@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (leaf org-capture
   :bind (("C-c c" . org-capture))
   :custom

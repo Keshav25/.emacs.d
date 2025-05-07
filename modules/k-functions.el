@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (require 'cl-lib)
 
 ;;; http://blogs.fluidinfo.com/terry/2011/11/10/emacs-buffer-mode-histogram/

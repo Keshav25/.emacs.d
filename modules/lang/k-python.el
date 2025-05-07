@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (leaf python-mode
   :custom ((python-indent-guess-indent-offset . t)
 		   (python-indent-guess-indent-offset-verbose . nil)))

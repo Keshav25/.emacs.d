@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (leaf evil
   :disabled t
   :elpaca t

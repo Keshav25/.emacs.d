@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (leaf eshell
   :require t
   :require 'em-smart 'em-alias

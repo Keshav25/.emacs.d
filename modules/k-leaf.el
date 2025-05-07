@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 ;; k-leaf
 ;; Leaf and Repositories
 

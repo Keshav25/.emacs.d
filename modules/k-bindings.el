@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (leaf goto
   :bind
   ("M-g M-g" . beginning-of-buffer)

@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (leaf vterm)
 
 (leaf exec-path-from-shell

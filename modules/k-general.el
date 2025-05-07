@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 ;; General
 (leaf general
   :after evil

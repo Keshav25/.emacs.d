@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (leaf prog-mode
   :hook ((prog-mode . subword-mode)
 		 (prog-mode . which-func-mode)
