@@ -46,7 +46,6 @@
 /var/
 /tutorial/
 /.dir-locals.el
-/.gitmodules
 /README.org
 /org-supertag/
 /todo.org
