@@ -1,4 +1,5 @@
 (leaf hydra
+  :require t
   :elpaca t
   :config
   (leaf major-mode-hydra
