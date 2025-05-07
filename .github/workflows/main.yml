@@ -1,6 +1,19 @@
 name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**/*.el'
+      - '**/*.org'
+      - '.github/workflows/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '**/*.el'
+      - '**/*.org'
 
 jobs:
   linux-test:
@@ -9,24 +22,19 @@ jobs:
       matrix:
         emacs-version:
           - 30.1
-          - snapshot
 
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-      - uses: purcell/setup-emacs@master
+      - name: Set Up Emacs
+        uses: purcell/setup-emacs@master
         with:
           version: ${{ matrix.emacs-version }}
 
-      - name: test
-        run: 'mv -f ../.emacs.d $HOME/.emacs.d;
-              emacs -nw --batch --eval \
-              "(let ((debug-on-error (>= emacs-major-version 26))
-                     (early-init-file (locate-user-emacs-file \"early-init.el\"))
-                     (user-init-file (locate-user-emacs-file \"init.el\")))
-               (when (>= emacs-major-version 27)
-                 (load early-init-file))
-               (load user-init-file)
-               (run-hooks (quote after-init-hook))
-               (run-hooks (quote emacs-startup-hook))
-               (run-hooks (quote window-setup-hook)))"'
+      - name: Validate Configuration
+        run: |
+          emacs --batch --eval "
+          (setq debug-on-error t)
+          (setq user-emacs-directory \"$HOME/.emacs.d\")
+          (load-file \"$HOME/.emacs.d/init.el\")"
