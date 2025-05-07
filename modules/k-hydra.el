@@ -4,29 +4,6 @@
   :require t
   :elpaca t
   :config
-  (leaf major-mode-hydra
-	:elpaca t
-	:bind
-	("M-SPC" . major-mode-hydra)
-	("C-S-o" . k-window-movement/body)
-	:config
-	(major-mode-hydra-define emacs-lisp-mode
-	  (:quit-key "q")
-	  ("Eval"
-	   (("b" eval-buffer "buffer")
-		("e" eval-defun "defun")
-		("r" eval-region "region"))
-	   "REPL"
-	   (("I" ielm "ielm"))
-	   "Test"
-	   (("t" ert "prompt")
-		("T" (ert t) "all")
-		("F" (ert :failed) "failed"))
-	   "Doc"
-	   (("d" describe-foo-at-point "thing-at-pt")
-		("f" describe-function "function")
-		("v" describe-variable "variable")
-		("i" info-lookup-symbol "info lookup")))))
   (pretty-hydra-define k-window-movement
 	(:color pink :quit-key "q" :title "Window Management")
 	("Navigation"
@@ -63,10 +40,53 @@
 	  ("F" windmove-swap-states-right "Move Window Right"))
 	 "Text"
 	 (("C-=" text-scale-increase "zoom in")
-	  ("C--" text-scale-decrease "zoom out")))))
+	  ("C--" text-scale-decrease "zoom out"))))
+  
+  (defhydra hydra-vi (:pre (progn (set-cursor-color "#40e0d0")
+								  (cursory-set-preset "block"))
+						   :post (progn
+								   (set-cursor-color "#ffffff")
+								   (cursory-set-preset "underscore-thin-other-window")
+								   (message
+									"Thank you, come again.")))
+	"vi"
+	("a" forward-char)
+	("p" backward-char)
+	("n" next-line)
+	("e" previous-line)
+	("I" end-of-line :color blue)
+	("q" nil "quit"))
+
+  )
+
+(leaf major-mode-hydra
+  :after hydra
+  :elpaca t
+  :bind
+  ("M-SPC" . major-mode-hydra)
+  ("C-S-o" . k-window-movement/body)
+  :config
+  (major-mode-hydra-define emacs-lisp-mode
+	(:quit-key "q")
+	("Eval"
+	 (("b" eval-buffer "buffer")
+	  ("e" eval-defun "defun")
+	  ("r" eval-region "region"))
+	 "REPL"
+	 (("I" ielm "ielm"))
+	 "Test"
+	 (("t" ert "prompt")
+	  ("T" (ert t) "all")
+	  ("F" (ert :failed) "failed"))
+	 "Doc"
+	 (("d" describe-foo-at-point "thing-at-pt")
+	  ("f" describe-function "function")
+	  ("v" describe-variable "variable")
+	  ("i" info-lookup-symbol "info lookup")))))
 
 (leaf main-hydra
-  :config 
+  :after hydra
+  :config
   (defvar navy-l 'forward-char
 	"The next item in a forward sense.")
 
@@ -391,21 +411,6 @@ Tries to intelligently handle components based on their prefix:
 	 ""
 	 (("tn" "+news")))))
 
-
-(defhydra hydra-vi (:pre (progn (set-cursor-color "#40e0d0")
-								(cursory-set-preset "block"))
-						 :post (progn
-								 (set-cursor-color "#ffffff")
-								 (cursory-set-preset "underscore-thin-other-window")
-								 (message
-								  "Thank you, come again.")))
-  "vi"
-  ("a" forward-char)
-  ("p" backward-char)
-  ("n" next-line)
-  ("e" previous-line)
-  ("I" end-of-line :color blue)
-  ("q" nil "quit"))
 
 ;; (define-prefix-command 'endless/toggle-map)
 ;; ;; The manual recommends C-c for user keys, but C-x t is
