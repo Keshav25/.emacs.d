@@ -1,0 +1,23 @@
+#+TITLE: K-Zig
+#+PROPERTY: header-args :tangle yes :comments both
+#+OPTIONS: toc:2 num:nil
+The Zig Configuration for [[https://www.github.com/Keshav25/.emacs.d/][my emacs configuration]].
+
+* Zig Mode
+#+begin_src emacs-lisp
+(leaf zig-mode
+  :elpaca t
+  :config
+  (flycheck-define-checker zig
+	"zig"
+	:command ("zig" "ast-check" (eval (buffer-file-name)))
+	:error-patterns
+	((error line-start (file-name) ":" line ":" column ": error:" (message) line-end))
+	:modes zig-mode t)
+  (add-to-list 'flycheck-checkers 'zig))
+#+end_src
+
+* Footer
+#+begin_src emacs-lisp
+  (provide 'k-zig)
+#+end_src
