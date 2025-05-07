@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (leaf lsp-go
   :after (lsp))
 

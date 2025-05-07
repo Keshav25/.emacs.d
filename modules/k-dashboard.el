@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (leaf dashboard
   :elpaca t
   :config

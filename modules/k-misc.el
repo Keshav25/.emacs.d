@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 ;; k-misc.el -- Miscellanious Configuration
 
 ;;; Commentary:

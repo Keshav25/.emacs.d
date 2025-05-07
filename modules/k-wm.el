@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (defmacro with-other-window (&rest body)
   "Execute forms in BODY in the other-window."
   `(unless (one-window-p)

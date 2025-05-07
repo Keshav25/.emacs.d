@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 ;; font
 ;; (set-frame-parameter (selected-frame) 'font "JetBrains Mono Bold-8")
 

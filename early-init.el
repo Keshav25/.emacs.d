@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 ;; Doom Emacs Performance Improvements
 (defvar last-file-name-handler-alist file-name-handler-alist)
 (setq gc-cons-threshold most-positive-fixnum

@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (leaf vertico
   :elpaca t
   :init

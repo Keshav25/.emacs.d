@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 ;; ;; Dired
 (leaf dired
   :custom

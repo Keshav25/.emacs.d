@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 ;; dap-mode
 ;; https://develop.spacemacs.org/layers/+lang/rust/README.html
 ;; https://docs.doomemacs.org/v21.12/modules/lang/rust/

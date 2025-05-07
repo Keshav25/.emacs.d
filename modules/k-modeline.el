@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (leaf spacious-padding
   :elpaca t
   :custom

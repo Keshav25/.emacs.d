@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (leaf hexo
   :elpaca t
   :config

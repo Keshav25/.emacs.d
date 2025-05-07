@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (leaf transparent-frame
   :config
   (set-frame-parameter nil 'alpha 100)
