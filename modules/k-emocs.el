@@ -28,6 +28,7 @@
   :elpaca t
   :bind (("C-s" . consult-line)
 		 ([remap switch-to-buffer] . consult-buffer)
+		 ([remap switch-to-buffer-other-window] . consult-buffer-other-window)
 		 ("C-y" . consult-yank-pop)
 		 ("C-M-y" . yank)
 		 ("C-S-s" . consult-ripgrep)
