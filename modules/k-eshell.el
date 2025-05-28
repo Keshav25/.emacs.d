@@ -124,6 +124,9 @@
 (leaf eat
   :after eshell
   :elpaca t
+  :bind (:eat-mode-map
+		 ("M-t" . execute-extended-command)
+		 ("M-x" . execute-extended-command))
   :hook ((eshell-load-hook . eat-eshell-mode)
 		 ;; since htop doesn't work with the former
 		 (eshell-load-hook . eat-eshell-visual-command-mode)))
