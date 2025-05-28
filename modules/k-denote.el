@@ -194,4 +194,9 @@ Takes a file's basename, STR, and returns only the portion before
   (setopt howm-directory denote-directory)
   )
 
+(leaf calendar
+  :doc "based off of how integration in https://github.com/martialboniou/emacs-revival/blob/master/calendar-howm.el"
+  :custom
+  (diary-file . denote-directory))
+
 (provide 'k-denote)
