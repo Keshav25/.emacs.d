@@ -558,6 +558,7 @@ to an appropriate container (e.g., a paragraph)."
 	 (clojure . t)
 	 (csharp .t )
 	 (elixir . t)
+	 (java . t)
 	 (compile . t)
 	 (C . t))))
 
