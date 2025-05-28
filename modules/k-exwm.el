@@ -8,7 +8,7 @@
 	"turn background transparency on and text transparency off"
 	(interactive)
 	(set-frame-parameter nil 'alpha 100)
-	(set-frame-parameter nil 'alpha-background 90)
+	(set-frame-parameter nil 'alpha-background 80)
 	(setq vertico-posframe-parameters
 		  '((alpha . 100)
 			(alpha-background . 90)))
