@@ -26,8 +26,7 @@
 
 										;: From perspective.el README
 (customize-set-variable 'display-buffer-base-action
-						'((display-buffer-same-window)
-						  (reusable-frames . t)))
+						'((display-buffer-same-window)))
 
 (customize-set-variable 'even-window-sizes nil)     ; avoid resizing
 
