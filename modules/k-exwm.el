@@ -113,7 +113,7 @@
           (,(kbd "s-c") . kill-buffer-and-window)
 		  (,(kbd "C-`") . popper-toggle)
 		  (,(kbd "C-S-o") . ace-window)
-		  (,(kbd "C-S-d") . dired-sidebar-toggle-sidebar)
+		  (,(kbd "C-S-d") . dirvish-side)
           ,@(mapcar (lambda (i)
                       `(,(kbd (format "s-%d" i)) .
 						(lambda ()
