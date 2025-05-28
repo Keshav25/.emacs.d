@@ -24,6 +24,10 @@
 (leaf haki-theme :elpaca t)
 (leaf sweet-theme :elpaca t)
 
+(leaf automagic-dark-mode
+  :elpaca (automagic-dark-mode :host github :repo "sstraust/automagic-dark-mode")
+  :require t)
+
 (leaf material-ocean
   :elpaca (material-ocean-dark-theme :host github :repo "Patrick-Poitras/emacs-material-ocean"
 									 )
