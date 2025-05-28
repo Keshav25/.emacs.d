@@ -11,13 +11,15 @@
 (leaf ef-themes
   :elpaca t
   :config
-  (setq ef-bio-palette-overrides '((variable fg-main)
-								   (string green-faint)))
-  (setq ef-autumn-palette-overrides '((variable fg-main)
-									  (bg-main bg-dim)))
-  (setq ef-cyprus-palette-overrides '((variable fg-main)
-									  (bg-main bg-dim)
-									  (string green-faint))))
+  (setopt ef-bio-palette-overrides '((variable fg-main)
+									 (string green-faint)))
+  (setopt ef-autumn-palette-overrides '((variable fg-main)
+										(bg-main bg-dim)))
+  (setopt ef-cyprus-palette-overrides '((variable fg-main)
+										(bg-main bg-dim)
+										(string green-faint)))
+  (load-theme 'ef-winter t))
+
 (leaf yabaki-theme :elpaca t)
 (leaf haki-theme :elpaca t)
 (leaf sweet-theme :elpaca t)
@@ -26,7 +28,8 @@
   :elpaca (material-ocean-dark-theme :host github :repo "Patrick-Poitras/emacs-material-ocean"
 									 )
   :config
-  (load-theme 'material-ocean-dark t))
+  ;; (load-theme 'material-ocean-dark t)
+  )
 
 ;; Solaire
 ;; (leaf solaire-mode
