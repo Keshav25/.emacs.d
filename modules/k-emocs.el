@@ -34,6 +34,7 @@
 		 ("C-S-s" . consult-ripgrep)
 		 ("C-x r b" . consult-bookmark)
 		 ("C-x C-r" . consult-recent-file)
+		 ("C-c C-h" . consult-org-agenda)
 		 ("M-s M-s" . consult-outline)
 		 ("M-g e" . consult-compile-error)
 		 ("M-g f" . consult-flymake)
