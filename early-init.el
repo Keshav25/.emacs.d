@@ -56,7 +56,7 @@
 				;; (undecorated . t)
 				(vertical-scroll-bars . nil)
 				(horizontal-scroll-bars . nil)
-				(font . "JetBrainsMono-12:weigth=regular:width=normal")))
+				(font . "JetBrainsMono-16:weigth=regular:width=normal")))
 
 (setq menu-bar-mode nil
 	  tool-bar-mode nil
