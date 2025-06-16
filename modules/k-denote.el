@@ -37,7 +37,7 @@
   :bind
   ("C-c n i" . denote-link-or-create)
   ("C-c n c" . denote-open-or-create)
-  ("C-c n j" . denote-journal-extras-new-or-existing-entry)
+  ("C-c n j" . denote-journal-new-or-existing-entry)
   ("C-c n b" . denote-find-backlink)
   ("C-c n d" . denote-date)
   ("C-c n l" . denote-find-link)
