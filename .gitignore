@@ -58,3 +58,4 @@
 /clomacs/*/cache/
 /clomacs/*/.cpcache/
 /TODO.pdf
+*.sqlite
