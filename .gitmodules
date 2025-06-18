@@ -1,0 +1,3 @@
+[submodule "Keshav25/nano-elfeed"]
+    path = site-lisp/nano-elfeed
+    url = https://github.com/Keshav25/nano-elfeed
