@@ -560,7 +560,8 @@ to an appropriate container (e.g., a paragraph)."
 	 (elixir . t)
 	 (java . t)
 	 (compile . t)
-	 (C . t))))
+	 (C . t)
+	 (R . t))))
 
 (leaf org-agenda
   :bind (("C-c a" . org-agenda))

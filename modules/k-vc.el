@@ -107,6 +107,8 @@ for the \"main\" or \"master\" branch."
   (magit-file-icons-enable-diffstat-icons . t))
 
 (leaf pretty-magit
+  :doc "idk broken"
+  :disabled t
   :after (magit)
   :config
   (defmacro pretty-magit (WORD ICON PROPS &optional NO-PROMPT?)
