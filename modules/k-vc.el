@@ -4,9 +4,10 @@
   :elpaca t)
 
 (leaf magit
+  :require t
   :after (transient)
   :elpaca t
-  :require magit-extras
+  :require (magit-extras magit-section)
   :bind
   ("C-x g" . 'magit-status)
   :custom
