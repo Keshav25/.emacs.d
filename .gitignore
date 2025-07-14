@@ -59,3 +59,4 @@
 /clomacs/*/.cpcache/
 /TODO.pdf
 *.sqlite
+/auto-save-list/
