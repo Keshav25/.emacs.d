@@ -189,7 +189,6 @@
   (setq touchpad-pixel-scroll t)
   (setq touchpad--ultra-scroll t))
 
-
 (leaf pretty-symbols
   :elpaca t
   :config
