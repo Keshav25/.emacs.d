@@ -11,7 +11,7 @@
 	(set-frame-parameter nil 'alpha-background 80)
 	(setq vertico-posframe-parameters
 		  '((alpha . 100)
-			(alpha-background . 90)))
+			(alpha-background . 80)))
 	(setq which-key-posframe-parameters
 		  '((alpha . 100)
 			(alpha-background . 90))))
