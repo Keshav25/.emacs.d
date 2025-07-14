@@ -32,8 +32,6 @@
 (leaf denote
   :elpaca (denote :host github :repo "protesilaos/denote")
   :require t
-  :config
-  (denote-rename-buffer-mode 1)
   :bind
   ("C-c n i" . denote-link-or-create)
   ("C-c n c" . denote-open-or-create)
@@ -72,8 +70,8 @@
   (dired-mode-hook . denote-dired-mode)
   (after-save-hook . k/denote-always-rename-on-save)
   :config
-  (require 'denote-journal-extras)
-  (require 'denote-org-extras)
+  (denote-rename-buffer-mode 1)
+  (require 'denote-journal)
   (defun k/publish-denote ()
 	(interactive)
 	(mapc (lambda (file) (org-ehtml-export-file file))
