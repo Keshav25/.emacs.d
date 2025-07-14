@@ -39,9 +39,6 @@
   :elpaca (nano-elfeed :host github :repo "Keshav25/nano-elfeed")
   :require t)
 
-;; Elfeed-Web
-;; (leaf elfeed-web :after elfeed :elpaca t)
-
 ;; Elfeed-Org
 (leaf elfeed-org
   :elpaca t
