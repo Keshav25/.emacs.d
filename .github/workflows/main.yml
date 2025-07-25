@@ -24,6 +24,11 @@ jobs:
           - 30.1
 
     steps:
+      - name: Cache ELPA packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.emacs.d/elpa
+          key: ${{ runner.os }}-emacs-${{ matrix.emacs-version }}-elpa
       - name: Checkout Repository
         uses: actions/checkout@v3
 
