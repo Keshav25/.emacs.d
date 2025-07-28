@@ -14,6 +14,10 @@ picom &
 sudo tlp start &
 sudo thermald &
 kde-indicator &
+feh --bg-fill ~/Downloads/01151_inthedeep_2560x1600.jpg &
+lxsession &
+lxqt-panel &
+flameshot &
 emacs --fullscreen --eval "(exwm-enable)"
 
 # Logout process.
