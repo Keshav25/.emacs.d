@@ -1078,6 +1078,7 @@ headings.  See function `org-find-olp'."
   :elpaca t)
 
 (leaf org-supertag
+  :disabled t
   :elpaca (org-supertag :host github :repo "yibie/org-supertag")
   :after org
   :config
