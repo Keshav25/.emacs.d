@@ -596,5 +596,14 @@
 (leaf org-babel-eval-in-repl
   :elpaca t)
 
+(leaf sideline-eglot
+  :elpaca t)
+
+(leaf sideline
+  :after sideline-eglot
+  :elpaca t
+  :config
+  (setq sideline-backends-right '(sideline-eglot)))
+
 
 (provide 'k-programming)
