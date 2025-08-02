@@ -329,34 +329,39 @@ set (i.e., OPERATION is \\='set).  This excludes, e.g., let bindings."
 	(cons input (apply-partially #'orderless--highlight input t)))
   (setq affe-regexp-compiler #'affe-orderless-regexp-compiler))
 
-(leaf prescient
-  :elpaca t
-  :require t
-  :config
-  (prescient-persist-mode 1))
 
-(leaf vertico-prescient
-  :elpaca t
-  :after (vertico prescient)
-  :custom
-  (vertico-prescient-enable-sorting . t)
-  (vertico-prescient-override-sorting . nil) ; Don't override `display-sort-function')
-  ;; Filtering
-  (vertico-prescient-enable-filtering . nil) ; We want orderless to do the filtering
-  :config
-  (vertico-prescient-mode 1))
+;; Prescient disabled, was slowing down emacs a lot for some reason.
+;; (leaf prescient
+;;   :disabled t
+;;   :elpaca t
+;;   :require t
+;;   :config
+;;   (prescient-persist-mode 1))
 
-(leaf corfu-prescient
-  :elpaca t
-  :after (corfu prescient)
-  :custom
-  ;; Sorting
-  (corfu-prescient-enable-sorting . t)
-  (corfu-prescient-override-sorting . nil)
-  ;; Keep the filtering done by orderless
-  (corfu-prescient-enable-filtering . nil)
-  :config
-  (corfu-prescient-mode 1))
+;; (leaf vertico-prescient
+;;   :disabled t
+;;   :elpaca t
+;;   :after (vertico prescient)
+;;   :custom
+;;   (vertico-prescient-enable-sorting . t)
+;;   (vertico-prescient-override-sorting . nil) ; Don't override `display-sort-function')
+;;   ;; Filtering
+;;   (vertico-prescient-enable-filtering . nil) ; We want orderless to do the filtering
+;;   :config
+;;   (vertico-prescient-mode 1))
+
+;; (leaf corfu-prescient
+;;   :disabled t
+;;   :elpaca t
+;;   :after (corfu prescient)
+;;   :custom
+;;   ;; Sorting
+;;   (corfu-prescient-enable-sorting . t)
+;;   (corfu-prescient-override-sorting . nil)
+;;   ;; Keep the filtering done by orderless
+;;   (corfu-prescient-enable-filtering . nil)
+;;   :config
+;;   (corfu-prescient-mode 1))
 
 (provide 'k-emocs)
 ;;; k-emocs.el ends here
