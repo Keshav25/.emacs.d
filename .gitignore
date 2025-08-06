@@ -1,7 +1,7 @@
 /.cache/
 /elpaca/
 /quelpa/
-/elpa/
+/elpa/*
 /eln-cache/
 /elisp-autofmt-cache/
 /eshell/history
