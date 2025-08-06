@@ -46,6 +46,8 @@
 		 ("M-g i" . consult-imenu)
 		 ("M-g I" . consult-imenu-multi)
 		 ("M-g k" . consult-global-mark)
+		 ("M-g b" . consult-bookmark)
+		 ("M-g M-f" . consult-find)
 		 ("M-s d" . consult-find)
 		 ("M-s D" . consult-locate)
 		 ("M-s g" . consult-grep)
