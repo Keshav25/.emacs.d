@@ -147,6 +147,14 @@
 	:after (flycheck)
 	:elpaca t))
 
+(leaf flyover
+  :ensure t
+  :require t
+  :hook (flycheck-mode . flyover-mode)
+  :custom
+  (flyover-levels . '(error warning info))
+  (flyover-use-theme-colors . t))
+
 (leaf treemacs
   :elpaca t
   :setq
