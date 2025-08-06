@@ -80,6 +80,10 @@ for the \"main\" or \"master\" branch."
   (add-hook 'magit-mode-hook #'k/add-PR-fetch-ref)
   )
 
+(leaf magit-prime
+  :elpaca (magit-prime :host github :repo "Azkae/magit-prime")
+  :hook (magit-pre-refresh-hook . magit-prime-refresh-cache))
+
 (leaf magit-delta
   :after magit
   :elpaca t)
