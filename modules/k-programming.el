@@ -294,6 +294,12 @@
   (lsp-ui-sideline-show-hover . t)
   (lsp-ui-doc-enable . nil))
 
+(leaf lsp-installer
+  :elpaca (:host github
+				 :repo "kn66/lsp-installer.el")
+  :config
+  (lsp-installer-setup))
+
 (leaf dap-mode
   :elpaca t
   :bind (:dap-mode-map
