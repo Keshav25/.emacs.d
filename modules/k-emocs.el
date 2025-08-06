@@ -98,7 +98,9 @@
 (leaf embark
   :elpaca t
   :setq
-  (prefix-help-command . 'embark-prefix-help-command))
+  (prefix-help-command . 'embark-prefix-help-command)
+  :custom
+  (embark-quit-after-action . nil))
 
 (leaf embark-consult
   :after (embark consult)
