@@ -28,7 +28,8 @@
   :bind
   (("C-c o r" . elfeed))
   (:elfeed-show-mode-map
-   ("r" . elfeed-update)))
+   ("r" . elfeed-update)
+   ("w" . elfeed-show-yank)))
 
 
 ;; for nano-elfeed
