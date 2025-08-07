@@ -31,7 +31,6 @@
    ("r" . elfeed-update)
    ("w" . elfeed-show-yank)))
 
-
 ;; for nano-elfeed
 (leaf relative-date
   :elpaca (relative-date :host github :url "https://github.com/rougier/relative-date/"))
