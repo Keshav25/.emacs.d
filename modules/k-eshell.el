@@ -15,11 +15,19 @@
 										 eshell-smart eshell-unix eshell-rebind))
   (eshell-history-size . 1024)
   (eshell-hist-ignoredups . t)
+  (eshell-input-filter . 'k/eshell-input-filter)
   :config
   (defun eshell-new ()
 	"Open a new instance of eshell."
 	(interactive)
 	(eshell 'N))
+  (defun k/eshell-input-filter (input)
+	(and
+	 (eshell-input-filter-default input)
+	 (eshell-input-filter-initial-space input)
+	 (not (string-prefix-p "cd " input))
+	 (not (string-prefix-p "ls " input))
+	 (not (string-prefix-p "l  " input))))
   :bind
   ("C-c o e" . eshell-new))
 
