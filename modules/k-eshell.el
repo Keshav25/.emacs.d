@@ -110,7 +110,9 @@
 
 (leaf eshell-bookmark
   :after eshell
-  :elpaca t)
+  :elpaca t
+  :require t
+  :hook (eshell-mode . eshell-bookmark-setup))
 
 (leaf eshell-did-you-mean
   :after eshell
