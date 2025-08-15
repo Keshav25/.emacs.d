@@ -72,6 +72,14 @@
 	(exwm-workspace-rename-buffer exwm-class-name))
 
   (add-hook 'exwm-update-class-hook #'efs/exwm-update-class)
+  
+  (defun efs/exwm-update-title ()
+	(pcase exwm-class-name
+	  ("firefox" (exwm-workspace-rename-buffer (format "Firefox %s" exwm-title)))
+	  ("librewolf" (exwm-workspace-rename-buffer (format "Librewolf %s" exwm-title)))))
+
+  (add-hook 'exwm-update-title-hook #'efs/exwm-update-title)
+
   (add-hook 'exwm-init-hook #'efs/exwm-init-hook)
   (require 'exwm-systemtray)
   (setq exwm-systemtray-height 17)
