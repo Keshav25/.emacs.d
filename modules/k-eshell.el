@@ -79,10 +79,8 @@
 
   :bind
   ("C-c o e" . eshell-new)
-  (:eshell-mode-map
-   ("C-c >" . k/eshell-redirect-to-buffer))
-  (:eshell-hist-mode-map
-   ("M-r" . consult-history)))
+  (:eshell-command-mode-map
+   ("C-c >" . k/eshell-redirect-to-buffer)))
 
 
 (leaf run-in-eshell
