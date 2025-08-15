@@ -125,7 +125,7 @@
 
   ;; Creates a space with display properties. Feel free to change `eshell/println` to `insert` and use it in a normal emacs buffer, it will inline the path given in `file`.
   (defun my-print-image-eshell (file)
-	(eshell/printnl (propertize " " 'display (create-image file))))
+	(eshell/printnl (propertize " " 'display (create-image (expand-file-name file)))))
 
 
   ;; If image, use `my-print-image-eshell`. Otherwise, just use `eshell/cat`.
