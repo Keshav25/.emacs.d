@@ -54,6 +54,7 @@
 	"Open a new instance of eshell."
 	(interactive)
 	(eshell 'N))
+
   (defun k/eshell-input-filter (input)
 	(and
 	 (eshell-input-filter-default input)
@@ -61,6 +62,7 @@
 	 (not (string-prefix-p "cd " input))
 	 (not (string-prefix-p "ls " input))
 	 (not (string-prefix-p "l  " input))))
+
   (defun k/sync-dir-in-buffer-name ()
 	(let* ((root (project-root))
 		   (root-name (project-name root)))
