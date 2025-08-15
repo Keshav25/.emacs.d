@@ -69,10 +69,17 @@
 	  (if root-name
 		  (rename-buffer (format "eshell %s/%s" root-name (s-chop-prefix root default-directory)) t)
 		(rename-buffer (format "eshell %s" default-directory) t))))
+
+  (defun k/eshell-redirect-to-buffer (buffer)
+	(interactive (list (read-buffer "Redirect to buffer: ")))
+	(insert (format " >>> #<%s>" buffer)))
+
   (defun k/eshell-specific-outline-regexp ()
 	(setq-local outline-regexp eshell-prompt-regexp))
   :bind
   ("C-c o e" . eshell-new))
+  (:eshell-mode-map
+   ("C-c >" . k/eshell-redirect-to-buffer))
 
 
 (leaf run-in-eshell
