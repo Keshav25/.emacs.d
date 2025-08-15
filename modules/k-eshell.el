@@ -21,6 +21,9 @@
   :hook
   (eshell-directory-change . k/sync-dir-in-buffer-name)
   (eshell-mode . k/eshell-specific-outline-regepxp)
+  (eshell-mode . (lambda ()
+				   (setq-local completion-at-point-functions
+							   '(pcomplete-completions-at-point cape-file cape-history))))
   :config
   (defun eshell-new ()
 	"Open a new instance of eshell."
