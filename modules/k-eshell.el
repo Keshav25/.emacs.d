@@ -25,6 +25,31 @@
 				   (setq-local completion-at-point-functions
 							   '(pcomplete-completions-at-point cape-file cape-history))))
   :config
+  (defun k/adviced-eshell-add-input-to-history (orig-fun &rest r)
+    "Cd to relative paths aren't that useful in history. Change to absolute paths."
+    (require 'seq)
+    (let* ((input (nth 0 r))
+           (args (progn
+                   (set-text-properties 0 (length input) nil input)
+                   (split-string input))))
+      (if (and (equal "cd" (nth 0 args))
+               (not (seq-find (lambda (item)
+                                ;; Don't rewrite "cd /ssh:" in history.
+                                (string-prefix-p "/ssh:" item))
+                              args))
+               (not (seq-find (lambda (item)
+                                ;; Don't rewrite "cd -" in history.
+                                (string-equal "-" item))
+                              args)))
+          (apply orig-fun (list (format "cd %s"
+                                        (expand-file-name (concat default-directory
+                                                                  (nth 1 args))))))
+        (apply orig-fun r))))
+
+  (advice-add #'eshell-add-input-to-history
+			  :around
+			  #'k/adviced-eshell-add-input-to-history)
+
   (defun eshell-new ()
 	"Open a new instance of eshell."
 	(interactive)
