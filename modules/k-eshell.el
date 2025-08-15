@@ -76,6 +76,7 @@
 
   (defun k/eshell-specific-outline-regexp ()
 	(setq-local outline-regexp eshell-prompt-regexp))
+
   :bind
   ("C-c o e" . eshell-new))
   (:eshell-mode-map
