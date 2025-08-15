@@ -120,7 +120,14 @@
 
 (leaf eshell-syntax-highlighting
   :after eshell
-  :elpaca t)
+  :elpaca t
+  :hook
+  (eshell-first-time-mode . eshell-syntax-highlighting-global-mode)
+  :init
+  (defface eshell-syntax-highlighting-invalid-face
+	'((t :inherit diff-error))
+	"Face used for invalid Eshell commands."
+	:group 'eshell-syntax-highlighting))
 
 (leaf eat
   :after eshell
