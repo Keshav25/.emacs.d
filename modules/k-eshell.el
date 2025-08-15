@@ -141,4 +141,8 @@
 	(setq python-shell-interpreter "ipython3"
           python-shell-interpreter-args "--simple-prompt --classic")))
 
+(leaf eshell-git-prompt
+  :after eshell
+  :ensure t)
+
 (provide 'k-eshell)
