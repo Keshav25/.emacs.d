@@ -326,6 +326,16 @@ _e_moji
 				 nil
 				 (window-parameters (mode-line-format . none)))))
 
+(leaf em-cmpl
+  :elpaca nil
+  :config
+  (bind-key "C-M-i" nil eshell-cmpl-mode-map)
+  (defun my/em-cmpl-mode-hook ()
+	(setq completion-at-point-functions
+		  (list #'cape-history #'cape-file #'cape-dabbrev)))
+  (add-hook 'eshell-cmpl-mode-hook my/em-cmpl-mode-hook))
+
+
 (leaf consult-gh
   :elpaca t)
 
@@ -394,7 +404,8 @@ _e_moji
 		completions-sort 'historical
 		completions-max-height 20
 		completion-ignore-case t)
-  (setopt completion-preview-sort-function #'corfu-sort-function)
+  (setopt completion-preview-sort-function #'corfu-sort-function
+		  completion-preview-minimum-symbol-length 2)
   (add-variable-watcher 'corfu-sort-function
 						(lambda (_symbol newval operation where)
                           "Match the value of `completion-preview-sort-function' to `corfu-sort-function'.
@@ -408,7 +419,10 @@ set (i.e., OPERATION is \\='set).  This excludes, e.g., let bindings."
 							(if where
 								(with-current-buffer where
                                   (setq-local completion-preview-sort-function newval))
-                              (setopt completion-preview-sort-function newval))))))
+                              (setopt completion-preview-sort-function newval)))))
+  :bind (:completion-preview-active-mode-map
+		 ("M-f" . #'completion-preview-insert-mode)
+		 ("C-M-f" . #'completion-preview-insert-sexp)))
 
 (leaf file-previews
   :config
