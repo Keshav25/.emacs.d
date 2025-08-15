@@ -9,11 +9,7 @@
 (unless (server-running-p)
   (server-start))
 
-;; Garbage Collection
-(setq
- gc-cons-threshold most-positive-fixnum
- gc-cons-percentage 0.1)
-
+;; Prevent GC while in the minibuffer
 (defun my-minibuffer-setup-hook ()
   (setq gc-cons-threshold most-positive-fixnum))
 
@@ -42,8 +38,6 @@
  native-comp-jit-compilation nil
  comp-async-report-warnings-errors nil
  package-install-upgrade-built-in t)
-
-(setq load-prefer-newer noninteractive)
 
 (setq warning-suppress-log-types '((package reinitialization)))
 

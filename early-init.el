@@ -2,14 +2,26 @@
 
 ;; Doom Emacs Performance Improvements
 (defvar last-file-name-handler-alist file-name-handler-alist)
+
+
+;; There is so much garabage collection shit in here for performance,
+;; hopefully switching to the IGC branch will make things better
 (setq gc-cons-threshold most-positive-fixnum
 	  gc-cons-percentage 0.6
-	  file-name-handler-alist nil)
+	  file-name-handler-alist nil
+	  load-prefer-newer noninteractive)
+
+(let ((debug (getenv-internal "DEBUG")))
+  (when (stringp debug)
+	(if (string-empty-p debug)
+		(setenv "DEBUG" nil)
+	  (setq init-file-debug t
+			debug-on-error t))))
 
 ;; set back to normal
 (add-hook 'emacs-startup-hook
           (lambda () (setq
-				 file-name-handler-alist last-file-name-handler-alist)))
+					  file-name-handler-alist last-file-name-handler-alist)))
 
 
 ;; LSP Mode
@@ -43,6 +55,7 @@
 	  indicate-empty-lines nil
 	  ring-bell-function 'ignore
 	  inhibit-splash-screen t)
+
 
 (set-language-environment "UTF-8")
 (setq default-input-method nil)
