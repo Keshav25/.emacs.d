@@ -13,6 +13,7 @@
 										 eshell-extpipe eshell-glob eshell-hist eshell-ls
 										 eshell-pred eshell-prompt eshell-script eshell-term
 										 eshell-smart eshell-unix eshell-rebind))
+  (eshell-history-size . 1024)
   :config
   (defun eshell-new ()
 	"Open a new instance of eshell."
