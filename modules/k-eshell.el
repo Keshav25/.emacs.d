@@ -78,7 +78,7 @@
 	(setq-local outline-regexp eshell-prompt-regexp))
 
   :bind
-  ("C-c o e" . eshell-new))
+  ("C-c o e" . eshell-new)
   (:eshell-mode-map
    ("C-c >" . k/eshell-redirect-to-buffer))
   (:eshell-hist-mode-map
