@@ -17,6 +17,7 @@
   (eshell-hist-ignoredups . t)
   (eshell-input-filter . 'k/eshell-input-filter)
   (eshell-list-files-after-cd . t)
+  (eshell-pushd-dunique . t)
   :config
   (defun eshell-new ()
 	"Open a new instance of eshell."
