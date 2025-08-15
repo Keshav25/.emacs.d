@@ -18,6 +18,7 @@
   (eshell-input-filter . 'k/eshell-input-filter)
   (eshell-list-files-after-cd . t)
   (eshell-pushd-dunique . t)
+  (eshell-directory-change . k/sync-dir-in-buffer-name)
   :config
   (defun eshell-new ()
 	"Open a new instance of eshell."
@@ -30,6 +31,12 @@
 	 (not (string-prefix-p "cd " input))
 	 (not (string-prefix-p "ls " input))
 	 (not (string-prefix-p "l  " input))))
+  (defun k/sync-dir-in-buffer-name ()
+	(let* ((root (project-root))
+		   (root-name (project-name root)))
+	  (if root-name
+		  (rename-buffer (format "eshell %s/%s" root-name (s-chop-prefix root default-directory)) t)
+		(rename-buffer (format "eshell %s" default-directory) t))))
   :bind
   ("C-c o e" . eshell-new))
 
