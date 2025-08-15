@@ -18,7 +18,9 @@
   (eshell-input-filter . 'k/eshell-input-filter)
   (eshell-list-files-after-cd . t)
   (eshell-pushd-dunique . t)
+  :hook
   (eshell-directory-change . k/sync-dir-in-buffer-name)
+  (eshell-mode . k/eshell-specific-outline-regepxp)
   :config
   (defun eshell-new ()
 	"Open a new instance of eshell."
@@ -37,6 +39,8 @@
 	  (if root-name
 		  (rename-buffer (format "eshell %s/%s" root-name (s-chop-prefix root default-directory)) t)
 		(rename-buffer (format "eshell %s" default-directory) t))))
+  (defun k/eshell-specific-outline-regexp ()
+	(setq-local outline-regexp eshell-prompt-regexp))
   :bind
   ("C-c o e" . eshell-new))
 
