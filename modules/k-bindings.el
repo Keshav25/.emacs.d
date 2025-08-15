@@ -5,6 +5,10 @@
   ("M-g M-g" . beginning-of-buffer)
   ("M-G" . end-of-buffer))
 
+(leaf marks
+  :custom
+  (set-mark-command-repeat-pop . t))
+
 (leaf isrt
   :init
   (key-translate "C-t" "C-x")
