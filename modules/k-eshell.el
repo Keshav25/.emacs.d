@@ -16,6 +16,7 @@
   (eshell-history-size . 1024)
   (eshell-hist-ignoredups . t)
   (eshell-input-filter . 'k/eshell-input-filter)
+  (eshell-list-files-after-cd . t)
   :config
   (defun eshell-new ()
 	"Open a new instance of eshell."
