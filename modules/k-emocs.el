@@ -193,9 +193,116 @@
   (which-key-mode 1))
 
 (leaf corfu
-  :require t)
+  :elpaca t
+  :require t
+  :custom
+  (corfu-popupinfo-delay . '(0.5 . 0.5))
+  (corfu-min-width . 80)
+  (corfu-max-width . corfu-min-width)
+  (corfu-count . 14)
+  (corfu-scroll-margin . 4)
+  (corfu-cycle . t)
+  (completion-cycle-threshold . 3)
+  (tab-always-indent . t)
+  (corfu-quit-no-match . 'separator)
+  (corfu-auto . nil)
+  :init
+  (global-corfu-mode 1)
+  (corfu-history-mode 1)
+  (corfu-popupinfo-mode 1)
+  :bind ((:corfu-map
+		  ("RET" . #'corfu-insert)
+		  ("C-n" . #'corfu-next)
+		  ("C-p" . #'corfu-previous)
+		  ("<escape>" . #'corfu-quit)
+		  ("M-d" . #'corfu-popupinfo-documentation)
+		  ("M-l" . #'corfu-popupinfo-location)
+		  ;; saw someone match avy-goto-line binding with corfu-quick-complete
+		  ("M-/" . corfu-quick-complete))))
 
-(leaf cape)
+(leaf corfu-terminal
+  :after corfu
+  :elpaca t
+  :config
+  (unless (display-graphic-p)
+	(corfu-terminal-mode +1)))
+
+(leaf kind-icon
+  :elpaca t
+  :require t
+  :after (corfu)
+  :custom
+  (kind-icon-default-face . 'corfu-default) ; to compute blended backgrounds correctly
+  :hook ('my-completion-ui-mode-hook .
+   									 (lambda ()
+   									   (setq completion-in-region-function
+											 (kind-icon-enhance-completion completion-in-region-function))))
+  :config
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+
+(leaf cape
+  :elpaca t
+  :require t
+  ;; Bind dedicated completion commands
+  ;; Alternative prefix keys: C-c p, M-p, M-+, ...
+  :bind (("C-c C-p p" . completion-at-point) ;; capf
+         ("C-c C-p t" . complete-tag)        ;; etags
+         ("C-c C-p d" . cape-dabbrev)        ;; or dabbrev-completion
+         ("C-c C-p h" . cape-history)
+         ("C-c C-p f" . cape-file)
+         ("C-c C-p k" . cape-keyword)
+         ("C-c C-p s" . cape-symbol)
+         ("C-c C-p a" . cape-abbrev)
+         ("C-c C-p l" . cape-line)
+         ("C-c C-p w" . cape-dict)
+         ("C-c C-p \\" . cape-tex)
+         ("C-c C-p _" . cape-tex)
+         ("C-c C-p ^" . cape-tex)
+         ("C-c C-p &" . cape-sgml)
+         ("C-c C-p r" . cape-rfc1345))
+  :init
+  ;; Add `completion-at-point-functions', used by `completion-at-point'.
+  ;; NOTE: The order matters!
+  (setq-default completion-at-point-functions
+				(append (default-value 'completion-at-point-functions)
+						(list #'cape-dabbrev #'cape-file #'cape-abbrev #'cape-elisp-block)))
+  ;; (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  ;; (add-to-list 'completion-at-point-functions #'cape-file)
+  ;; (add-to-list 'completion-at-point-functions #'cape-elisp-block)
+  ;;(add-to-list 'completion-at-point-functions #'cape-history)
+  ;;(add-to-list 'completion-at-point-functions #'cape-keyword)
+  ;;(add-to-list 'completion-at-point-functions #'cape-tex)
+  ;;(add-to-list 'completion-at-point-functions #'cape-sgml)
+  ;;(add-to-list 'completion-at-point-functions #'cape-rfc1345)
+  ;;(add-to-list 'completion-at-point-functions #'cape-abbrev)
+  ;;(add-to-list 'completion-at-point-functions #'cape-dict)
+  ;;(add-to-list 'completion-at-point-functions #'cape-symbol)
+  ;;(add-to-list 'completion-at-point-functions #'cape-line)
+  )
+
+(leaf cape-hydra
+  :doc "https://jtamagnan.com/posts/à-la-mode-corfu-cape-and-completion-preview%2f"
+  :after (cape hydra)
+  :config
+  (defhydra k/cape
+	(:color blue :hint nil)
+	"
+^Complete^
+^--------^
+_i_ Completion at Point
+_d_abbrev
+_f_ile
+_h_istory
+_p_complete
+_e_moji
+"
+	("i" completion-at-point)
+	("p" (lambda () (interactive) (let ((completion-at-point-functions '(pcomplete-completions-at-point t))) (completion-at-point))))
+	("d" cape-dabbrev)
+	("f" cape-file)
+	("h" cape-history)
+	("e" cape-emoji))
+  )
 
 (leaf embark
   :elpaca t
