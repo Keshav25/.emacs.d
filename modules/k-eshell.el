@@ -14,6 +14,7 @@
 										 eshell-pred eshell-prompt eshell-script eshell-term
 										 eshell-smart eshell-unix eshell-rebind))
   (eshell-history-size . 1024)
+  (eshell-hist-ignoredups . t)
   :config
   (defun eshell-new ()
 	"Open a new instance of eshell."
