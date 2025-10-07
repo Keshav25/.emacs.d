@@ -435,4 +435,14 @@ the form."
   :bind-keymap
   ("s-e" . ee-keymap))
 
+(leaf tmr
+  :elpaca t
+  :config
+  (add-to-list 'display-buffer-alist
+			   '("\\\\*tmr-tabulated-view\\\\*"
+				 (display-buffer-in-side-window)
+				 (side . top)
+				 (slot . 4)
+				 (window-height . 0.1))))
+
 (provide 'k-misc)
