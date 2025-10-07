@@ -561,6 +561,7 @@ to an appropriate container (e.g., a paragraph)."
 	 (java . t)
 	 (compile . t)
 	 (C . t)
+	 (cpp . t)
 	 (R . t))))
 
 (leaf org-agenda
