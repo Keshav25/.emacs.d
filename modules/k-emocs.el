@@ -10,7 +10,33 @@
 		 ("C-i" . vertico-insert)
 		 ("C-w" . vertico-directory-delete-char)
 		 ("C-j" . vertico-exit-input)
-		 ("C-c C-c" . vertico-exit-input)))
+		 ("C-c C-c" . vertico-exit-input)
+		 ("M-S" . vertico-toggle-sort))
+  :config
+  (defun hanno/vertico-sort-by-mtime (files)
+    "Sort FILES by modification time (newest first)."
+    (let ((dir nil))
+      (when (< (minibuffer-prompt-end) (point))
+        (setq dir (buffer-substring (minibuffer-prompt-end) (point-max))))
+      (sort files
+            (lambda (a b)
+              (let* (
+                     (fa (expand-file-name a dir))
+                     (fb (expand-file-name b dir))
+                     (ta (file-attribute-modification-time (file-attributes fa)))
+                     (tb (file-attribute-modification-time (file-attributes fb))))
+                (time-less-p tb ta))))))
+
+  (defun vertico-toggle-sort ()
+	(interactive)
+	(setq-local vertico-sort-override-function
+				(and (not vertico-sort-override-function)
+					 (lambda (files)
+                       (if (and (eq minibuffer-history-variable 'file-name-history)
+								(not (eq (car-safe minibuffer-completion-table) 'boundaries)))
+                           (hanno/vertico-sort-by-mtime files)
+						 (vertico-sort-history-length-alpha files))))
+				vertico--input t)))
 
 (leaf orderless
   :elpaca t
