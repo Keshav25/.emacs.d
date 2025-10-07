@@ -122,6 +122,10 @@
 		  (,(kbd "C-`") . popper-toggle)
 		  (,(kbd "C-S-o") . ace-window)
 		  (,(kbd "C-S-d") . dirvish-side)
+		  (,(kbd "s-," ) . persp-prev)
+		  (,(kbd "s-.") . persp-next)
+		  (,(kbd "s-[") . perspective-exwm-cycle-exwm-buffers-backward)
+		  (,(kbd "s-]") . perspective-exwm-cycle-exwm-buffers-forward)
           ,@(mapcar (lambda (i)
                       `(,(kbd (format "s-%d" i)) .
 						(lambda ()
@@ -312,9 +316,6 @@
   :elpaca (ednc-popup :host git :url "https://codeberg.org/akib/emacs-ednc-popup.git")
   :hook (ednc-notification-presentation-functions . ednc-popup-presentation-function))
 
-(leaf perspective-exwm
-  :elpaca t)
-
 (leaf exwm-initialization
   :after (exwm exwm-edit)
   :config
@@ -354,7 +355,13 @@
 (leaf perspective-exwm
   :after (perspective)
   :require t
-  :elpaca t)
+  :elpaca t
+  :custom
+  (perspective-exwm-override-initial-name .
+										  '((0 . "misc")))
+  :config
+  (perspective-exwm-mode))
+
 
 (provide 'k-exwm)
 
