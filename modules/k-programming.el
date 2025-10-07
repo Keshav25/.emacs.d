@@ -210,7 +210,7 @@
   (lsp-inlay-hint-enable . t)
   :hook
   (lsp-mode-hook . lsp-ui-mode)
-  (lsp-mode. lsp-enable-which-key-integration)
+  (lsp-mode . lsp-enable-which-key-integration)
   (python-ts-mode . lsp))
 
 (leaf lsp-ui
