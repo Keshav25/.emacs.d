@@ -363,6 +363,30 @@
   (perspective-exwm-mode))
 
 
+(setq my/exwm-last-workspaces '(1))
+
+(defun my/exwm-store-last-workspace ()
+  "Save the last workspace to `my/exwm-last-workspaces'."
+  (setq my/exwm-last-workspaces
+        (seq-uniq (cons exwm-workspace-current-index
+                        my/exwm-last-workspaces))))
+
+(add-hook 'exwm-workspace-switch-hook
+		  #'my/exwm-store-last-workspace)
+(defun my/exwm-last-workspaces-clear ()
+  "Clean `my/exwm-last-workspaces' from deleted workspaces."
+  (setq my/exwm-last-workspaces
+        (seq-filter
+         (lambda (i) (nth i exwm-workspace--list))
+         my/exwm-last-workspaces)))
+
+(defun my/fix-exwm-floating-windows ()
+  (setq-local exwm-workspace-warp-cursor nil)
+  (setq-local mouse-autoselect-window nil)
+  (setq-local focus-follows-mouse nil))
+
+(add-hook 'exwm-floating-setup-hook #'my/fix-exwm-floating-windows)
+
 (provide 'k-exwm)
 
 ;; (leaf exwm
