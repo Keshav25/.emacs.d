@@ -316,7 +316,9 @@ if there is no window on the right."
 		(delq (current-buffer) (buffer-list)))
   (delete-other-windows))
 
-(leaf perspective-project-bridge)
+(leaf perspective-project-bridge
+  :elpaca t)
+
 
 (leaf treemacs-perspective)
 ;; TODO: buffler integration with perspective and project
