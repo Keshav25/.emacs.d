@@ -197,4 +197,10 @@ Takes a file's basename, STR, and returns only the portion before
   :custom
   (diary-file . denote-directory))
 
+(leaf howm-graph
+  :elpaca (howm-graph-view :host github :repo "SenkiReign/howm-graph")
+  :require t
+  :custom
+  (howm-graph-notes-directory . "~/Documents/notes"))
+
 (provide 'k-denote)
