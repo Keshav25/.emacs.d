@@ -60,3 +60,5 @@
 /TODO.pdf
 *.sqlite
 /auto-save-list/
+/howm-d3.js
+/howm-graph.html
