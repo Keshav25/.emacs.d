@@ -19,7 +19,8 @@
   :bind
   (("M-x" . transpose-words)
    ("M-t" . execute-extended-command)
-   ("M-T" . execute-extended-command-for-buffer)))
+   ("M-T" . execute-extended-command-for-buffer)
+   ("C-c r" . org-capture)))
 
 (leaf expand-region
   :elpaca t
