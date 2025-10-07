@@ -390,6 +390,12 @@ _e_moji
   :config
   (vertico-posframe-mode 1))
 
+(leaf perfect-margin
+  :require t
+  :elpaca t
+  :config
+  (perfect-margin-mode 1))
+
 (leaf bufler
   :elpaca t
   :bind (([remap list-buffers] . bufler)))
