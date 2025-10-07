@@ -42,7 +42,9 @@
    (go-ts-mode . combobulate-mode)))
 
 (leaf envrc
-  :elpaca t)
+  :elpaca t
+  :config
+  (envrc-global-mode))
 
 (leaf flycheck
   :elpaca t
