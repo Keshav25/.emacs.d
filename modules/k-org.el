@@ -1134,4 +1134,11 @@ If REF is non-nil, inlude it in the citation. Fill the text with
   (defun org-feh-open (path _)
 	(async-shell-command  (concat  "gthumb " path))))
 
+(leaf org-workbench
+  :elpaca (org-workbench :host github :repo "yibie/org-workbench")
+  :require t
+  ;; :after org-supertag
+  :config
+  (org-workbench-setup))
+
 (provide 'k-org)
