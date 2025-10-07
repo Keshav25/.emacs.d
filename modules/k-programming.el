@@ -415,6 +415,9 @@
 (leaf yasnippet-snippets
   :elpaca t)
 
+(leaf consult-yasnippet
+  :elpaca t)
+
 (leaf elisp-slime-nav
   :elpaca t
   :hook ((emacs-lisp-mode-hook . elisp-slime-nav-mode)))
