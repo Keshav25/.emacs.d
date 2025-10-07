@@ -72,4 +72,11 @@
 ;;   :config
 ;;   (dired-preview-global-mode 1))
 
+(leaf fm
+  :elpaca (fm :host github :repo "uwfmt/emacs-fm")
+  :config
+  (require 'fm-dired)
+  :hook (dired-mode . fm-dired-mode))
+
+
 (provide 'k-dired)
