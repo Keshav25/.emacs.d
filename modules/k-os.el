@@ -108,4 +108,11 @@ sCommand: ")
   (:embark-become-file+buffer-map
    ("s" . sudo-edit-find-file)))
 
+(leaf tsort
+  :elpaca t)
+
+(leaf kiss
+  :elpaca (kiss :host github :repo "echawk/kiss.el")
+  :require t)
+
 (provide 'k-os)
