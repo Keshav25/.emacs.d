@@ -11,7 +11,7 @@ test -e $HOME/.Xresources && {
 }
 
 picom &
-sudo tlp start &
+# sudo tlp start &
 sudo thermald &
 kde-indicator &
 feh --bg-fill ~/Downloads/01151_inthedeep_2560x1600.jpg &
