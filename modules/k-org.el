@@ -768,6 +768,8 @@ headings.  See function `org-find-olp'."
   (setq org-roam-v2-ack t))
 
 (leaf org-roam-ui
+  :disabled t
+  :after (org-roam)
   :elpaca t
   :config
   (setq org-roam-ui-sync-theme t
@@ -819,7 +821,7 @@ headings.  See function `org-find-olp'."
 (leaf org-tanglesync :elpaca t)
 (leaf org-randomnote :elpaca t)
 (leaf org-inline-pdf :elpaca t)
-(leaf citar-org-roam :elpaca t)
+(leaf citar-org-roam :disabled t :elpaca t)
 (leaf org-web-tools :elpaca t)
 (leaf org-treeusage :elpaca t)
 (leaf org-rich-yank :elpaca t)

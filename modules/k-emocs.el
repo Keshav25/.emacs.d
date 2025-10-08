@@ -155,6 +155,7 @@
   (consult-omni-sources-load-modules))
 
 (leaf consult-org-roam
+  :disabled t
   :after (org-roam)
   :elpaca t
   :config
