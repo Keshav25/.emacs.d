@@ -41,6 +41,7 @@
 	  frame-resize-pixelwise t
 	  frame-inhibit-implied-resize t
 	  inhibit-startup-screen t
+	  inhibit-startup-echo-area-message (user-login-name)
 	  warning-minimum-level :error
 	  byte-compile-ignore-files t
 	  auto-mode-case-fold nil
