@@ -1142,4 +1142,12 @@ If REF is non-nil, inlude it in the citation. Fill the text with
   :config
   (org-workbench-setup))
 
+(leaf org-social
+  :disabled t
+  :elpaca (org-social :host github :repo "tanrax/org-social.el")
+  :custom
+  (org-social-file . "~/Documents/notes/social.org")
+  (org-social-relay . "https://org-social-relay.andros.dev/")
+  (org-social-my-public-url . "https://thepoetlogician.neocities.org"))
+
 (provide 'k-org)
