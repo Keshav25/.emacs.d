@@ -3,9 +3,13 @@
 (leaf transient
   :elpaca t)
 
+(leaf cond-let
+  :elpaca t
+  :require t)
+
 (leaf magit
   :require t
-  :after (transient)
+  :after (transient cond-let)
   :elpaca t
   :require (magit-extras magit-section)
   :bind
