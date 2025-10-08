@@ -146,6 +146,7 @@ When `switch-to-buffer-obey-display-actions' is non-nil,
   :elpaca t)
 
 (leaf centered-window
+  :disabled t
   :elpaca t)
 
 (leaf balanced-windows
