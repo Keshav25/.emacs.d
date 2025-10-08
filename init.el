@@ -39,7 +39,7 @@
  comp-async-report-warnings-errors nil
  package-install-upgrade-built-in t)
 
-(setq warning-suppress-log-types '((package reinitialization)))
+(setq warning-suppress-log-types '((package reinitialization (comp) (bytecomp))))
 
 (setq vc-handled-backends '(Git))
 
