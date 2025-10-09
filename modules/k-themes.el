@@ -7,7 +7,11 @@
 
 ;; theme packages
 (leaf kaolin-themes :elpaca t)
-(leaf doom-themes :elpaca t)
+(leaf doom-themes
+  :elpaca (doom-themes :host github :repo "Keshav25/doom-themes")
+  :init
+  (load-theme 'doom-material-ocean-dark t))
+
 (leaf ef-themes
   :elpaca t
   :config
@@ -18,7 +22,8 @@
   (setopt ef-cyprus-palette-overrides '((variable fg-main)
 										(bg-main bg-dim)
 										(string green-faint)))
-  (load-theme 'ef-winter t))
+  ;; (load-theme 'ef-winter t)
+  )
 
 (leaf yabaki-theme :elpaca t)
 (leaf haki-theme :elpaca t)
@@ -144,7 +149,8 @@
 	`(vc-dir-file ((,c :foreground "#89b4fa")))
 	`(vc-dir-header-value ((,c :foreground "#b4befe"))))
   :init
-  (load-theme 'modus-vivendi t))
+  ;; (load-theme 'modus-vivendi t)
+  )
 
 (leaf automagic-dark-mode
   :elpaca (automagic-dark-mode :host github :repo "sstraust/automagic-dark-mode")
