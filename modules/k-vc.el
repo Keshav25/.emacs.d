@@ -11,7 +11,6 @@
   :elpaca t
   :require t
   :elpaca (magit :branch "main" :pre-build ("make" "info"))
-  :require (magit-extras magit-section)
   :bind
   ("C-x g" . 'magit-status)
   :custom
@@ -20,31 +19,33 @@
 		 (magit-log-mode-hook . display-line-numbers-mode)
 		 (magit-log-mode-hook . unpackaged/magit-log-date-headers-mode))
   :config
+  (require 'magit-extras)
+  (require 'magit-section)
   (defun unpackaged/magit-log--add-date-headers (&rest _ignore)
 	"Add date headers to Magit log buffers."
 	(when (derived-mode-p 'magit-log-mode)
-      (save-excursion
+	  (save-excursion
 		(ov-clear 'date-header t)
 		(goto-char (point-min))
 		(cl-loop with last-age
 				 for this-age = (-some--> (ov-in 'before-string 'any (line-beginning-position) (line-end-position))
-                                  car
-                                  (overlay-get it 'before-string)
-                                  (get-text-property 0 'display it)
-                                  cadr
-                                  (s-match (rx (group (1+ digit) ; number
-                                                      " "
-                                                      (1+ (not blank))) ; unit
-                                               (1+ blank) eos)
-                                           it)
-                                  cadr)
+								  car
+								  (overlay-get it 'before-string)
+								  (get-text-property 0 'display it)
+								  cadr
+								  (s-match (rx (group (1+ digit) ; number
+													  " "
+													  (1+ (not blank))) ; unit
+											   (1+ blank) eos)
+										   it)
+								  cadr)
 				 do (when (and this-age
 							   (not (equal this-age last-age)))
-                      (ov (line-beginning-position) (line-beginning-position)
-                          'after-string (propertize (concat " " this-age "\n")
+					  (ov (line-beginning-position) (line-beginning-position)
+						  'after-string (propertize (concat " " this-age "\n")
 													'face 'magit-section-heading)
-                          'date-header t)
-                      (setq last-age this-age))
+						  'date-header t)
+					  (setq last-age this-age))
 				 do (forward-line 1)
 				 until (eobp)))))
 
@@ -53,12 +54,12 @@
 	:global t
 	(if unpackaged/magit-log-date-headers-mode
 		(progn
-          ;; Enable mode
-          (add-hook 'magit-post-refresh-hook #'unpackaged/magit-log--add-date-headers)
-          (advice-add #'magit-setup-buffer-internal :after #'unpackaged/magit-log--add-date-headers))
-      ;; Disable mode
-      (remove-hook 'magit-post-refresh-hook #'unpackaged/magit-log--add-date-headers)
-      (advice-remove #'magit-setup-buffer-internal #'unpackaged/magit-log--add-date-headers)))
+		  ;; Enable mode
+		  (add-hook 'magit-post-refresh-hook #'unpackaged/magit-log--add-date-headers)
+		  (advice-add #'magit-setup-buffer-internal :after #'unpackaged/magit-log--add-date-headers))
+	  ;; Disable mode
+	  (remove-hook 'magit-post-refresh-hook #'unpackaged/magit-log--add-date-headers)
+	  (advice-remove #'magit-setup-buffer-internal #'unpackaged/magit-log--add-date-headers)))
 
   ;; Add Pull Requests
   (defun k/add-PR-fetch-ref (&optional remote-name)
@@ -69,26 +70,27 @@ for the \"main\" or \"master\" branch."
 	(let* ((remote-name (or remote-name
 							(magit-get "branch" "main" "remote")
 							(magit-get "branch" "master" "remote")))
-           (remote-url (magit-get "remote" remote-name "url"))
-           (fetch-refs (and (stringp remote-url)
+		   (remote-url (magit-get "remote" remote-name "url"))
+		   (fetch-refs (and (stringp remote-url)
 							(string-match "github" remote-url)
 							(magit-get-all "remote" remote-name "fetch")))
-           ;; https://oremacs.com/2015/03/11/git-tricks/
-           (fetch-address (format "+refs/pull/*/head:refs/pull/%s/*" remote-name)))
-      (when fetch-refs
+		   ;; https://oremacs.com/2015/03/11/git-tricks/
+		   (fetch-address (format "+refs/pull/*/head:refs/pull/%s/*" remote-name)))
+	  (when fetch-refs
 		(unless (member fetch-address fetch-refs)
-          (magit-git-string "config"
+		  (magit-git-string "config"
 							"--add"
 							(format "remote.%s.fetch" remote-name)
 							fetch-address)))))
-  (add-hook 'magit-mode-hook #'k/add-PR-fetch-ref)
-  )
+  (add-hook 'magit-mode-hook #'k/add-PR-fetch-ref))
 
 (leaf magit-section
   :after (magit)
   :elpaca t)
 
 (leaf magit-gh-pulls
+  :doc "Creator of magit-gh-pulls now uses forge instead"
+  :disabled t
   :elpaca t
   :require t
   :hook (magit-mode-hook . turn-on-magit-gh-pulls))
@@ -215,6 +217,8 @@ for the \"main\" or \"master\" branch."
 ;;   :elpaca (orgit :host github :repo "magit/orgit")) ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+;; TODO: Configure Forge
 (leaf forge
   :after (magit)
   :elpaca t
