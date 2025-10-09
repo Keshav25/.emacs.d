@@ -15,13 +15,13 @@
 	"turn background transparency on and text transparency off"
 	(interactive)
 	(set-frame-parameter nil 'alpha 100)
-	(set-frame-parameter nil 'alpha-background 75)
+	(set-frame-parameter nil 'alpha-background 50)
 	(setq vertico-posframe-parameters
 		  '((alpha . 100)
-			(alpha-background . 80)))
+			(alpha-background . 45)))
 	(setq which-key-posframe-parameters
 		  '((alpha . 100)
-			(alpha-background . 90))))
+			(alpha-background . 45))))
 
   (defun k/turn-background-transparency-off ()
 	"turn background transparency off and text transparency on"
