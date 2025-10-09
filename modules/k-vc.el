@@ -4,13 +4,13 @@
   :elpaca t)
 
 (leaf cond-let
-  :elpaca t
+  :elpaca (cond-let :host github :repo "tarsius/cond-let")
   :require t)
 
 (leaf magit
-  :require t
-  :after (transient cond-let)
   :elpaca t
+  :require t
+  :elpaca (magit :branch "main" :pre-build ("make" "info"))
   :require (magit-extras magit-section)
   :bind
   ("C-x g" . 'magit-status)
@@ -83,6 +83,15 @@ for the \"main\" or \"master\" branch."
 							fetch-address)))))
   (add-hook 'magit-mode-hook #'k/add-PR-fetch-ref)
   )
+
+(leaf magit-section
+  :after (magit)
+  :elpaca t)
+
+(leaf magit-gh-pulls
+  :elpaca t
+  :require t
+  :hook (magit-mode-hook . turn-on-magit-gh-pulls))
 
 (leaf magit-prime
   :elpaca (magit-prime :host github :repo "Azkae/magit-prime")
@@ -232,7 +241,7 @@ for the \"main\" or \"master\" branch."
 
 (leaf code-review
   :elpaca t
-  :after (magit)
+  :after (magit forge)
   :bind ((:forge-topic-mode-map ("C-c r" . #'code-review-forge-pr-at-point))
 		 (:code-review-mode-map (("C-c n" . #'code-review-comment-jump-next)
 								 ("C-c p" . #'code-review-comment-jump-previous)))))
