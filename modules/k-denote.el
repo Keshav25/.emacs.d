@@ -136,9 +136,9 @@
   :init
   (citar-denote-mode t))
 
-(leaf denote-explore
-  :after (denote)
-  :elpaca t)
+;; (leaf denote-explore
+;; :after (denote)
+;; :elpaca t)
 
 (leaf consult-denote
   :after (denote consult)
