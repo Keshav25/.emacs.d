@@ -4,10 +4,10 @@
 (add-to-list 'load-path (expand-file-name "site-lisp" user-emacs-directory))
 (require 'init-benchmarking)
 
-;; emacsclient
+;; emacsclient - will re-enable once I change /tmp to be not just root only
 (require 'server)
-(unless (server-running-p)
-  (server-start))
+;; (unless (server-running-p)
+;;   (server-start))
 
 ;; Prevent GC while in the minibuffer
 (defun my-minibuffer-setup-hook ()
