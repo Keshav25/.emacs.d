@@ -423,9 +423,9 @@ _e_moji
   :config
   (perfect-margin-mode 1))
 
-(leaf bufler
-  :elpaca t
-  :bind (([remap list-buffers] . bufler)))
+;; (leaf bufler
+  ;; :elpaca t
+  ;; :bind (([remap list-buffers] . bufler)))
 
 (leaf completion-preview
   :config

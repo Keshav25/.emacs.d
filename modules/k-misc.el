@@ -73,8 +73,8 @@
 
 (setq browse-url-browser-function 'browse-url-xdg-open)
 
-(leaf ement
-  :elpaca t)
+;; (leaf ement
+  ;; :elpaca t)
 
 (leaf plz
   :elpaca t)
@@ -127,8 +127,8 @@
 (leaf altcaps
   :elpaca t)
 
-(leaf hyperdrive
-  :elpaca t)
+;; (leaf hyperdrive
+  ;; :elpaca t)
 
 (leaf browser-hist
   :after embark
