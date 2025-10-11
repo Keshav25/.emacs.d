@@ -591,7 +591,10 @@ to an appropriate container (e.g., a paragraph)."
   (defvar org-agenda-restrict)
   (defvar org-agenda-restrict-begin)
   (defvar org-agenda-restrict-end)
-  (setq org-agenda-files '("~/Documents/notes/20250331T001018--journal-entries__meta.org"))
+  (setq org-agenda-files (directory-files-recursively "~/Documents/notes/" (rx ".org" eos) nil
+													  (lambda (subdir)
+														(not (eq ?.
+																 (string-to-char (file-name-nondirectory subdir)))))))
   (defun unpackaged/org-agenda-current-subtree-or-region (only-todos)
 	"Display an agenda view for the current subtree or region.
  With prefix, display only TODO-keyword items."
