@@ -58,11 +58,9 @@
 		(message "emacs receives all the keys now"))))
 
   (defun efs/exwm-init-hook ()
-	(exwm-workspace-switch-create 1))
-
-  (display-battery-mode 1)
-  (setq display-time-day-and-date t)
-  (display-time-mode 1)
+	(display-battery-mode 1)
+	(setq display-time-day-and-date t)
+	(display-time-mode 1))
 
   (defun efs/run-in-background (command)
 	(let ((command-parts (split-string command "[ ]+")))
