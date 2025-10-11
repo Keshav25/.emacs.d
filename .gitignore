@@ -63,3 +63,5 @@
 /howm-d3.js
 /howm-graph.html
 /org-workbench-db.el
+.chatgpt-shell.el
+.aider.input.history
