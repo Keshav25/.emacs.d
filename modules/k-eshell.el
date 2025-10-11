@@ -165,12 +165,11 @@
   :elpaca t)
 
 (leaf eshell-prompt-extras
+  :after (virtualenvwrapper)
   :elpaca t
   :config
-  (when (package-installed-p 'virtualenvwrapper)
-	(progn
-	  (require 'virtualenvwrapper)
-	  (venv-initialize-eshell)))
+  (require 'virtualenvwrapper)
+  (venv-initialize-eshell)
   (autoload 'epe-theme-lambda "eshell-prompt-extras")
   (setopt eshell-highlight-prompt nil
 		  eshell-prompt-function 'epe-theme-lambda))
