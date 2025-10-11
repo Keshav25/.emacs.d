@@ -49,7 +49,24 @@
   (org-directory . "~/Documents/org")
   (org-file-apps . '((auto-mode . emacs)))
   (org-src-ask-before-returning-to-edit-buffer . nil)
-  (org-src-window-setup . 'current-window))
+  (org-src-window-setup . 'current-window)
+  :config
+  ;; TODO read https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Bemacs/org
+  (defun k/org-summary-todo-naive-auto (n-done n-not-done)
+	"Switch entry to DONE when all usbentries are done, to TODO otherwise."
+	(org-todo (if (= n-note-done 0) "DONE" "TODO")))
+
+  (defun k/org-summary-todo-semiauto (n-done n-not-done)
+	"Prompt to change entry state when the state of the subentries imply it."
+	(and (org-get-todo-state) ;; don't force a todo state if there is none yet
+		 (if (or (and (org-entry-is-todo-p) (= n-not-done 0)) ;; if it should be in a todo state
+				 (and (org-entry-is-todo-p) (> n-not-done 0))) ;; if it should be in a done state
+			 (org-todo))))
+
+  (defun k/with-save-excursion (orig-fun &rest args)
+	"Execute the given function with save excursion."
+	(save-excursion
+	  (apply orig-fun args))))
 
 
 (leaf org-speed-commands
