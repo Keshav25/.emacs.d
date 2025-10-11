@@ -140,7 +140,8 @@ When `switch-to-buffer-obey-display-actions' is non-nil,
 	(message "Use `ace-window' to display next command buffer..."))
 
   :bind
-  ("M-o" . ace-window-prefix))
+  ("M-o" . ace-window-prefix)
+  ("C-x o" . ace-window))
 
 (leaf transpose-frame
   :elpaca t)
