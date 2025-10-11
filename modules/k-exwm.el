@@ -201,7 +201,7 @@
 		 ("s-TAB" . #'exwm/jump-to-last-exwm)
 		 ("M-t" . #'execute-extended-command)
 		 ("M-!" . #'shell-command)
-		 ("M-o" . #'other-window-alternating)
+		 ("M-o" . #'ace-window)
 		 ("C-<tab>" . other-window)
 		 ("C-x h" . #'k-exwm/C-a)
 		 ("C-o" . #'k-exwm/C-o)
