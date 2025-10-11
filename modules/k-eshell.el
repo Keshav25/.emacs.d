@@ -216,6 +216,8 @@
   :bind (:eat-semi-char-mode-map
 		 ("M-t" . execute-extended-command)
 		 ("M-x" . transpose-words))
+  :custom
+  (eat-shell . "~/.guix-profile/bin/nu")
   :hook ((eshell-load-hook . eat-eshell-mode)
 		 ;; since htop doesn't work with the former
 		 (eshell-load-hook . eat-eshell-visual-command-mode)))
