@@ -962,6 +962,9 @@ headings.  See function `org-find-olp'."
   :elpaca (org-ql :host github :repo "alphapapa/org-ql"
 				  :files (:defaults (:exclude "helm-org-ql.el"))))
 
+(leaf org-agenda-files-track-ql
+  :elpaca t)
+
 (leaf org-sticky-header
   :elpaca t)
 
