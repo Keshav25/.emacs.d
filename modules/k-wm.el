@@ -79,6 +79,7 @@
 								 "\\*Warnings\\*"
 								 "\\*Bookmark List\\*"
 								 "\\*exwm-edit"
+								 "magit:"
 								 elfeed-show-mode
 								 "*Guix REPL*"
 								 haskell-compilation-mode
