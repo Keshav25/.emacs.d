@@ -45,6 +45,13 @@
   (mouse-autoselect-window . t)
   (ediff-window-setup-function . 'ediff-setup-windows-plain)
   (focus-follows-mouse . t)
+  (exwm-input-prefix-keys . '(?\C-x
+							  ?\C-u
+							  ?\C-h
+							  ?\M-x
+							  ?\M-`
+							  ?\M-&
+							  ?\M-:))
   :hook ((exwm-input--input-mode-change-hook . force-modeline-update))
   :config
   (defun fhd/toggle-exwm-input-line-mode-passthrough ()
