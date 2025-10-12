@@ -131,8 +131,9 @@
 		  (,(kbd "s-.") . persp-next)
 		  (,(kbd "s-[") . perspective-exwm-cycle-exwm-buffers-backward)
 		  (,(kbd "s-]") . perspective-exwm-cycle-exwm-buffers-forward)
-          ,@(mapcar (lambda (i)
-                      `(,(kbd (format "s-%d" i)) .
+		  (,(kbd "s-<return>") . eshell-new)
+		  ,@(mapcar (lambda (i)
+					  `(,(kbd (format "s-%d" i)) .
 						(lambda ()
                           (interactive)
                           (exwm-workspace-switch-create ,i))))
