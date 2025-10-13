@@ -339,4 +339,7 @@ for the \"main\" or \"master\" branch."
   :config
   (difftastic-bindings-mode))
 
+(leaf magit-imerge
+  :elpaca t)
+
 (provide 'k-vc)
