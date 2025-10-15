@@ -16,6 +16,7 @@
   (key-translate "C-r" "C-c")
   (key-translate "C-c" "C-r")
   (key-translate "C-i" "C-y")
+  (key-translate "C-y" "C-i")
   :bind
   (("M-x" . transpose-words)
    ("M-t" . execute-extended-command)
