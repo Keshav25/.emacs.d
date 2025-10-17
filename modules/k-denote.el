@@ -25,6 +25,13 @@
 							:immediate-finish nil
 							:kill-buffer t
 							:jump-to-captured t)
+						   ("m" "Movies" plain
+							(file denote-last-path)
+							#'denote-org-capture
+							:no-save t
+							:immediate-finish t
+							:kill-buffer t
+							:jump-to-captured t)
 						   ("a" "Appointment" entry
                             (file+olp denote-journal-capture-entry-for-date "Appointments")
                             "* %(denote-journal-capture-timestamp) %^{Subject?}"))))
