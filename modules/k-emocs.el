@@ -196,8 +196,9 @@
 ;; TODO: Maybe integrate with ibuffer, consult-buffer, project, or perspective
 ;; TODO: search the buffer list
 (leaf ace-jump-buffer
-  :disabled t
-  :elpaca t)
+  :elpaca t
+  :bind
+  ("C-x C-b" . ace-jump-buffer))
 
 (leaf ace-mc
   :elpaca t)
