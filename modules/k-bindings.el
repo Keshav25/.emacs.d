@@ -21,7 +21,8 @@
   (("M-x" . transpose-words)
    ("M-t" . execute-extended-command)
    ("M-T" . execute-extended-command-for-buffer)
-   ("C-c r" . org-capture)))
+   ("C-c r" . org-capture)
+   ("C-M-i" . yank)))
 
 (leaf expand-region
   :elpaca t
