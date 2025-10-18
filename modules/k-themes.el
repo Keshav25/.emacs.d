@@ -465,7 +465,7 @@
                            (add-pretty-symbols-list (quote ,symbols)))))
 
   (global-prettify-symbols-mode)
-  :hook ((prog-mode . (lambda () (add-pretty-symbols-list (append
+  :hook ((prog-mode-hook . (lambda () (add-pretty-symbols-list (append
 														   arrows
 														   greek-letters
 														   mathematical-symbols
@@ -484,7 +484,7 @@
 (leaf mixed-pitch
   :elpaca t
   :hook
-  (org-mode . mixed-pitch-mode))
+  (org-mode-hook . mixed-pitch-mode))
 
 (defun k-theme-load ()
   (interactive)

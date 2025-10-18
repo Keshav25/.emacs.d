@@ -3,7 +3,7 @@
 (leaf org
   :bind (("C-c l" . org-store-link)
 		 ("C-c C-M-l" . org-toggle-link-display))
-  :hook (org-mode . (turn-on-visual-line-mode))
+  :hook (org-mode-hook . (turn-on-visual-line-mode))
   :custom
   (org-ellipsis . " ▾")
   (org-startup-numerated . 1)
@@ -482,7 +482,7 @@ to an appropriate container (e.g., a paragraph)."
 
 (leaf org-inline-anim
   :elpaca t
-  :hook (org-mode . org-inline-anim-mode))
+  :hook (org-mode-hook . org-inline-anim-mode))
 
 (leaf ob-rust :elpaca t)
 
@@ -657,8 +657,8 @@ headings.  See function `org-find-olp'."
 											  (org-agenda-start-on-weekday nil)))
 								  (todo "NEXT" ((org-agenda-overriding-header "Next Actions:")))
 								  (todo "WAIT" ((org-agenda-overriding-header "Waiting:")))))))
-  :hook ((org-agenda-finalize . org-modern-agenda)
-		 (org-agenda-finalize . hl-line-mode)))
+  :hook ((org-agenda-finalize-hook . org-modern-agenda)
+		 (org-agenda-finalize-hook . hl-line-mode)))
 
 (leaf org-publish
   :custom
@@ -862,8 +862,7 @@ headings.  See function `org-find-olp'."
 
 (leaf org-download
   :elpaca t
-  :hook ((Dir . org-download-enable)
-		 (org-mode . org-download-enable)))
+  :hook ((org-mode-hook . org-download-enable)))
 
 (leaf org-contacts :elpaca t)
 
@@ -874,7 +873,7 @@ headings.  See function `org-find-olp'."
 (leaf org-kanban :elpaca t)
 (leaf org-appear
   :elpaca t
-  :hook ((org-mode . org-appear-mode)))
+  :hook ((org-mode-hook . org-appear-mode)))
 (leaf org-emms :elpaca t)
 (leaf org-edna :elpaca t)
 (leaf org-ref :elpaca t)
@@ -896,7 +895,7 @@ headings.  See function `org-find-olp'."
 
 (leaf cdlatex
   :elpaca t
-  :hook ((org-mode . turn-on-org-cd-latex)))
+  :hook ((org-mode-hook . turn-on-org-cd-latex)))
 
 (leaf org-mime :elpaca t)
 
@@ -943,10 +942,9 @@ headings.  See function `org-find-olp'."
   :init
   (org-pretty-tags-global-mode 1))
 
-(leaf org-unique-id
-  :elpaca t
-  :require t
-  :after (org))
+leaf org-unique-id
+:elpaca t
+:after (org)
 ;; :hook ((before-save-hook . org-unique-id))
 
 (leaf ox-haunt
@@ -975,8 +973,7 @@ headings.  See function `org-find-olp'."
   :elpaca (hammy :host github :repo "alphapapa/hammy.el"))
 
 (leaf weblorg
-  :elpaca t
-  :require t)
+  :elpaca t)
 
 ;; from https://www.reddit.com/r/emacs/comments/d54ogp/emacs_doom_e17_org_mode_checkboxes/
 ;; (add-hook 'org-mode-hook
@@ -1011,8 +1008,7 @@ headings.  See function `org-find-olp'."
 ;;             (prettify-symbols-mode)))
 
 (leaf corg
-  :elpaca (corg :host github :repo "isamert/corg.el")
-  :require t)
+  :elpaca (corg :host github :repo "isamert/corg.el"))
 
 (leaf org-media-note
   :elpaca (org-media-note :host github :repo "yuchen-lea/org-media-note")
@@ -1072,19 +1068,17 @@ headings.  See function `org-find-olp'."
 
 (leaf org-special-block-extras
   :elpaca t
-  :hook (org-mode . #'org-special-block-extras-mode))
+  :hook (org-mode-hook . #'org-special-block-extras-mode))
 
 (leaf mermaid-mode
   :elpaca t)
 
 (leaf calfw
-  :elpaca t
-  :require t)
+  :elpaca t )
 
 (leaf calfw-org
   :after calfw
-  :elpaca t
-  :require t)
+  :elpaca t)
 
 (leaf flyspell
   :disabled t
@@ -1098,7 +1092,7 @@ headings.  See function `org-find-olp'."
   (ispell-set-spellchecker-params)
   (ispell-hunspell-add-multi-dic "en_US")
   :hook
-  (text-mode . flyspell-mode))
+  (text-mode-hook . flyspell-mode))
 
 (leaf org-pomodoro
   :elpaca t)
@@ -1111,11 +1105,9 @@ headings.  See function `org-find-olp'."
   (org-supertag-setup))
 
 (leaf org-embed
-  :elpaca (org-embed :host github :repo "yibie/org-embed")
-  :require t)
+  :elpaca (org-embed :host github :repo "yibie/org-embed"))
 
 (leaf clever-cite
-  :require t
   :elpaca (clever-cite :host github :repo "Hugo-Heagren/clever-cite")
   :config
   (defun my/org-clever-cite-quote-string (str cite-key &optional ref)
@@ -1162,7 +1154,7 @@ If REF is non-nil, inlude it in the citation. Fill the text with
 
 (leaf org-workbench
   :elpaca (org-workbench :host github :repo "yibie/org-workbench")
-  :require t
+  :commands org-workbench-show
   ;; :after org-supertag
   :config
   (org-workbench-setup))

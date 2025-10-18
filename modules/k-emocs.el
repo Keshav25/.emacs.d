@@ -101,7 +101,7 @@
   (defalias 'consult-line-thing-at-point 'consult-line)
   (consult-customize consult-line-thing-at-point
 					 :initial (thing-at-point 'symbol))
-  :hook (completion-list-mode . consult-preview-at-point-mode)
+  :hook (completion-list-mode-hook . consult-preview-at-point-mode)
   :custom
   ;; (completion-in-region-function . #'consult-completion-in-region)
   (consult-preview-excluded-buffers . '(major-mode . exwm-mode))
@@ -133,7 +133,7 @@
 (leaf embark-consult
   :after (embark consult)
   :elpaca t
-  :hook ((embark-collect-mode . consult-preview-at-point-mode)))
+  :hook ((embark-collect-mode-hook . consult-preview-at-point-mode)))
 
 (leaf consult-notes
   :elpaca t
@@ -334,7 +334,7 @@ _e_moji
 
 (leaf embark
   :elpaca t
-  :hook ((embark-collect-mode . display-line-numbers-mode))
+  :hook ((embark-collect-mode-hook . display-line-numbers-mode))
   :bind (("C-c h a" . embark-act)
 		 ("C-c h d" . embark-dwim)
 		 ("C-c h b" . embark-bindings)
@@ -346,7 +346,6 @@ _e_moji
   (setq prefix-help-command #'embark-prefix-help-command)
   (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
   ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
-  :hook ((embark-collect-mode . display-line-numbers-mode))
   :config
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
@@ -407,7 +406,7 @@ _e_moji
   :after (flycheck posframe)
   :elpaca t
   :hook
-  (flycheck-mode . flycheck-posframe-mode))
+  (flycheck-mode-hook . flycheck-posframe-mode))
 
 (leaf vertico-posframe
   :after (vertico posframe)

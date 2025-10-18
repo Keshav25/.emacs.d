@@ -19,11 +19,11 @@
   (eshell-list-files-after-cd . t)
   (eshell-pushd-dunique . t)
   :hook
-  (eshell-directory-change . k/sync-dir-in-buffer-name)
-  (eshell-mode . k/eshell-specific-outline-regepxp)
-  (eshell-mode . (lambda ()
-				   (setq-local completion-at-point-functions
-							   '(pcomplete-completions-at-point cape-file cape-history))))
+  (eshell-directory-change-hook . k/sync-dir-in-buffer-name)
+  (eshell-mode-hook . k/eshell-specific-outline-regepxp)
+  (eshell-mode-hook . (lambda ()
+						(setq-local completion-at-point-functions
+									'(pcomplete-completions-at-point cape-file cape-history))))
   :config
   (defun k/adviced-eshell-add-input-to-history (orig-fun &rest r)
     "Cd to relative paths aren't that useful in history. Change to absolute paths."
@@ -190,7 +190,7 @@
   :after eshell
   :elpaca t
   :require t
-  :hook (eshell-mode . eshell-bookmark-setup))
+  :hook (eshell-mode-hook . eshell-bookmark-setup))
 
 (leaf eshell-did-you-mean
   :after eshell
@@ -202,7 +202,7 @@
   :after eshell
   :elpaca t
   :hook
-  (eshell-first-time-mode . eshell-syntax-highlighting-global-mode)
+  (eshell-first-time-mode-hook . eshell-syntax-highlighting-global-mode)
   :init
   (defface eshell-syntax-highlighting-invalid-face
 	'((t :inherit diff-error))

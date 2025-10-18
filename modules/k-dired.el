@@ -76,7 +76,7 @@
   :elpaca (fm :host github :repo "uwfmt/emacs-fm")
   :config
   (require 'fm-dired)
-  :hook (dired-mode . fm-dired-mode))
+  :hook (dired-mode-hook . fm-dired-mode))
 
 
 (provide 'k-dired)
