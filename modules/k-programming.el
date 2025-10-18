@@ -3,9 +3,8 @@
 ;;; Code:
 
 (leaf prog-mode
-  :hook ((prog-mode . subword-mode)
-		 (prog-mode . which-func-mode)
-		 (prog-mode . (lambda () (setq-local fill-column 120)))))
+  :hook ((prog-mode-hook . subword-mode)
+		 (prog-mode-hook . (lambda () (setq-local fill-column 120)))))
 
 (leaf eglot
   :disabled t
