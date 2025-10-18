@@ -36,9 +36,9 @@
   :config
   (setq combobulate-key-prefix "C-c o")
   :hook
-  ((python-ts-mode . combobulate-mode)
-   (js-ts-mode . combobulate-mode)
-   (go-ts-mode . combobulate-mode)))
+  ((python-ts-mode-hook . combobulate-mode)
+   (js-ts-mode-hook . combobulate-mode)
+   (go-ts-mode-hook . combobulate-mode)))
 
 (leaf envrc
   :elpaca t
