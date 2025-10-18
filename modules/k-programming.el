@@ -209,8 +209,8 @@
   (lsp-inlay-hint-enable . t)
   :hook
   (lsp-mode-hook . lsp-ui-mode)
-  (lsp-mode . lsp-enable-which-key-integration)
-  (python-ts-mode . lsp))
+  (lsp-mode-hook . lsp-enable-which-key-integration)
+  (python-ts-mode-hook . lsp))
 
 (leaf lsp-ui
   :elpaca t
