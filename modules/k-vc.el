@@ -13,8 +13,10 @@
   :elpaca (magit :branch "main" :pre-build ("make" "info"))
   :bind
   ("C-x g" . 'magit-status)
-  :custom
+  :setq
   (magit-display-buffer-function . 'magit-display-buffer-same-window-except-diff-v1)
+  (magit-diff-refine-hunk . all)
+  (magit-diff-refine-ignore-whitespace . t)
   :hook ((magit-mode . magit-delta-mode)
 		 (magit-log-mode-hook . display-line-numbers-mode)
 		 (magit-log-mode-hook . unpackaged/magit-log-date-headers-mode))
