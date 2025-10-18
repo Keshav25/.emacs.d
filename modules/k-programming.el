@@ -457,7 +457,7 @@
 (leaf smartparens
   :elpaca t
   :require smartparens-config
-  :hook ((prog-mode . smartparens-mode)))
+  :hook ((prog-mode-hook . smartparens-mode)))
 
 (leaf outline-indent
   :elpaca t
