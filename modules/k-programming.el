@@ -77,7 +77,7 @@
 (leaf flyover
   :ensure t
   :require t
-  :hook (flycheck-mode . flyover-mode)
+  :hook (flycheck-mode-hook . flyover-mode)
   :custom
   (flyover-levels . '(error warning info))
   (flyover-use-theme-colors . t))
