@@ -449,8 +449,8 @@
 
 (leaf symbol-overlay
   :elpaca t
-  :config
-  (symbol-overlay-mode 1))
+  :hook ((text-mode-hook . symbol-overlay-mode)
+		 (prog-mode-hook . symbol-overlay-mode)))
 
 (leaf symbol-overlay-mc
   :elpaca t)
