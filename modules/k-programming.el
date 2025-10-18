@@ -497,10 +497,11 @@
   :setq
   (eldoc-documentation-strategy . 'eldoc-documentation-default))
 
+;; TODO: Kanata for some reason can't do @
 (leaf hideshow
-  :hook ((prog-mode . hs-minor-mode))
+  :hook ((prog-mode-hook . hs-minor-mode))
   :config
-  (defun toggle-fold ()
+  (defun k-toggle-fold ()
 	(interactive)
 	(save-excursion
       (end-of-line)
