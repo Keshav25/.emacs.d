@@ -8,7 +8,7 @@
 
 (leaf eglot
   :disabled t
-  :hook ((rustic-mode . eglot-ensure))
+  :hook ((rust-mode-hook . eglot-ensure))
   :bind (:eglot-mode-map
 		 ("C-c e r" . #'eglot-rename)
 		 ("C-<down-mouse-1>" . #'xref-find-definitions)
