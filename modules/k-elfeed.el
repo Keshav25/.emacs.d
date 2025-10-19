@@ -36,13 +36,13 @@
   :elpaca (relative-date :host github :url "https://github.com/rougier/relative-date/"))
 
 (leaf nano-elfeed
-  :elpaca (nano-elfeed :host github :repo "Keshav25/nano-elfeed")
-  :require t)
+  :after (elfeed elfeed-org)
+  :elpaca (nano-elfeed :host github :repo "Keshav25/nano-elfeed"))
 
 ;; Elfeed-Org
 (leaf elfeed-org
   :elpaca t
-  :require t
+  :after (org)
   :config
   (setq elfeed-show-entry-switch 'display-buffer)
   (setq rmh-elfeed-org-files

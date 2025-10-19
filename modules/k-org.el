@@ -500,6 +500,7 @@ to an appropriate container (e.g., a paragraph)."
 (leaf ob-compile :elpaca t)
 
 (leaf org-babel
+  :after org
   :config
   (setq org-confirm-babel-evaluate nil)
   (require 'outline)
@@ -885,9 +886,10 @@ headings.  See function `org-find-olp'."
 
 (leaf org-modern
   :elpaca t
+  :after org
   :custom
   (org-modern-star . 'replace)
-  :init
+  :config
   (global-org-modern-mode))
 
 (leaf org-present
@@ -938,13 +940,14 @@ headings.  See function `org-find-olp'."
   (ankifier-context-question . t))
 
 (leaf org-pretty-tags
+  :after org
   :elpaca t
-  :init
+  :config
   (org-pretty-tags-global-mode 1))
 
-leaf org-unique-id
-:elpaca t
-:after (org)
+;; (leaf org-unique-id
+;; :elpaca t
+;; :after (org)
 ;; :hook ((before-save-hook . org-unique-id))
 
 (leaf ox-haunt

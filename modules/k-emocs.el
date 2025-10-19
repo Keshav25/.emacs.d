@@ -14,27 +14,27 @@
 		 ("M-S" . vertico-toggle-sort))
   :config
   (defun hanno/vertico-sort-by-mtime (files)
-    "Sort FILES by modification time (newest first)."
-    (let ((dir nil))
-      (when (< (minibuffer-prompt-end) (point))
-        (setq dir (buffer-substring (minibuffer-prompt-end) (point-max))))
-      (sort files
-            (lambda (a b)
-              (let* (
-                     (fa (expand-file-name a dir))
-                     (fb (expand-file-name b dir))
-                     (ta (file-attribute-modification-time (file-attributes fa)))
-                     (tb (file-attribute-modification-time (file-attributes fb))))
-                (time-less-p tb ta))))))
+	"Sort FILES by modification time (newest first)."
+	(let ((dir nil))
+	  (when (< (minibuffer-prompt-end) (point))
+		(setq dir (buffer-substring (minibuffer-prompt-end) (point-max))))
+	  (sort files
+			(lambda (a b)
+			  (let* (
+					 (fa (expand-file-name a dir))
+					 (fb (expand-file-name b dir))
+					 (ta (file-attribute-modification-time (file-attributes fa)))
+					 (tb (file-attribute-modification-time (file-attributes fb))))
+				(time-less-p tb ta))))))
 
   (defun vertico-toggle-sort ()
 	(interactive)
 	(setq-local vertico-sort-override-function
 				(and (not vertico-sort-override-function)
 					 (lambda (files)
-                       (if (and (eq minibuffer-history-variable 'file-name-history)
+					   (if (and (eq minibuffer-history-variable 'file-name-history)
 								(not (eq (car-safe minibuffer-completion-table) 'boundaries)))
-                           (hanno/vertico-sort-by-mtime files)
+						   (hanno/vertico-sort-by-mtime files)
 						 (vertico-sort-history-length-alpha files))))
 				vertico--input t)))
 
@@ -207,8 +207,7 @@
   :elpaca t)
 
 (leaf avy-act
-  :elpaca t
-  :require t)
+  :elpaca t)
 
 ;; Which-Key
 (leaf which-key
@@ -355,12 +354,13 @@ _e_moji
 
 (leaf em-cmpl
   :elpaca nil
+  :bind (:eshell-cmpl-mode-map
+		 ("C-M-i" . nil))
+  :hook (eshell-cmpl-mode-hook . my/em-cmpl-mode-hook)
   :config
-  (bind-key "C-M-i" nil eshell-cmpl-mode-map)
   (defun my/em-cmpl-mode-hook ()
-	(setq completion-at-point-functions
-		  (list #'cape-history #'cape-file #'cape-dabbrev)))
-  (add-hook 'eshell-cmpl-mode-hook my/em-cmpl-mode-hook))
+	(setq-local completion-at-point-functions
+				(list #'cape-history #'cape-file #'cape-dabbrev))))
 
 
 (leaf consult-gh
@@ -424,8 +424,8 @@ _e_moji
   (perfect-margin-mode 1))
 
 ;; (leaf bufler
-  ;; :elpaca t
-  ;; :bind (([remap list-buffers] . bufler)))
+;; :elpaca t
+;; :bind (([remap list-buffers] . bufler)))
 
 (leaf completion-preview
   :config
@@ -476,8 +476,7 @@ set (i.e., OPERATION is \\='set).  This excludes, e.g., let bindings."
   :require t)
 
 (leaf p-search
-  :elpaca (p-search :host github :repo "zkry/p-search")
-  :require t)
+  :elpaca (p-search :host github :repo "zkry/p-search"))
 
 (leaf affe
   :elpaca t

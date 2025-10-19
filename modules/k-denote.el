@@ -200,12 +200,14 @@ Takes a file's basename, STR, and returns only the portion before
   )
 
 (leaf calendar
+  :after denote
   :doc "based off of how integration in https://github.com/martialboniou/emacs-revival/blob/master/calendar-howm.el"
   :custom
   (diary-file . denote-directory))
 
 (leaf howm-graph
   :elpaca (howm-graph-view :host github :repo "SenkiReign/howm-graph")
+  :after (org)
   :require t
   :custom
   (howm-graph-notes-directory . "~/Documents/notes"))

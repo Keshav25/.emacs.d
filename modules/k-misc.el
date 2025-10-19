@@ -74,7 +74,7 @@
 (setq browse-url-browser-function 'browse-url-xdg-open)
 
 ;; (leaf ement
-  ;; :elpaca t)
+;; :elpaca t)
 
 (leaf plz
   :elpaca t)
@@ -85,16 +85,17 @@
 (leaf verb
   :elpaca t)
 
-(leaf mastodon
-  :elpaca t
-  :require t
-  :bind
-  ("C-c C-x C-n" . mastodon-toot)
-  :setq
-  (mastodon-instance-url . "https://mastodon.social/")
-  (mastodon-active-user . "thepoetlogician")
-  :config
-  (mastodon-discover))
+;; (leaf mastodon
+;;   :disabled t
+;;   :elpaca t
+;;   :require t
+;;   :bind
+;;   ("C-c C-x C-n" . mastodon-toot)
+;;   :setq
+;;   (mastodon-instance-url . "https://mastodon.social/")
+;;   (mastodon-active-user . "thepoetlogician")
+;;   :config
+;;   (mastodon-discover))
 
 (leaf bbdb
   :elpaca t)
@@ -128,7 +129,7 @@
   :elpaca t)
 
 ;; (leaf hyperdrive
-  ;; :elpaca t)
+;; :elpaca t)
 
 (leaf browser-hist
   :after embark
@@ -256,8 +257,8 @@
 
 ;; Weird issue about sonnet, which I don't even have
 (leaf aidermacs
+  :after transient
   :elpaca t
-  :require t
   ;; think of a binding for aidermacs-transient-menu
   :config
   (setenv "OLLAMA_BASE_URL" "http://localhost:11434")

@@ -2,6 +2,7 @@
 
 (leaf dashboard
   :elpaca t
+  :after org
   :config
   (dashboard-setup-startup-hook)
   :setq

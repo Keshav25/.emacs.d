@@ -493,15 +493,16 @@
   :custom
   (eldoc-documentation-strategy . 'eldoc-documentation-default))
 
-;; TODO: Kanata for some reason can't do @
 (leaf hideshow
   :hook ((prog-mode-hook . hs-minor-mode))
+  :bind (:lispy-mode-map
+		 ("<tab>" . k-toggle-fold))
   :config
   (defun k-toggle-fold ()
 	(interactive)
 	(save-excursion
-      (end-of-line)
-      (hs-toggle-hiding))))
+	  (end-of-line)
+	  (hs-toggle-hiding))))
 
 (leaf eglot-inactive-regions
   :elpaca t
@@ -509,8 +510,7 @@
   :custom
   (eglot-inactive-regions-style . 'darken-foreground)
   (eglot-inactive-regions-opacity . 0.4)
-  :config
-  (eglot-inactive-regions-mode 1))
+  :hook (c-mode . eglot-inactive-regions-mode))
 
 (leaf bookmark-in-project
   :elpaca t)
