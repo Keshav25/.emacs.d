@@ -89,7 +89,7 @@
 (leaf aggressive-indent
   :elpaca t
   :hook ((emacs-lisp-mode-hook . aggressive-indent-mode)
-		 (scheme-mode . aggressive-indent-mode)))
+		 (scheme-mode-hook . aggressive-indent-mode)))
 
 (leaf rainbow-delimiters
   :elpaca t
