@@ -489,9 +489,8 @@
 		 ;; originally lispy-left-maybe
 		 ("M-o" . 'ace-window)))
 
-
 (leaf eldoc
-  :setq
+  :custom
   (eldoc-documentation-strategy . 'eldoc-documentation-default))
 
 ;; TODO: Kanata for some reason can't do @
