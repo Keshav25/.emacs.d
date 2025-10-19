@@ -267,4 +267,9 @@ widen the buffer. You can add more functions to
 	  (when (= pos (point))
 		ad-do-it))))
 
+;; (leaf xah-fly-keys
+;; :elpaca t
+;; :custom
+;; (xah-fly-keys-set-layout . "colemak"))
+
 (provide 'k-bindings)
