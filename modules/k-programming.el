@@ -482,8 +482,8 @@
   (lispy-compat . '(edebug cider))
   :bind (:lispy-mode-map
 		 ("C-y" . 'consult-yank-from-kill-ring)
-		 ("n" . 'special-lispy-down)	
-		 ("p" . 'special-lispy-up)	
+		 ("n" . 'special-lispy-down)
+		 ("p" . 'special-lispy-up)
 		 ("f" . 'special-lispy-right)
 		 ("b" . 'special-lispy-left)
 		 ;; originally lispy-left-maybe
