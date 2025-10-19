@@ -199,7 +199,6 @@
 
 (leaf lsp-mode
   :elpaca t
-  :require t
   :init
   (setq lsp-keymap-prefix "C-c C-y")
   :custom
@@ -398,7 +397,6 @@
 
 (leaf yasnippet
   :elpaca t
-  :require t
   :bind
   ("C-<escape>" . yas-expand)
   :config
