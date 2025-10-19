@@ -84,7 +84,7 @@
 
 (leaf treemacs
   :elpaca t
-  :setq
+  :custom
   (treemacs-width . 25))
 
 (leaf aggressive-indent
