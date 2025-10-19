@@ -33,8 +33,8 @@
 
 (leaf combobulate
   :elpaca (combobulate :host github :repo "mickeynp/combobulate")
-  :config
-  (setq combobulate-key-prefix "C-c o")
+  :custom
+  (combobulate-key-prefix . "C-c o")
   :hook
   ((python-ts-mode-hook . combobulate-mode)
    (js-ts-mode-hook . combobulate-mode)
