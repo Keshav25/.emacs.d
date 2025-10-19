@@ -178,7 +178,7 @@
 (electric-pair-mode t)
 
 ;; Display Time
-(setq display-time-mode 1)
+(display-time-mode 1)
 (setq display-time-day-and-date 1)
 
 ;; Cursor Settings
