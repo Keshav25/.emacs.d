@@ -15,7 +15,7 @@
   ("C-x g" . 'magit-status)
   :setq
   (magit-display-buffer-function . 'magit-display-buffer-same-window-except-diff-v1)
-  (magit-diff-refine-hunk . all)
+  (magit-diff-refine-hunk . 'all)
   (magit-diff-refine-ignore-whitespace . t)
   :hook ((magit-mode-hook . magit-delta-mode)
 		 (magit-log-mode-hook . display-line-numbers-mode)
@@ -111,7 +111,7 @@ for the \"main\" or \"master\" branch."
   :require t)
 
 (leaf magit-org-todos
-  :after (magit)
+  :after (magit org)
   :elpaca t
   :config
   (magit-org-todos-autoinsert))
