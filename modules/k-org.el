@@ -497,12 +497,13 @@ to an appropriate container (e.g., a paragraph)."
 
 (leaf ob-elixir :elpaca t)
 
-(leaf ob-compile :elpaca t)
+(leaf ob-compile :elpaca t :require t)
 
 (leaf org-babel
-  :after org
+  :disabled t
+  :after (org)
   :config
-  (setq org-confirm-babel-evaluate nil)
+  (setopt org-confirm-babel-evaluate nil)
   (require 'outline)
   (setq scimax-src-block-keymaps
 		;; `(("ipython" . ,(let ((map (make-composed-keymap
@@ -564,23 +565,24 @@ to an appropriate container (e.g., a paragraph)."
                               ;; This simulates a mouse click and makes a menu change
                               (org-mouse-down-mouse nil)))))))))))
 
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((python . t)
-	 (dot . t)
-	 (emacs-lisp . t)
-	 (shell . t)
-	 (scheme . t)
-	 (go . t)
-	 (rust . t)
-	 (clojure . t)
-	 (csharp .t )
-	 (elixir . t)
-	 (java . t)
-	 (compile . t)
-	 (C . t)
-	 (cpp . t)
-	 (R . t))))
+  ;; (org-babel-do-load-languages
+  ;; 'org-babel-load-languages
+  ;; '((python . t)
+  ;; (dot . t)
+  ;; (emacs-lisp . t)
+  ;; (shell . t)
+  ;; (scheme . t)
+  ;; (go . t)
+  ;; (rust . t)
+  ;; (clojure . t)
+  ;; (csharp .t )
+  ;; (elixir . t)
+  ;; (java . t)
+  ;; (compile . t)
+  ;; (C . t)
+  ;; (cpp . t)
+  ;; (R . t)))
+  )
 
 (leaf org-agenda
   :bind (("C-c a" . org-agenda))
@@ -896,6 +898,7 @@ headings.  See function `org-find-olp'."
   :elpaca t)
 
 (leaf cdlatex
+  :disabled t
   :elpaca t
   :hook ((org-mode-hook . turn-on-org-cd-latex)))
 
@@ -1070,6 +1073,7 @@ headings.  See function `org-find-olp'."
 	(org-table-align)))
 
 (leaf org-special-block-extras
+  :disabled t
   :elpaca t
   :hook (org-mode-hook . #'org-special-block-extras-mode))
 

@@ -360,6 +360,7 @@
   (repl-driven-development [C-x C-p] python)
   (repl-driven-development [C-x C-t] terminal))
 
+;; TODO: Switch to Eros
 (leaf cider
   :elpaca t
   :require t
@@ -479,8 +480,8 @@
   :doc "https://github.com/abo-abo/lispy?tab=readme-ov-file#ide-like-features"
   ;; TODO: Relace Vim-Like bindings with Emacs ones
   :hook ((emacs-lisp-mode-hook . lispy-mode))
-  :custom
-  (lispy-compat . '(edebug cider))
+  ;; :custom
+  ;; (lispy-compat . '(edebug cider))
   :bind (:lispy-mode-map
 		 ("C-y" . 'consult-yank-from-kill-ring)
 		 ("n" . 'special-lispy-down)
@@ -488,8 +489,9 @@
 		 ("f" . 'special-lispy-right)
 		 ("b" . 'special-lispy-left)
 		 ;; originally lispy-left-maybe
-		 ("M-o" . 'ace-window)
-		 ("<tab>" . k-toggle-fold)))
+		 ("M-o" . 'ace-window))
+  (:lispy-mode-map-special)
+  ("<tab>" . k-toggle-fold))
 
 (leaf eldoc
   :custom
