@@ -2,7 +2,6 @@
 
 ;; init benchmarking
 (add-to-list 'load-path (expand-file-name "site-lisp" user-emacs-directory))
-(require 'init-benchmarking)
 
 ;; emacsclient - will re-enable once I change /tmp to be not just root only
 (require 'server)
