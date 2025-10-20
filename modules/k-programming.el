@@ -474,6 +474,7 @@
   :elpaca t)
 
 (leaf lispy
+  :after hideshow
   :elpaca t
   :doc "https://github.com/abo-abo/lispy?tab=readme-ov-file#ide-like-features"
   ;; TODO: Relace Vim-Like bindings with Emacs ones
@@ -487,7 +488,8 @@
 		 ("f" . 'special-lispy-right)
 		 ("b" . 'special-lispy-left)
 		 ;; originally lispy-left-maybe
-		 ("M-o" . 'ace-window)))
+		 ("M-o" . 'ace-window)
+		 ("<tab>" . k-toggle-fold)))
 
 (leaf eldoc
   :custom
@@ -495,8 +497,6 @@
 
 (leaf hideshow
   :hook ((prog-mode-hook . hs-minor-mode))
-  :bind (:lispy-mode-map
-		 ("<tab>" . k-toggle-fold))
   :config
   (defun k-toggle-fold ()
 	(interactive)
