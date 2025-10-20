@@ -50,6 +50,7 @@
 						  git-imerge
 						  brightnessctl
 						  dtach
+						  playerctl
 						  ;; nushell
 						  flameshot
 						  mpv
