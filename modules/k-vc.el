@@ -13,7 +13,7 @@
   :elpaca (magit :branch "main" :pre-build ("make" "info"))
   :bind
   ("C-x g" . 'magit-status)
-  :setq
+  :custom
   (magit-display-buffer-function . 'magit-display-buffer-same-window-except-diff-v1)
   (magit-diff-refine-hunk . 'all)
   (magit-diff-refine-ignore-whitespace . t)
