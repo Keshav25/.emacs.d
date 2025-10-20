@@ -320,7 +320,13 @@ if there is no window on the right."
   (delete-other-windows))
 
 (leaf perspective-project-bridge
-  :elpaca t)
+  :elpaca t
+  :hook
+  (perspective-project-bridge-mode-hook . (lambda ()
+											(if perspective-project-bridge-mode
+												(perspective-project-bridge-find-perspectives-for-all-buffers)
+											  (perspective-project-bridge-kill-perspectives))))
+  (persp-mode-hook . perspective-project-bridge-mode))
 
 (leaf treemacs-perspective
   :require t
