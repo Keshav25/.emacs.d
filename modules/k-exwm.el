@@ -363,10 +363,9 @@
   :require t
   :elpaca t
   :custom
-  (perspective-exwm-override-initial-name .
-										  '((0 . "misc")))
+  (perspective-exwm-override-initial-name . '((0 . "main")))
   :config
-  (perspective-exwm-mode))
+  (perspective-exwm-mode 1))
 
 
 (setq my/exwm-last-workspaces '(1))
