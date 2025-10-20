@@ -43,7 +43,6 @@
 	  inhibit-startup-screen t
 	  inhibit-startup-echo-area-message (user-login-name)
 	  warning-minimum-level :error
-	  byte-compile-ignore-files t
 	  byte-compile-warnings '(not obsolete)
 	  auto-mode-case-fold nil
 	  bidi-display-reordering 'left-to-right
