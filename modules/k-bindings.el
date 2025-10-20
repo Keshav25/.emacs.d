@@ -223,12 +223,16 @@
   (shannon-max-start-logger))
 
 (leaf undo-tree
+  :disabled t
   :elpaca t
   :require t
   :config
   (global-undo-tree-mode t)
   :custom
   (undo-tree-auto-save-history . nil))
+
+(leaf vundo
+  :elpaca t)
 
 (leaf recursive-narrow
   :elpaca t
