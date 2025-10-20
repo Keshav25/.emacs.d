@@ -207,8 +207,6 @@ Takes a file's basename, STR, and returns only the portion before
 
 (leaf howm-graph
   :elpaca (howm-graph-view :host github :repo "SenkiReign/howm-graph")
-  :after (org)
-  :require t
   :custom
   (howm-graph-notes-directory . "~/Documents/notes"))
 
