@@ -351,11 +351,11 @@
                            (add-pretty-symbols-list (quote ,symbols)))))
 
   (global-prettify-symbols-mode)
-  :hook ((prog-mode-hook . (lambda () (add-pretty-symbols-list (append
-														   arrows
-														   greek-letters
-														   mathematical-symbols
-														   double-struck-letters))))))
+  :hook ((prog-mode-hook .  (append
+							 arrows
+							 greek-letters
+							 mathematical-symbols
+							 double-struck-letters))))
 
 (leaf page-break-lines
   :elpaca t
