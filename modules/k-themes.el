@@ -368,6 +368,7 @@
   (breadcrumb-mode 1))
 
 (leaf mixed-pitch
+  :disabled t
   :elpaca t
   :hook
   (org-mode-hook . mixed-pitch-mode))
