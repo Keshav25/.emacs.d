@@ -105,7 +105,8 @@ for the \"main\" or \"master\" branch."
   :after magit
   :elpaca t
   :custom
-  (magit-delta-default-dark-theme . "1337"))
+  (magit-delta-default-dark-theme . "1337")
+  (magit-delta-hide-plus-minus-markers . nil))
 
 (leaf magit-todos
   :after (magit)
