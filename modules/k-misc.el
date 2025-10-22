@@ -296,6 +296,8 @@
 		 ([M-down] . move-text-down)))
 
 (leaf emms
+  :doc "creates an issue with org-gc-persist-lock"
+  :disabled t
   :elpaca t
   :config
   (require 'emms-setup)
@@ -309,6 +311,8 @@
   ("<XF86AudioPlay>" . emms-pause))
 
 (leaf empv
+  :doc "creates an issue with org-gc-persist-lock"
+  :disabled t
   :elpaca t
   :custom
   (empv-invidious-instance . "https://inv.nadeko.net/api/v1"))
