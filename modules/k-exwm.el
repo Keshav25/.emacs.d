@@ -37,7 +37,7 @@
 			(alpha-background . 100)))))
 
 (leaf exwm
-  :after (desktop-environment)
+  :after (desktop-environment exwm-edit)
   :elpaca t
   :require t
   :custom
@@ -132,6 +132,7 @@
 		  (,(kbd "s-[") . perspective-exwm-cycle-exwm-buffers-backward)
 		  (,(kbd "s-]") . perspective-exwm-cycle-exwm-buffers-forward)
 		  (,(kbd "s-<return>") . eshell-new)
+		  (,(kbd "C-c '") . exwm-edit--compose)
 		  ,@(mapcar (lambda (i)
 					  `(,(kbd (format "s-%d" i)) .
 						(lambda ()
@@ -217,11 +218,9 @@
 		 ("<XF86AudioRaiseVolume>" . #'desktop-environment-volume-increment)))
 
 (leaf exwm-edit
-  :after (exwm)
   :elpaca t
+  :require t
   :config
-  (add-to-list 'exwm-input-global-keys '([?\C-c ?\'] . exwm-edit--compose))
-  (add-to-list 'exwm-input-global-keys '([?\C-c ?\'] . exwm-edit--compose))
   (defun k/on-exwm-edit-compose ()
 	(funcall 'org-mode))
   ;; exwm-edit-compose-hook
