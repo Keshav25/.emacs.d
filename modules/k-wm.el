@@ -69,6 +69,7 @@
 								 "Output\\*$"
 								 "\\*Async Shell Command\\*"
 								 help-mode
+								 helpful-mode
 								 prodigy-mode
 								 "COMMIT_EDITMSG"
 								 embark-collect-mode
@@ -79,25 +80,26 @@
 								 "\\*Warnings\\*"
 								 "\\*Bookmark List\\*"
 								 "\\*exwm-edit"
-								 "magit:"
+								 "^magit:*"
 								 elfeed-show-mode
 								 "*Guix REPL*"
 								 haskell-compilation-mode
 								 compilation-mode
 								 detached-compilation-mode
-								 bqn-inferior-mode))
+								 bqn-inferior-mode
+								 occur-mode
+								 grep-mode
+								 embark-collect-mode
+								 deadgrep-mode
+								 "^\\*deadgrep"
+								 backtrace-mode
+								 "^\\*eshell"))
   (popper-display-control . t)
   (popper-display-function . #'display-buffer-at-bottom)
+  (popper-group-function . #'popper-group-by-directory)
   :config
   (popper-mode 1)
   (popper-echo-mode 1))
-
-(leaf shackle
-  :elpaca t
-  :custom
-  (shackle-default-rule . '(:same t))
-  (shackle-rules . `(,popper-reference-buffers :align t :size 0.4)))
-
 
 (leaf tabspaces :elpaca t)
 
