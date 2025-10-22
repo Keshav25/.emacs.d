@@ -45,7 +45,7 @@
   (require 'k-term)
 
   ;; Hexo
-  (require 'k-hexo)
+  ;;(require 'k-hexo)
 
   ;; Eshell
   (require 'k-eshell)
@@ -54,10 +54,10 @@
   (require 'k-exwm)
 
   ;; Functions
-  (require 'k-functions)
+  ;; (require 'k-functions)
 
   ;; Guix
-  (require 'k-guix)
+  ;; (require 'k-guix)
 
   ;; Programming
   (require 'k-programming)
