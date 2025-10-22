@@ -4,13 +4,6 @@
   :config
   (set-frame-parameter nil 'alpha 100)
   (add-to-list 'default-frame-alist '(alpha-background . 90))
-  (defun k/turn-alpha-transparency-on ()
-	(interactive)
-	(set-frame-parameter nil 'alpha 90)
-	(setq vertico-posframe-parameters
-		  '((alpha . 100)
-			(alpha-background . 90))))
-
   (defun k/turn-background-transparency-on ()
 	"turn background transparency on and text transparency off"
 	(interactive)
