@@ -72,8 +72,6 @@
 								 helpful-mode
 								 prodigy-mode
 								 "COMMIT_EDITMSG"
-								 embark-collect-mode
-								 "\\*deadgrep.\*"
 								 "\\*eldoc.\*"
 								 "\\*xref\\*"
 								 "\\*direnv\\*"
@@ -333,7 +331,6 @@ if there is no window on the right."
   (persp-mode-hook . perspective-project-bridge-mode))
 
 (leaf treemacs-perspective
-  :require t
   :elpaca t
   :after (treemacs perspective)
   :config
