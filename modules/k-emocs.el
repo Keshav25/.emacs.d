@@ -219,7 +219,9 @@
   :init
   (which-key-mode 1))
 
+;; Extremely annoying
 (leaf corfu
+  :disabled t
   :elpaca t
   :require t
   :custom
