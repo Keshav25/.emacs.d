@@ -294,7 +294,7 @@
 
 (leaf exwm-background
   :elpaca (exwm-background :host github :repo "keshav25/exwm-background")
-  :require t)
+  :after exwm)
 
 (leaf exwm-mff
   :elpaca t
