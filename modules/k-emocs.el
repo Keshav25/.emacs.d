@@ -416,7 +416,10 @@ _e_moji
   :require t
   :elpaca t
   :custom
+  (vertico-posframe-min-width . 100)
+  (vertico-posframe-width . 100)
   (vertico-posframe-border-width . 0)
+  (vertico-posframe-poshandler .  #'posframe-poshandler-frame-center)
   :config
   (vertico-posframe-mode 1))
 
