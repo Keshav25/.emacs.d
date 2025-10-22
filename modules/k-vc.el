@@ -263,6 +263,7 @@ for the \"main\" or \"master\" branch."
   (global-blamer-mode 1))
 
 (leaf syncthing
+  :disabled t
   ;; requires diffutils
   :config
   (defun my/resolve-orgzly-syncthing ()
