@@ -51,6 +51,8 @@
     (elpaca-generate-autoloads "elpaca" repo)
     (let ((load-source-file-function nil)) (load "./elpaca-autoloads"))))
 ;;(add-hook 'after-init-hook #'elpaca-process-queues)
+			   (let ((load-source-file-function nil)) (load "./elpaca-autoloads"))))
+(add-hook 'after-init-hook #'elpaca-process-queues)
 (elpaca `(,@elpaca-order))
 
   (unless (elpaca-installed-p 'leaf)
