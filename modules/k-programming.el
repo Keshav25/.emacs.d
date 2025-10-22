@@ -219,6 +219,7 @@
   (lsp-ui-doc-enable . nil))
 
 (leaf lsp-installer
+  :after (eglot)
   :elpaca (lsp-installer :host github
 						 :repo "kn66/lsp-installer.el")
   :config
