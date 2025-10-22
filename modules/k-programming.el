@@ -402,8 +402,8 @@
   :bind
   ("C-<escape>" . yas-expand)
   :config
-  (yas-global-mode)
-  (yas-reload-all)
+  ;; (yas-global-mode)
+  ;; (yas-reload-all)
   :hook
   (prog-mode-hook . yas-minor-mode)
   (text-mode-hook . yas-minor-mode)
