@@ -65,7 +65,6 @@
 (setq-default default-frame-alist
 			  '((tool-bar-lines . 0)
 				(menu-bar-lines . 0)
-				(alpha-background . 90)
 				(alpha . 100)
 				;; (undecorated . t)
 				(vertical-scroll-bars . nil)
