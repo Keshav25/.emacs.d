@@ -206,7 +206,9 @@
   :elpaca t)
 
 (leaf ace-popup-menu
-  :elpaca t)
+  :elpaca t
+  :config
+  (ace-popup-menu))
 
 (leaf avy-act
   :elpaca t)
