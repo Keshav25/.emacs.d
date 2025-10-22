@@ -9,7 +9,9 @@
   (delete-by-moving-to-trash . t)
   :bind (:dired-mode-map
 		 ("k" . dired-create-empty-file)
-		 ("e" . wdired-change-to-wdired-mode)))
+		 ("e" . wdired-change-to-wdired-mode)
+		 ("C-b" . dired-up-directory)
+		 ("C-f" . dired-find-file)))
 
 ;; (leaf dired-sidebar
 ;;   :elpaca t
