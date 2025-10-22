@@ -434,34 +434,25 @@ _e_moji
 ;; :bind (([remap list-buffers] . bufler)))
 
 (leaf completion-preview
+  :after prescient
   :config
   (global-completion-preview-mode)
   (push 'org-self-insert-command completion-preview-mode)
+  (push 'paredit-backwards-delete completion-preview-mode)
   (setq completion-auto-select t
 		completion-auto-help 'visible
 		completions-format 'one-column
 		completions-sort 'historical
 		completions-max-height 20
 		completion-ignore-case t)
-  (setopt completion-preview-sort-function #'corfu-sort-function
+  (setopt completion-preview-sort-function #'prescient-completion-sort
 		  completion-preview-minimum-symbol-length 2)
-  (add-variable-watcher 'corfu-sort-function
-						(lambda (_symbol newval operation where)
-                          "Match the value of `completion-preview-sort-function' to `corfu-sort-function'.
-If `corfu-sort-function' is set buffer-locally, also set
-`completion-preview-sort-function' buffer-locally.  Otherwise, change
-the default value of `completion-preview-sort-function' accordingly.
-
-This action only applies when the value of `corfu-sort-function' is
-set (i.e., OPERATION is \\='set).  This excludes, e.g., let bindings."
-                          (when (equal operation 'set)
-							(if where
-								(with-current-buffer where
-                                  (setq-local completion-preview-sort-function newval))
-                              (setopt completion-preview-sort-function newval)))))
   :bind (:completion-preview-active-mode-map
 		 ("M-f" . #'completion-preview-insert-mode)
-		 ("C-M-f" . #'completion-preview-insert-sexp)))
+		 ("C-M-f" . #'completion-preview-insert-sexp)
+		 ("M-n" . #'completion-preview-next-candidate)
+		 ("M-p" . #'completion-preview-prev-candidate)
+		 ("M-i" . #'completion-preview-insert)))
 
 (leaf file-previews
   :config
