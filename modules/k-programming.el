@@ -490,8 +490,8 @@
 		 ("b" . 'special-lispy-left)
 		 ;; originally lispy-left-maybe
 		 ("M-o" . 'ace-window))
-  (:lispy-mode-map-special)
-  ("<tab>" . k-toggle-fold))
+  (:lispy-mode-map-special
+   ("<tab>" . k-toggle-fold)))
 
 (leaf eldoc
   :custom
