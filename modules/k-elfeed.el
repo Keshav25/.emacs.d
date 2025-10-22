@@ -9,7 +9,7 @@
   (defun browse-url-mpv (url &optional single)
 	(start-process "mpv" nil "mpv" (shell-quote-argument url)))
 
-  (setq elfeed-show-entry-switch 'switch-to-buffer-other-window)
+  (setq elfeed-show-entry-switch 'switch-to-buffer)
   (defun elfeed-display-buffer (buf &optional act)
 	(pop-to-buffer buf)
 	(set-window-text-height (get-buffer-window)
