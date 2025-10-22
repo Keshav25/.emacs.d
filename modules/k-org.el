@@ -3,7 +3,6 @@
 (leaf org
   :bind (("C-c l" . org-store-link)
 		 ("C-c C-M-l" . org-toggle-link-display))
-  :hook (org-mode-hook . (turn-on-visual-line-mode))
   :custom
   (org-ellipsis . " ▾")
   (org-startup-numerated . 1)
