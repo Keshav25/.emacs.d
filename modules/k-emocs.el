@@ -2,6 +2,7 @@
 
 (leaf vertico
   :elpaca t
+  :require t
   :init
   (vertico-mode 1)
   (vertico-mouse-mode 1)
