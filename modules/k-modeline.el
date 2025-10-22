@@ -599,7 +599,6 @@ Read Info node `(elisp) Pixel Specification'.")
 (leaf keycast
   :after vim-tab-bar
   :elpaca t
-  :require t
   :config
   ;; (setq keycast-mode-line-format "%2s%k%c%R")
   ;; (setq keycast-mode-line-insert-after 'k-modeline-major-mode)

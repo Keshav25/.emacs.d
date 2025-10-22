@@ -360,7 +360,6 @@
 
 (leaf perspective-exwm
   :after (perspective)
-  :require t
   :elpaca t
   :custom
   (perspective-exwm-override-initial-name . '((0 . "main")))

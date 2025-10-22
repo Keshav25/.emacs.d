@@ -228,7 +228,6 @@
 
 (leaf evedel
   :elpaca t
-  :require t
   :custom
   (evedel-empty-tag-query-matches-all . nil)
   :bind (("C-c e r" . evedel-create-reference)
@@ -311,7 +310,6 @@
 
 (leaf empv
   :elpaca t
-  :require t
   :custom
   (empv-invidious-instance . "https://inv.nadeko.net/api/v1"))
 
@@ -428,7 +426,6 @@ the form."
 
 (leaf eee
   ;; TODO needs devicon-lookup
-  :require t
   :custom
   (ee-terminal-command . "alacritty")
   :elpaca (eee :host github :repo "Keshav25/eee.el"

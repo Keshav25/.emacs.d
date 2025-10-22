@@ -208,7 +208,6 @@
 
 (leaf evil-textobj-tree-sitter
   :after (which-key evil)
-  :require t
   :elpaca t
   :custom
   (tree-sitter-debug-jump-buttons . t)

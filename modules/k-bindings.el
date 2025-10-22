@@ -33,7 +33,6 @@
 
 (leaf multifiles
   :elpaca t
-  :require t
   :bind
   (("C-!" . mf/mirror-region-in-multifile))
   :config
@@ -47,8 +46,8 @@
 	 (mapcar 'find-file-noselect (dired-get-marked-files)))))
 
 (leaf meow
+  :disabled t
   :elpaca t
-  :require t
   :config
   (defun meow-setup ()
 	(setq meow-cheatsheet-layout meow-cheatsheet-layout-colemak)
@@ -164,7 +163,6 @@
 (leaf meow-tree-sitter
   :after (meow)
   :elpaca t
-  :require t
   :config
   (meow-tree-sitter-register-defaults))
 
@@ -195,7 +193,6 @@
 
 (leaf back-button
   :elpaca t
-  :require t
   :bind (("C-<" . back-button-local-backward)
 		 ("C->" . back-button-local-forward)
 		 ("C-M-<" . back-button-global-backward)

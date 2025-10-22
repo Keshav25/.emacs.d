@@ -4,7 +4,6 @@
 (leaf general
   :after evil
   :elpaca t
-  :require t
   :config
   (general-evil-setup t))
 

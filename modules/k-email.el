@@ -59,7 +59,7 @@
 ;; }}
 
 ;; BBDB: Address list
-(leaf bbdb :elpaca t :require t)
+(leaf bbdb :elpaca )t
 (bbdb-initialize 'message 'gnus 'sendmail)
 (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
 (setq bbdb/mail-auto-create-p t

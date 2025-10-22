@@ -486,6 +486,7 @@ _e_moji
 
 ;; Prescient disabled, was slowing down emacs a lot for some reason.
 (leaf prescient
+  :after vertico
   :elpaca t
   :require t
   :config
