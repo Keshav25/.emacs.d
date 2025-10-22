@@ -112,7 +112,6 @@ sCommand: ")
   :elpaca t)
 
 (leaf kiss
-  :elpaca (kiss :host github :repo "echawk/kiss.el")
-  :require t)
+  :elpaca (kiss :host github :repo "echawk/kiss.el"))
 
 (provide 'k-os)
