@@ -41,8 +41,9 @@
 (leaf orderless
   :elpaca t
   :custom
-  (completion-styles . '(orderless))
-  (completion-category-overrides . '((file (styles basic partial-completion)))))
+  (completion-styles . '(orderless basic))
+  (completion-category-overrides . '((file (styles partial-completion))))
+  (completion-pcm-leading-wildcard . t))
 
 (leaf marginalia
   :elpaca t
