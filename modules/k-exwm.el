@@ -191,6 +191,7 @@
   (define-key exwm-mode-map "\C-c\C-q" nil)
   (define-key exwm-mode-map "\C-c\C-t\C-f" nil)
   (define-key exwm-mode-map "\C-c\C-t\C-m" nil)
+  (exwm-init)
   :bind (:exwm-mode-map
 		 ("C-q" . #'exwm-input-send-next-key)
 		 ("s-i" . #'exwm-input-toggle-keyboard)
@@ -314,11 +315,6 @@
 (leaf ednc-popup
   :elpaca (ednc-popup :host git :url "https://codeberg.org/akib/emacs-ednc-popup.git")
   :hook (ednc-notification-presentation-functions . ednc-popup-presentation-function))
-
-(leaf exwm-initialization
-  :after (exwm exwm-edit)
-  :config
-  (exwm-init))
 
 (leaf exwm-float
   :elpaca t
