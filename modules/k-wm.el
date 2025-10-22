@@ -122,6 +122,8 @@
 		  (?F delete-other-windows "Delete Other Windows")
 		  (?? aw-show-dispatch-help)))
   (setq aw-dispatch-always nil)
+  (defun aw--switch-buffer ()
+	(call-interactively 'consult-buffer))
   (ace-window-display-mode)
 
   (defun ace-window-prefix ()
