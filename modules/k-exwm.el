@@ -297,6 +297,7 @@
   :after exwm)
 
 (leaf exwm-mff
+  :require t
   :elpaca t
   :config
   (exwm-mff-mode 1))
