@@ -257,6 +257,8 @@ for the \"main\" or \"master\" branch."
 
 (leaf blamer
   :elpaca t
+  :custom
+  (blamer-force-truncate-long-line . nil)
   :config
   (global-blamer-mode 1))
 
