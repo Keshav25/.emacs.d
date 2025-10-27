@@ -208,7 +208,7 @@
 (leaf ace-popup-menu
   :elpaca t
   :config
-  (ace-popup-menu))
+  (ace-popup-menu-mode))
 
 (leaf avy-act
   :elpaca t)
