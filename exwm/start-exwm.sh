@@ -18,7 +18,7 @@ feh --bg-fill ~/Downloads/01151_inthedeep_2560x1600.jpg &
 lxsession &
 lxqt-panel &
 flameshot &
-emacs --fullscreen --eval "(exwm-enable)"
+emacs --fullscreen --eval "(exwm-wm-mode)"
 
 # Logout process.
 test -n "$DESKTOP_AUTOSTART_ID" && {
