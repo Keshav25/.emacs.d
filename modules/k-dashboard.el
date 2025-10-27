@@ -27,10 +27,12 @@
   (leaf dashboard-hackernews :elpaca t))
 
 (leaf grid
+  :disabled t
   :elpaca (grid :host github :repo "https://github.com/ichernyshovvv/grid.el")
   :require t)
 
 (leaf enlight
+  :disabled t
   :after grid
   :elpaca t
   :require t 
