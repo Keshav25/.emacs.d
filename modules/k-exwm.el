@@ -30,9 +30,8 @@
 			(alpha-background . 100)))))
 
 (leaf exwm
-  :after (desktop-environment exwm-edit)
-  :elpaca t
   :require t
+  :elpaca t
   :custom
   (exwm-input-line-mode-passthrough . nil)
   (mouse-autoselect-window . t)
@@ -46,7 +45,8 @@
 							  ?\M-&
 							  ?\M-:))
   :hook ((exwm-input--input-mode-change-hook . force-modeline-update))
-  :config
+  :init
+  (require 'exwm)
   (defun fhd/toggle-exwm-input-line-mode-passthrough ()
 	(interactive)
 	(if exwm-input-line-mode-passthrough
@@ -225,6 +225,7 @@
 ;; Desktop-Environment
 (leaf desktop-environment
   :elpaca t
+  :require t
   :custom
   (desktop-environment-brightness-small-increment . "2%+")
   (desktop-environment-brightness-small-decrement . "2%-")
@@ -317,12 +318,12 @@
   :hook (ednc-notification-presentation-functions . ednc-popup-presentation-function))
 
 (leaf exwm-float
+  :require t
   :elpaca t
   :init
   (setq exwm-float-modify-amount '(:move-slow 20 :move-fast 100 :resize 50)
         exwm-float-border '(:stationary ("navy" . 1) :moving ("maroon" . 2)))
-  (exwm-float-setup)
-  (exwm-input-set-key (kbd "C-c M-f") #'exwm-float-mode))
+  (exwm-float-setup))
 
 (leaf consult-exwm
   :after (consult)
