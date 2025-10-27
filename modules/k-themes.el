@@ -172,6 +172,7 @@
 
 (leaf doom-modeline
   :elpaca t
+  :disabled t
   :config
   ;; slows down emacs
   (doom-modeline-mode 1)
