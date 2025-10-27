@@ -354,7 +354,6 @@
 
 (leaf repl-driven-development
   :elpaca t
-  :require t
   :config
   (repl-driven-development [C-x C-j] java)       
   (repl-driven-development [C-x C-n] javascript) 
