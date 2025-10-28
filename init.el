@@ -7,17 +7,6 @@
 (require 'server)
 ;; (unless (server-running-p)
 ;;   (server-start))
-
-;; Prevent GC while in the minibuffer
-(defun my-minibuffer-setup-hook ()
-	   (setq gc-cons-threshold most-positive-fixnum))
-
-(defun my-minibuffer-exit-hook ()
-	   (setq gc-cons-threshold 100000000))
-
-;; (add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
-;; (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
-
 ;; Process performance tuning
 (setq read-process-output-max (* 4 1024 1024))
 (setq process-adaptive-read-buffering nil)
