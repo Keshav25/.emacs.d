@@ -11,14 +11,6 @@
 (setq read-process-output-max (* 4 1024 1024))
 (setq process-adaptive-read-buffering nil)
 
-;; startup message
-;; (add-hook 'emacs-startup-hook
-;; 		  (lambda ()
-;; 			(message "*** Emacs loaded in %s with %d garbage collections."
-;; 					 (format "%.2f seconds"
-;; 							 (float-time
-;; 							  (time-subtract after-init-time before-init-time)))
-;; 					 gcs-done)))
 
 ;; Native Comp Errors
 (setq
