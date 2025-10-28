@@ -3,10 +3,10 @@
 ;; init benchmarking
 (add-to-list 'load-path (expand-file-name "site-lisp" user-emacs-directory))
 
-;; emacsclient - will re-enable once I change /tmp to be not just root only
 (require 'server)
-;; (unless (server-running-p)
-;;   (server-start))
+(unless (server-running-p)
+		(server-start))
+
 ;; Process performance tuning
 (setq read-process-output-max (* 4 1024 1024))
 (setq process-adaptive-read-buffering nil)
@@ -46,7 +46,7 @@
 
 (make-directory (expand-file-name "tmp/auto-saves/"
 								  user-emacs-directory)
-				t)
+								  t)
 (setq
  auto-save-list-file-prefix
  (expand-file-name "tmp/auto-saves/sessions/" user-emacs-directory)
@@ -68,13 +68,13 @@
 (message "Deleting old backup files...")
 (let ((week (* 60 60 24 7))
 	  (current (float-time (current-time))))
-  (dolist (file (directory-files temporary-file-directory t))
-	(when (and (backup-file-name-p file)
-			   (> (- current
-					 (float-time (fifth (file-attributes file))))
-				  (* 4 week)))
-	  (message "%s" file)
-	  (delete-file file))))
+	  (dolist (file (directory-files temporary-file-directory t))
+		(when (and (backup-file-name-p file)
+				   (> (- current
+						 (float-time (fifth (file-attributes file))))
+					  (* 4 week)))
+		  (message "%s" file)
+		  (delete-file file))))
 
 
 ;; recentf-mode
@@ -91,13 +91,13 @@
 
 ;; Get Home Directory if Windows
 (when (and iswindows (null (getenv-internal "HOME")))
-  (setenv "HOME" (getenv "USERPROFILE"))
-  (setq abbreviated-home-dir nil))
+	  (setenv "HOME" (getenv "USERPROFILE"))
+	  (setq abbreviated-home-dir nil))
 
 ;; Determine if Native Comp
 (defconst isnativecomp
   (if (fboundp 'native-comp-available-p)
-	  (native-comp-available-p)))
+	(native-comp-available-p)))
 
 ;; Determine if EXWM should be enabled
 (setq isexwm (and (not istermux) (eq window-system 'x)))
@@ -133,7 +133,7 @@
 
 (setq custom-file
       (if (boundp 'server-socket-dir)
-          (expand-file-name "~/.emacs.d/custom.el" server-socket-dir)
+        (expand-file-name "~/.emacs.d/custom.el" server-socket-dir)
         (expand-file-name (format "emacs-custom-$s.el" (user-uid))
                           temporary-file-directory)))
 
