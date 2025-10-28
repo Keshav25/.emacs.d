@@ -39,12 +39,11 @@
   :init
   (gcmh-mode 1)
   (defun my-minibuffer-setup-hook ()
-	(setq gc-cons-threshold most-positive-fixnum))
+	  (setq gc-cons-threshold most-positive-fixnum))
   (defun my-minibuffer-exit-hook ()
-	(setq gc-cons-threshold gcmh-low-cons-threshold))
+	  (setq gc-cons-threshold gcmh-low-cons-threshold))
   :hook ((minibuffer-setup-hook . my-minibuffer-setup-hook)
 		 (minibuffer-exit-hook . my-minibuffer-exit-hook)))
-
 
 (leaf helpful
   :elpaca t
