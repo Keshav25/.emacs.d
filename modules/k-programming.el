@@ -354,11 +354,10 @@
 
 (leaf repl-driven-development
   :elpaca t
-  :config
-  (repl-driven-development [C-x C-j] java)       
-  (repl-driven-development [C-x C-n] javascript) 
-  (repl-driven-development [C-x C-p] python)
-  (repl-driven-development [C-x C-t] terminal))
+  :bind (("C-x C-j" . java-eval)
+		 ("C-x C-n" . javascript-eval)
+		 ("C-x C-n" . python-eval)
+		 ("C-x C-t" . terminal-eval)))
 
 ;; TODO: Switch to Eros
 (leaf cider
