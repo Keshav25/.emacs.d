@@ -350,4 +350,9 @@ for the \"main\" or \"master\" branch."
 (leaf magit-imerge
   :elpaca t)
 
+(leaf jjdescription
+  :elpaca t)
+
+(use-package jj-mode
+  :vc (:url "https://github.com/bolivier/jj-mode.el"))
 (provide 'k-vc)
