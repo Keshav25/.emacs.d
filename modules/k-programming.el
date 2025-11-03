@@ -199,9 +199,8 @@
 
 (leaf lsp-mode
   :elpaca t
-  :init
-  (setq lsp-keymap-prefix "C-c C-y")
   :custom
+  (lsp-keymap-prefix . "C-c C-y")
   (lsp-eldoc-render-all . t)
   (lsp-idle-delay . 0.6)
   (lsp-inlay-hint-enable . t)
