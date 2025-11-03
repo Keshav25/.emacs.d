@@ -234,10 +234,9 @@ for the \"main\" or \"master\" branch."
 
 (leaf diff-hl
   :elpaca t
-  :require t
-  :init
-  (global-diff-hl-mode 1)
-  :hook ((magit-post-refresh-hook . diff-hl-magit-post-refresh))
+  :hook ((prog-mode-hook . diff-hl-mode)
+		 (org-mode-hook . diff-hl-mode)
+		 (magit-post-refresh-hook . diff-hl-magit-post-refresh))
   :bind (:diff-hl-mode-map
 		 ("<left-fringe> <mouse-1>" . 'diff-hl-diff-goto-hunk)
 		 ("M-C-]" . 'diff-hl-next-hunk)
