@@ -349,9 +349,13 @@ for the \"main\" or \"master\" branch."
 (leaf magit-imerge
   :elpaca t)
 
-(leaf jjdescription
-  :elpaca t)
+;; recipe not found
+;; (leaf jjdescription
+;; :disabled t
+;; :elpaca t)
 
-(use-package jj-mode
-  :vc (:url "https://github.com/bolivier/jj-mode.el"))
+;; did not work with leaf
+;; (use-package jj-mode
+;; :vc (:url "https://github.com/bolivier/jj-mode.el"))
+
 (provide 'k-vc)
