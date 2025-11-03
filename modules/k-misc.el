@@ -8,7 +8,7 @@
 ;; Async
 (leaf async
   :elpaca t
-  :init
+  :config
   (dired-async-mode 1))
 
 ;; (use-package detached
