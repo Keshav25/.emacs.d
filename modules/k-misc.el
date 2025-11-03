@@ -264,7 +264,7 @@
 
 ;; Weird issue about sonnet, which I don't even have
 (leaf aidermacs
-  :after transient
+  :after (magit transient)
   :elpaca t
   ;; think of a binding for aidermacs-transient-menu
   :config
