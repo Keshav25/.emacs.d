@@ -50,6 +50,11 @@
   :when iswindows
   :doc "the source of my anger issues"
   :config
+  ;; Get Home Directory if Windows
+  (when (and iswindows (null (getenv-internal "HOME")))
+		(setenv "HOME" (getenv "USERPROFILE"))
+		(setq abbreviated-home-dir nil))
+
   (defun wsl (command)
 	"run shell-command in wsl"
 	(interactive "sCommand: ")

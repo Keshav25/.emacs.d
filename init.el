@@ -81,10 +81,6 @@
    "Android" (string-trim (shell-command-to-string "uname -a"))))
 (defconst isguix nil)
 
-;; Get Home Directory if Windows
-(when (and iswindows (null (getenv-internal "HOME")))
-	  (setenv "HOME" (getenv "USERPROFILE"))
-	  (setq abbreviated-home-dir nil))
 
 ;; Determine if Native Comp
 (defconst isnativecomp
