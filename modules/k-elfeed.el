@@ -3,13 +3,13 @@
 (leaf elfeed
   :elpaca t
   :require t
+  :custom
+  (elfeed-db-directory . "~/.emacs.d/elfeed/")
+  (elfeed-show-entry-switch . 'display-buffer)
   :config
-  (setq elfeed-db-directory "~/.emacs.d/elfeed/")
-
   (defun browse-url-mpv (url &optional single)
 	(start-process "mpv" nil "mpv" (shell-quote-argument url)))
 
-  (setq elfeed-show-entry-switch 'switch-to-buffer)
   (defun elfeed-display-buffer (buf &optional act)
 	(pop-to-buffer buf)
 	(set-window-text-height (get-buffer-window)
