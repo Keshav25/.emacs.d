@@ -62,6 +62,7 @@
    ([remap save-buffer] . elfeed-tube-save)))
 
 (leaf elfeed-tube-mpv
+  :after (elfeed)
   :elpaca t
   :bind (:elfeed-show-mode-map
 		 ("C-c C-f" . elfeed-tube-mpv-follow-mode)
