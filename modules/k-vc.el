@@ -349,10 +349,8 @@ for the \"main\" or \"master\" branch."
 (leaf magit-imerge
   :elpaca t)
 
-;; recipe not found
-;; (leaf jjdescription
-;; :disabled t
-;; :elpaca t)
+(leaf jjdescription
+  :elpaca (jjdescription :host github :repo "necaris/jjdescription.el"))
 
 ;; did not work with leaf
 ;; (use-package jj-mode
