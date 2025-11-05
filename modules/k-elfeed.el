@@ -43,15 +43,15 @@
 (leaf elfeed-org
   :elpaca t
   :after (org)
+  :custom
+  (rhm-elfeed-org-files . '("~/.emacs.d/elfeed.org"))
   :config
-  (setq elfeed-show-entry-switch 'display-buffer)
-  (setq rmh-elfeed-org-files
-		(list "~/.emacs.d/elfeed.org"))
   (elfeed-org))
 
 ;; Elfeed For Youtube
 (leaf elfeed-tube
   :elpaca t
+  :after (elfeed)
   :config
   (elfeed-tube-setup)
   :bind (:elfeed-show-mode-map
