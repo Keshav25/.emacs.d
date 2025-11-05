@@ -196,14 +196,14 @@
 
 (leaf gptel
   :elpaca t
+  :custom
+  (gptel-default-mode . #'org-mode)
+  (gptel-model . 'uncensored-deep)
   :config
-  (setq gptel-default-mode #'org-mode)
-  (setq
-   gptel-model 'uncensored-deep
-   gptel-backend (gptel-make-ollama "Ollama"
-                   :host "localhost:11434"
-                   :stream t
-                   :models '(uncensored-deep:latest))))
+  (setq gptel-backend (gptel-make-ollama "Ollama"
+						:host "localhost:11434"
+						:stream t
+						:models '(uncensored-deep))))
 
 (leaf gptel-aibo :elpaca t)
 
