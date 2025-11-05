@@ -352,8 +352,7 @@ for the \"main\" or \"master\" branch."
 (leaf jjdescription
   :elpaca (jjdescription :host github :repo "necaris/jjdescription.el"))
 
-;; did not work with leaf
-;; (use-package jj-mode
-;; :vc (:url "https://github.com/bolivier/jj-mode.el"))
+(leaf jj-mode
+  :elpaca (jj-mode :host github :repo "bolivier/jj-mode.el"))
 
 (provide 'k-vc)
