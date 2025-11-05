@@ -6,22 +6,22 @@
 
 (defun k/main-configuration ()
   ;; Leaf
-  (require 'k-leaf)
+  (load "k-leaf")
   
   ;; Keybindings
-  (require 'k-bindings)
+  (load  "k-bindings")
 
   ;; Dashboard
-  (require 'k-dashboard)
+  (load "k-dashboard")
 
   ;; Misc
-  (require 'k-misc)
+  (load "k-misc")
 
   ;; Themes
-  (require 'k-themes)
+  (load "k-themes")
 
   ;; Window-Management
-  (require 'k-wm)
+  (load "k-wm")
 
   ;; Hydra
   (require 'k-hydra)
