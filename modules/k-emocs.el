@@ -148,6 +148,7 @@
 (leaf consult-omni
   :elpaca (consult-omni :host github :repo "armindarvish/consult-omni" :branch "main" :files (:defaults "sources/*.el"))
   :after consult
+  :bind (("M-S-s" . consult-omni))
   :config
   ;; Load Sources Core code
   (require 'consult-omni-sources)
