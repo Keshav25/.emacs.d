@@ -23,11 +23,11 @@
 	(set-frame-parameter nil 'alpha-background 100)
 	(setq vertico-posframe-parameters
 		  '((alpha . 100)
-			(alpha-background . 100)))
+			(alpha-background . 90)))
 	(setq which-key-posframe-parameters
 		  '((parent-frame . nil)
 			(alpha . 100)
-			(alpha-background . 100)))))
+			(alpha-background . 90)))))
 
 (leaf exwm
   :require t
