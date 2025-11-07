@@ -261,7 +261,7 @@ if there is no window on the right."
 
 (leaf golden-ratio
   :elpaca t
-  :config)
+  )
 
 ;; https://github.com/alphapapa/yequake
 
