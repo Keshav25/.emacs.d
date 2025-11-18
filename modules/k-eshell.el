@@ -219,7 +219,8 @@
   (eat-shell . "~/.guix-profile/bin/fish")
   :hook ((eshell-load-hook . eat-eshell-mode)
 		 ;; since htop doesn't work with the former
-		 (eshell-load-hook . eat-eshell-visual-command-mode)))
+		 (eshell-load-hook . eat-eshell-visual-command-mode)
+		 (eat-exit-hook . kill-this-buffer)))
 
 (leaf comint-mime
   :elpaca t
