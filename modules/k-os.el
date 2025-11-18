@@ -106,7 +106,7 @@ sCommand: ")
 (leaf dmenu :elpaca t)
 
 (leaf sudo-edit
-  :after (embark)
+  :elpaca t
   :bind
   (:embark-file-map
    ("s". sudo-edit-find-file))
