@@ -449,7 +449,11 @@
 		 (prog-mode-hook . symbol-overlay-mode)))
 
 (leaf symbol-overlay-mc
-  :elpaca t)
+  :elpaca t
+  :bind (("C-S-c C-S-c" . mc/edit-lines)
+		 ("C->" . mc/mark-next-like-this)
+		 ("C-<" . mc/mark-previous-like-this)
+		 ("C-c C-<" . mc/mark-all-like-this)))
 
 (leaf smartparens
   :elpaca t
