@@ -70,6 +70,9 @@
 
   ;; Go
   (require 'k-go)
+
+  ;; Zig
+  (require 'k-zig)
   
   ;; Term
   (require 'k-term)

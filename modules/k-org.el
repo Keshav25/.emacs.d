@@ -483,6 +483,8 @@ to an appropriate container (e.g., a paragraph)."
   :elpaca t
   :hook (org-mode-hook . org-inline-anim-mode))
 
+;; (leaf ob-go :elpaca t)
+
 (leaf ob-rust :elpaca t)
 
 (leaf ob-http
@@ -496,10 +498,11 @@ to an appropriate container (e.g., a paragraph)."
 
 (leaf ob-elixir :elpaca t)
 
-(leaf ob-compile :elpaca t :require t)
+(leaf ob-compile :elpaca t)
+
+(leaf ob-zig :elpaca (ob-zig :host github :repo "jolby/ob-zig.el"))
 
 (leaf org-babel
-  :disabled t
   :after (org)
   :config
   (setopt org-confirm-babel-evaluate nil)
@@ -564,24 +567,24 @@ to an appropriate container (e.g., a paragraph)."
                               ;; This simulates a mouse click and makes a menu change
                               (org-mouse-down-mouse nil)))))))))))
 
-  ;; (org-babel-do-load-languages
-  ;; 'org-babel-load-languages
-  ;; '((python . t)
-  ;; (dot . t)
-  ;; (emacs-lisp . t)
-  ;; (shell . t)
-  ;; (scheme . t)
-  ;; (go . t)
-  ;; (rust . t)
-  ;; (clojure . t)
-  ;; (csharp .t )
-  ;; (elixir . t)
-  ;; (java . t)
-  ;; (compile . t)
-  ;; (C . t)
-  ;; (cpp . t)
-  ;; (R . t)))
-  )
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((python . t)
+	 (dot . t)
+	 (emacs-lisp . t)
+	 (shell . t)
+	 (scheme . t)
+	 ;; (go . t)
+	 (rust . t)
+	 (clojure . t)
+	 (csharp . t)
+	 (elixir . t)
+	 (java . t)
+	 (zig . t)
+	 ;; (compile . t)
+	 (C . t)
+	 ;; (cpp . t)
+	 (R . t))))
 
 (leaf org-agenda
   :bind (("C-c a" . org-agenda))

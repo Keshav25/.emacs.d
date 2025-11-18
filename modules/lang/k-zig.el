@@ -9,4 +9,7 @@
 	:modes zig-mode t)
   (add-to-list 'flycheck-checkers 'zig))
 
+(leaf zig-ts-mode
+  :elpaca t)
+
 (provide 'k-zig)
