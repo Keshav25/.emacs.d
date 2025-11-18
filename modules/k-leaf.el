@@ -7,11 +7,9 @@
   (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"))
 
 (customize-set-variable
-   'package-archives '(("melpa" . "https://melpa.org/packages/")
-                       ("gnu" . "https://elpa.gnu.org/packages/")
-					   ("nongnu" . "https://elpa.nongnu.org/nongnu/")) t)
-
-  (package-initialize)
+ 'package-archives '(("melpa" . "https://melpa.org/packages/")
+                     ("gnu" . "https://elpa.gnu.org/packages/")
+					 ("nongnu" . "https://elpa.nongnu.org/nongnu/")) t)
 
 (setq elpaca-core-date "20250309")
 (defvar elpaca-installer-version 0.11)
