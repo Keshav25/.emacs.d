@@ -34,7 +34,25 @@
 							:jump-to-captured t)
 						   ("a" "Appointment" entry
                             (file+olp denote-journal-capture-entry-for-date "Appointments")
-                            "* %(denote-journal-capture-timestamp) %^{Subject?}"))))
+                            "* %(denote-journal-capture-timestamp) %^{Subject?}")
+						   ("l" "logging" entry
+							(file "~/Documents/notes/log.org")
+							"* %(denote-journal-capture-insert-date)"
+							:empty-lines 1
+							:no-save nil
+							:immediate-finish t
+							:kill-buffer t
+							:jump-to-captured nil))))
+
+(leaf denote-journal
+  :elpaca (denote-journal :host github :repo "protesilaos/denote-journal")
+  :after denote
+  :require t
+  :bind ("C-c n j" . denote-journal-new-or-existing-entry)
+  )
+
+(leaf denote-journal-capture
+  :elpaca t)
 
 (leaf denote
   :elpaca (denote :host github :repo "protesilaos/denote")
@@ -42,7 +60,6 @@
   :bind
   ("C-c n i" . denote-link-or-create)
   ("C-c n c" . denote-open-or-create)
-  ("C-c n j" . denote-journal-new-or-existing-entry)
   ("C-c n b" . denote-find-backlink)
   ("C-c n d" . denote-date)
   ("C-c n l" . denote-find-link)
@@ -78,47 +95,44 @@
   (after-save-hook . k/denote-always-rename-on-save)
   :config
   (denote-rename-buffer-mode 1)
-  (require 'denote-journal)
   (defun k/publish-denote ()
 	(interactive)
 	(mapc (lambda (file) (org-ehtml-export-file file))
 		  (seq-filter (apply-partially #'string-match-p "_programming")
 					  (denote-directory-files)))
 	(shell-command (concat "mv "
-						   [O [I			   (concat (denote-directory) "*.html ")]]
+						   [O [I (concat (denote-directory) "*.html ")]]
 						   (concat (denote-directory) "blog/posts/"))))
   (defun k/denote-always-rename-on-save ()
 	"Rename the current Denote file upon saving the file.
     Add this to `after-save-hook'."
 	(let ((denote-rename-confirmations nil)
-          (denote-save-buffers t)) ; to save again post-rename
-      (when (and buffer-file-name (denote-file-is-note-p buffer-file-name))
+		  (denote-save-buffers t))		; to save again post-rename
+	  (when (and buffer-file-name (denote-file-is-note-p buffer-file-name))
 		(ignore-errors (denote-rename-file-using-front-matter buffer-file-name)))))
   (defun k-denote-assign-para ()
-    (interactive)
+	(interactive)
 	(if-let* ((file (buffer-file-name))
-              ((denote-filename-is-note-p file))
-              (all-keywords (string-split (denote-retrieve-filename-keywords file) "_"))
-              (keywords (seq-remove (lambda (keyword)
-                                      (member keyword denote-para-keywords))
+			  ((denote-filename-is-note-p file))
+			  (all-keywords (string-split (denote-retrieve-filename-keywords file) "_"))
+			  (keywords (seq-remove (lambda (keyword)
+									  (member keyword denote-para-keywords))
 									all-keywords))
-              (para (completing-read "Select category: " denote-para-keywords))
-              (new-keywords (push para keywords)))
+			  (para (completing-read "Select category: " denote-para-keywords))
+			  (new-keywords (push para keywords)))
 		(denote-rename-file
 		 file
 		 (denote-retrieve-title-or-filename file (denote-filetype-heuristics file))
 		 new-keywords
 		 (denote-retrieve-filename-signature file))
-      (message "Current buffer is not a Denote file.")))
-  )
+	  (message "Current buffer is not a Denote file."))))
 
 (leaf denote-agenda
   :disabled t
-  :after denote
+  :after denote-journal
   :elpaca t
   :require t
   :config
-  (load-library "denote-journal-extras")
   (setq denote-agenda-include-journal t)
   (setq denote-agenda-include-regexp "")
   (denote-agenda-insinuate))
