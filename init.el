@@ -88,7 +88,11 @@
 	(native-comp-available-p)))
 
 ;; Determine if EXWM should be enabled
-(setq isexwm (and (not istermux) (eq window-system 'x)))
+(setq isexwm nil)
+(add-to-list
+ 'command-switch-alist
+ '("start-exwm" . (lambda (&rest ignore) (setq isexwm t))))
+
 
 ;; Language Environment
 (set-language-environment "UTF-8")

@@ -2,19 +2,17 @@
 
 (leaf transparent-frame
   :config
-  (set-frame-parameter nil 'alpha 100)
-  (add-to-list 'default-frame-alist '(alpha-background . 90))
   (defun k/turn-background-transparency-on ()
 	"turn background transparency on and text transparency off"
 	(interactive)
 	(set-frame-parameter nil 'alpha 100)
-	(set-frame-parameter nil 'alpha-background 50)
+	(set-frame-parameter nil 'alpha-background 85)
 	(setq vertico-posframe-parameters
 		  '((alpha . 100)
-			(alpha-background . 45)))
+			(alpha-background . 90)))
 	(setq which-key-posframe-parameters
 		  '((alpha . 100)
-			(alpha-background . 45))))
+			(alpha-background . 90))))
 
   (defun k/turn-background-transparency-off ()
 	"turn background transparency off and text transparency on"
@@ -27,9 +25,11 @@
 	(setq which-key-posframe-parameters
 		  '((parent-frame . nil)
 			(alpha . 100)
-			(alpha-background . 90)))))
+			(alpha-background . 90))))
+  (k/turn-background-transparency-on))
 
 (leaf exwm
+  :when isexwm
   :require t
   :elpaca t
   :custom
@@ -212,6 +212,7 @@
 		 ("<XF86AudioRaiseVolume>" . #'desktop-environment-volume-increment)))
 
 (leaf exwm-edit
+  :after exwm
   :elpaca t
   :require t
   :config
@@ -220,10 +221,9 @@
   ;; exwm-edit-compose-hook
   (add-hook 'exwm-edit-compose-hook 'k/on-exwm-edit-compose))
 
-
-
 ;; Desktop-Environment
 (leaf desktop-environment
+  :after exwm
   :elpaca t
   :require t
   :custom
@@ -291,6 +291,7 @@
   :after exwm)
 
 (leaf exwm-mff
+  :after exwm
   :require t
   :elpaca t
   :config
@@ -314,10 +315,12 @@
 			(lambda (&rest _) (force-mode-line-update t))))
 
 (leaf ednc-popup
+  :after ednc
   :elpaca (ednc-popup :host git :url "https://codeberg.org/akib/emacs-ednc-popup.git")
   :hook (ednc-notification-presentation-functions . ednc-popup-presentation-function))
 
 (leaf exwm-float
+  :after exwm
   :require t
   :elpaca t
   :init
@@ -326,7 +329,7 @@
   (exwm-float-setup))
 
 (leaf consult-exwm
-  :after (consult)
+  :after (consult exwm)
   :config
   (defvar +consult-exwm-filter "\\`\\*exwm")
   (add-to-list 'consult-buffer-filter +consult-exwm-filter)
@@ -349,7 +352,7 @@
 	"EXWM buffer source."))
 
 (leaf perspective-exwm
-  :after (perspective)
+  :after (perspective exwm)
   :elpaca t
   :custom
   (perspective-exwm-override-initial-name . '((0 . "main")))
