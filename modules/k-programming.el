@@ -47,6 +47,7 @@
 
 (leaf flycheck
   :elpaca t
+  :require t
   :config
   (global-flycheck-mode 1)
   
@@ -76,7 +77,7 @@
 
 (leaf flyover
   :ensure t
-  :hook (flycheck-mode-hook . flyover-mode)
+  :require t
   :custom
   (flyover-levels . '(error warning info))
   (flyover-use-theme-colors . t))
