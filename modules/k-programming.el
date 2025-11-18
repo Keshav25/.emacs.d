@@ -482,7 +482,7 @@
   :elpaca t
   :doc "https://github.com/abo-abo/lispy?tab=readme-ov-file#ide-like-features"
   ;; TODO: Relace Vim-Like bindings with Emacs ones
-  :hook ((emacs-lisp-mode-hook . lispy-mode))
+										;:((emacs-lisp-mode-hook . lispy-mode))
   ;; :custom
   ;; (lispy-compat . '(edebug cider))
   :bind (:lispy-mode-map
