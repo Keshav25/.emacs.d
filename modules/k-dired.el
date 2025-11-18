@@ -10,6 +10,7 @@
   :bind (:dired-mode-map
 		 ("k" . dired-create-empty-file)
 		 ("e" . wdired-change-to-wdired-mode)
+		 ("b" . dired-up-directory)
 		 ("C-b" . dired-up-directory)
 		 ("C-f" . dired-find-file)))
 
