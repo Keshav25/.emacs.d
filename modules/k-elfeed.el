@@ -81,4 +81,7 @@
   :elpaca t
   :hook (eww-after-render-hook . shrface-mode))
 
+(leaf elfeed-goodies
+  :elpaca t)
+
 (provide 'k-elfeed)
