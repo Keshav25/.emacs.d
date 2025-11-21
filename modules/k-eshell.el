@@ -217,10 +217,10 @@
 		 ("M-x" . transpose-words))
   :custom
   (eat-shell . "~/.guix-profile/bin/fish")
+  (eat-kill-buffer-on-exit . t)
   :hook ((eshell-load-hook . eat-eshell-mode)
 		 ;; since htop doesn't work with the former
-		 (eshell-load-hook . eat-eshell-visual-command-mode)
-		 (eat-exit-hook . kill-this-buffer)))
+		 (eshell-load-hook . eat-eshell-visual-command-mode)))
 
 (leaf comint-mime
   :elpaca t
