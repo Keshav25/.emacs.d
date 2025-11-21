@@ -1,7 +1,15 @@
 ;; -*- lexical-binding: t -*-
 
 (leaf lsp-go
-  :after (lsp))
+  :after (lsp-mode)
+  :custom
+  (lsp-go-use-gofumpt . t)
+  (lsp-go-analyses . '((unusedparams . t)
+					   (shadow . t)
+					   (unusedwrite . t)
+					   (nilness . t)
+					   (useany . t)
+					   (fieldalignment . t))))
 
 (leaf dap-go
   :after (dap)
