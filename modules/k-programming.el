@@ -555,5 +555,8 @@
   :config
   (setq sideline-backends-right '(sideline-eglot)))
 
+(leaf minitest
+  :elpaca t)
+
 
 (provide 'k-programming)
