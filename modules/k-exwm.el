@@ -384,6 +384,9 @@
 
 (add-hook 'exwm-floating-setup-hook #'my/fix-exwm-floating-windows)
 
+(elpaca-wait)
+(exwm-wm-mode)
+
 (provide 'k-exwm)
 
 ;; (leaf exwm
