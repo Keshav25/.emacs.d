@@ -1,0 +1,186 @@
+
+* Emacs Todos
+** Appearance
+*** TODO [#A] Custom Modeline Configuration
+- take inspiraction from prot's configuration
+- doom emacs modeline
+- possibly nano's weird modeline
+*** DONE Better Elfeed UI
+CLOSED: [2025-03-15 Sat 23:35]
+*** DONE Change vertico-posframe transparency in transparency functions
+CLOSED: [2025-03-28 Fri 02:59]
+*** DONE Visual Line Mode needs to be enabled by default
+CLOSED: [2025-10-10 Fri 16:01]
+** Package Management
+**** DONE Transitioning to Elpaca
+CLOSED: [2025-03-15 Sat 23:35]
+- denote-tree
+- denote-say
+- exwm packages
+- rx
+**** DONE Python packages in Guix
+CLOSED: [2025-04-12 Sat 18:08]
+** Keybindings
+*** TODO [#A] Textobjects
+*** TODO [#A] Implement and Add Avy Actions
+*** TODO [#C] Consider Creating Avy-Menus
+*** TODO [#A] Embrace and Avy Actions Integration
+*** TODO [#A] Embark and Avy Actions Intergration
+*** TODO [#A] Embark Configuration
+*** TODO [#A] Combobulate Keybindings
+*** TODO [#A] Eev Keybindings
+*** TODO [#A] Consult-Narrow
+*** TODO [#A] Jq Integration
+*** TODO [#A] Application Keybindings
+*** TODO [#C] GPTEL keybindings
+*** TODO [#A] Org-Mode Bindings (Pro/Demotion)
+** Window Management
+*** TODO [#A] Perspective-Mode + EXWM + tab bar + project.el Integration (now also add jj configuration)
+perpsective-exwm-mode, maybe see if I can use the tab bar for perspective -> tabspaces-mode
+*** TODO [#C] Replicate Tmux Sessions
+possibly through dtach + perspective.el + emacs server
+*** TODO [#B] Flat-browser navigation with EXWM, Zen/Librewolf, Consult, and Perspective.el
+I just need to be able to cycle through tabs, don't need each tab to be its own frame
+*** DONE Look into winds.el and eyebrowse
+CLOSED: [2025-04-12 Sat 18:19]
+Just use the stack above with project.el etc.
+*** TODO [#C] set bindings for the new emacs31 window management commands
+*** DONE have popper show up in the bottom no matter what
+CLOSED: [2025-03-25 Tue 00:18]
+*** DONE EXWM desktop session
+CLOSED: [2025-03-25 Tue 00:18]
+*** TODO [#A] Hydra menu
+*** TODO [#C] Emacs Application Framework and PopWeb(?)
+*** TODO [#B] Add Consult-Yank to EXWM
+*** TODO [#A] Compile emacs with xwidgets support
+*** TODO [#B] Split a widescreen monitor into 3 separate frames so that I get 3 EXWM workspaces
+** Org-Mode
+*** TODO [#A] Exporting denote to html
+*** TODO [#A] Setup Org-Protocol
+*** TODO Replace org-agenda's reference to the specific denote file with a regex
+move to a file in ~/.emacs.d/
+*** TODO [#B] use system-packages in emacs config
+install when not installed by guix. There is also an elisp implementation of the kiss package manager, maybe that might be useful.
+*** DONE Integrate denote and howm
+CLOSED: [2025-03-17 Mon 22:48]
+link in brave bookmarks
+*** TODO [#A] PARA in denote
+*** DONE Org Speedkey to trigger unpackaged/Org-Agenda function
+CLOSED: [2025-03-15 Sat 23:53]
+*** DONE Move over to elfeed.org
+CLOSED: [2025-03-25 Tue 00:19]
+*** TODO [#B] Better Org-Agenda tags
+*** DONE Move to Denote 4.0.0
+CLOSED: [2025-10-28 Tue 03:29]
+*** DONE Speed up org-agenda
+CLOSED: [2025-04-07 Mon 22:58]
+*** TODO [#A] org-web-tools
+*** TODO [#B] org-publish RSS
+[[denote:20250325T000703::#h:caf810d8-56b4-42e4-95e4-51eb85e1bcea][::Adding RSS to Org-Publish]]
+*** TODO [#A] Turn module files literate
+*** TODO [#C] Move to Citar
+*** DONE Move to git versions of denote and extras
+CLOSED: [2025-10-28 Tue 03:29]
+*** TODO [#A] Read HOWM Source Code and Configurations
+** Operating System
+*** TODO [#A] xbindkeys with flameshot shortcut
+*** TODO Get emacsclient to work with Ghostty's TERM value
+*** TODO [#A] Switch to Fish Shell
+** Programming
+*** TODO [#A] Prettier Config and EditorConfig Support
+*** DONE Better Compile.el
+CLOSED: [2025-03-25 Tue 00:19]
+*** TODO [#A] Moldable Emacs
+*** TODO Remove Paredit, Use Smartparens
+*** DONE Project-Specific vars in emacs
+CLOSED: [2025-05-04 Sun 01:30]
+*** TODO Add a debugger for Bash
+*** TODO [#A] Add a function to extract prompts from a shell and export to a buffer
+*** TODO [#A] Better LSP/DAP / Eglot/Dape Configs
+*** TODO [#A] TDD Runners
+*** TODO [#A] Build Tool Transients or Hydras
+*** TODO [#A] Yasnippets, GruGru Integration, and Project-Sensitive Templates
+*** TODO [#A] CI/CD Pipelines
+*** TODO [#A] Podman/Toolbox/Docker/Kubernetes Integration
+*** TODO [#C] Ollama RAG, MCP, Completion, Agent (Evedel) Setup
+*** TODO Gamification of Learning Languages/Frameworks/Tools
+(Perhaps Integration with Local Running Habitica)
+** Financial
+*** TODO [#A] Manage financial transactions
+** Scripting
+*** TODO [#A] handle command line arguments
+=command-line-args=
+*** TODO [#A] Learn Elisp Internals
+*** TODO [#A] Data Structures and Algorithms
+*** TODO [#A] Language Documentation
+*** TODO [#A] Code Katas
+*** TODO [#A] Tesseract OCR with EXWM Simulation Keys
+To enchance scripting abilities
+** Task Management
+*** TODO [#A] Calculate Hours Per Project/Client etc.
+*** TODO [#A] Pomodoro Timer
+*** TODO [#A] Value Pricing (unofficial custom term)
+Also will be useful for running experiments with programming productivity tools
+*** TODO [#A] Better Dashboard
+NGDAA
+*** TODO [#A] Astrology Package + Howm Integration
+*** TODO [#A] Memacs
+**** TODO [#A] with semantic searching
+*** TODO [#A] Habitica
+- Maybe locally running if possible/not usual webdev insanity
+*** TODO [#A] Weekly/Monthly/Quarterly Reviews with HOWM
+** SXHKD Bindings
+*** DONE S-C
+CLOSED: [2025-05-06 Tue 00:19]
+*** S-R
+*** DONE S-<Return>
+CLOSED: [2025-10-28 Tue 03:32]
+*** DONE S-o ()
+CLOSED: [2025-10-28 Tue 03:32]
+*** File Manager
+***  Greyscale Filter
+** Better Literate Programming
+*** TODO [#A] Org-Transclusion with Zettels in Literate Programming
+To keep notes atomic but to also reference code blocks and documentation from them in a bigger work.
+*** TODO [#A] Automate creating a workflow in which you create projects per chapter of a "book" and run the codeblocks
+So don't have to worry about the org-babel way of doing things vs the actual way and can implement TDD, TCR, use LSP and DAP and Moldable and whatever else. Make sure that this can also work with the zettelkasten approach and that the source zettel can be easily changed with a keypress and menu.
+*** TODO [#A] Export to Interactive Environment
+A website or whatever else where others can run the code, interact with it, and answer quiz questions after each section that uses space repetition and maybe AI-generated questions or review sections.
+*** TODO [#A] Live Collaboration with TCR
+Have everyone make changes in the same org document as if it were google docs and have saving the code blocks trigger TCR with the appropiate tests, biggest issue would be annotating when a test is purposely created to be a failing test and making sure that such a test does not overwrite someone else's valid code.
+*** TODO [#A] Autoactivating Snippets
+For both org-mode and also programming languages themselves
+*** TODO [#A] Avy Integration
+So that one can modify or execute a code block that the cursory currently isn't on, maybe have an option to press a key that brings up a vertico menu if the desired codeblock is not on the screen yet.
+*** TODO [#C] AI Assistant 
+AI powered by Gptel Tools that integrates with the usual Consult etc. stack and gets data from LSP, DAP, Moldable, Treesitter, Github, etc.
+*** TODO [#A] Static Analysis Section
+A section which has a visual/interactive section with graphs created by static analysis of the code and telemetry
+*** TODO [#A] Automate creating 12-Factor Applications
+*** TODO [#A] Posframe the entire org-mode menu
+Agenda, inserting skeleton, C-c C-s, etc.
+
+* Version 1.0
+
+** Complete Guix ISO and Docker Image
+https://www.thedroneely.com/posts/guix-in-a-linux-container/
+
+** Entirely Literate Setup
+
+** Better package management than current leaf.el setup
+
+** Main Hydra Menu
+
+** Time Management with EXWM and Perspectives
+
+** VSCode Feature Parity
+
+** Installer
+
+*** Install Emacs
+
+*** Install Dependencies
+
+*** Update Emacs from within itself
+
+*** Install Kanata
