@@ -36,7 +36,7 @@
   :custom
   (gcmh-low-cons-threshold . 800000)
   (gcmh-idle-delay . 120)
-  :init
+  :config
   (gcmh-mode 1)
   (defun my-minibuffer-setup-hook ()
 	(setq gc-cons-threshold most-positive-fixnum))
