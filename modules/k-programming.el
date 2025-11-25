@@ -516,9 +516,12 @@
   (eglot-inactive-regions-style . 'darken-foreground)
   (eglot-inactive-regions-opacity . 0.4)
   :hook (c-mode . eglot-inactive-regions-mode))
-
+;; TODO: Integrate with Disproject
 (leaf bookmark-in-project
-  :elpaca t)
+  :elpaca t
+  :bind (:ctl-x
+		 ;; ("p R" . book-mark-in-project-jump)))
+		 ))
 
 (leaf eval-in-repl
   ;; This file alone is not functional. Also require the following depending
