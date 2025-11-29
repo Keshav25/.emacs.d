@@ -30,23 +30,22 @@
 
 (leaf exwm
   :when isexwm
-  :require t
   :elpaca t
-  :custom
-  (exwm-input-line-mode-passthrough . nil)
-  (mouse-autoselect-window . t)
-  (ediff-window-setup-function . 'ediff-setup-windows-plain)
-  (focus-follows-mouse . t)
-  (exwm-input-prefix-keys . '(?\C-x
-							  ?\C-u
-							  ?\C-h
-							  ?\M-x
-							  ?\M-`
-							  ?\M-&
-							  ?\M-:))
-  :hook ((exwm-input--input-mode-change-hook . force-modeline-update))
   :init
-  (require 'exwm)
+  (setq exwm-input-line-mode-passthrough  nil
+		mouse-autoselect-window t
+		ediff-window-setup-function 'ediff-setup-windows-plain
+		focus-follows-mouse t
+		exwm-input-prefix-keys '(?\C-x
+								 ?\C-u
+								 ?\C-h
+								 ?\M-x
+								 ?\M-t
+								 ?\M-`
+								 ?\M-&
+								 ?\M-:))
+  :hook ((exwm-input--input-mode-change-hook . force-modeline-update))
+  :config
   (defun fhd/toggle-exwm-input-line-mode-passthrough ()
 	(interactive)
 	(if exwm-input-line-mode-passthrough
@@ -56,6 +55,30 @@
       (progn
 		(setq exwm-input-line-mode-passthrough t)
 		(message "emacs receives all the keys now"))))
+
+  (setq my/exwm-last-workspaces '(1))
+
+  (defun my/exwm-store-last-workspace ()
+	"Save the last workspace to `my/exwm-last-workspaces'."
+	(setq my/exwm-last-workspaces
+          (seq-uniq (cons exwm-workspace-current-index
+                          my/exwm-last-workspaces))))
+
+  (add-hook 'exwm-workspace-switch-hook
+			#'my/exwm-store-last-workspace)
+  (defun my/exwm-last-workspaces-clear ()
+	"Clean `my/exwm-last-workspaces' from deleted workspaces."
+	(setq my/exwm-last-workspaces
+          (seq-filter
+		   (lambda (i) (nth i exwm-workspace--list))
+		   my/exwm-last-workspaces)))
+
+  (defun my/fix-exwm-floating-windows ()
+	(setq-local exwm-workspace-warp-cursor nil)
+	(setq-local mouse-autoselect-window nil)
+	(setq-local focus-follows-mouse nil))
+
+  (add-hook 'exwm-floating-setup-hook #'my/fix-exwm-floating-windows)
 
   (defun efs/exwm-init-hook ()
 	(display-battery-mode 1)
@@ -70,7 +93,7 @@
 	(exwm-workspace-rename-buffer exwm-class-name))
 
   (add-hook 'exwm-update-class-hook #'efs/exwm-update-class)
-  
+
   (defun efs/exwm-update-title ()
 	(pcase exwm-class-name
 	  ("firefox" (exwm-workspace-rename-buffer (format "Firefox %s" exwm-title)))
@@ -172,15 +195,15 @@
   (add-hook 'exwm-randr-screen-change-hook
 			(lambda ()
               (start-process-shell-command
-               "xrandr" nil "xrandr --output eDP1 --mode 1920x1080 --pos 0x0 --rotate normal")))
+			   "xrandr" nil "xrandr --output eDP1 --mode 1920x1080 --pos 0x0 --rotate normal")))
   (exwm-randr-mode 1)
   (defun efs/configure-window-by-class ()
 	(interactive)
 	(pcase exwm-class-name
       ("kitty" (exwm-floating-toggle-floating)
-       (exwm-layout-toggle-mode-line))
+	   (exwm-layout-toggle-mode-line))
 	  ("Alacritty" (exwm-floating-toggle-floating)
-       (exwm-layout-toggle-mode-line))))
+	   (exwm-layout-toggle-mode-line))))
   (add-hook 'exwm-manage-finish-hook
 			#'efs/configure-window-by-class)
   ;; Remove ALL bindings
@@ -191,7 +214,6 @@
   (define-key exwm-mode-map "\C-c\C-q" nil)
   (define-key exwm-mode-map "\C-c\C-t\C-f" nil)
   (define-key exwm-mode-map "\C-c\C-t\C-m" nil)
-  (exwm-init)
   :bind (:exwm-mode-map
 		 ("C-q" . #'exwm-input-send-next-key)
 		 ("s-i" . #'exwm-input-toggle-keyboard)
@@ -287,11 +309,9 @@
   (centered-window-mode))
 
 (leaf exwm-background
-  :elpaca (exwm-background :host github :repo "keshav25/exwm-background")
-  :after exwm)
+  :elpaca (exwm-background :host github :repo "keshav25/exwm-background"))
 
 (leaf exwm-mff
-  :after exwm
   :require t
   :elpaca t
   :config
@@ -320,7 +340,6 @@
   :hook (ednc-notification-presentation-functions . ednc-popup-presentation-function))
 
 (leaf exwm-float
-  :after exwm
   :require t
   :elpaca t
   :init
@@ -329,7 +348,7 @@
   (exwm-float-setup))
 
 (leaf consult-exwm
-  :after (consult exwm)
+  :after (consult)
   :config
   (defvar +consult-exwm-filter "\\`\\*exwm")
   (add-to-list 'consult-buffer-filter +consult-exwm-filter)
@@ -352,40 +371,16 @@
 	"EXWM buffer source."))
 
 (leaf perspective-exwm
-  :after (perspective exwm)
+  :after (perspective)
   :elpaca t
   :custom
   (perspective-exwm-override-initial-name . '((0 . "main")))
   :config
   (perspective-exwm-mode 1))
 
-
-(setq my/exwm-last-workspaces '(1))
-
-(defun my/exwm-store-last-workspace ()
-  "Save the last workspace to `my/exwm-last-workspaces'."
-  (setq my/exwm-last-workspaces
-        (seq-uniq (cons exwm-workspace-current-index
-                        my/exwm-last-workspaces))))
-
-(add-hook 'exwm-workspace-switch-hook
-		  #'my/exwm-store-last-workspace)
-(defun my/exwm-last-workspaces-clear ()
-  "Clean `my/exwm-last-workspaces' from deleted workspaces."
-  (setq my/exwm-last-workspaces
-        (seq-filter
-         (lambda (i) (nth i exwm-workspace--list))
-         my/exwm-last-workspaces)))
-
-(defun my/fix-exwm-floating-windows ()
-  (setq-local exwm-workspace-warp-cursor nil)
-  (setq-local mouse-autoselect-window nil)
-  (setq-local focus-follows-mouse nil))
-
-(add-hook 'exwm-floating-setup-hook #'my/fix-exwm-floating-windows)
-
-(elpaca-wait)
-(exwm-wm-mode)
+;; (leaf exwm-initialize
+;; :when isexwm
+;; :hook (after-init-hook . (lambda () (exwm-wm-mode))))
 
 (provide 'k-exwm)
 
