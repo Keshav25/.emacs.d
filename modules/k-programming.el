@@ -485,6 +485,8 @@
 										;:((emacs-lisp-mode-hook . lispy-mode))
   ;; :custom
   ;; (lispy-compat . '(edebug cider))
+  :custom
+  (lispy-compat . '(edebug cider))
   :bind (:lispy-mode-map
 		 ("C-y" . 'consult-yank-from-kill-ring)
 		 ("n" . 'special-lispy-down)
