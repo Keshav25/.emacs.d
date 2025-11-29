@@ -493,6 +493,7 @@
 		 ("p" . 'special-lispy-up)
 		 ("f" . 'special-lispy-right)
 		 ("b" . 'special-lispy-left)
+		 ("l" . 'special-lispy-view)
 		 ;; originally lispy-left-maybe
 		 ("M-o" . 'ace-window))
   ;; (:lispy-mode-map-special
