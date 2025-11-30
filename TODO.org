@@ -1,4 +1,3 @@
-
 * Emacs Todos
 ** Appearance
 *** TODO [#A] Custom Modeline Configuration
@@ -159,14 +158,18 @@ A section which has a visual/interactive section with graphs created by static a
 *** TODO [#A] Automate creating 12-Factor Applications
 *** TODO [#A] Posframe the entire org-mode menu
 Agenda, inserting skeleton, C-c C-s, etc.
-
+** Developer Experience
+*** TODO Better jj and magit integration
+*** TODO jj and gh integration
+*** TODO difftastic and ediff integration 
+*** TODO TCR, magit, and jj
 * Version 1.0
 
 ** Complete Guix ISO and Docker Image
 https://www.thedroneely.com/posts/guix-in-a-linux-container/
 
 ** Entirely Literate Setup
-
+ 
 ** Better package management than current leaf.el setup
 
 ** Main Hydra Menu
