@@ -59,7 +59,7 @@
   :require t
   :bind
   ("C-c n i" . denote-link-or-create)
-  ("C-c n c" . denote-open-or-create)
+  ("C-c n r" . denote-open-or-create)
   ("C-c n b" . denote-find-backlink)
   ("C-c n d" . denote-date)
   ("C-c n l" . denote-find-link)
@@ -125,7 +125,8 @@
 		 (denote-retrieve-title-or-filename file (denote-filetype-heuristics file))
 		 new-keywords
 		 (denote-retrieve-filename-signature file))
-	  (message "Current buffer is not a Denote file."))))
+	  (message "Current buffer is not a Denote file.")))
+  (consult-denote-mode))
 
 (leaf denote-agenda
   :disabled t
