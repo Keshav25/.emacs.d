@@ -313,7 +313,9 @@ if there is no window on the right."
   :config
   ;; overrides overrides tab-mode functions
   (setopt persp-mode-prefix-key (kbd "C-x t"))
-  (persp-mode))
+  (persp-mode)
+  (consult-customize consult--source-buffer :hidden t :default nil)
+  (add-to-list 'consult-buffer-sources persp-consult-source))
 
 (defun kill-other-buffers ()
   "Kill all other buffers but this one.  Leave one frame open."
