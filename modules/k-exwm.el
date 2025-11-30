@@ -30,8 +30,9 @@
 
 (leaf exwm
   :when isexwm
-  :elpaca t
-  :init
+  :require (xelb compat)
+  :ensure t
+  :config
   (setq exwm-input-line-mode-passthrough  nil
 		mouse-autoselect-window t
 		ediff-window-setup-function 'ediff-setup-windows-plain
@@ -44,8 +45,6 @@
 								 ?\M-`
 								 ?\M-&
 								 ?\M-:))
-  :hook ((exwm-input--input-mode-change-hook . force-modeline-update))
-  :config
   (defun fhd/toggle-exwm-input-line-mode-passthrough ()
 	(interactive)
 	(if exwm-input-line-mode-passthrough
@@ -225,16 +224,17 @@
 		 ("M-t" . #'execute-extended-command)
 		 ("M-!" . #'shell-command)
 		 ("M-o" . #'ace-window)
-		 ("C-<tab>" . other-window)
+		 ("C-<tab>" . #'other-window)
 		 ("C-x h" . #'k-exwm/C-a)
 		 ("C-o" . #'k-exwm/C-o)
 		 ("C-u" . #'universal-argument)
 		 ("M-\"" . #'k-exwm/M-quote)
 		 ("<XF86AudioLowerVolume>" . #'desktop-environment-volume-decrement)
-		 ("<XF86AudioRaiseVolume>" . #'desktop-environment-volume-increment)))
+		 ("<XF86AudioRaiseVolume>" . #'desktop-environment-volume-increment))
+  :hook ((exwm-input--input-mode-change-hook . force-modeline-update))
+  )
 
 (leaf exwm-edit
-  :after exwm
   :elpaca t
   :require t
   :config
@@ -245,7 +245,6 @@
 
 ;; Desktop-Environment
 (leaf desktop-environment
-  :after exwm
   :elpaca t
   :require t
   :custom
@@ -380,8 +379,12 @@
 
 ;; (leaf exwm-initialize
 ;; :when isexwm
+;; :after (exwm)
 ;; :hook (after-init-hook . (lambda () (exwm-wm-mode))))
-
+(elpaca-wait)
+(require 'exwm)
+(exwm-enable)
+(exwm-init)
 (provide 'k-exwm)
 
 ;; (leaf exwm
