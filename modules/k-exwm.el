@@ -231,8 +231,7 @@
 		 ("M-\"" . #'k-exwm/M-quote)
 		 ("<XF86AudioLowerVolume>" . #'desktop-environment-volume-decrement)
 		 ("<XF86AudioRaiseVolume>" . #'desktop-environment-volume-increment))
-  :hook ((exwm-input--input-mode-change-hook . force-modeline-update))
-  )
+  :hook ((exwm-input--input-mode-change-hook . force-modeline-update)))
 
 (leaf exwm-edit
   :elpaca t
