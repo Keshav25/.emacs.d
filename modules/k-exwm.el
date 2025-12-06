@@ -32,7 +32,7 @@
   :when isexwm
   :require (xelb compat)
   :ensure t
-  :config
+  :init
   (setq exwm-input-line-mode-passthrough  nil
 		mouse-autoselect-window t
 		ediff-window-setup-function 'ediff-setup-windows-plain
