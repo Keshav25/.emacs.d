@@ -586,6 +586,9 @@ to an appropriate container (e.g., a paragraph)."
 	 ;; (cpp . t)
 	 (R . t))))
 
+(leaf ob-rx
+  :after (org all-the-icons)
+  :elpaca (ob-rx :host git :url "https://git.sr.ht/~lepisma/ob-rx"))
 (leaf org-agenda
   :bind (("C-c a" . org-agenda))
   :config
