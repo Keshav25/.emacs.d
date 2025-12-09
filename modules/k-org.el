@@ -483,7 +483,11 @@ to an appropriate container (e.g., a paragraph)."
   :elpaca t
   :hook (org-mode-hook . org-inline-anim-mode))
 
-;; (leaf ob-go :elpaca t)
+;; (leaf ob-go :elpaca t
+;;   :config
+;;   (org-babel-do-load-languages
+;;    'org-babel-load-languages
+;;    '((go . t))))
 
 (leaf ob-rust :elpaca t)
 
@@ -574,7 +578,6 @@ to an appropriate container (e.g., a paragraph)."
 	 (emacs-lisp . t)
 	 (shell . t)
 	 (scheme . t)
-	 ;; (go . t)
 	 (rust . t)
 	 (clojure . t)
 	 (csharp . t)
