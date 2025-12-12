@@ -65,6 +65,8 @@
   :after (elfeed)
   :elpaca t
   :bind (:elfeed-show-mode-map
+		 ("F" . elfeed-tube-fetch)
+		 ("P" . elfeed-tube-mpv)
 		 ("C-c C-f" . elfeed-tube-mpv-follow-mode)
 		 ("C-c C-w" . elfeed-tube-mpv-where)))
 
