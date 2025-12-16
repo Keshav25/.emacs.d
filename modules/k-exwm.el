@@ -32,10 +32,28 @@
   :when isexwm
   :require (xelb compat)
   :ensure t
+  :bind (:exwm-mode-map
+		 ("C-q" . #'exwm-input-send-next-key)
+		 ("s-i" . #'exwm-input-toggle-keyboard)
+		 ("s-e" . #'switch-to-buffer)
+		 ("s-r" . #'dmenu)
+		 ("s-w" . #'exwm-workspace-switch)
+		 ("s-D" . #'kill-this-buffer)
+		 ("s-TAB" . #'exwm/jump-to-last-exwm)
+		 ("M-t" . #'execute-extended-command)
+		 ("M-!" . #'shell-command)
+		 ("M-o" . #'ace-window)
+		 ("C-<tab>" . #'other-window)
+		 ("C-x h" . #'k-exwm/C-a)
+		 ("C-o" . #'k-exwm/C-o)
+		 ("C-u" . #'universal-argument)
+		 ("M-\"" . #'k-exwm/M-quote)
+		 ("<XF86AudioLowerVolume>" . #'desktop-environment-volume-decrement)
+		 ("<XF86AudioRaiseVolume>" . #'desktop-environment-volume-increment))
   :init
   (setq exwm-input-line-mode-passthrough  nil
 		mouse-autoselect-window t
-		ediff-window-setup-function 'ediff-setup-windows-plain
+		n		ediff-window-setup-function 'ediff-setup-windows-plain
 		focus-follows-mouse t
 		exwm-input-prefix-keys '(?\C-x
 								 ?\C-u
@@ -213,24 +231,6 @@
   (define-key exwm-mode-map "\C-c\C-q" nil)
   (define-key exwm-mode-map "\C-c\C-t\C-f" nil)
   (define-key exwm-mode-map "\C-c\C-t\C-m" nil)
-  :bind (:exwm-mode-map
-		 ("C-q" . #'exwm-input-send-next-key)
-		 ("s-i" . #'exwm-input-toggle-keyboard)
-		 ("s-e" . #'switch-to-buffer)
-		 ("s-r" . #'dmenu)
-		 ("s-w" . #'exwm-workspace-switch)
-		 ("s-D" . #'kill-this-buffer)
-		 ("s-TAB" . #'exwm/jump-to-last-exwm)
-		 ("M-t" . #'execute-extended-command)
-		 ("M-!" . #'shell-command)
-		 ("M-o" . #'ace-window)
-		 ("C-<tab>" . #'other-window)
-		 ("C-x h" . #'k-exwm/C-a)
-		 ("C-o" . #'k-exwm/C-o)
-		 ("C-u" . #'universal-argument)
-		 ("M-\"" . #'k-exwm/M-quote)
-		 ("<XF86AudioLowerVolume>" . #'desktop-environment-volume-decrement)
-		 ("<XF86AudioRaiseVolume>" . #'desktop-environment-volume-increment))
   :hook ((exwm-input--input-mode-change-hook . force-modeline-update)))
 
 (leaf exwm-edit
