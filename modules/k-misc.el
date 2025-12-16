@@ -34,7 +34,7 @@
 (leaf gcmh
   :elpaca t
   :custom
-  (gcmh-low-cons-threshold . 800000)
+  (gcmh-low-cons-threshold . 1500000)
   (gcmh-idle-delay . 600)
   :config
   (gcmh-mode 1)
@@ -284,7 +284,7 @@
   (require  'casual-image)
   ;; Add Meme Commands
   (defun k-make-meme ()
-	(async-shell-command "convert temp.jpg -gravity North -pointsize 30 -annotate +0+100 'Love you mom' temp1.jpg "))
+		 (async-shell-command "convert temp.jpg -gravity North -pointsize 30 -annotate +0+100 'Love you mom' temp1.jpg "))
   (transient-insert-suffix 'casual-image-tmenu "c"
 	'("M" "add a caption" image-increase-size))
   :bind (("C-c C-y" . casual-make-tmenu)
@@ -349,17 +349,17 @@
   :elpaca t
   :config
   (defun unpackaged/query-replace-rx (&rest _)
-	"Call `query-replace-regexp', reading regexp in `rx' syntax.
+		 "Call `query-replace-regexp', reading regexp in `rx' syntax.
 Automatically wraps in parens and adds `seq' to the beginning of
 the form."
-	(interactive)
-	(cl-letf (((symbol-function #'query-replace-read-from) (lambda (&rest _)
-															 (--> (read-string "rx form: ")
-                                                                  (concat "'(seq " it ")")
-                                                                  (read it)
-                                                                  (cadr it)
-                                                                  (rx-to-string it)))))
-      (call-interactively #'query-replace-regexp))))
+		 (interactive)
+		 (cl-letf (((symbol-function #'query-replace-read-from) (lambda (&rest _)
+																  (--> (read-string "rx form: ")
+																	   (concat "'(seq " it ")")
+																	   (read it)
+																	   (cadr it)
+																	   (rx-to-string it)))))
+		   (call-interactively #'query-replace-regexp))))
 
 (leaf relint
   :elpaca t)
@@ -374,58 +374,58 @@ the form."
 		 (compilation-mode-hook . winnow-mode))
   :config
   (defun winnow-results-start ()
-	"Find the start position of the compilation output."
-	(save-excursion
-      (goto-char (point-min))
-      (when (derived-mode-p 'compilation-mode)  ; Only call in compilation-mode or derived modes
-		(compilation-next-error 1))
-      (line-beginning-position 1)))  ; Use line-beginning-position instead of point-at-bol
-
+		 "Find the start position of the compilation output."
+		 (save-excursion
+		   (goto-char (point-min))
+		   (when (derived-mode-p 'compilation-mode)  ; Only call in compilation-mode or derived modes
+			 (compilation-next-error 1))
+		   (line-beginning-position 1)))  ; Use line-beginning-position instead of point-at-bol
+  
   (defun winnow-results-end ()
-	"Find the end position of the compilation output."
-	(save-excursion
-      (goto-char (point-max))
-      (when (derived-mode-p 'compilation-mode)  ; Only call in compilation-mode or derived modes
-		(compilation-next-error -1))
-      (line-beginning-position 2)))  ; Use line-beginning-position instead of point-at-bol
+		 "Find the end position of the compilation output."
+		 (save-excursion
+		   (goto-char (point-max))
+		   (when (derived-mode-p 'compilation-mode)  ; Only call in compilation-mode or derived modes
+			 (compilation-next-error -1))
+		   (line-beginning-position 2)))  ; Use line-beginning-position instead of point-at-bol
   )
 
 (leaf kill-ring
   :config
   (defadvice kill-region (before slick-cut activate compile)
-	"When called interactively with no active region, kill a single line instead."
-	(interactive
-	 (if mark-active (list (region-beginning) (region-end))
-       (list (line-beginning-position)
-			 (line-beginning-position 2))))))
+			 "When called interactively with no active region, kill a single line instead."
+			 (interactive
+			  (if mark-active (list (region-beginning) (region-end))
+				(list (line-beginning-position)
+					  (line-beginning-position 2))))))
 
 
 (leaf increase-text
   :config
   (defun increase-text-and-pane ()
-	"Increase text size and adjust window width proportionally."
-	(interactive)
-	(let* ((orig-scale (or (car (get 'text-scale-mode-amount 'customized-value))
-                           text-scale-mode-amount))
-           (new-scale (+ orig-scale 1))
-           (scale-factor (/ (float (expt text-scale-mode-step new-scale))
-							(float (expt text-scale-mode-step orig-scale)))))
-      (text-scale-increase 1)
-      (enlarge-window-horizontally (round (* (window-width) (- scale-factor 1))))))
-
+		 "Increase text size and adjust window width proportionally."
+		 (interactive)
+		 (let* ((orig-scale (or (car (get 'text-scale-mode-amount 'customized-value))
+								text-scale-mode-amount))
+				(new-scale (+ orig-scale 1))
+				(scale-factor (/ (float (expt text-scale-mode-step new-scale))
+								 (float (expt text-scale-mode-step orig-scale)))))
+		   (text-scale-increase 1)
+		   (enlarge-window-horizontally (round (* (window-width) (- scale-factor 1))))))
+  
   (global-set-key (kbd "C-M-+") 'increase-text-and-pane)
-
+  
   (defun decrease-text-and-pane ()
-	"Decrease text size and adjust window width proportionally."
-	(interactive)
-	(let* ((orig-scale (or (car (get 'text-scale-mode-amount 'customized-value))
-                           text-scale-mode-amount))
-           (new-scale (- orig-scale 1))
-           (scale-factor (/ (float (expt text-scale-mode-step new-scale))
-							(float (expt text-scale-mode-step orig-scale)))))
-      (text-scale-decrease 1)
-      (shrink-window-horizontally (round (* (window-width) (- 1 scale-factor))))))
-
+		 "Decrease text size and adjust window width proportionally."
+		 (interactive)
+		 (let* ((orig-scale (or (car (get 'text-scale-mode-amount 'customized-value))
+								text-scale-mode-amount))
+				(new-scale (- orig-scale 1))
+				(scale-factor (/ (float (expt text-scale-mode-step new-scale))
+								 (float (expt text-scale-mode-step orig-scale)))))
+		   (text-scale-decrease 1)
+		   (shrink-window-horizontally (round (* (window-width) (- 1 scale-factor))))))
+  
   (global-set-key (kbd "C-M-_") 'decrease-text-and-pane))
 
 ;; (leaf superword-in-minibuffer
