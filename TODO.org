@@ -33,6 +33,7 @@ CLOSED: [2025-04-12 Sat 18:08]
 *** TODO [#A] Application Keybindings
 *** TODO [#C] GPTEL keybindings
 *** TODO [#A] Org-Mode Bindings (Pro/Demotion)
+*** TODO [#B] Test CUA Rectangle Mode
 ** Window Management
 *** TODO [#A] Perspective-Mode + EXWM + tab bar + project.el Integration (now also add jj configuration)
 perpsective-exwm-mode, maybe see if I can use the tab bar for perspective -> tabspaces-mode
