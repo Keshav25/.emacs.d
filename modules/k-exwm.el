@@ -67,9 +67,9 @@
 	(interactive)
 	(if exwm-input-line-mode-passthrough
 		(progn
-          (setq exwm-input-line-mode-passthrough nil)
-          (message "App receives all the keys now (with some simulation)"))
-      (progn
+		  (setq exwm-input-line-mode-passthrough nil)
+		  (message "App receives all the keys now (with some simulation)"))
+	  (progn
 		(setq exwm-input-line-mode-passthrough t)
 		(message "emacs receives all the keys now"))))
 
@@ -78,15 +78,15 @@
   (defun my/exwm-store-last-workspace ()
 	"Save the last workspace to `my/exwm-last-workspaces'."
 	(setq my/exwm-last-workspaces
-          (seq-uniq (cons exwm-workspace-current-index
-                          my/exwm-last-workspaces))))
+		  (seq-uniq (cons exwm-workspace-current-index
+						  my/exwm-last-workspaces))))
 
   (add-hook 'exwm-workspace-switch-hook
 			#'my/exwm-store-last-workspace)
   (defun my/exwm-last-workspaces-clear ()
 	"Clean `my/exwm-last-workspaces' from deleted workspaces."
 	(setq my/exwm-last-workspaces
-          (seq-filter
+		  (seq-filter
 		   (lambda (i) (nth i exwm-workspace--list))
 		   my/exwm-last-workspaces)))
 
@@ -104,7 +104,7 @@
 
   (defun efs/run-in-background (command)
 	(let ((command-parts (split-string command "[ ]+")))
-      (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
+	  (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
 
   (defun efs/exwm-update-class ()
 	(exwm-workspace-rename-buffer exwm-class-name))
@@ -136,27 +136,27 @@
 	(execute-kbd-macro (kbd "\" <C-right> \"")))
   (setq exwm-input-global-keys
 		`(
-          ([?\s-b] . windmove-left)
-          ([?\s-f] . windmove-right)
-          ([?\s-p] . windmove-up)
-          ([?\s-n] . windmove-down)
-          ([?\s-`] . (lambda () (interactive) (exwm-workspace-switch-create 0)))
-          ([?\s-w] . exwm-workspace-switch)
+		  ([?\s-b] . windmove-left)
+		  ([?\s-f] . windmove-right)
+		  ([?\s-p] . windmove-up)
+		  ([?\s-n] . windmove-down)
+		  ([?\s-`] . (lambda () (interactive) (exwm-workspace-switch-create 0)))
+		  ([?\s-w] . exwm-workspace-switch)
 		  ([?\s-m] . (lambda () (interactive) (exwm-layout-toggle-model-line) (exwm-workspace-toggle-minibuffer)))
 		  ([?\s-i] . exwm-input-toggle-keyboard)
 		  (,(kbd "s-<tab>") . windower-switch-to-last-buffer) ;; Switch to last open buffer in current window
-          (,(kbd "s-o") . dmenu) ;; Toggle between multiple windows, and a single window
-          (,(kbd "s-O") . windower-toggle-split)  ;; Toggle between vertical and horizontal split. Only works with exactly two windows.
-          (,(kbd "s-B") . windower-swap-left)  ;; Swap current window with the window to the left
-          (,(kbd "s-N") . windower-swap-below) ;; Swap current window with the window below
-          (,(kbd "s-P") . windower-swap-above) ;; Swap current window with the window above
-          (,(kbd "s-F") . windower-swap-right) ;; Swap current window with the window to the right
-          (,(kbd "s-\\") . exwm-floating-toggle-floating) ;; Toggle the current window between floating and non-floating states
-          (,(kbd "s-Q") . exwm-layout-toggle-fullscreen) ;; Toggle fullscreen mode, when in an EXWM window.
-          (,(kbd "s-D") . kill-this-buffer)
+		  (,(kbd "s-o") . dmenu) ;; Toggle between multiple windows, and a single window
+		  (,(kbd "s-O") . windower-toggle-split)  ;; Toggle between vertical and horizontal split. Only works with exactly two windows.
+		  (,(kbd "s-B") . windower-swap-left)  ;; Swap current window with the window to the left
+		  (,(kbd "s-N") . windower-swap-below) ;; Swap current window with the window below
+		  (,(kbd "s-P") . windower-swap-above) ;; Swap current window with the window above
+		  (,(kbd "s-F") . windower-swap-right) ;; Swap current window with the window to the right
+		  (,(kbd "s-\\") . exwm-floating-toggle-floating) ;; Toggle the current window between floating and non-floating states
+		  (,(kbd "s-Q") . exwm-layout-toggle-fullscreen) ;; Toggle fullscreen mode, when in an EXWM window.
+		  (,(kbd "s-D") . kill-this-buffer)
 		  (,(kbd "s-s") . split-and-follow-vertically)
 		  (,(kbd "s-'") . fhd/toggle-exwm-input-line-mode-passthrough)
-          (,(kbd "s-c") . kill-buffer-and-window)
+		  (,(kbd "s-c") . kill-buffer-and-window)
 		  (,(kbd "C-`") . popper-toggle)
 		  (,(kbd "C-S-o") . ace-window)
 		  (,(kbd "C-S-d") . dirvish-side)
@@ -169,8 +169,8 @@
 		  ,@(mapcar (lambda (i)
 					  `(,(kbd (format "s-%d" i)) .
 						(lambda ()
-                          (interactive)
-                          (exwm-workspace-switch-create ,i))))
+						  (interactive)
+						  (exwm-workspace-switch-create ,i))))
 					(number-sequence 0 9))))
   (setq exwm-input-simulation-keys
 		`(
@@ -211,13 +211,13 @@
   (setq exwm-randr-workspace-monitor-plist '(0 "eDP1"))
   (add-hook 'exwm-randr-screen-change-hook
 			(lambda ()
-              (start-process-shell-command
+			  (start-process-shell-command
 			   "xrandr" nil "xrandr --output eDP1 --mode 1920x1080 --pos 0x0 --rotate normal")))
   (exwm-randr-mode 1)
   (defun efs/configure-window-by-class ()
 	(interactive)
 	(pcase exwm-class-name
-      ("kitty" (exwm-floating-toggle-floating)
+	  ("kitty" (exwm-floating-toggle-floating)
 	   (exwm-layout-toggle-mode-line))
 	  ("Alacritty" (exwm-floating-toggle-floating)
 	   (exwm-layout-toggle-mode-line))))
