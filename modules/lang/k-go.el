@@ -16,6 +16,9 @@
   :config
   (require 'dap-dlv-go))
 
+(leaf go-mode
+  :elpaca t)
+
 (defgroup golang nil
   "golang group."
   :prefix "golang-"
