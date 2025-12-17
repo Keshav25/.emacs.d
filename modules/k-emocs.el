@@ -254,6 +254,9 @@
 		  ;; saw someone match avy-goto-line binding with corfu-quick-complete
 		  ("M-/" . corfu-quick-complete))))
 
+(leaf nerd-icons-corfu
+  :elpaca t)
+
 (leaf corfu-terminal
   :after corfu
   :elpaca t
