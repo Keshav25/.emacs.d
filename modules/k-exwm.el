@@ -53,7 +53,7 @@
   :init
   (setq exwm-input-line-mode-passthrough  nil
 		mouse-autoselect-window t
-		n		ediff-window-setup-function 'ediff-setup-windows-plain
+		ediff-window-setup-function 'ediff-setup-windows-plain
 		focus-follows-mouse t
 		exwm-input-prefix-keys '(?\C-x
 								 ?\C-u
