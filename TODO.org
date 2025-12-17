@@ -110,6 +110,7 @@ CLOSED: [2025-05-04 Sun 01:30]
 *** TODO [#C] Ollama RAG, MCP, Completion, Agent (Evedel) Setup
 *** TODO Gamification of Learning Languages/Frameworks/Tools
 (Perhaps Integration with Local Running Habitica)
+*** TODO [#A] Turn on blamer mode in a more optimized way
 ** Financial
 *** TODO [#A] Manage financial transactions
 ** Scripting
