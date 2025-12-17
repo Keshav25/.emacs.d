@@ -128,6 +128,10 @@
 	  (message "Current buffer is not a Denote file.")))
   (consult-denote-mode))
 
+(leaf denote-org
+  :elpaca (denote-org :host github :repo "protesilaos/denote-org")
+  :after denote)
+
 (leaf denote-agenda
   :disabled t
   :after denote-journal
