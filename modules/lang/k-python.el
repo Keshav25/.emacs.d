@@ -12,12 +12,12 @@
   :elpaca t
   :hook ((python-mode . blacken-mode)))
 
-(leaf eglot-mode
+(leaf eglot
   :custom
-  (eglot-autoshutdown . t) 
-  (eglot-confirm-server-edits . nil) 
-  (eglot-report-progress . t) 
-  (eglot-extend-to-xref . t) 
+  (eglot-autoshutdown . t)
+  (eglot-confirm-server-edits . nil)
+  (eglot-report-progress . t)
+  (eglot-extend-to-xref . t)
   (eglot-autoreconnect . t)
   :bind (("C-c d i" . eglot-find-implementation)
 		 ("C-c d e" . eglot)
