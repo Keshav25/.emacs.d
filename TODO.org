@@ -34,6 +34,9 @@ CLOSED: [2025-04-12 Sat 18:08]
 *** TODO [#C] GPTEL keybindings
 *** TODO [#A] Org-Mode Bindings (Pro/Demotion)
 *** TODO [#B] Test CUA Rectangle Mode
+*** TODO [#C] Terminal Translation
+https://www.adithya.cc/posts/Consistent%20Emacs%20Key%20Bindings%20Across%20Terminals.html
+
 ** Window Management
 *** TODO [#A] Perspective-Mode + EXWM + tab bar + project.el Integration (now also add jj configuration)
 perpsective-exwm-mode, maybe see if I can use the tab bar for perspective -> tabspaces-mode
