@@ -128,7 +128,10 @@
   (defun efs/exwm-update-title ()
 	(pcase exwm-class-name
 	  ("firefox" (exwm-workspace-rename-buffer (format "Firefox %s" exwm-title)))
-	  ("librewolf" (exwm-workspace-rename-buffer (format "Librewolf %s" exwm-title)))))
+	  ("librewolf" (exwm-workspace-rename-buffer (format "Librewolf %s" exwm-title)))
+	  (_ (when (and (boundp 'exwm-class-name)
+					(boundp 'exwm-title))) (exwm-workspace-rename-buffer (truncate-string-to-width
+					(concat exwm-class-name "|" exwm-title) 32)))))
 
   (add-hook 'exwm-update-title-hook #'efs/exwm-update-title)
 
