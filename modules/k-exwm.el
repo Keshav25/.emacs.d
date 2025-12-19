@@ -63,7 +63,20 @@
 								 ?\M-t
 								 ?\M-`
 								 ?\M-&
-								 ?\M-:))
+								 ?\M-:
+								 XF86AudioLowerVolume
+								 XF86AudioRaiseVolume
+								 XF86PowerOff
+								 XF86AudioMute
+								 XF86AudioPlay
+								 XF86AudioStop
+								 XF86AudioPrev
+								 XF86AudioNext
+								 XF86ScreenSaver
+								 XF86Back
+								 XF86Forward
+								 Scroll_Lock
+								 print))
   (defun fhd/toggle-exwm-input-line-mode-passthrough ()
 	(interactive)
 	(if exwm-input-line-mode-passthrough
