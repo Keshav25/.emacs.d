@@ -249,6 +249,32 @@
   (define-key exwm-mode-map "\C-c\C-q" nil)
   (define-key exwm-mode-map "\C-c\C-t\C-f" nil)
   (define-key exwm-mode-map "\C-c\C-t\C-m" nil)
+  (defun my/exwm-direction-exists-p (dir)
+	"Check if there is space in the direction DIR.
+
+Does not take the minibuffer into account."
+	(cl-some (lambda (dir)
+               (let ((win (windmove-find-other-window dir)))
+				 (and win (not (window-minibuffer-p win)))))
+			 (pcase dir
+               ('width '(left right))
+               ('height '(up down)))))
+
+  (defun my/exwm-move-window (dir)
+	"Move the current window in the direction DIR."
+	(let ((other-window (windmove-find-other-window dir))
+          (other-direction (my/exwm-direction-exists-p
+							(pcase dir
+                              ('up 'width)
+                              ('down 'width)
+                              ('left 'height)
+                              ('right 'height)))))
+      (cond
+       ((and other-window (not (window-minibuffer-p other-window)))
+		(window-swap-states (selected-window) other-window))
+       (other-direction
+		(evil-move-window dir)))))
+
   :hook ((exwm-input--input-mode-change-hook . force-modeline-update)))
 
 (leaf exwm-edit
