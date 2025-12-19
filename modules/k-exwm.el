@@ -151,80 +151,80 @@
 	"double quotes"
 	(interactive)
 	(execute-kbd-macro (kbd "\" <C-right> \"")))
-  (setq exwm-input-global-keys
-		`(
-		  ([?\s-b] . windmove-left)
-		  ([?\s-f] . windmove-right)
-		  ([?\s-p] . windmove-up)
-		  ([?\s-n] . windmove-down)
-		  ([?\s-`] . (lambda () (interactive) (exwm-workspace-switch-create 0)))
-		  ([?\s-w] . exwm-workspace-switch)
-		  ([?\s-m] . (lambda () (interactive) (exwm-layout-toggle-model-line) (exwm-workspace-toggle-minibuffer)))
-		  ([?\s-i] . exwm-input-toggle-keyboard)
-		  (,(kbd "s-<tab>") . windower-switch-to-last-buffer) ;; Switch to last open buffer in current window
-		  (,(kbd "s-o") . dmenu) ;; Toggle between multiple windows, and a single window
-		  (,(kbd "s-O") . windower-toggle-split)  ;; Toggle between vertical and horizontal split. Only works with exactly two windows.
-		  (,(kbd "s-B") . windower-swap-left)  ;; Swap current window with the window to the left
-		  (,(kbd "s-N") . windower-swap-below) ;; Swap current window with the window below
-		  (,(kbd "s-P") . windower-swap-above) ;; Swap current window with the window above
-		  (,(kbd "s-F") . windower-swap-right) ;; Swap current window with the window to the right
-		  (,(kbd "s-\\") . exwm-floating-toggle-floating) ;; Toggle the current window between floating and non-floating states
-		  (,(kbd "s-Q") . exwm-layout-toggle-fullscreen) ;; Toggle fullscreen mode, when in an EXWM window.
-		  (,(kbd "s-D") . kill-this-buffer)
-		  (,(kbd "s-s") . split-and-follow-vertically)
-		  (,(kbd "s-'") . fhd/toggle-exwm-input-line-mode-passthrough)
-		  (,(kbd "s-c") . kill-buffer-and-window)
-		  (,(kbd "C-`") . popper-toggle)
-		  (,(kbd "C-S-o") . ace-window)
-		  (,(kbd "C-S-d") . dirvish-side)
-		  (,(kbd "s-," ) . persp-prev)
-		  (,(kbd "s-.") . persp-next)
-		  (,(kbd "s-[") . perspective-exwm-cycle-exwm-buffers-backward)
-		  (,(kbd "s-]") . perspective-exwm-cycle-exwm-buffers-forward)
-		  (,(kbd "s-<return>") . eshell-new)
-		  (,(kbd "C-c '") . exwm-edit--compose)
-		  ,@(mapcar (lambda (i)
-					  `(,(kbd (format "s-%d" i)) .
-						(lambda ()
-						  (interactive)
-						  (exwm-workspace-switch-create ,i))))
-					(number-sequence 0 9))))
-  (setq exwm-input-simulation-keys
-		`(
-		  ([?\C-b] . [left])
-		  ([?\C-f] . [right])
-		  ([?\C-p] . [up])
-		  ([?\C-n] . [down])
-		  (,(kbd "C-S-b") . [S-left])
-		  (,(kbd "C-S-f") . [S-right])
-		  (,(kbd "C-S-p") . [S-up])
-		  (,(kbd "C-S-n") . [S-down])
-		  (,(kbd "C-S-a") . [S-home])
-		  (,(kbd "C-S-e") . [S-end])
-		  (,(kbd "C-S-<backspace>") . [home S-end delete])
-		  ([?\C-a] . [home])
-		  ([?\C-e] . [end])
-		  ([?\M-v] . [prior])
-		  ([?\C-v] . [next])
-		  ([?\C-d] . [delete])
-		  ([?\C-k] . [S-end delete])
-		  ([?\C-m] . [return])
-		  ([?\C-i] . [tab])
-		  ([?\M-w] . [?\C-c])
-		  ([?\C-w] . [?\C-x])
-		  ([?\C-y] . [?\C-v])
-		  ([?\C-s] . [?\C-f])
-		  ([?\C-/] . [?\C-z])
-		  ([?\M-f] . [C-right])
-		  ([?\M-b] . [C-left])
-		  (,(kbd "M-S-b") . [C-S-left])
-		  (,(kbd "M-S-f") . [C-S-right])
-		  ([?\M-d] . [C-S-right delete])
-		  ([?\C-g] . [escape])
-		  ([?\M-<] . [home])
-		  ([?\M->] . [end])
-		  (,(kbd "C-x C-s") . [C-s])))
+  (setopt exwm-input-global-keys
+		  `(
+			([?\s-b] . windmove-left)
+			([?\s-f] . windmove-right)
+			([?\s-p] . windmove-up)
+			([?\s-n] . windmove-down)
+			([?\s-`] . (lambda () (interactive) (exwm-workspace-switch-create 0)))
+			([?\s-w] . exwm-workspace-switch)
+			([?\s-m] . (lambda () (interactive) (exwm-layout-toggle-model-line) (exwm-workspace-toggle-minibuffer)))
+			([?\s-i] . exwm-input-toggle-keyboard)
+			(,(kbd "s-<tab>") . windower-switch-to-last-buffer) ;; Switch to last open buffer in current window
+			(,(kbd "s-o") . dmenu) ;; Toggle between multiple windows, and a single window
+			(,(kbd "s-O") . windower-toggle-split)  ;; Toggle between vertical and horizontal split. Only works with exactly two windows.
+			(,(kbd "s-B") . windower-swap-left)  ;; Swap current window with the window to the left
+			(,(kbd "s-N") . windower-swap-below) ;; Swap current window with the window below
+			(,(kbd "s-P") . windower-swap-above) ;; Swap current window with the window above
+			(,(kbd "s-F") . windower-swap-right) ;; Swap current window with the window to the right
+			(,(kbd "s-\\") . exwm-floating-toggle-floating) ;; Toggle the current window between floating and non-floating states
+			(,(kbd "s-Q") . exwm-layout-toggle-fullscreen) ;; Toggle fullscreen mode, when in an EXWM window.
+			(,(kbd "s-D") . kill-this-buffer)
+			(,(kbd "s-s") . split-and-follow-vertically)
+			(,(kbd "s-'") . fhd/toggle-exwm-input-line-mode-passthrough)
+			(,(kbd "s-c") . kill-buffer-and-window)
+			(,(kbd "C-`") . popper-toggle)
+			(,(kbd "C-S-o") . ace-window)
+			(,(kbd "C-S-d") . dirvish-side)
+			(,(kbd "s-," ) . persp-prev)
+			(,(kbd "s-.") . persp-next)
+			(,(kbd "s-[") . perspective-exwm-cycle-exwm-buffers-backward)
+			(,(kbd "s-]") . perspective-exwm-cycle-exwm-buffers-forward)
+			(,(kbd "s-<return>") . eshell-new)
 			(,(kbd "s-,") . tab-switcher)
+			(,(kbd "C-c '") . exwm-edit--compose)
+			,@(mapcar (lambda (i)
+						`(,(kbd (format "s-%d" i)) .
+						  (lambda ()
+							(interactive)
+							(exwm-workspace-switch-create ,i))))
+					  (number-sequence 0 9))))
+  (setopt exwm-input-simulation-keys
+		  `(
+			([?\C-b] . [left])
+			([?\C-f] . [right])
+			([?\C-p] . [up])
+			([?\C-n] . [down])
+			(,(kbd "C-S-b") . [S-left])
+			(,(kbd "C-S-f") . [S-right])
+			(,(kbd "C-S-p") . [S-up])
+			(,(kbd "C-S-n") . [S-down])
+			(,(kbd "C-S-a") . [S-home])
+			(,(kbd "C-S-e") . [S-end])
+			(,(kbd "C-S-<backspace>") . [home S-end delete])
+			([?\C-a] . [home])
+			([?\C-e] . [end])
+			([?\M-v] . [prior])
+			([?\C-v] . [next])
+			([?\C-d] . [delete])
+			([?\C-k] . [S-end delete])
+			([?\C-m] . [return])
+			([?\C-i] . [tab])
+			([?\M-w] . [?\C-c])
+			([?\C-w] . [?\C-x])
+			([?\C-y] . [?\C-v])
+			([?\C-s] . [?\C-f])
+			([?\C-/] . [?\C-z])
+			([?\M-f] . [C-right])
+			([?\M-b] . [C-left])
+			(,(kbd "M-S-b") . [C-S-left])
+			(,(kbd "M-S-f") . [C-S-right])
+			([?\M-d] . [C-S-right delete])
+			([?\C-g] . [escape])
+			([?\M-<] . [home])
+			([?\M->] . [end])
+			(,(kbd "C-x C-s") . [C-s])))
   (setopt exwm-manage-force-tiling t)
   (require 'exwm-randr)
   (setq exwm-randr-workspace-monitor-plist '(0 "eDP1"))
