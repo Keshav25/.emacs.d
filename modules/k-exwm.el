@@ -224,6 +224,7 @@
 		  ([?\M-<] . [home])
 		  ([?\M->] . [end])
 		  (,(kbd "C-x C-s") . [C-s])))
+			(,(kbd "s-,") . tab-switcher)
   (setopt exwm-manage-force-tiling t)
   (require 'exwm-randr)
   (setq exwm-randr-workspace-monitor-plist '(0 "eDP1"))
