@@ -170,10 +170,10 @@ current note."
 		(ov-reset overlay)
       ;; Show preview
       (let* ((entry-contents (--> (org-agenda-with-point-at-orig-entry
-									  nil (buffer-substring (save-excursion
-															  (unpackaged/org-forward-to-entry-content t)
-															  (point))
-															(org-entry-end-position)))
+								   nil (buffer-substring (save-excursion
+														   (unpackaged/org-forward-to-entry-content t)
+														   (point))
+														 (org-entry-end-position)))
                                   s-trim
                                   (concat "\n" it "\n"))))
 		(add-face-text-property 0 (length entry-contents)
