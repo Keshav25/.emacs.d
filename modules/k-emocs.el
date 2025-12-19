@@ -525,5 +525,9 @@ _e_moji
 
 (leaf visual-replace
   :elpaca t)
+
+(leaf ctrlf
+  :elpaca t)
+
 (provide 'k-emocs)
 ;;; k-emocs.el ends here
