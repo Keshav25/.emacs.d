@@ -34,15 +34,14 @@
 (leaf gcmh
   :elpaca t
   :custom
-  (gcmh-low-cons-threshold . 800000000)
-  (gcmh-idle-delay . 600)
+  (gcmh-low-cons-threshold . 8000000000)
+  (gcmh-idle-delay . 1200)
   :config
   (gcmh-mode 1)
   (defun my-minibuffer-setup-hook ()
 		 (setq gc-cons-threshold most-positive-fixnum))
   (defun my-minibuffer-exit-hook ()
 		 (setq gc-cons-threshold gcmh-low-cons-threshold))
-  (run-with-idle-timer 1.2 t 'garbage-collect)
   :hook ((minibuffer-setup-hook . my-minibuffer-setup-hook)
 		 (minibuffer-exit-hook . my-minibuffer-exit-hook)))
 
