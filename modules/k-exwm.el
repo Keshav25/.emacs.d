@@ -30,6 +30,7 @@
 
 (leaf exwm
   :when isexwm
+  :after (perspective)
   :require (xelb compat)
   :ensure t
   :bind (:exwm-mode-map
