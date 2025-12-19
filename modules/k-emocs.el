@@ -523,5 +523,7 @@ _e_moji
 ;;   :config
 ;;   (corfu-prescient-mode 1))
 
+(leaf visual-replace
+  :elpaca t)
 (provide 'k-emocs)
 ;;; k-emocs.el ends here
