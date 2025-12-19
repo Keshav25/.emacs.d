@@ -564,5 +564,8 @@
 (leaf minitest
   :elpaca t)
 
+(leaf indent-bars
+  :elpaca t
+  :hook (prog-mode-hook . indent-bars-mode))
 
 (provide 'k-programming)
