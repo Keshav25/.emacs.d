@@ -273,4 +273,6 @@ widen the buffer. You can add more functions to
 ;; :custom
 ;; (xah-fly-keys-set-layout . "colemak"))
 
+(leaf easy-kill :elpaca t)
+
 (provide 'k-bindings)
