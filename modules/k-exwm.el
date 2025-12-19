@@ -407,10 +407,10 @@ Does not take the minibuffer into account."
 				 ;; :state  ,#'consult--buffer-state  ;; Preview
 				 :items
 				 ,(lambda () (consult--buffer-query
-							  :sort 'visibility
-							  :as #'buffer-name
-							  :exclude (remq +consult-exwm-filter consult-buffer-filter)
-							  :mode 'exwm-mode)))
+						 :sort 'visibility
+						 :as #'buffer-name
+						 :exclude (remq +consult-exwm-filter consult-buffer-filter)
+						 :mode 'exwm-mode)))
 	"EXWM buffer source."))
 
 (leaf perspective-exwm
