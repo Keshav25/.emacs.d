@@ -483,11 +483,13 @@ to an appropriate container (e.g., a paragraph)."
   :elpaca t
   :hook (org-mode-hook . org-inline-anim-mode))
 
-;; (leaf ob-go :elpaca t
-;;   :config
-;;   (org-babel-do-load-languages
-;;    'org-babel-load-languages
-;;    '((go . t))))
+(leaf ob-go
+  :elpaca t
+  :after ob
+  :config
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((go . t))))
 
 (leaf ob-rust :elpaca t)
 
@@ -507,7 +509,6 @@ to an appropriate container (e.g., a paragraph)."
 (leaf ob-zig :elpaca (ob-zig :host github :repo "jolby/ob-zig.el"))
 
 (leaf org-babel
-  :after (org)
   :config
   (setopt org-confirm-babel-evaluate nil)
   (require 'outline)
