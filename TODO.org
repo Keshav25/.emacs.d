@@ -88,6 +88,7 @@ CLOSED: [2025-04-07 Mon 22:58]
 CLOSED: [2025-10-28 Tue 03:29]
 *** TODO [#A] Read HOWM Source Code and Configurations
 *** TODO [#A] Create custom dynamic org block that act as short cuts for denote journal recaps
+*** TODO [#C] Use Astrological API in Clomacs to gather Denote journal entries during a particular period
 ** Operating System
 *** TODO [#A] xbindkeys with flameshot shortcut
 *** TODO Get emacsclient to work with Ghostty's TERM value
