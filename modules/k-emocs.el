@@ -221,6 +221,7 @@
   (which-key-allow-multiple-replacements . t)
   (which-key-min-display-lines . 1)
   (which-key-idle-delay . 0.125)
+  (which-key-sort-order . 'which-key-prefix-then-key-order)
   :init
   (which-key-mode 1))
 
