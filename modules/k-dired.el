@@ -81,5 +81,17 @@
   (require 'fm-dired)
   :hook (dired-mode-hook . fm-dired-mode))
 
+(leaf tesseract
+  :elpaca (tesseract :fetcher github :repo "SebastianMeisel/tesseract.el")
+  :custom
+  (doc-view-scale-internally . nil)
+  ;; :bind (:dired-mode-map
+  ;; ("C-t t" . tesseract/dired/marked-to-txt)
+  ;; ("C-t c" . tesseract/dired/combine-marked-to-pdf))
+  ;; (:doc-view-mode-map
+  ;; ("C-t p" . tesseract/doc-view/ocr-current-page)
+  ;; ("C-t a" . tesseract/doc-view/ocr-this-pdf)
+  ;; ("C-t s" . tesseract/doc-view/ocr-current-slice)))
+  )
 
 (provide 'k-dired)
