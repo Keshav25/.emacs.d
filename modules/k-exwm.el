@@ -425,10 +425,62 @@ Does not take the minibuffer into account."
 ;; :when isexwm
 ;; :after (exwm)
 ;; :hook (after-init-hook . (lambda () (exwm-wm-mode))))
+;;; Resize Mode
+;; Interactive window resizing with Emacs-style keybindings
+
+(defvar k-exwm-resize-amount 50
+  "Pixels to resize by in resize mode.")
+
+(defun k-exwm-resize-left ()
+  "Shrink window from right."
+  (interactive)
+  (shrink-window-horizontally (/ k-exwm-resize-amount (frame-char-width))))
+
+(defun k-exwm-resize-right ()
+  "Grow window to right."
+  (interactive)
+  (enlarge-window-horizontally (/ k-exwm-resize-amount (frame-char-width))))
+
+(defun k-exwm-resize-up ()
+  "Shrink window from bottom."
+  (interactive)
+  (shrink-window (/ k-exwm-resize-amount (frame-char-height))))
+
+(defun k-exwm-resize-down ()
+  "Grow window down."
+  (interactive)
+  (enlarge-window (/ k-exwm-resize-amount (frame-char-height))))
+
+(defvar k-exwm-resize-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "b") #'k-exwm-resize-left)
+    (define-key map (kbd "f") #'k-exwm-resize-right)
+    (define-key map (kbd "p") #'k-exwm-resize-up)
+    (define-key map (kbd "n") #'k-exwm-resize-down)
+    (define-key map (kbd "=") #'balance-windows)
+    (define-key map (kbd "q") #'k-exwm-resize-mode-exit)
+    (define-key map (kbd "RET") #'k-exwm-resize-mode-exit)
+    (define-key map (kbd "C-g") #'k-exwm-resize-mode-exit)
+    map)
+  "Keymap for resize mode.")
+
+(defun k-exwm-resize-mode-exit ()
+  "Exit resize mode."
+  (interactive)
+  (message "Resize mode exited"))
+
+(defun k-exwm-resize-mode ()
+  "Enter resize mode. Use b/n/p/f to resize, q/C-g to exit."
+  (interactive)
+  (message "Resize mode: b/f ←→, p/n ↑↓, = equalize, q to exit")
+  (set-transient-map k-exwm-resize-mode-map t #'k-exwm-resize-mode-exit))
+
+;;; Initialize EXWM
 (elpaca-wait)
 (require 'exwm)
 (exwm-enable)
 (exwm-init)
+
 (provide 'k-exwm)
 
 ;; (leaf exwm
