@@ -425,10 +425,55 @@ Does not take the minibuffer into account."
 ;; :when isexwm
 ;; :after (exwm)
 ;; :hook (after-init-hook . (lambda () (exwm-wm-mode))))
+;;; Window Marks (like vim marks)
+;; Quick navigation to marked windows/buffers
+
+(defvar k-exwm-marks (make-hash-table :test 'equal)
+  "Hash table storing window marks: key -> (buffer . window-config).")
+
+(defun k-exwm-mark-set (key)
+  "Mark current window/buffer with KEY for quick jumping."
+  (interactive "cSet mark: ")
+  (puthash key (cons (current-buffer) (selected-window)) k-exwm-marks)
+  (message "Mark '%c' set" key))
+
+(defun k-exwm-mark-jump (key)
+  "Jump to window/buffer marked with KEY."
+  (interactive "cJump to mark: ")
+  (if-let ((mark (gethash key k-exwm-marks)))
+      (let ((buf (car mark)))
+        (if (buffer-live-p buf)
+            (progn
+              (pop-to-buffer buf)
+              (message "Jumped to mark '%c'" key))
+          (remhash key k-exwm-marks)
+          (message "Mark '%c' no longer valid" key)))
+    (message "No mark '%c'" key)))
+
+(defun k-exwm-mark-list ()
+  "List all active marks."
+  (interactive)
+  (let ((marks '()))
+    (maphash (lambda (key val)
+               (when (buffer-live-p (car val))
+                 (push (format "'%c' -> %s" key (buffer-name (car val))) marks)))
+             k-exwm-marks)
+    (if marks
+        (message "Marks: %s" (string-join (nreverse marks) ", "))
+      (message "No marks set"))))
+
+(defun k-exwm-mark-clear ()
+  "Clear all marks."
+  (interactive)
+  (clrhash k-exwm-marks)
+  (message "All marks cleared"))
+
+;;; Initialize EXWM
 (elpaca-wait)
 (require 'exwm)
 (exwm-enable)
 (exwm-init)
+
 (provide 'k-exwm)
 
 ;; (leaf exwm
