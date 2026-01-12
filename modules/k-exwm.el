@@ -766,7 +766,6 @@ Pairs well with picom's corner-radius for rounded window corners."
     ;; Refresh to remove gaps
     (k-exwm-gaps--refresh-layout)
     (message "EXWM gaps disabled")))
->>>>>>> 309fd2e (feat(exwm): add smart gaps with focus borders)
 
 ;;; Initialize EXWM
 (elpaca-wait)
