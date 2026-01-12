@@ -468,6 +468,9 @@ The border appears in the gap area. Set to nil to disable."
 (defvar-local k-exwm-gaps--bg-cookie nil
   "Cookie for buffer-local background face remapping.")
 
+(defvar k-exwm-gaps--saved-aw-display-mode-line nil
+  "Saved value of `aw-display-mode-line' before enabling gaps.")
+
 (defun k-exwm-gaps--neighbor-p (window dir)
   "Return non-nil if WINDOW has a non-minibuffer neighbor in DIR."
   (when-let ((w (window-in-direction dir window)))
@@ -562,6 +565,22 @@ Returns (X Y WIDTH HEIGHT) with gaps applied based on neighbors."
   (interactive)
   (k-exwm-gaps-set (max 0 (- k-exwm-gaps-inner-gap 4))))
 
+(defun k-exwm-gaps--restore-modelines ()
+  "Restore mode-lines on all EXWM buffers."
+  (dolist (buf (buffer-list))
+    (when (buffer-live-p buf)
+      (with-current-buffer buf
+        (when (derived-mode-p 'exwm-mode)
+          (exwm-layout-show-mode-line))))))
+
+(defun k-exwm-gaps--refresh-layout ()
+  "Refresh all EXWM window layouts to apply/remove gaps."
+  (when (fboundp 'exwm-layout--refresh)
+    (dolist (frame (frame-list))
+      (when (frame-live-p frame)
+        (with-selected-frame frame
+          (ignore-errors (exwm-layout--refresh)))))))
+
 ;;;###autoload
 (define-minor-mode k-exwm-gaps-mode
   "Toggle smart gaps between EXWM windows.
@@ -574,21 +593,43 @@ Pairs well with picom's corner-radius for rounded window corners."
   :group 'k-exwm-gaps
   (if k-exwm-gaps-mode
       (progn
+        ;; Save state before modifying
+        (when (boundp 'aw-display-mode-line)
+          (setq k-exwm-gaps--saved-aw-display-mode-line aw-display-mode-line))
+        ;; Enable gaps
         (advice-add 'exwm-layout--show :around #'k-exwm-gaps--show-advice)
         (when k-exwm-gaps-hide-mode-line
           (add-hook 'exwm-manage-finish-hook #'k-exwm-gaps--hide-modeline)
           (when (boundp 'aw-display-mode-line)
-            (setq aw-display-mode-line nil)))
+            (setq aw-display-mode-line nil))
+          ;; Hide mode-lines on existing EXWM buffers
+          (dolist (buf (buffer-list))
+            (when (and (buffer-live-p buf)
+                       (with-current-buffer buf (derived-mode-p 'exwm-mode)))
+              (with-current-buffer buf
+                (exwm-layout-hide-mode-line)))))
         (when k-exwm-gaps-focus-border-color
           (add-hook 'window-selection-change-functions #'k-exwm-gaps--update-focus)
           (k-exwm-gaps--update-focus))
+        ;; Refresh to apply gaps
+        (k-exwm-gaps--refresh-layout)
         (message "EXWM gaps enabled (inner=%dpx outer=%dpx)"
                  k-exwm-gaps-inner-gap k-exwm-gaps-outer-gap))
+    ;; Disable gaps
     (advice-remove 'exwm-layout--show #'k-exwm-gaps--show-advice)
     (remove-hook 'exwm-manage-finish-hook #'k-exwm-gaps--hide-modeline)
     (remove-hook 'window-selection-change-functions #'k-exwm-gaps--update-focus)
+    ;; Clear all borders
     (dolist (buf (buffer-list))
       (k-exwm-gaps--set-border buf nil))
+    ;; Restore mode-lines
+    (when k-exwm-gaps-hide-mode-line
+      (k-exwm-gaps--restore-modelines))
+    ;; Restore aw-display-mode-line
+    (when (boundp 'aw-display-mode-line)
+      (setq aw-display-mode-line k-exwm-gaps--saved-aw-display-mode-line))
+    ;; Refresh to remove gaps
+    (k-exwm-gaps--refresh-layout)
     (message "EXWM gaps disabled")))
 
 ;;; Initialize EXWM
@@ -599,6 +640,335 @@ Pairs well with picom's corner-radius for rounded window corners."
 
 ;; Enable gaps by default (comment out to disable)
 (k-exwm-gaps-mode 1)
+
+;;; BSPWM-style Binary Space Partitioning
+;; Automatically splits along the longest dimension
+
+(defgroup k-exwm-bsp nil
+  "BSPWM-style window management for EXWM."
+  :group 'exwm)
+
+(defcustom k-exwm-bsp-split-ratio 0.5
+  "Ratio for BSP splits. 0.5 = equal, 0.6 = 60/40, etc."
+  :type 'float
+  :group 'k-exwm-bsp)
+
+(defcustom k-exwm-bsp-split-mode 'longest
+  "How to determine split direction.
+'longest - split along longest dimension (default BSPWM behavior)
+'spiral  - alternate directions for spiral pattern
+'horizontal - always split horizontally
+'vertical - always split vertically"
+  :type '(choice (const :tag "Longest dimension" longest)
+                 (const :tag "Spiral/alternate" spiral)
+                 (const :tag "Always horizontal" horizontal)
+                 (const :tag "Always vertical" vertical))
+  :group 'k-exwm-bsp)
+
+(defvar k-exwm-bsp--last-direction 'horizontal
+  "Last split direction, used for spiral mode.")
+
+(defun k-exwm-bsp-split-direction ()
+  "Return the optimal split direction based on current mode.
+Returns 'horizontal for side-by-side, 'vertical for top-bottom."
+  (pcase k-exwm-bsp-split-mode
+    ('longest
+     (let* ((edges (window-inside-pixel-edges))
+            (width (- (nth 2 edges) (nth 0 edges)))
+            (height (- (nth 3 edges) (nth 1 edges))))
+       (if (>= width height) 'horizontal 'vertical)))
+    ('spiral
+     (setq k-exwm-bsp--last-direction
+           (if (eq k-exwm-bsp--last-direction 'horizontal)
+               'vertical
+             'horizontal)))
+    ('horizontal 'horizontal)
+    ('vertical 'vertical)
+    (_ 'horizontal)))
+
+(defun k-exwm-bsp-split ()
+  "Split the current window using BSPWM-style binary space partitioning."
+  (interactive)
+  (let* ((dir (k-exwm-bsp-split-direction))
+         (size (if (eq dir 'horizontal)
+                   (floor (* (window-width) k-exwm-bsp-split-ratio))
+                 (floor (* (window-height) k-exwm-bsp-split-ratio)))))
+    (if (eq dir 'horizontal)
+        (split-window-right size)
+      (split-window-below size))
+    (other-window 1)))
+
+(defun k-exwm-bsp-open (command)
+  "Split using BSP logic, then run COMMAND in the new window."
+  (interactive "sCommand: ")
+  (k-exwm-bsp-split)
+  (start-process-shell-command command nil command))
+
+(defun k-exwm-bsp-open-terminal ()
+  "Split using BSP logic and open a terminal."
+  (interactive)
+  (k-exwm-bsp-split)
+  (eshell-new))
+
+(defun k-exwm-bsp-open-browser ()
+  "Split using BSP logic and open a browser."
+  (interactive)
+  (k-exwm-bsp-open "firefox"))
+
+(defun k-exwm-rotate-windows ()
+  "Rotate window positions clockwise."
+  (interactive)
+  (let* ((windows (window-list nil 'no-minibuf))
+         (buffers (mapcar #'window-buffer windows))
+         (len (length windows)))
+    (when (> len 1)
+      (dotimes (i len)
+        (set-window-buffer (nth i windows)
+                           (nth (mod (1- i) len) buffers)))
+      (message "Windows rotated"))))
+
+(defun k-exwm-flip-layout ()
+  "Flip between horizontal and vertical layout for two windows."
+  (interactive)
+  (unless (one-window-p)
+    (let ((buf1 (window-buffer (car (window-list))))
+          (buf2 (window-buffer (cadr (window-list)))))
+      (delete-other-windows)
+      (if (> (window-width) (window-height))
+          (split-window-below)
+        (split-window-right))
+      (set-window-buffer (selected-window) buf1)
+      (other-window 1)
+      (set-window-buffer (selected-window) buf2)
+      (other-window 1)
+      (message "Layout flipped"))))
+
+(defun k-exwm-swap-master ()
+  "Swap current window with the largest (master) window."
+  (interactive)
+  (let* ((windows (window-list nil 'no-minibuf))
+         (master (car (sort (copy-sequence windows)
+                            (lambda (a b)
+                              (> (* (window-width a) (window-height a))
+                                 (* (window-width b) (window-height b))))))))
+    (unless (eq (selected-window) master)
+      (window-swap-states (selected-window) master)
+      (message "Swapped with master"))))
+
+(defun k-exwm-bsp-set-ratio (ratio)
+  "Set the BSP split ratio interactively."
+  (interactive "nSplit ratio (0.1-0.9): ")
+  (setq k-exwm-bsp-split-ratio (max 0.1 (min 0.9 ratio)))
+  (message "BSP ratio: %.0f/%.0f"
+           (* 100 k-exwm-bsp-split-ratio)
+           (* 100 (- 1 k-exwm-bsp-split-ratio))))
+
+(defun k-exwm-bsp-cycle-mode ()
+  "Cycle through BSP split modes."
+  (interactive)
+  (setq k-exwm-bsp-split-mode
+        (pcase k-exwm-bsp-split-mode
+          ('longest 'spiral)
+          ('spiral 'horizontal)
+          ('horizontal 'vertical)
+          ('vertical 'longest)))
+  (message "BSP mode: %s" k-exwm-bsp-split-mode))
+
+;;; Window Marks (like vim marks)
+(defvar k-exwm-marks (make-hash-table :test 'equal)
+  "Hash table storing window marks: key -> (buffer . window-config).")
+
+(defun k-exwm-mark-set (key)
+  "Mark current window/buffer with KEY for quick jumping."
+  (interactive "cSet mark: ")
+  (puthash key (cons (current-buffer) (selected-window)) k-exwm-marks)
+  (message "Mark '%c' set" key))
+
+(defun k-exwm-mark-jump (key)
+  "Jump to window/buffer marked with KEY."
+  (interactive "cJump to mark: ")
+  (if-let ((mark (gethash key k-exwm-marks)))
+      (let ((buf (car mark)))
+        (if (buffer-live-p buf)
+            (progn
+              (pop-to-buffer buf)
+              (message "Jumped to mark '%c'" key))
+          (remhash key k-exwm-marks)
+          (message "Mark '%c' no longer valid" key)))
+    (message "No mark '%c'" key)))
+
+;;; Resize mode
+(defvar k-exwm-resize-amount 50
+  "Pixels to resize by in resize mode.")
+
+(defun k-exwm-resize-left ()
+  "Shrink window from right."
+  (interactive)
+  (shrink-window-horizontally (/ k-exwm-resize-amount (frame-char-width))))
+
+(defun k-exwm-resize-right ()
+  "Grow window to right."
+  (interactive)
+  (enlarge-window-horizontally (/ k-exwm-resize-amount (frame-char-width))))
+
+(defun k-exwm-resize-up ()
+  "Shrink window from bottom."
+  (interactive)
+  (shrink-window (/ k-exwm-resize-amount (frame-char-height))))
+
+(defun k-exwm-resize-down ()
+  "Grow window down."
+  (interactive)
+  (enlarge-window (/ k-exwm-resize-amount (frame-char-height))))
+
+(defvar k-exwm-resize-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "b") #'k-exwm-resize-left)
+    (define-key map (kbd "f") #'k-exwm-resize-right)
+    (define-key map (kbd "p") #'k-exwm-resize-up)
+    (define-key map (kbd "n") #'k-exwm-resize-down)
+    (define-key map (kbd "=") #'balance-windows)
+    (define-key map (kbd "q") #'k-exwm-resize-mode-exit)
+    (define-key map (kbd "RET") #'k-exwm-resize-mode-exit)
+    (define-key map (kbd "C-g") #'k-exwm-resize-mode-exit)
+    map)
+  "Keymap for resize mode.")
+
+(defun k-exwm-resize-mode-exit ()
+  "Exit resize mode."
+  (interactive)
+  (message "Resize mode exited"))
+
+(defun k-exwm-resize-mode ()
+  "Enter resize mode. Use b/n/p/f to resize, q/C-g to exit."
+  (interactive)
+  (message "Resize mode: b/f ←→, p/n ↑↓, = equalize, q to exit")
+  (set-transient-map k-exwm-resize-mode-map t #'k-exwm-resize-mode-exit))
+
+;;; Nested Window Manager (via Xephyr)
+;; Run another WM inside EXWM using a nested X server
+
+(defgroup k-exwm-nested nil
+  "Nested window manager support via Xephyr."
+  :group 'exwm)
+
+(defcustom k-exwm-nested-size "1280x720"
+  "Default size for Xephyr window (WIDTHxHEIGHT)."
+  :type 'string
+  :group 'k-exwm-nested)
+
+(defcustom k-exwm-nested-default-wm "openbox"
+  "Default window manager to run in Xephyr."
+  :type 'string
+  :group 'k-exwm-nested)
+
+(defvar k-exwm-nested--sessions nil
+  "Alist of active nested sessions: ((display . process) ...).")
+
+(defvar k-exwm-nested--next-display 10
+  "Next display number to use for Xephyr.")
+
+(defun k-exwm-nested--find-free-display ()
+  "Find a free display number for Xephyr."
+  (let ((display k-exwm-nested--next-display))
+    (while (file-exists-p (format "/tmp/.X%d-lock" display))
+      (setq display (1+ display)))
+    (setq k-exwm-nested--next-display (1+ display))
+    display))
+
+(defun k-exwm-nested-start (wm &optional size)
+  "Start a nested X session with WM inside Xephyr.
+SIZE is optional WIDTHxHEIGHT string."
+  (interactive
+   (list (read-string "Window manager: " k-exwm-nested-default-wm)
+         (when current-prefix-arg
+           (read-string "Size (WxH): " k-exwm-nested-size))))
+  (let* ((display (k-exwm-nested--find-free-display))
+         (display-str (format ":%d" display))
+         (size (or size k-exwm-nested-size))
+         (xephyr-proc nil)
+         (wm-proc nil))
+    ;; Start Xephyr
+    (setq xephyr-proc
+          (start-process
+           (format "xephyr-%d" display)
+           nil
+           "Xephyr"
+           display-str
+           "-screen" size
+           "-resizeable"
+           "-title" (format "Nested: %s" wm)
+           "-name" (format "nested-%s" wm)))
+    ;; Wait for Xephyr to start
+    (sleep-for 0.5)
+    ;; Start the WM inside Xephyr
+    (let ((process-environment
+           (cons (format "DISPLAY=%s" display-str)
+                 process-environment)))
+      (setq wm-proc
+            (start-process
+             (format "nested-wm-%d" display)
+             nil
+             wm)))
+    ;; Track session
+    (push (cons display (cons xephyr-proc wm-proc)) k-exwm-nested--sessions)
+    ;; Clean up when Xephyr exits
+    (set-process-sentinel
+     xephyr-proc
+     (lambda (proc _event)
+       (when (not (process-live-p proc))
+         (setq k-exwm-nested--sessions
+               (assq-delete-all display k-exwm-nested--sessions))
+         (message "Nested session :%d closed" display))))
+    (message "Started %s on display %s (%s)" wm display-str size)))
+
+(defun k-exwm-nested-run (command)
+  "Run COMMAND inside the most recent nested Xephyr session."
+  (interactive "sCommand to run in nested session: ")
+  (if k-exwm-nested--sessions
+      (let* ((session (car k-exwm-nested--sessions))
+             (display (car session))
+             (display-str (format ":%d" display)))
+        (start-process-shell-command
+         "nested-cmd" nil
+         (format "DISPLAY=%s %s" display-str command))
+        (message "Running '%s' on display %s" command display-str))
+    (message "No active nested session")))ee
+
+(defun k-exwm-nested-list ()
+  "List active nested sessions."
+  (interactive)
+  (if k-exwm-nested--sessions
+      (message "Active nested sessions: %s"
+               (mapconcat (lambda (s) (format ":%d" (car s)))
+                          k-exwm-nested--sessions ", "))
+    (message "No active nested sessions")))
+
+(defun k-exwm-nested-stop (display)
+  "Stop nested session on DISPLAY."
+  (interactive
+   (list (if k-exwm-nested--sessions
+             (string-to-number
+              (completing-read "Stop display: "
+                               (mapcar (lambda (s) (format "%d" (car s)))
+                                       k-exwm-nested--sessions)
+                               nil t))
+           (user-error "No active nested sessions"))))
+  (when-let ((session (assq display k-exwm-nested--sessions)))
+    (let ((xephyr-proc (cadr session))
+          (wm-proc (cddr session)))
+      (when (process-live-p wm-proc) (kill-process wm-proc))
+      (when (process-live-p xephyr-proc) (kill-process xephyr-proc)))
+    (setq k-exwm-nested--sessions
+          (assq-delete-all display k-exwm-nested--sessions))
+    (message "Stopped nested session :%d" display)))
+
+(defun k-exwm-nested-stop-all ()
+  "Stop all nested sessions."
+  (interactive)
+  (dolist (session k-exwm-nested--sessions)
+    (k-exwm-nested-stop (car session)))
+  (message "All nested sessions stopped"))
 
 (provide 'k-exwm)
 
