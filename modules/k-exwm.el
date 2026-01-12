@@ -597,6 +597,10 @@ The border appears in the gap area. Set to nil to disable."
 (defvar k-exwm-gaps--saved-aw-display-mode-line nil
   "Saved value of `aw-display-mode-line' before enabling gaps.")
 
+(defvar k-exwm-gaps--mode-lines-hidden nil
+  "Non-nil if mode-lines were hidden when gaps mode was enabled.
+Used to track state for proper cleanup on disable.")
+
 (defun k-exwm-gaps--neighbor-p (window dir)
   "Return non-nil if WINDOW has a non-minibuffer neighbor in DIR."
   (when-let ((w (window-in-direction dir window)))
@@ -679,6 +683,8 @@ Returns (X Y WIDTH HEIGHT) with gaps applied based on neighbors."
   "Set inner gap SIZE interactively."
   (interactive "nGap size (pixels): ")
   (setq k-exwm-gaps-inner-gap size)
+  (when k-exwm-gaps-mode
+    (k-exwm-gaps--refresh-layout))
   (message "EXWM gaps: %dpx" size))
 
 (defun k-exwm-gaps-increase ()
@@ -719,12 +725,14 @@ Pairs well with picom's corner-radius for rounded window corners."
   :group 'k-exwm-gaps
   (if k-exwm-gaps-mode
       (progn
-        ;; Save state before modifying
-        (when (boundp 'aw-display-mode-line)
+        ;; Save state before modifying (only if not already saved)
+        (when (and (boundp 'aw-display-mode-line)
+                   (not k-exwm-gaps--mode-lines-hidden))
           (setq k-exwm-gaps--saved-aw-display-mode-line aw-display-mode-line))
         ;; Enable gaps
         (advice-add 'exwm-layout--show :around #'k-exwm-gaps--show-advice)
         (when k-exwm-gaps-hide-mode-line
+          (setq k-exwm-gaps--mode-lines-hidden t)  ; Track that we hid mode-lines
           (add-hook 'exwm-manage-finish-hook #'k-exwm-gaps--hide-modeline)
           (when (boundp 'aw-display-mode-line)
             (setq aw-display-mode-line nil))
@@ -748,9 +756,10 @@ Pairs well with picom's corner-radius for rounded window corners."
     ;; Clear all borders
     (dolist (buf (buffer-list))
       (k-exwm-gaps--set-border buf nil))
-    ;; Restore mode-lines
-    (when k-exwm-gaps-hide-mode-line
-      (k-exwm-gaps--restore-modelines))
+    ;; Restore mode-lines (based on whether we hid them, not current config)
+    (when k-exwm-gaps--mode-lines-hidden
+      (k-exwm-gaps--restore-modelines)
+      (setq k-exwm-gaps--mode-lines-hidden nil))
     ;; Restore aw-display-mode-line
     (when (boundp 'aw-display-mode-line)
       (setq aw-display-mode-line k-exwm-gaps--saved-aw-display-mode-line))
