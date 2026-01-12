@@ -437,7 +437,7 @@ Does not take the minibuffer into account."
   :type 'string
   :group 'k-exwm-nested)
 
-(defcustom k-exwm-nested-default-wm "openbox"
+(defcustom k-exwm-nested-default-wm "dwm"
   "Default window manager to run in Xephyr."
   :type 'string
   :group 'k-exwm-nested)
