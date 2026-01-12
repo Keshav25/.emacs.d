@@ -769,6 +769,139 @@ Pairs well with picom's corner-radius for rounded window corners."
     (k-exwm-gaps--refresh-layout)
     (message "EXWM gaps disabled")))
 
+;;; BSPWM-style Binary Space Partitioning
+;; Automatically splits along the longest dimension
+
+(defgroup k-exwm-bsp nil
+  "BSPWM-style window management for EXWM."
+  :group 'exwm)
+
+(defcustom k-exwm-bsp-split-ratio 0.5
+  "Ratio for BSP splits. 0.5 = equal, 0.6 = 60/40, etc."
+  :type 'float
+  :group 'k-exwm-bsp)
+
+(defcustom k-exwm-bsp-split-mode 'longest
+  "How to determine split direction.
+'longest - split along longest dimension (default BSPWM behavior)
+'spiral  - alternate directions for spiral pattern
+'horizontal - always split horizontally
+'vertical - always split vertically"
+  :type '(choice (const :tag "Longest dimension" longest)
+                 (const :tag "Spiral/alternate" spiral)
+                 (const :tag "Always horizontal" horizontal)
+                 (const :tag "Always vertical" vertical))
+  :group 'k-exwm-bsp)
+
+(defvar k-exwm-bsp--last-direction 'horizontal
+  "Last split direction, used for spiral mode.")
+
+(defun k-exwm-bsp-split-direction ()
+  "Return the optimal split direction based on current mode.
+Returns 'horizontal for side-by-side, 'vertical for top-bottom."
+  (pcase k-exwm-bsp-split-mode
+    ('longest
+     (let* ((edges (window-inside-pixel-edges))
+            (width (- (nth 2 edges) (nth 0 edges)))
+            (height (- (nth 3 edges) (nth 1 edges))))
+       (if (>= width height) 'horizontal 'vertical)))
+    ('spiral
+     (setq k-exwm-bsp--last-direction
+           (if (eq k-exwm-bsp--last-direction 'horizontal)
+               'vertical
+             'horizontal)))
+    ('horizontal 'horizontal)
+    ('vertical 'vertical)
+    (_ 'horizontal)))
+
+(defun k-exwm-bsp-split ()
+  "Split the current window using BSPWM-style binary space partitioning."
+  (interactive)
+  (let* ((dir (k-exwm-bsp-split-direction))
+         (size (if (eq dir 'horizontal)
+                   (floor (* (window-width) k-exwm-bsp-split-ratio))
+                 (floor (* (window-height) k-exwm-bsp-split-ratio)))))
+    (if (eq dir 'horizontal)
+        (split-window-right size)
+      (split-window-below size))
+    (other-window 1)))
+
+(defun k-exwm-bsp-open (command)
+  "Split using BSP logic, then run COMMAND in the new window."
+  (interactive "sCommand: ")
+  (k-exwm-bsp-split)
+  (start-process-shell-command command nil command))
+
+(defun k-exwm-bsp-open-terminal ()
+  "Split using BSP logic and open a terminal."
+  (interactive)
+  (k-exwm-bsp-split)
+  (eshell-new))
+
+(defun k-exwm-bsp-open-browser ()
+  "Split using BSP logic and open a browser."
+  (interactive)
+  (k-exwm-bsp-open "firefox"))
+
+(defun k-exwm-rotate-windows ()
+  "Rotate window positions clockwise."
+  (interactive)
+  (let* ((windows (window-list nil 'no-minibuf))
+         (buffers (mapcar #'window-buffer windows))
+         (len (length windows)))
+    (when (> len 1)
+      (dotimes (i len)
+        (set-window-buffer (nth i windows)
+                           (nth (mod (1- i) len) buffers)))
+      (message "Windows rotated"))))
+
+(defun k-exwm-flip-layout ()
+  "Flip between horizontal and vertical layout for two windows."
+  (interactive)
+  (unless (one-window-p)
+    (let ((buf1 (window-buffer (car (window-list))))
+          (buf2 (window-buffer (cadr (window-list)))))
+      (delete-other-windows)
+      (if (> (window-width) (window-height))
+          (split-window-below)
+        (split-window-right))
+      (set-window-buffer (selected-window) buf1)
+      (other-window 1)
+      (set-window-buffer (selected-window) buf2)
+      (other-window 1)
+      (message "Layout flipped"))))
+
+(defun k-exwm-swap-master ()
+  "Swap current window with the largest (master) window."
+  (interactive)
+  (let* ((windows (window-list nil 'no-minibuf))
+         (master (car (sort (copy-sequence windows)
+                            (lambda (a b)
+                              (> (* (window-width a) (window-height a))
+                                 (* (window-width b) (window-height b))))))))
+    (unless (eq (selected-window) master)
+      (window-swap-states (selected-window) master)
+      (message "Swapped with master"))))
+
+(defun k-exwm-bsp-set-ratio (ratio)
+  "Set the BSP split ratio interactively."
+  (interactive "nSplit ratio (0.1-0.9): ")
+  (setq k-exwm-bsp-split-ratio (max 0.1 (min 0.9 ratio)))
+  (message "BSP ratio: %.0f/%.0f"
+           (* 100 k-exwm-bsp-split-ratio)
+           (* 100 (- 1 k-exwm-bsp-split-ratio))))
+
+(defun k-exwm-bsp-cycle-mode ()
+  "Cycle through BSP split modes."
+  (interactive)
+  (setq k-exwm-bsp-split-mode
+        (pcase k-exwm-bsp-split-mode
+          ('longest 'spiral)
+          ('spiral 'horizontal)
+          ('horizontal 'vertical)
+          ('vertical 'longest)))
+  (message "BSP mode: %s" k-exwm-bsp-split-mode))
+
 ;;; Initialize EXWM
 (elpaca-wait)
 (require 'exwm)
