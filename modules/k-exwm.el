@@ -234,13 +234,13 @@
 			   "xrandr" nil "xrandr --output eDP1 --mode 1920x1080 --pos 0x0 --rotate normal")))
   (exwm-randr-mode 1)
 
-  ;; (defun efs/configure-window-by-class ()
-  ;; 	(interactive)
-  ;; 	(pcase exwm-class-name
-  ;; 	  ("kitty" (exwm-floating-toggle-floating)
-  ;; 	   (exwm-layout-toggle-mode-line))
-  ;; 	  ("Alacritty" (exwm-floating-toggle-floating)
-  ;; 	   (exwm-layout-toggle-mode-line))))
+  (defun efs/configure-window-by-class ()
+	(interactive)
+	(pcase exwm-class-name
+	  ("kitty" (exwm-floating-toggle-floating)
+	   (exwm-layout-hide-mode-line))
+	  ("Alacritty" (exwm-floating-toggle-floating)
+	   (exwm-layout-hide-mode-line))))
 
   (add-hook 'exwm-manage-finish-hook
 			#'efs/configure-window-by-class)
@@ -627,8 +627,8 @@ Returns (X Y WIDTH HEIGHT) with gaps applied based on neighbors."
                            (t 0))))
     (list (+ x left-gap)
           (+ y top-gap)
-          (- width left-gap right-gap)
-          (- height top-gap bottom-gap))))
+          (max 0 (- width left-gap right-gap))
+          (max 0 (- height top-gap bottom-gap)))))
 
 (defun k-exwm-gaps--show-advice (orig-fun id &optional window)
   "Advice for `exwm-layout--show' to apply gaps to tiled windows."
