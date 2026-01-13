@@ -687,7 +687,7 @@ Returns (X Y WIDTH HEIGHT) with gaps applied based on neighbors."
   (setq k-exwm-gaps-inner-gap (max 0 size))
   (when k-exwm-gaps-mode
     (k-exwm-gaps--refresh-layout))
-  (message "EXWM gaps: %dpx" size))
+  (message "EXWM gaps: %dpx" k-exwm-gaps-inner-gap))
 
 (defun k-exwm-gaps-increase ()
   "Increase inner gap by 4 pixels."
