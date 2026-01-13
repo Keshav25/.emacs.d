@@ -682,7 +682,7 @@ Returns (X Y WIDTH HEIGHT) with gaps applied based on neighbors."
 (defun k-exwm-gaps-set (size)
   "Set inner gap SIZE interactively."
   (interactive "nGap size (pixels): ")
-  (setq k-exwm-gaps-inner-gap size)
+  (setq k-exwm-gaps-inner-gap (max 0 size))
   (when k-exwm-gaps-mode
     (k-exwm-gaps--refresh-layout))
   (message "EXWM gaps: %dpx" size))
@@ -690,7 +690,7 @@ Returns (X Y WIDTH HEIGHT) with gaps applied based on neighbors."
 (defun k-exwm-gaps-increase ()
   "Increase inner gap by 4 pixels."
   (interactive)
-  (k-exwm-gaps-set (+ k-exwm-gaps-inner-gap 4)))
+  (k-exwm-gaps-set (max 0  (+ k-exwm-gaps-inner-gap 4))))
 
 (defun k-exwm-gaps-decrease ()
   "Decrease inner gap by 4 pixels."
