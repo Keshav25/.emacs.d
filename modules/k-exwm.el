@@ -796,6 +796,10 @@ Pairs well with picom's corner-radius for rounded window corners."
 (defvar k-exwm-bsp--last-direction 'horizontal
   "Last split direction, used for spiral mode.")
 
+(defun k-exwm-bsp-one-window ()
+  (perfect-margin-mode 0)
+  'horizontal)
+
 (defun k-exwm-bsp-split-direction ()
   "Return the optimal split direction based on current mode.
 Returns 'horizontal for side-by-side, 'vertical for top-bottom."
@@ -804,7 +808,9 @@ Returns 'horizontal for side-by-side, 'vertical for top-bottom."
      (let* ((edges (window-inside-pixel-edges))
             (width (- (nth 2 edges) (nth 0 edges)))
             (height (- (nth 3 edges) (nth 1 edges))))
-       (if (>= width height) 'horizontal 'vertical)))
+	   (if (one-window-p)
+		   (k-exwm-bsp-one-window)
+		 (if (>= width height) 'horizontal 'vertical))))
     ('spiral
      (setq k-exwm-bsp--last-direction
            (if (eq k-exwm-bsp--last-direction 'horizontal)
