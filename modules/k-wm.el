@@ -52,7 +52,8 @@
   (if (and winner-mode
 		   (equal (selected-window) (next-window)))
 	  (winner-undo)
-	(delete-other-windows)))
+	(progn (delete-other-windows)
+		   (perfect-margin-mode 1))))
 
 (global-set-key (kbd "C-x 1") 'k-toggle-fullscreen)
 
