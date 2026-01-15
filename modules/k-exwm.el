@@ -861,21 +861,6 @@ Returns 'horizontal for side-by-side, 'vertical for top-bottom."
                            (nth (mod (1- i) len) buffers)))
       (message "Windows rotated"))))
 
-(defun k-exwm-flip-layout ()
-  "Flip between horizontal and vertical layout for two windows."
-  (interactive)
-  (unless (one-window-p)
-    (let ((buf1 (window-buffer (car (window-list))))
-          (buf2 (window-buffer (cadr (window-list)))))
-      (delete-other-windows)
-      (if (> (window-width) (window-height))
-          (split-window-below)
-        (split-window-right))
-      (set-window-buffer (selected-window) buf1)
-      (other-window 1)
-      (set-window-buffer (selected-window) buf2)
-      (other-window 1)
-      (message "Layout flipped"))))
 
 (defun k-exwm-swap-master ()
   "Swap current window with the largest (master) window."
