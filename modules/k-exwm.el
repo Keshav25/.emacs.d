@@ -852,7 +852,7 @@ Returns 'horizontal for side-by-side, 'vertical for top-bottom."
 (defun k-exwm-rotate-windows ()
   "Rotate window positions clockwise."
   (interactive)
-  (let* ((windows (window-list nil 'no-minibuf))
+  (let* ((windows (window-list nil 'no-minibuffer))
          (buffers (mapcar #'window-buffer windows))
          (len (length windows)))
     (when (> len 1)
