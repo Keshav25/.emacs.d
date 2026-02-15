@@ -300,6 +300,12 @@ Does not take the minibuffer into account."
   (desktop-environment-brightness-normal-increment . "5%+")
   (desktop-environment-brightness-normal-decrement . "5%-")
   (exwm-layout-show-all-buffers . t)
+  (desktop-environment-volume-set-command . "pactl set-sink-volume 0 %s")
+  (desktop-environment-volume-get-command . "pactl get-sink-volume 0 | awk '{print $5}'")
+  (desktop-environment-volume-normal-increment . "+5%")
+  (desktop-environment-volume-normal-decrement . "-5%")
+  (desktop-environment-volume-small-increment . "+1%")
+  (desktop-environment-volume-small-decrement . "-1%")
   :init
   (desktop-environment-mode 1)
   :bind (:desktop-environment-mode-map
