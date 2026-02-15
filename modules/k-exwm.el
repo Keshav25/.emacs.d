@@ -255,7 +255,6 @@
   (define-key exwm-mode-map "\C-c\C-t\C-m" nil)
   (defun my/exwm-direction-exists-p (dir)
 	"Check if there is space in the direction DIR.
-
 Does not take the minibuffer into account."
 	(cl-some (lambda (dir)
                (let ((win (windmove-find-other-window dir)))
