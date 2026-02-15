@@ -33,6 +33,8 @@
   :after (perspective)
   :require (xelb compat)
   :ensure t
+  :custom
+  (exwm-layout-fullscreen-grab-keyboard . nil)
   :bind (:exwm-mode-map
 		 ("C-q" . #'exwm-input-send-next-key)
 		 ("s-i" . #'exwm-input-toggle-keyboard)
