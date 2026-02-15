@@ -259,7 +259,8 @@ for the \"main\" or \"master\" branch."
   :custom
   (blamer-force-truncate-long-line . nil)
   :config
-  (global-blamer-mode 1))
+  ;; (global-blamer-mode 1)
+  )
 
 (leaf syncthing
   :disabled t
