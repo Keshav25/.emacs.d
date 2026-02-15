@@ -172,6 +172,7 @@
 			(,(kbd "s-Q") . exwm-layout-toggle-fullscreen) ;; Toggle fullscreen mode, when in an EXWM window.
 			(,(kbd "s-D") . kill-this-buffer)
 			(,(kbd "s-s") . split-and-follow-vertically)
+			(,(kbd "s-v") . split-and-follow-horizontally)
 			(,(kbd "s-'") . fhd/toggle-exwm-input-line-mode-passthrough)
 			(,(kbd "s-c") . kill-buffer-and-window)
 			(,(kbd "C-`") . popper-toggle)
