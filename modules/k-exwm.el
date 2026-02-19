@@ -50,6 +50,7 @@
 		 ("C-x h" . #'k-exwm/C-a)
 		 ("C-o" . #'k-exwm/C-o)
 		 ("C-u" . #'universal-argument)
+		 ("C-y" . #'k/exwm-paste-from-kill-ring)
 		 ("M-\"" . #'k-exwm/M-quote)
 		 ("<XF86AudioLowerVolume>" . #'desktop-environment-volume-decrement)
 		 ("<XF86AudioRaiseVolume>" . #'desktop-environment-volume-increment))
@@ -417,11 +418,47 @@ Does not take the minibuffer into account."
 				 ;; :state  ,#'consult--buffer-state  ;; Preview
 				 :items
 				 ,(lambda () (consult--buffer-query
-						 :sort 'visibility
-						 :as #'buffer-name
-						 :exclude (remq +consult-exwm-filter consult-buffer-filter)
-						 :mode 'exwm-mode)))
-	"EXWM buffer source."))
+							  :sort 'visibility
+							  :as #'buffer-name
+							  :exclude (remq +consult-exwm-filter consult-buffer-filter)
+							  :mode 'exwm-mode)))
+	"EXWM buffer source.")
+
+  (defun k/exwm-paste-from-kill-ring ()
+    "Browse the kill ring with consult and paste into the EXWM application.
+Uses the consult completion UI to select a kill ring entry, copies
+it to the system clipboard, and simulates C-v (paste) in the
+focused X application.  Falls back to `consult-yank-pop' in
+non-EXWM buffers."
+    (interactive)
+    (if (derived-mode-p 'exwm-mode)
+        (let ((text (consult--read
+                     (consult--remove-dups
+                      (mapcar #'substring-no-properties kill-ring))
+                     :prompt "Paste from kill ring: "
+                     :history t
+                     :category 'kill-ring
+                     :require-match t
+                     :sort nil)))
+          (when (and text (not (string-empty-p text)))
+            ;; Update kill ring so the selection is current
+            (kill-new text)
+            ;; Copy to both CLIPBOARD and PRIMARY selections
+            (gui-set-selection 'CLIPBOARD text)
+            (gui-set-selection 'PRIMARY text)
+            ;; Give the clipboard a moment to propagate, then paste
+            (run-at-time 0.05 nil
+                         (lambda ()
+                           (exwm-input--fake-key ?\C-v)))))
+      (call-interactively #'consult-yank-pop)))
+
+  ;; Also make M-x consult-yank-from-kill-ring work in EXWM buffers
+  (advice-add 'consult-yank-from-kill-ring :around
+              (lambda (orig-fn &rest args)
+                "Make `consult-yank-from-kill-ring' paste into EXWM applications."
+                (if (derived-mode-p 'exwm-mode)
+                    (k/exwm-paste-from-kill-ring)
+                  (apply orig-fn args)))))
 
 (leaf perspective-exwm
   :after (perspective)
