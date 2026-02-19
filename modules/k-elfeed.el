@@ -6,6 +6,7 @@
   :custom
   (elfeed-db-directory . "~/.emacs.d/elfeed/")
   (elfeed-show-entry-switch . 'display-buffer)
+  (elfeed-search-filter . "@1-month-ago +unread -shorts")
   :config
   (defun browse-url-mpv (url &optional single)
 	(start-process "mpv" nil "mpv" (shell-quote-argument url)))
@@ -25,11 +26,43 @@
       (call-interactively #'elfeed-search-show-entry)
 	  (select-window (previous-window))
       (unless elfeed-search-remain-on-entry (forward-line -1))))
+
+  (defun k/elfeed-youtube-shorts-p (entry)
+    "Return non-nil if ENTRY is a YouTube Short.
+Checks the entry URL for /shorts/ paths and the title for
+#shorts/#short hashtags."
+    (let ((url (elfeed-entry-link entry))
+          (title (elfeed-entry-title entry)))
+      (or
+       ;; URL contains /shorts/ path
+       (and url (string-match-p "/shorts/" url))
+       ;; Title contains #shorts or #short (case-insensitive)
+       (and title (string-match-p "#shorts?\\b" (downcase title))))))
+
+  (defun k/elfeed-tag-youtube-shorts (entry)
+    "Auto-tag YouTube Shorts entries so they are filtered from search.
+Adds the `shorts' tag to any entry detected as a YouTube Short."
+    (when (k/elfeed-youtube-shorts-p entry)
+      (elfeed-tag entry 'shorts)))
+
+  (add-hook 'elfeed-new-entry-hook #'k/elfeed-tag-youtube-shorts)
+
+  (defun k/elfeed-untag-shorts ()
+    "Show YouTube Shorts in the current search (toggle filter)."
+    (interactive)
+    (if (string-match-p "-shorts" elfeed-search-filter)
+        (elfeed-search-set-filter
+         (replace-regexp-in-string " *-shorts" "" elfeed-search-filter))
+      (elfeed-search-set-filter
+       (concat elfeed-search-filter " -shorts"))))
+
   :bind
   (("C-c o r" . elfeed))
   (:elfeed-show-mode-map
    ("r" . elfeed-update)
-   ("w" . elfeed-show-yank)))
+   ("w" . elfeed-show-yank))
+  (:elfeed-search-mode-map
+   ("S" . k/elfeed-untag-shorts)))
 
 ;; for nano-elfeed
 (leaf relative-date
