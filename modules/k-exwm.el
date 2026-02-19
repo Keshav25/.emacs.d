@@ -563,6 +563,10 @@ Returns 'horizontal for side-by-side, 'vertical for top-bottom."
           ('vertical 'longest)))
   (message "BSP mode: %s" k-exwm-bsp-split-mode))
 
+;;; Load EXWM scripting modules
+(require 'k-ocr)
+(require 'k-exwm-script)
+
 ;;; Initialize EXWM
 (elpaca-wait)
 (require 'exwm)
