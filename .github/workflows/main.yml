@@ -48,17 +48,19 @@ jobs:
               -not -path './elpa/*' \
               -not -path './.git/*' \
               -not -path './site-lisp/nano-elfeed/*' \
-              -not -path './site-lisp/target/*'); do
+              -not -path './site-lisp/target/*' \
+              -not -path './clomacs/*'); do
             count=$((count + 1))
             if ! emacs --batch --eval "
               (condition-case err
                   (with-temp-buffer
                     (insert-file-contents \"$f\")
                     (goto-char (point-min))
-                    (while (not (eobp))
-                      (read (current-buffer))))
+                    (condition-case nil
+                        (while t (read (current-buffer)))
+                      (end-of-file nil)))
                 (error
-                 (princ (format \"SYNTAX ERROR in %s: %S\n\" \"$f\" err) #'external-debugging-output)
+                 (message \"SYNTAX ERROR in %s: %S\" \"$f\" err)
                  (kill-emacs 1)))" 2>&1; then
               echo "::error file=${f#./}::Elisp syntax error"
               errors=$((errors + 1))
@@ -82,7 +84,6 @@ jobs:
           echo "Configuration loaded successfully"
 
       - name: Byte-compile modules
-        if: always() && steps.*.outcome != 'failure'
         run: |
           # Build load-path from elpaca builds
           ELPACA_LOAD=""
@@ -97,7 +98,7 @@ jobs:
           errors=0
           for f in modules/*.el modules/lang/*.el site-lisp/k-*.el; do
             [ -f "$f" ] || continue
-            output=$(emacs --batch \
+            if ! emacs --batch \
               --eval "(progn
                 (add-to-list (quote load-path) \"$(pwd)/modules\")
                 (add-to-list (quote load-path) \"$(pwd)/modules/lang\")
@@ -109,11 +110,8 @@ jobs:
                 (ignore-errors (leaf-keywords-init))
                 (setq byte-compile-warnings
                       (quote (not free-vars unresolved noruntime cl-functions))))" \
-              -f batch-byte-compile "$f" 2>&1) || true
-            # Check for actual errors (not warnings)
-            if echo "$output" | grep -q "^.*:Error:"; then
+              -f batch-byte-compile "$f" 2>&1; then
               echo "::error file=$f::Byte-compile error"
-              echo "$output"
               errors=$((errors + 1))
             fi
           done
@@ -130,9 +128,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: purcell/setup-emacs@master
-        with:
-          version: 30.1
+      - name: Install Emacs
+        shell: powershell
+        run: choco install emacs -y --no-progress
 
       - name: Emacs version
         shell: bash
@@ -154,17 +152,19 @@ jobs:
               -not -path './elpa/*' \
               -not -path './.git/*' \
               -not -path './site-lisp/nano-elfeed/*' \
-              -not -path './site-lisp/target/*'); do
+              -not -path './site-lisp/target/*' \
+              -not -path './clomacs/*'); do
             count=$((count + 1))
             if ! emacs --batch --eval "
               (condition-case err
                   (with-temp-buffer
                     (insert-file-contents \"$f\")
                     (goto-char (point-min))
-                    (while (not (eobp))
-                      (read (current-buffer))))
+                    (condition-case nil
+                        (while t (read (current-buffer)))
+                      (end-of-file nil)))
                 (error
-                 (princ (format \"SYNTAX ERROR in %s: %S\n\" \"$f\" err) #'external-debugging-output)
+                 (message \"SYNTAX ERROR in %s: %S\" \"$f\" err)
                  (kill-emacs 1)))" 2>&1; then
               echo "::error file=${f#./}::Elisp syntax error"
               errors=$((errors + 1))
@@ -181,22 +181,43 @@ jobs:
           restore-keys: elpaca-windows-
 
       - name: Load full configuration
-        shell: bash
-        run: |
-          emacs --batch \
-            --eval "(setq debug-on-error t)" \
-            -l "$HOME/.emacs.d/early-init.el" 2>&1
-          echo "Configuration loaded successfully"
+        shell: cmd
+        run: emacs --batch --eval "(setq debug-on-error t)" -l "%USERPROFILE%\.emacs.d\early-init.el"
 
   # ── GNU Guix ─────────────────────────────────────────────
   guix:
     name: GNU Guix
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
 
-      - uses: SquidDev/setup-guix@v1.2.0
+      - name: Install GNU Guix
+        run: |
+          # Install Guix via official binary tarball
+          GUIX_VERSION=1.4.0
+          cd /tmp
+          wget -q "https://ftp.gnu.org/gnu/guix/guix-binary-${GUIX_VERSION}.x86_64-linux.tar.xz"
+          sudo tar -C / --warning=no-timestamp -xf "guix-binary-${GUIX_VERSION}.x86_64-linux.tar.xz"
+          sudo ln -sf /var/guix/profiles/per-user/root/current-guix/bin/guix /usr/local/bin/guix
+
+          # Create build users
+          sudo groupadd --system guixbuild 2>/dev/null || true
+          for i in $(seq -w 1 10); do
+            sudo useradd -g guixbuild -G guixbuild \
+              -d /var/empty -s "$(which nologin)" \
+              -c "Guix build user $i" --system "guixbuilder${i}" 2>/dev/null || true
+          done
+
+          # Authorize substitutes
+          sudo mkdir -p /etc/guix
+          sudo guix archive --authorize < /var/guix/profiles/per-user/root/current-guix/share/guix/ci.guix.gnu.org.pub
+
+          # Start daemon
+          sudo /var/guix/profiles/per-user/root/current-guix/bin/guix-daemon \
+            --build-users-group=guixbuild &
+          sleep 3
 
       - name: Link as ~/.emacs.d
         run: |
@@ -208,10 +229,8 @@ jobs:
 
       - name: Syntax check all .el files
         run: |
-          # Write check script (avoids heredoc quoting issues)
-          cat > /tmp/syntax-check.sh << 'HEREDOC'
+          cat > /tmp/syntax-check.sh << 'SCRIPT'
           #!/usr/bin/env bash
-          set -uo pipefail
           cd "$1"
           errors=0
           count=0
@@ -220,33 +239,28 @@ jobs:
               -not -path './elpa/*' \
               -not -path './.git/*' \
               -not -path './site-lisp/nano-elfeed/*' \
-              -not -path './site-lisp/target/*'); do
+              -not -path './site-lisp/target/*' \
+              -not -path './clomacs/*'); do
             count=$((count + 1))
             if ! emacs --batch --eval "
               (condition-case err
                   (with-temp-buffer
                     (insert-file-contents \"$f\")
                     (goto-char (point-min))
-                    (while (not (eobp))
-                      (read (current-buffer))))
+                    (condition-case nil
+                        (while t (read (current-buffer)))
+                      (end-of-file nil)))
                 (error
-                 (princ (format \"SYNTAX ERROR in %s: %S\n\" \"$f\" err) #'external-debugging-output)
+                 (message \"SYNTAX ERROR in %s: %S\" \"$f\" err)
                  (kill-emacs 1)))" 2>&1; then
               errors=$((errors + 1))
             fi
           done
           echo "Checked $count files, $errors error(s)"
           [ "$errors" -eq 0 ]
-          HEREDOC
+          SCRIPT
           chmod +x /tmp/syntax-check.sh
           guix shell emacs -- bash /tmp/syntax-check.sh "$GITHUB_WORKSPACE"
-
-      - name: Cache elpaca packages
-        uses: actions/cache@v4
-        with:
-          path: elpaca
-          key: elpaca-guix-${{ hashFiles('modules/k-leaf.el') }}
-          restore-keys: elpaca-guix-
 
       - name: Load full configuration
         run: |

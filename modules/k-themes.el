@@ -38,6 +38,9 @@
   (modus-themes-mixed-fonts . nil)
   (modus-themes-prompts . '(bold intense)))
 
+(leaf frutiger-aero-emacs
+  :elpaca (frutiger-aero-emacs :host github :repo "CoderTey/frutiger-aero-theme"))
+
 (leaf automagic-dark-mode
   :elpaca (automagic-dark-mode :host github :repo "sstraust/automagic-dark-mode")
   :require t)
