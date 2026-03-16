@@ -36,7 +36,7 @@
   :elpaca t
   :hook ((python-mode . pyvenv-mode)
 		 (python-mode . pyvenv-tracking-mode)
-		 (pyvenv-post-activate-hooks . pyvenc-restart-python))
+		 (pyvenv-post-activate-hooks . pyvenv-restart-python))
   :custom
   (pyvenv-default-virtual-env-name . "venv"))
 

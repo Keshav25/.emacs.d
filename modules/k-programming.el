@@ -6,23 +6,6 @@
   :hook ((prog-mode-hook . subword-mode)
 		 (prog-mode-hook . (lambda () (setq-local fill-column 120)))))
 
-(leaf eglot
-  :disabled t
-  :hook ((rust-mode-hook . eglot-ensure))
-  :bind (:eglot-mode-map
-		 ("C-c e r" . #'eglot-rename)
-		 ("C-<down-mouse-1>" . #'xref-find-definitions)
-		 ("C-S-<down-mouse-1>" . #'xref-find-references)
-		 ("C-c C-c" . #'eglot-code-actions))
-  :custom
-  (eglot-autoshutdown . t))
-
-(leaf consult-eglot
-  :after (eglot)
-  :disabled t
-  :elpaca t
-  :bind (:eglot-mode-map ("s-t" . #'consult-eglot-symbols)))
-
 (leaf treesit-auto
   :elpaca t
   :require t
@@ -38,6 +21,12 @@
   :hook
   ((python-ts-mode-hook . combobulate-mode)
    (js-ts-mode-hook . combobulate-mode)
+   (tsx-ts-mode-hook . combobulate-mode)
+   (typescript-ts-mode-hook . combobulate-mode)
+   (css-ts-mode-hook . combobulate-mode)
+   (yaml-ts-mode-hook . combobulate-mode)
+   (json-ts-mode-hook . combobulate-mode)
+   (rust-ts-mode-hook . combobulate-mode)
    (go-ts-mode-hook . combobulate-mode)))
 
 (leaf envrc
@@ -76,7 +65,7 @@
 	:elpaca t))
 
 (leaf flyover
-  :ensure t
+  :elpaca t
   :require t
   :custom
   (flyover-levels . '(error warning info))
@@ -85,7 +74,21 @@
 (leaf treemacs
   :elpaca t
   :custom
-  (treemacs-width . 25))
+  (treemacs-width . 25)
+  (treemacs-is-never-other-window . t)
+  (treemacs-show-hidden-files . t)
+  (treemacs-follow-after-init . t)
+  :config
+  (treemacs-follow-mode 1)
+  (treemacs-filewatch-mode 1)
+  (treemacs-git-mode 'deferred)
+  (treemacs-fringe-indicator-mode 'always))
+
+(leaf treemacs-nerd-icons
+  :after treemacs
+  :elpaca t
+  :config
+  (treemacs-load-theme "nerd-icons"))
 
 (leaf aggressive-indent
   :elpaca t
@@ -97,33 +100,6 @@
   :hook
   (prog-mode-hook . (rainbow-delimiters-mode))
   (text-mode-hook . (rainbow-delimiters-mode)))
-
-(leaf prism
-  :disabled t
-  :elpaca t
-  :after ef-themes
-  :config
-  (prism-mode 1)
-  (prism-set-colors
-   :desaturations '(0) ; do not change---may lower the contrast ratio
-   :lightens '(0)      ; same
-   :colors (ef-themes-with-colors
-            (list fg-main
-				  magenta
-				  cyan-cooler
-				  magenta-cooler
-				  blue
-				  magenta-warmer
-				  cyan-warmer
-				  red-cooler
-				  green
-				  fg-main
-				  cyan
-				  yellow
-				  blue-warmer
-				  red-warmer
-				  green-cooler
-				  yellow-faint))))
 
 (leaf paredit
   :elpaca t
@@ -178,26 +154,6 @@
 (leaf paredit-menu
   :elpaca t)
 
-(leaf moldable-emacs
-  :disabled t
-  :init
-  (require 'f)
-  (if (f-directory-p "~/.emacs.d/site-lisp/moldable-emacs")
-      (shell-command "cd ~/.emacs.d/site-lisp/moldable-emacs; git pull;")
-    (shell-command "cd ~/.emacs.d/site-lisp/; git clone git@github.com:ag91/moldable-emacs.git"))
-  :load-path "~/.emacs.d/site-lisp/moldable-emacs/"
-  :bind (("C-c v m" . me-mold)
-         ("C-c v f" . me-go-forward)
-         ("C-c v b" . me-go-back)
-         ("C-c v o" . me-open-at-point)
-         ("C-c v d" . me-mold-docs)
-         ("C-c v g" . me-goto-mold-source)
-         ("C-c v e a" . me-mold-add-last-example))
-  :require t
-  :config
-  (add-to-list 'me-files-with-molds (concat (file-name-directory (symbol-file 'me-mold)) "molds/experiments.el")) ;; TODO this is relevant only if you have private molds
-  (me-setup-molds))
-
 (leaf lsp-mode
   :elpaca t
   :custom
@@ -205,9 +161,20 @@
   (lsp-eldoc-render-all . t)
   (lsp-idle-delay . 0.6)
   (lsp-inlay-hint-enable . t)
+  (lsp-headerline-breadcrumb-enable . t)
+  (lsp-modeline-diagnostics-enable . t)
+  (lsp-modeline-code-actions-enable . t)
+  (lsp-completion-provider . :none) ;; use corfu instead
+  (lsp-enable-snippet . t)
+  (lsp-enable-on-type-formatting . nil)
+  (lsp-semantic-tokens-enable . t)
+  (lsp-lens-enable . t)
   :hook
   (lsp-mode-hook . lsp-ui-mode)
   (lsp-mode-hook . lsp-enable-which-key-integration)
+  (lsp-completion-mode-hook . (lambda ()
+								 (setq-local completion-at-point-functions
+										   (list (cape-capf-super #'lsp-completion-at-point #'cape-dabbrev)))))
   (python-ts-mode-hook . lsp))
 
 (leaf lsp-ui
@@ -215,8 +182,17 @@
   :custom
   (lsp-ui-peek-always-show . t)
   (lsp-ui-sideline-show-hover . t)
-  (lsp-ui-doc-use-webkit . t)
-  (lsp-ui-doc-enable . nil))
+  (lsp-ui-sideline-show-diagnostics . t)
+  (lsp-ui-sideline-show-code-actions . t)
+  (lsp-ui-doc-enable . t)
+  (lsp-ui-doc-position . 'at-point)
+  (lsp-ui-doc-delay . 0.5)
+  (lsp-ui-doc-show-with-cursor . t)
+  (lsp-ui-doc-show-with-mouse . nil)
+  :bind (:lsp-ui-mode-map
+		 ("C-c l p" . lsp-ui-peek-find-definitions)
+		 ("C-c l r" . lsp-ui-peek-find-references)
+		 ("C-c l i" . lsp-ui-peek-find-implementation)))
 
 (leaf lsp-installer
   :after (eglot)
@@ -240,10 +216,6 @@
   (require 'dap-gdb-lldb)
   ;; installs .extension/vscode
   (dap-gdb-lldb-setup))
-
-(leaf direnv
-  :elpaca t
-  :config (direnv-mode))
 
 (leaf tramp
   :require t
@@ -272,24 +244,6 @@
 	(if ghcs (setcdr ghcs ghcs-methods)
 	  (push (cons "ghcs" ghcs-methods) tramp-methods))))
 
-(leaf tramp-lsp
-  :after (tramp lsp)
-  :disabled t
-  :config
-  ;; (lsp-register-client
-  ;;  (make-lsp-client :new-connection (lsp-stdio-connection "gopls")
-  ;; 					:major-modes '(go-mode go-dot-mod-mode)
-  ;; 					:language-id "go"
-  ;; 					:remote? t
-  ;; 					:priority 0
-  ;; 					:server-id 'gopls-remote
-  ;; 					:completion-in-comments? t
-  ;; 					:library-folders-fn #'lsp-go--library-default-directories
-  ;; 					:after-open-fn (lambda ()
-  ;; 									 ;; https://github.com/golang/tools/commit/b2d8b0336
-  ;; 									 (setq-local lsp-completion-filter-on-incomplete nil))))
-  )
-
 (leaf restclient
   :elpaca t
   :mode  ("\\.restclient$" . restclient-mode))
@@ -316,29 +270,6 @@
 (leaf turbo-log
   :elpaca (turbo-log :host github :repo "artawower/turbo-log.el"))
 
-(leaf macrursors
-  :disabled t  
-  :elpaca (macrusors :host github :repo "corytertel/macrursors")
-  :require t
-  :config
-  (dolist (mode '(corfu-mode goggles-mode beacon-mode))
-	(add-hook 'macrursors-pre-finish-hook mode)
-	(add-hook 'macrursors-post-finish-hook mode))
-  (define-prefix-command 'macrursors-mark-map)
-  (global-set-key (kbd "C-c SPC") #'macrursors-select)
-  (global-set-key (kbd "C->") #'macrursors-mark-next-instance-of)
-  (global-set-key (kbd "C-<") #'macrursors-mark-previous-instance-of)
-  (global-set-key (kbd "C-;") 'macrursors-mark-map)
-  (define-key macrursors-mark-map (kbd "C-;") #'macrursors-mark-all-lines-or-instances)
-  (define-key macrursors-mark-map (kbd ";") #'macrursors-mark-all-lines-or-instances)
-  (define-key macrursors-mark-map (kbd "l") #'macrursors-mark-all-lists)
-  (define-key macrursors-mark-map (kbd "s") #'macrursors-mark-all-symbols)
-  (define-key macrursors-mark-map (kbd "e") #'macrursors-mark-all-sexps)
-  (define-key macrursors-mark-map (kbd "f") #'macrursors-mark-all-defuns)
-  (define-key macrursors-mark-map (kbd "n") #'macrursors-mark-all-numbers)
-  (define-key macrursors-mark-map (kbd ".") #'macrursors-mark-all-sentences)
-  (define-key macrursors-mark-map (kbd "r") #'macrursors-mark-all-lines))
-
 (leaf devdocs
   :elpaca t
   :bind ("C-h D" . 'devdocs-lookup))
@@ -356,7 +287,7 @@
   :elpaca t
   :bind (("C-x C-j" . java-eval)
 		 ("C-x C-n" . javascript-eval)
-		 ("C-x C-n" . python-eval)
+		 ("C-x C-p" . python-eval)
 		 ("C-x C-t" . terminal-eval)))
 
 ;; TODO: Switch to Eros
@@ -387,7 +318,7 @@
   
   (advice-add 'eval-defun :filter-return
 			  (lambda (region)
-				(k/eval/overlay region
+				(k/eval-overlay region
 								(save-excursion
 								  (end-of-defun)
 								  (point))))))
@@ -400,13 +331,13 @@
   :bind
   ("C-<escape>" . yas-expand)
   :config
-  ;; (yas-global-mode)
-  ;; (yas-reload-all)
+  (yas-reload-all)
   :hook
   (prog-mode-hook . yas-minor-mode)
   (text-mode-hook . yas-minor-mode)
   :custom
-  (yas-prompt-functions . '(yas-completing-prompt)))
+  (yas-prompt-functions . '(yas-completing-prompt))
+  (yas-verbosity . 1))
 
 (leaf yasnippet-snippets
   :elpaca t)
@@ -422,14 +353,14 @@
   :bind (("C-c y" . 'compile)
 		 ("<f5>" . 'recompile))
   :custom
-  (compilation-scroll-output . t)
   (compilation-always-kill . t)
   (compilation-scroll-output . 'first-error)
   (next-error-recenter . '(4))
   :config
-  (defadvice compile (before ad-compile-smart activate)
-	"Advises `compile' so it sets the argument COMINT to t."
-	(ad-set-arg 1 t))
+  (advice-add 'compile :around
+			 (lambda (orig-fn command &optional comint)
+			   "Always use COMINT mode for compilation."
+			   (funcall orig-fn command t)))
   :hook
   (compilation-filter-hook . ansi-color-compilation-filter)
   (eshell-load-hook . compilation-shell-minor-mode)
@@ -448,7 +379,7 @@
   :hook ((text-mode-hook . symbol-overlay-mode)
 		 (prog-mode-hook . symbol-overlay-mode)))
 
-(leaf symbol-overlay-mc
+(leaf multiple-cursors
   :elpaca t
   :bind (("C-S-c C-S-c" . mc/edit-lines)
 		 ("C->" . mc/mark-next-like-this)
@@ -458,7 +389,11 @@
 (leaf smartparens
   :elpaca t
   :require smartparens-config
-  :hook ((prog-mode-hook . smartparens-mode)))
+  :hook ((prog-mode-hook . smartparens-mode)
+		 (conf-mode-hook . smartparens-mode))
+  :config
+  (sp-use-smartparens-bindings)
+  (show-smartparens-global-mode 1))
 
 (leaf outline-indent
   :elpaca t
@@ -502,7 +437,9 @@
 
 (leaf eldoc
   :custom
-  (eldoc-documentation-strategy . 'eldoc-documentation-default))
+  (eldoc-documentation-strategy . 'eldoc-documentation-compose-eagerly)
+  (eldoc-idle-delay . 0.3)
+  (eldoc-echo-area-use-multiline-p . 3))
 
 (leaf hideshow
   :hook ((prog-mode-hook . hs-minor-mode))
@@ -522,9 +459,7 @@
 ;; TODO: Integrate with Disproject
 (leaf bookmark-in-project
   :elpaca t
-  :bind (:ctl-x
-		 ;; ("p R" . book-mark-in-project-jump)))
-		 ))
+  :bind (("C-c p R" . bookmark-in-project-jump)))
 
 (leaf eval-in-repl
   ;; This file alone is not functional. Also require the following depending
@@ -567,5 +502,108 @@
 (leaf indent-bars
   :elpaca t
   :hook (prog-mode-hook . indent-bars-mode))
+
+
+;; ============================================================
+;; Enhanced programming environment
+;; ============================================================
+
+;; Highlight TODO/FIXME/HACK/NOTE in comments
+(leaf hl-todo
+  :elpaca t
+  :custom
+  (hl-todo-keyword-faces . '(("TODO"  . "#FF8C00")
+							 ("FIXME" . "#FF0000")
+							 ("HACK"  . "#FF4500")
+							 ("NOTE"  . "#1E90FF")
+							 ("BUG"   . "#FF0000")
+							 ("XXX"   . "#FF4500")
+							 ("PERF"  . "#DA70D6")))
+  :hook (prog-mode-hook . hl-todo-mode)
+  :bind (:hl-todo-mode-map
+		 ("C-c t p" . hl-todo-previous)
+		 ("C-c t n" . hl-todo-next)
+		 ("C-c t o" . hl-todo-occur)
+		 ("C-c t i" . hl-todo-insert)))
+
+;; Show git diff indicators in the fringe
+(leaf diff-hl
+  :elpaca t
+  :hook ((prog-mode-hook . diff-hl-mode)
+		 (dired-mode-hook . diff-hl-dired-mode)
+		 (magit-pre-refresh-hook . diff-hl-magit-pre-refresh)
+		 (magit-post-refresh-hook . diff-hl-magit-post-refresh))
+  :config
+  (global-diff-hl-mode 1)
+  (diff-hl-flydiff-mode 1))
+
+;; Respect .editorconfig project settings
+(leaf editorconfig
+  :elpaca t
+  :config
+  (editorconfig-mode 1))
+
+;; Show current function name in modeline
+(leaf which-func
+  :config
+  (which-function-mode 1))
+
+;; Colorize color strings in buffers (#ff0000, rgb(...), etc.)
+(leaf colorful-mode
+  :elpaca t
+  :hook ((prog-mode-hook . colorful-mode)
+		 (css-mode-hook . colorful-mode)
+		 (html-mode-hook . colorful-mode)))
+
+;; Breadcrumb navigation (show file > class > method in headerline)
+(leaf breadcrumb
+  :elpaca t
+  :hook (prog-mode-hook . breadcrumb-local-mode))
+
+;; Quick-peek inline definitions without leaving current buffer
+(leaf quick-peek
+  :elpaca t)
+
+;; Better xref navigation
+(leaf xref
+  :custom
+  (xref-show-definitions-function . #'xref-show-definitions-completing-read)
+  (xref-show-xrefs-function . #'xref-show-definitions-completing-read)
+  (xref-search-program . 'ripgrep)
+  :bind (("M-." . xref-find-definitions)
+		 ("M-?" . xref-find-references)
+		 ("M-," . xref-go-back)))
+
+;; Automatically clean up trailing whitespace on save (only on changed lines)
+(leaf ws-butler
+  :elpaca t
+  :hook (prog-mode-hook . ws-butler-mode))
+
+;; Visualize and navigate errors with consult
+(leaf consult-lsp
+  :after (lsp-mode consult)
+  :elpaca t
+  :bind (:lsp-mode-map
+		 ("C-c l d" . consult-lsp-diagnostics)
+		 ("C-c l s" . consult-lsp-symbols)
+		 ("C-c l f" . consult-lsp-file-symbols)))
+
+;; Tree-sitter powered code folding
+(leaf treesit-fold
+  :elpaca (treesit-fold :host github :repo "emacs-tree-sitter/treesit-fold")
+  :hook (prog-mode-hook . treesit-fold-mode))
+
+;; Smart hungry delete - delete whitespace intelligently
+(leaf hungry-delete
+  :elpaca t
+  :config
+  (global-hungry-delete-mode 1)
+  :custom
+  (hungry-delete-chars-to-skip . " \t\f\v"))
+
+;; Language-specific tree-sitter queries via consult
+(leaf consult-imenu
+  :bind (("C-c i" . consult-imenu)
+		 ("C-c I" . consult-imenu-multi)))
 
 (provide 'k-programming)
