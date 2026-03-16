@@ -313,48 +313,6 @@ Does not take the minibuffer into account."
   :bind (:desktop-environment-mode-map
 		 ("s-l" . nil)))
 
-;; Adds to more evil states for EXWM's char and line modes,
-;; stole from https://github.com/domenzain/evil-exwm-state/tree/master
-;; (leaf evil-exwm-state
-;;   :disabled t
-
-;;   :config
-
-;;   (evil-define-state exwm
-;; 					 "`exwm state' interfacing exwm mode."
-;; 					 :tag " <X> "
-;; 					 :enable (motion)
-;; 					 :message "-- EXWM --"
-;; 					 :intput-method f
-;; 					 :entry-hook (evil-exwm-state/enter-exwm))
-
-;;   (evil-define-state exwm-insert
-;; 					 "Replace insert state in `exwm state'."
-;; 					 :tag " <Xi> "
-;; 					 :enable (motion)
-;; 					 :message "-- EXWM-INSERT --"
-;; 					 :input-method t
-;; 					 :entry-hook (evil-exwm-state/enter-exwm-insert))
-
-;;   (defun evil-exwm-state/escape-exwm ()
-;; 	"Quit `evil-exwm-insert-state'."
-;; 	(interactive)
-;; 	(evil-exwm-state))
-
-;;   (defun evil-exwm-state/enter-exwm-insert ()
-;; 	"Quit `evil-exwm-insert-state'."
-;; 	(call-interactively 'exwm-input-release-keyboard))
-
-;;   (defun evil-exwm-state/enter-exwm ()
-;; 	"Quit `evil-exwm-insert-state'."
-;; 	(call-interactively 'exwm-input-grab-keyboard))
-
-;;   (define-key evil-exwm-state-map "i" 'evil-exwm-insert-state)
-
-;;   ;; Ensure initial state is char mode / exwm-insert
-;;   (setq exwm-manage-configurations '((t char-mode t)))
-;;   (evil-set-initial-state 'exwm-mode 'exwm-insert))
-
 (defun k/toggle-fancy-windows ()
   "make vertical monitors more useful"
   (interactive)
@@ -467,11 +425,6 @@ non-EXWM buffers."
   (perspective-exwm-override-initial-name . '((0 . "main")))
   :config
   (perspective-exwm-mode 1))
-
-;; (leaf exwm-initialize
-;; :when isexwm
-;; :after (exwm)
-;; :hook (after-init-hook . (lambda () (exwm-wm-mode))))
 
 (require 'k-exwm-gaps)
 (require 'k-nested-exwm)
@@ -611,37 +564,4 @@ Returns 'horizontal for side-by-side, 'vertical for top-bottom."
 (exwm-init)
 
 (provide 'k-exwm)
-
-;; (leaf exwm
-;;   :when isexwm
-;;   :require exwm-rander
-;;   :setq
-;;   (exwm-randr-workspace-monitor-plist . '(0 "eDP1"))
-;;   (exwm-input-global-keys
-;;    .
-;;    (setq exwm-input-global-keys
-;;        `(
-;;          ([?\s-r] . exwm-reset)
-;;          ([?\s-h] . windmove-left)
-;;          ([?\s-l] . windmove-right)
-;;          ([?\s-k] . windmove-up)
-;;          ([?\s-j] . windmove-down)
-;;         ([?\s-o] . counsel-linux-app)
-;;         ([?\s-`] . (lambda () (interactive) (exwm-workspace-switch-create 0)))
-;;         ([?\s-w] . exwm-workspace-switch)
-;;         ,@(mapcar (lambda (i)
-;;                       `(,(kbd (format "s-%d" i)) .
-;;                         (lambda ()
-;;                           (interactive)
-;;                           (exwm-workspace-switch-create ,i))))
-;;                   (number-sequence 0 9))))
-;;    :defun efs/set-wallpaper efs/exwm-init-hook)
-;;   :hook
-;;   ('exwm-randr-screen-change-hook
-;;    .
-;;    (lambda ()
-;; 	 (start-process-shell-command
-;; 	  "xrandr" nil "xrandr --output eDP1 --mode 1920x1080 --pos 0x0 --rotate normal")))
-;;   :configure
-;;   (exwm-randr-enable))
 
