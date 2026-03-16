@@ -154,21 +154,53 @@
 	(let ((command-parts (split-string command "[ ]+")))
 	  (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
 
+  ;; --- Smart buffer naming ---
+  (defvar k/exwm-class-name-map
+	'(("firefox" . "Firefox")
+	  ("librewolf" . "Librewolf")
+	  ("Brave-browser" . "Brave")
+	  ("Google-chrome" . "Chrome")
+	  ("Chromium-browser" . "Chromium")
+	  ("kitty" . "Kitty")
+	  ("Alacritty" . "Alacritty")
+	  ("mpv" . "MPV")
+	  ("Gimp-2.10" . "GIMP")
+	  ("Gimp" . "GIMP")
+	  ("Inkscape" . "Inkscape")
+	  ("libreoffice" . "LibreOffice")
+	  ("Thunar" . "Thunar")
+	  ("Nautilus" . "Files")
+	  ("discord" . "Discord")
+	  ("Slack" . "Slack")
+	  ("Spotify" . "Spotify")
+	  ("steam" . "Steam")
+	  ("obs" . "OBS")
+	  ("VirtualBox Manager" . "VBox")
+	  ("Virt-manager" . "VirtMgr"))
+	"Map of exwm-class-name to human-readable short names.")
+
+  (defun k/exwm-buffer-name (class title)
+	"Build a clean buffer name from CLASS and TITLE."
+	(let* ((short-class (or (cdr (assoc class k/exwm-class-name-map)) class))
+		   (clean-title (if (and title (not (string-empty-p title)))
+							 (string-trim title)
+						   ""))
+		   ;; Avoid duplicating the class name in the title
+		   (display-title (if (string-prefix-p short-class clean-title)
+							   (string-trim (substring clean-title (length short-class)))
+							 clean-title)))
+	  (if (string-empty-p display-title)
+		  short-class
+		(truncate-string-to-width
+		 (format "%s: %s" short-class display-title) 72))))
+
   (defun efs/exwm-update-class ()
-	(exwm-workspace-rename-buffer exwm-class-name))
+	(exwm-workspace-rename-buffer (k/exwm-buffer-name exwm-class-name "")))
 
   (add-hook 'exwm-update-class-hook #'efs/exwm-update-class)
 
   (defun efs/exwm-update-title ()
-	(pcase exwm-class-name
-	  ("firefox" (exwm-workspace-rename-buffer (format "Firefox: %s" exwm-title)))
-	  ("librewolf" (exwm-workspace-rename-buffer (format "Librewolf: %s" exwm-title)))
-	  ("Brave-browser" (exwm-workspace-rename-buffer (format "Brave: %s" exwm-title)))
-	  (_ (when (and (boundp 'exwm-class-name) exwm-class-name
-					(boundp 'exwm-title) exwm-title)
-		   (exwm-workspace-rename-buffer
-			(truncate-string-to-width
-			 (concat exwm-class-name ": " exwm-title) 60))))))
+	(exwm-workspace-rename-buffer (k/exwm-buffer-name exwm-class-name exwm-title)))
 
   (add-hook 'exwm-update-title-hook #'efs/exwm-update-title)
 
@@ -287,16 +319,51 @@ round-robin across all connected outputs."
   (add-hook 'exwm-randr-screen-change-hook #'k/exwm-detect-monitors)
   (exwm-randr-mode 1)
 
-  (defun efs/configure-window-by-class ()
-	(interactive)
-	(pcase exwm-class-name
-	  ("kitty" (exwm-floating-toggle-floating)
-	   (exwm-layout-hide-mode-line))
-	  ("Alacritty" (exwm-floating-toggle-floating)
-	   (exwm-layout-hide-mode-line))))
+  ;; --- Smart window placement rules ---
+  (defvar k/exwm-floating-classes
+	'("kitty" "Alacritty" "Pavucontrol" "Nm-connection-editor"
+	  "Arandr" "Blueman-manager" "Lxappearance" "Xfce4-settings-manager"
+	  "feh" "Sxiv" "Nsxiv" "mpv")
+	"Window classes that should always float.")
 
-  (add-hook 'exwm-manage-finish-hook
-			#'efs/configure-window-by-class)
+  (defvar k/exwm-workspace-rules
+	'(("firefox" . 2)
+	  ("librewolf" . 2)
+	  ("Brave-browser" . 2)
+	  ("Google-chrome" . 2)
+	  ("discord" . 3)
+	  ("Slack" . 3)
+	  ("Spotify" . 4)
+	  ("steam" . 5))
+	"Alist mapping window class to preferred workspace number.")
+
+  (defun k/exwm-configure-window ()
+	"Configure new EXWM windows: apply floating, workspace, and mode-line rules."
+	(interactive)
+	(let ((class (or exwm-class-name "")))
+	  ;; Float certain classes
+	  (when (member class k/exwm-floating-classes)
+		(exwm-floating-toggle-floating)
+		(exwm-layout-hide-mode-line))
+	  ;; Send to preferred workspace
+	  (when-let ((ws (cdr (assoc class k/exwm-workspace-rules))))
+		(exwm-workspace-move-window ws))))
+
+  (add-hook 'exwm-manage-finish-hook #'k/exwm-configure-window)
+
+  (defun k/exwm-add-floating-class (class)
+	"Interactively add CLASS to the floating window list."
+	(interactive
+	 (list (completing-read "Float class: "
+							(cl-remove-duplicates
+							 (mapcar (lambda (buf)
+									   (with-current-buffer buf
+										 (when (derived-mode-p 'exwm-mode) exwm-class-name)))
+									 (buffer-list))
+							 :test #'equal)
+							nil nil)))
+	(add-to-list 'k/exwm-floating-classes class)
+	(message "Added '%s' to floating classes" class))
   ;; Remove ALL bindings
   (define-key exwm-mode-map "\C-c\C-f" nil)
   (define-key exwm-mode-map "\C-c\C-h" nil)
