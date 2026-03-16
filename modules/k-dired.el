@@ -53,10 +53,10 @@
   :hook
   (dirvish-setup-hook . dirvish-emerge-mode)
   :bind
-  ("C-x d" . 'dirvish)
-  ("C-S-d" . 'dirvish-side)
+  ("C-x d" . dirvish)
+  ("C-S-d" . dirvish-side)
   (:dirvish-directory-view-mode-map
-   ("q" . 'dirvish-quit)))
+   ("q" . dirvish-quit)))
 
 ;; Get file icons in dired
 ;; (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
@@ -82,7 +82,7 @@
   :hook (dired-mode-hook . fm-dired-mode))
 
 (leaf tesseract
-  :elpaca (tesseract :fetcher github :repo "SebastianMeisel/tesseract.el")
+  :elpaca (tesseract :host github :repo "SebastianMeisel/tesseract.el")
   :custom
   (doc-view-scale-internally . nil)
   ;; :bind (:dired-mode-map
