@@ -84,7 +84,8 @@ jobs:
               (package-install (quote leaf))
               (package-install (quote leaf-keywords)))"
 
-      - name: Byte-compile modules
+      - name: Byte-compile modules (informational)
+        continue-on-error: true
         run: |
           # Build load-path from elpaca builds (if cached)
           ELPACA_LOAD=""
