@@ -165,7 +165,6 @@
   :elpaca t)
 
 (leaf eshell-prompt-extras
-  :after (virtualenvwrapper)
   :elpaca t
   :config
   (require 'virtualenvwrapper)
