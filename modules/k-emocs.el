@@ -125,12 +125,7 @@
 		  ("C-x C-d" . consult-dir)
 		  ("C-x C-j" . consult-dir-jump-file))))
 
-(leaf embark
-  :elpaca t
-  :setq
-  (prefix-help-command . 'embark-prefix-help-command)
-  :custom
-  (embark-quit-after-action . nil))
+;; embark configured below with bindings
 
 (leaf embark-consult
   :after (embark consult)
@@ -344,20 +339,17 @@ _e_moji
 
 (leaf embark
   :elpaca t
+  :custom
+  (embark-quit-after-action . nil)
   :hook ((embark-collect-mode-hook . display-line-numbers-mode))
   :bind (("C-c h a" . embark-act)
 		 ("C-c h d" . embark-dwim)
 		 ("C-c h b" . embark-bindings)
-		 ("C-;" . embark-collect)
-		 ;; (:evil-normal-state-map
-		 ;; ("zd" . embark-act)
-		 )
+		 ("C-;" . embark-collect))
   :init
   (setq prefix-help-command #'embark-prefix-help-command)
   (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
-  ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
   :config
-  ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
 			   '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
 				 nil
