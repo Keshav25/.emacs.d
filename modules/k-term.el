@@ -1,6 +1,7 @@
 ;; -*- lexical-binding: t -*-
 
-(leaf vterm)
+(leaf vterm
+  :elpaca t)
 
 (leaf exec-path-from-shell
   :when (not iswindows)
