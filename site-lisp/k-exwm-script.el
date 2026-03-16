@@ -1,52 +1,5 @@
-;;; k-exwm-script.el --- Make every app scriptable from Emacs -*- lexical-binding: t -*-
-
-;; Author: Keshav
-;; URL: https://github.com/keshav25/.emacs.d
-;; Package-Requires: ((emacs "28.1"))
-
-;;; Commentary:
-
-;; A unified Elisp API for programmatically controlling any X11
-;; application running inside EXWM.  The goal: make every app as
-;; scriptable as Emacs itself.
-;;
-;; This module combines multiple approaches:
-;;
-;;  1. xdotool   — send keystrokes, mouse events, window management
-;;  2. xprop     — query window properties (class, title, PID, etc.)
-;;  3. AT-SPI    — D-Bus accessibility API for reading UI widget trees,
-;;                 finding buttons/text fields, activating controls
-;;  4. OCR       — fall-back visual text extraction (via k-ocr.el)
-;;  5. Clipboard — programmatic read/write via xclip
-;;
-;; Together these let you write Elisp that drives any application:
-;;
-;;   ;; Type into the focused app
-;;   (k-script-type "Hello, World!")
-;;
-;;   ;; Send a keyboard shortcut
-;;   (k-script-key "ctrl+s")
-;;
-;;   ;; Click on a button by its label (AT-SPI or OCR fallback)
-;;   (k-script-click-on "Save")
-;;
-;;   ;; Read text from a text field via accessibility
-;;   (k-script-a11y-get-text "search-entry")
-;;
-;;   ;; Compose a full automation
-;;   (k-script-with-app "Firefox"
-;;     (k-script-key "ctrl+l")      ; focus address bar
-;;     (k-script-type "emacs.org")
-;;     (k-script-key "Return"))
-;;
-;; Requirements:
-;;   - xdotool  (apt install xdotool)
-;;   - xprop    (apt install x11-utils)
-;;   - xclip    (apt install xclip)
-;;   - python3-atspi (apt install python3-atspi) for AT-SPI support
-;;   - maim + tesseract for OCR fallback (see k-ocr.el)
-
-;;; Code:
+;; -*- lexical-binding: t -*-
+;; requires: xdotool, xprop, xclip, python3-atspi (optional)
 
 (require 'cl-lib)
 (require 'dbus)
@@ -57,9 +10,7 @@
 (declare-function k-ocr-window "k-ocr")
 (declare-function k-ocr--extract-text "k-ocr")
 
-;;;; ════════════════════════════════════════════════════════════════════
 ;;;; Customization
-;;;; ════════════════════════════════════════════════════════════════════
 
 (defgroup k-script nil
   "Scriptable application control for EXWM."
@@ -89,9 +40,7 @@ Gives applications time to respond."
   :type 'string
   :group 'k-script)
 
-;;;; ════════════════════════════════════════════════════════════════════
-;;;; 1. xdotool — Keyboard, Mouse, Window Control
-;;;; ════════════════════════════════════════════════════════════════════
+;;;; xdotool — Keyboard, Mouse, Window Control
 
 (defun k-script--check-xdotool ()
   "Error if xdotool is not available."
@@ -283,9 +232,7 @@ Unlike clipboard paste, this simulates actual keystrokes."
                   "windowmove" (format "%d" wid)
                   (number-to-string x) (number-to-string y))))
 
-;;;; ════════════════════════════════════════════════════════════════════
-;;;; 2. xprop — Window Property Queries
-;;;; ════════════════════════════════════════════════════════════════════
+;;;; xprop — Window Property Queries
 
 (defun k-script--check-xprop ()
   "Error if xprop is not available."
@@ -363,9 +310,7 @@ Unlike clipboard paste, this simulates actual keystrokes."
     (when (string-match "HEIGHT=\\([0-9]+\\)" output) (setq h (string-to-number (match-string 1 output))))
     (list :x x :y y :width w :height h)))
 
-;;;; ════════════════════════════════════════════════════════════════════
-;;;; 3. AT-SPI — Accessibility API (D-Bus)
-;;;; ════════════════════════════════════════════════════════════════════
+;;;; AT-SPI — Accessibility API (D-Bus)
 
 ;; AT-SPI (Assistive Technology Service Provider Interface) provides
 ;; programmatic access to the UI widget tree of running applications.
@@ -617,9 +562,7 @@ This can read text from text fields, labels, etc. in any application."
           (message "Clicked '%s' at (%d, %d)" widget-name x y))
       (message "Widget '%s' not found via AT-SPI" widget-name))))
 
-;;;; ════════════════════════════════════════════════════════════════════
-;;;; 4. Clipboard
-;;;; ════════════════════════════════════════════════════════════════════
+;;;; Clipboard
 
 ;;;###autoload
 (defun k-script-clipboard-get ()
@@ -652,9 +595,7 @@ Sets the clipboard to TEXT if provided, then simulates Ctrl+V."
   (sit-for 0.2)
   (k-script-clipboard-get))
 
-;;;; ════════════════════════════════════════════════════════════════════
-;;;; 5. High-Level Unified API
-;;;; ════════════════════════════════════════════════════════════════════
+;;;; High-Level Unified API
 
 ;;;###autoload
 (defun k-script-click-on (label &optional app-name)
@@ -805,9 +746,7 @@ Combines xprop, xdotool, and optionally AT-SPI data."
       (special-mode)
       (pop-to-buffer (current-buffer)))))
 
-;;;; ════════════════════════════════════════════════════════════════════
-;;;; 6. Scripting Macros and Composition
-;;;; ════════════════════════════════════════════════════════════════════
+;;;; Scripting Macros and Composition
 
 ;;;###autoload
 (defmacro k-script-with-app (app-name &rest body)
@@ -853,9 +792,7 @@ Each action is a function taking no arguments."
       (funcall action)
       (sit-for pause))))
 
-;;;; ════════════════════════════════════════════════════════════════════
-;;;; 7. Interactive Scripting REPL
-;;;; ════════════════════════════════════════════════════════════════════
+;;;; Interactive Scripting REPL
 
 (defvar k-script--repl-target nil
   "Window ID of the target app for the scripting REPL.")
@@ -910,9 +847,7 @@ to the focused application:
           (setq running nil))
          (t (message "Unknown command. Try: type: key: click: read tree info copy paste: quit")))))))
 
-;;;; ════════════════════════════════════════════════════════════════════
-;;;; 8. Dependency Check
-;;;; ════════════════════════════════════════════════════════════════════
+;;;; Dependency Check
 
 ;;;###autoload
 (defun k-script-check-dependencies ()
@@ -972,4 +907,3 @@ to the focused application:
       (pop-to-buffer (current-buffer)))))
 
 (provide 'k-exwm-script)
-;;; k-exwm-script.el ends here

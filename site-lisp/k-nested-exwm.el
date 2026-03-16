@@ -1,37 +1,7 @@
-;;; k-nested-exwm.el --- Run nested WMs/DEs inside EXWM via Xephyr -*- lexical-binding: t -*-
-
-;; Author: Keshav
-;; URL: https://github.com/keshav25/.emacs.d
-;; Package-Requires: ((emacs "28.1"))
-
-;;; Commentary:
-
-;; Run another window manager or desktop environment inside EXWM using
-;; Xephyr (a nested X server).  Xephyr windows are managed by EXWM as
-;; regular X clients, so you can tile, float, or fullscreen them just
-;; like any other application.
-;;
-;; Features:
-;;  - Launch any WM/DE inside a nested X server
-;;  - Predefined presets for common WMs and DEs
-;;  - Auto-size Xephyr to match the current Emacs window
-;;  - Run arbitrary commands inside nested sessions
-;;  - Session management (list, stop, restart WM)
-;;  - Clipboard sharing between host and nested X server (via xclip)
-;;  - Process logging for debugging
-;;  - Automatic cleanup on Emacs exit
-;;
-;; Quick start:
-;;   M-x k-exwm-nested-start   — launch a nested WM session
-;;   M-x k-exwm-nested-run     — run a command in a nested session
-;;   M-x k-exwm-nested-stop    — stop a nested session
-;;   M-x k-exwm-nested-preset  — launch from a preset (i3, dwm, etc.)
-
-;;; Code:
+;; -*- lexical-binding: t -*-
+;; requires: Xephyr
 
 (require 'cl-lib)
-
-;;;; Customization
 
 (defgroup k-exwm-nested nil
   "Nested window manager support via Xephyr."
@@ -98,7 +68,6 @@ Increase this if the WM fails to start on slower machines."
   :type 'number
   :group 'k-exwm-nested)
 
-;;;; Internal Variables
 
 (cl-defstruct (k-exwm-nested-session (:constructor k-exwm-nested-session--create))
   "A nested X session running inside Xephyr."
@@ -119,7 +88,6 @@ Increase this if the WM fails to start on slower machines."
 (defvar k-exwm-nested--next-display 10
   "Next display number to try for Xephyr.")
 
-;;;; Utility Functions
 
 (defun k-exwm-nested--find-free-display ()
   "Find a free X display number starting from `k-exwm-nested--next-display'."
@@ -171,7 +139,6 @@ Returns the display number."
   "Create or get a log buffer for session on DISPLAY running WM-NAME."
   (get-buffer-create (format "*nested:%d (%s)*" display wm-name)))
 
-;;;; Core Functions
 
 ;;;###autoload
 (defun k-exwm-nested-start (wm-command &optional size)
@@ -270,7 +237,6 @@ dimensions are used.  With a prefix argument, prompt for SIZE."
          (command (plist-get preset :command)))
     (k-exwm-nested-start command)))
 
-;;;; Running Commands in Sessions
 
 ;;;###autoload
 (defun k-exwm-nested-run (command &optional display)
@@ -296,7 +262,6 @@ argument, prompt to select which session."
      (format "DISPLAY=%s %s" display-str command))
     (message "Running '%s' on display %s" command display-str)))
 
-;;;; Session Management
 
 ;;;###autoload
 (defun k-exwm-nested-list ()
@@ -405,7 +370,6 @@ same command, without restarting Xephyr."
       (user-error "No session on display :%d" display))
     (pop-to-buffer (k-exwm-nested-session-log-buffer session))))
 
-;;;; Clipboard Synchronization
 
 (defun k-exwm-nested--start-clipboard-sync (session)
   "Start clipboard synchronization for SESSION.
@@ -443,7 +407,6 @@ windows appear inside the nested Xephyr."
      (format "DISPLAY=%s %s" display-str command))
     (message "Launched '%s' in nested session %s" command display-str)))
 
-;;;; Cleanup
 
 (defun k-exwm-nested--cleanup-on-exit ()
   "Kill all nested sessions when Emacs exits."
@@ -461,4 +424,3 @@ windows appear inside the nested Xephyr."
                   (set-process-query-on-exit-flag proc nil))))))
 
 (provide 'k-nested-exwm)
-;;; k-nested-exwm.el ends here
