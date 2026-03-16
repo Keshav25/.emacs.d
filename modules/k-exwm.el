@@ -130,11 +130,14 @@
 
   (defun efs/exwm-update-title ()
 	(pcase exwm-class-name
-	  ("firefox" (exwm-workspace-rename-buffer (format "Firefox %s" exwm-title)))
-	  ("librewolf" (exwm-workspace-rename-buffer (format "Librewolf %s" exwm-title)))
-	  (_ (when (and (boundp 'exwm-class-name)
-					(boundp 'exwm-title))) (exwm-workspace-rename-buffer (truncate-string-to-width
-					(concat exwm-class-name "|" exwm-title) 32)))))
+	  ("firefox" (exwm-workspace-rename-buffer (format "Firefox: %s" exwm-title)))
+	  ("librewolf" (exwm-workspace-rename-buffer (format "Librewolf: %s" exwm-title)))
+	  ("Brave-browser" (exwm-workspace-rename-buffer (format "Brave: %s" exwm-title)))
+	  (_ (when (and (boundp 'exwm-class-name) exwm-class-name
+					(boundp 'exwm-title) exwm-title)
+		   (exwm-workspace-rename-buffer
+			(truncate-string-to-width
+			 (concat exwm-class-name ": " exwm-title) 60))))))
 
   (add-hook 'exwm-update-title-hook #'efs/exwm-update-title)
 
@@ -143,17 +146,20 @@
   (setq exwm-systemtray-height 17)
   (exwm-systemtray-mode 1)
   (defun k-exwm/C-a ()
-	"Pass C-a to the EXWM window."
+	"Send C-a (select all) to the EXWM window."
 	(interactive)
-	(execute-kbd-macro (kbd "C-q C-a")))
+	(exwm-input--fake-key ?\C-a))
   (defun k-exwm/C-o ()
-	"Pass the equivalent of C-o to the EXWM window."
+	"Open line below: send Shift-Return then move back in the EXWM window."
 	(interactive)
-	(execute-kbd-macro (kbd "<S-return> C-b")))
+	(exwm-input--fake-key 'S-return)
+	(run-at-time 0.05 nil (lambda () (exwm-input--fake-key 'left))))
   (defun k-exwm/M-quote ()
-	"double quotes"
+	"Insert double quotes around word at point in the EXWM window."
 	(interactive)
-	(execute-kbd-macro (kbd "\" <C-right> \"")))
+	(exwm-input--fake-key ?\")
+	(exwm-input--fake-key 'C-right)
+	(exwm-input--fake-key ?\"))
   (setopt exwm-input-global-keys
 		  `(
 			([?\s-b] . windmove-left)
@@ -162,7 +168,7 @@
 			([?\s-n] . windmove-down)
 			([?\s-`] . (lambda () (interactive) (exwm-workspace-switch-create 0)))
 			([?\s-w] . exwm-workspace-switch)
-			([?\s-m] . (lambda () (interactive) (exwm-layout-toggle-model-line) (exwm-workspace-toggle-minibuffer)))
+			([?\s-m] . (lambda () (interactive) (exwm-layout-toggle-mode-line) (exwm-workspace-toggle-minibuffer)))
 			([?\s-i] . exwm-input-toggle-keyboard)
 			(,(kbd "s-<tab>") . windower-switch-to-last-buffer) ;; Switch to last open buffer in current window
 			(,(kbd "s-o") . dmenu) ;; Toggle between multiple windows, and a single window
@@ -181,12 +187,12 @@
 			(,(kbd "C-`") . popper-toggle)
 			(,(kbd "C-S-o") . ace-window)
 			(,(kbd "C-S-d") . dirvish-side)
-			(,(kbd "s-," ) . persp-prev)
-			(,(kbd "s-.") . persp-next)
-			(,(kbd "s-[") . perspective-exwm-cycle-exwm-buffers-backward)
-			(,(kbd "s-]") . perspective-exwm-cycle-exwm-buffers-forward)
-			(,(kbd "s-<return>") . eshell-new)
-			(,(kbd "s-,") . tab-switcher)
+		(,(kbd "s-,") . persp-prev)
+		(,(kbd "s-.") . persp-next)
+		(,(kbd "s-[") . perspective-exwm-cycle-exwm-buffers-backward)
+		(,(kbd "s-]") . perspective-exwm-cycle-exwm-buffers-forward)
+		(,(kbd "s-<return>") . eshell-new)
+		(,(kbd "s-/") . tab-switcher)
 			(,(kbd "C-c '") . exwm-edit--compose)
 			,@(mapcar (lambda (i)
 						`(,(kbd (format "s-%d" i)) .
@@ -231,11 +237,23 @@
 			(,(kbd "C-x C-s") . [C-s])))
   (setopt exwm-manage-force-tiling t)
   (require 'exwm-randr)
-  (setq exwm-randr-workspace-monitor-plist '(0 "eDP1"))
-  (add-hook 'exwm-randr-screen-change-hook
-			(lambda ()
-			  (start-process-shell-command
-			   "xrandr" nil "xrandr --output eDP1 --mode 1920x1080 --pos 0x0 --rotate normal")))
+  (defun k/exwm-detect-monitors ()
+	"Auto-detect connected monitors and build workspace-monitor plist.
+Assigns workspace 0 to the primary monitor and subsequent workspaces
+round-robin across all connected outputs."
+	(let* ((xrandr-output (shell-command-to-string
+						   "xrandr --query | grep ' connected' | awk '{print $1}'"))
+		   (monitors (split-string (string-trim xrandr-output) "\n" t)))
+	  (when monitors
+		(let ((plist '())
+			  (num-monitors (length monitors)))
+		  (dotimes (i 10)
+			(setq plist (append plist
+								(list i (nth (mod i num-monitors) monitors)))))
+		  (setq exwm-randr-workspace-monitor-plist plist)
+		  (message "EXWM monitors: %s" monitors)))))
+  (k/exwm-detect-monitors)
+  (add-hook 'exwm-randr-screen-change-hook #'k/exwm-detect-monitors)
   (exwm-randr-mode 1)
 
   (defun efs/configure-window-by-class ()
@@ -279,7 +297,7 @@ Does not take the minibuffer into account."
        ((and other-window (not (window-minibuffer-p other-window)))
 		(window-swap-states (selected-window) other-window))
        (other-direction
-		(evil-move-window dir)))))
+		(windmove-swap-states-in-direction dir)))))
 
   :hook ((exwm-input--input-mode-change-hook . force-modeline-update)))
 
