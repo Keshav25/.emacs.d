@@ -19,6 +19,9 @@
 (leaf go-mode
   :elpaca t)
 
+(leaf templ-ts-mode
+  :elpaca t)
+
 (defgroup golang nil
   "golang group."
   :prefix "golang-"
