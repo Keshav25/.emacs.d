@@ -336,10 +336,9 @@ if there is no window on the right."
 
 (leaf treemacs-perspective
   :elpaca t
-  :after (treemacs perspective)
+  :require t
   :config
-  (treemacs-set-scope-type 'Perspectives)
-  (treemacs-start-on-boot))
+  (treemacs-set-scope-type 'Perspectives))
 
 ;; TODO: buffler integration with perspective and project
 ;; TODO: avy with perspective and consult buffer
