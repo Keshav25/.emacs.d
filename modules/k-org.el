@@ -53,7 +53,7 @@
   ;; TODO read https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Bemacs/org
   (defun k/org-summary-todo-naive-auto (n-done n-not-done)
 	"Switch entry to DONE when all usbentries are done, to TODO otherwise."
-	(org-todo (if (= n-note-done 0) "DONE" "TODO")))
+	(org-todo (if (= n-not-done 0) "DONE" "TODO")))
 
   (defun k/org-summary-todo-semiauto (n-done n-not-done)
 	"Prompt to change entry state when the state of the subentries imply it."
@@ -552,25 +552,6 @@ to an appropriate container (e.g., a paragraph)."
                            ((lambda (win prev-pos sym)
                               ;; This simulates a mouse click and makes a menu change
                               (org-mouse-down-mouse nil)))))))))))
-  (defun scimax-add-keymap-to-src-blocks (limit)
-	"Add keymaps to src-blocks defined in `scimax-src-block-keymaps'."
-	(let ((case-fold-search t)
-          lang)
-      (while (re-search-forward org-babel-src-block-regexp limit t)
-		(let ((lang (match-string 2))
-              (beg (match-beginning 0))
-              (end (match-end 0)))
-          (if (assoc (org-no-properties lang) scimax-src-block-keymaps)
-              (progn
-				(add-text-properties
-				 beg end `(local-map ,(cdr (assoc
-											(org-no-properties lang)
-											scimax-src-block-keymaps))))
-				(add-text-properties
-				 beg end `(cursor-sensor-functions
-                           ((lambda (win prev-pos sym)
-                              ;; This simulates a mouse click and makes a menu change
-                              (org-mouse-down-mouse nil)))))))))))
 
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -1029,7 +1010,7 @@ headings.  See function `org-find-olp'."
 (leaf org-media-note
   :elpaca (org-media-note :host github :repo "yuchen-lea/org-media-note")
   :config
-  (setq org-media-note-screenshot-image-dir "~/Document/notes/imgs/'"))
+  (setq org-media-note-screenshot-image-dir "~/Documents/notes/imgs/"))
 
 (leaf org-latest-git-commits
   :config
