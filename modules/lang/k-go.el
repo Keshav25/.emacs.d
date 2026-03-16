@@ -1,5 +1,12 @@
 ;; -*- lexical-binding: t -*-
 
+;;; k-go.el --- Go language configuration  -*- lexical-binding: t; -*-
+
+;;; Commentary:
+;; Configuration for Go development with LSP, DAP, tree-sitter and common tooling.
+
+;;; Code:
+
 (leaf lsp-go
   :after (lsp-mode)
   :custom
@@ -17,228 +24,123 @@
   (require 'dap-dlv-go))
 
 (leaf go-mode
-  :elpaca t)
+  :elpaca t
+  :hook ((go-mode-hook . lsp-deferred)
+		 (go-mode-hook . subword-mode)
+		 (before-save-hook . (lambda ()
+							   (when (derived-mode-p 'go-mode 'go-ts-mode)
+								 (lsp-organize-imports)
+								 (lsp-format-buffer))))))
+
+(leaf go-ts-mode
+  :hook ((go-ts-mode-hook . lsp-deferred)
+		 (go-ts-mode-hook . subword-mode)))
 
 (leaf templ-ts-mode
   :elpaca t)
 
-(defgroup golang nil
-  "golang group."
-  :prefix "golang-"
+(leaf gotest
+  :elpaca t
+  :after go-mode
+  :bind (:go-mode-map
+		 ("C-c t t" . go-test-current-test)
+		 ("C-c t f" . go-test-current-file)
+		 ("C-c t p" . go-test-current-project)
+		 ("C-c t b" . go-test-current-benchmark)
+		 ("C-c t c" . go-test-current-coverage)
+		 ("C-c t r" . go-run)))
+
+;; ============================================================
+;; Go project utilities
+;; ============================================================
+
+(defgroup k-go nil
+  "Go development utilities."
+  :prefix "k-go-"
   :group 'tools)
 
-(defcustom golang-mode-keymap-prefix (kbd "C-c C-n")
-  "Golang minor mode keymap prefix."
-  :group 'golang
-  :type 'string)
-
-
-;;;###autoload
-(defun golang-mod-tidy ()
+(defun k-go-mod-tidy ()
+  "Run `go mod tidy' in the project root."
   (interactive)
-  (golang-command "go mod tidy"))
+  (let ((default-directory (or (locate-dominating-file default-directory "go.mod")
+							   default-directory)))
+	(compile "go mod tidy")))
 
-;;;###autoload
-(defun golang-add-package (package-name)
-  "Add package reference from PACKAGE-NAME."
+(defun k-go-add-package (package-name)
+  "Add Go package PACKAGE-NAME via `go get'."
   (interactive "sPackage name: ")
-  (golang-command (concat "go get " package-name)))
+  (let ((default-directory (or (locate-dominating-file default-directory "go.mod")
+							   default-directory)))
+	(compile (concat "go get " package-name))))
 
-;;;###autoload
-(defun golang-build ()
-  "Build a .NET project."
+(defun k-go-build ()
+  "Build the current Go project."
   (interactive)
-  (let* ((target (golang-select-project-or-solution))
-         (command "go build \"%s\""))
-    (compile (format command target))))
+  (let ((default-directory (or (locate-dominating-file default-directory "go.mod")
+							   default-directory)))
+	(compile "go build ./...")))
 
-;;;###autoload
-(defun golang-clean ()
-  "Clean build output."
+(defun k-go-run ()
+  "Run the current Go file or project."
   (interactive)
-  (golang-command "golang clean -v n"))
+  (if buffer-file-name
+	  (compile (concat "go run " (shell-quote-argument buffer-file-name)))
+	(let ((default-directory (or (locate-dominating-file default-directory "go.mod")
+								 default-directory)))
+	  (compile "go run ."))))
 
-(defvar golang-langs '("c#" "f#"))
-(defvar golang-templates '("console" "classlib" "mstest" "xunit" "web" "mvc" "webapi"))
-
-(defvar golang-compilation-regexps
-  (cons
-   "^\\([^\n]+\\)(\\([0-9]+\\),\\([0-9]+\\)): \\(?:error\\|\\(warning\\)\\)"
-   '(1 2 3 (4 . 5) 1)))
-
-;;;###autoload
-(defun golang-new (project-path name)
-  "Initialize a new Go project."
-  (interactive (list (read-directory-name "Project path: ")
-                     (read-string "Name: ")))
-  (let ((default-directory project-path))
-    (shell-command (concat "go mod init " name))))
-
-;;;###autoload
-(defun golang-restore ()
-  "Restore dependencies specified in the .NET project."
+(defun k-go-test ()
+  "Run all tests in the current Go project."
   (interactive)
-  (golang-command "golang restore"))
+  (let ((default-directory (or (locate-dominating-file default-directory "go.mod")
+							   default-directory)))
+	(compile "go test -v ./...")))
 
-(defvar golang-run-last-proj-dir nil
-  "Last project directory executed by `golang-run'.")
-
-;;;###autoload
-(defun golang-run (arg)
-  "Compile and execute a .NET project.  With ARG, query for project path again."
-  (interactive "P")
-  (when (or (not golang-run-last-proj-dir) arg)
-    (setq golang-run-last-proj-dir (read-directory-name "Run project in directory: ")))
-  (let ((default-directory golang-run-last-proj-dir))
-    (detached-compile (concat "go run " golang-run-last-proj-dir))))
-
-;;;###autoload
-(defun golang-run-with-args (args)
-  "Compile and execute a .NET project with ARGS."
-  (interactive "Arguments: ")
-  (golang-command (concat "golang run " args)))
-
-;;;###autoload
-(defun golang-sln-add ()
-  "Add a project to a Solution."
+(defun k-go-test-current ()
+  "Run the test function at point."
   (interactive)
-  (let ((solution-file (read-file-name "Solution file: ")))
-    (let ((to-add (read-file-name "Project/Pattern to add to the solution: ")))
-      (golang-command (concat "golang sln " solution-file " add " to-add)))))
+  (let* ((test-name (save-excursion
+					  (re-search-backward "^func \\(Test[A-Za-z0-9_]+\\)" nil t)
+					  (match-string 1)))
+		 (default-directory (file-name-directory (buffer-file-name))))
+	(if test-name
+		(compile (format "go test -v -run %s ." test-name))
+	  (message "No test function found at or above point"))))
 
-;;;###autoload
-(defun golang-sln-remove ()
-  "Remove a project from a Solution."
+(defun k-go-vet ()
+  "Run `go vet' on the current project."
   (interactive)
-  (let ((solution-file (read-file-name "Solution file: ")))
-    (let ((to-remove (read-file-name "Project/Pattern to remove from the solution: ")))
-      (golang-command (concat "golang sln " solution-file " remove " to-remove)))))
+  (let ((default-directory (or (locate-dominating-file default-directory "go.mod")
+							   default-directory)))
+	(compile "go vet ./...")))
 
-;;;###autoload
-(defun golang-sln-list ()
-  "List all projects in a Solution."
+(defun k-go-mod-init (module-name)
+  "Initialize a new Go module with MODULE-NAME."
+  (interactive "sModule name: ")
+  (compile (concat "go mod init " module-name)))
+
+(defun k-go-goto-mod ()
+  "Open the go.mod file for the current project."
   (interactive)
-  (let ((solution-file (read-file-name "Solution file: ")))
-    (golang-command (concat "golang sln " solution-file " list"))))
+  (let ((mod-file (locate-dominating-file default-directory "go.mod")))
+	(if mod-file
+		(find-file (expand-file-name "go.mod" mod-file))
+	  (message "No go.mod found in any parent directory"))))
 
-;;;###autoload
-(defun golang-sln-new ()
-  "Create a new Solution."
-  (interactive)
-  (let ((solution-path (read-directory-name "Solution path: ")))
-    (golang-command (concat "golang new sln -o " solution-path))))
-
-(defvar golang-test-last-test-proj nil
-  "Last unit test project file executed by `golang-test'.")
-
-;;;###autoload
-(defun golang-test (arg)
-  "Launch project unit-tests, querying for a project on first call.  With ARG, query for project path again."
-  (interactive "P")
-  (when (or (not golang-test-last-test-proj) arg)
-    (setq golang-test-last-test-proj (read-file-name "Launch tests for Project file: ")))
-  (golang-command (concat "golang test " golang-test-last-test-proj)))
-
-(defun golang-command (cmd)
-  "Run CMD in an async buffer."
-  (detached-compile cmd))
-
-(defun golang-find (extension)
-  "Search for a EXTENSION file in any enclosing folders relative to current directory."
-  (golang-search-upwards (rx-to-string extension)
-                         (file-name-directory buffer-file-name)))
-
-(defun golang-goto (extension)
-  "Open file with EXTENSION in any enclosing folders relative to current directory."
-  (let ((file (golang-find extension)))
-    (if file
-        (find-file file)
-      (error "Could not find any %s file" extension))))
-
-(defun golang-goto-sln ()
-  "Search for a solution file in any enclosing folders relative to current directory."
-  (interactive)
-  (golang-goto ".sln"))
-
-(defun golang-goto-csproj ()
-  "Search for a C# project file in any enclosing folders relative to current directory."
-  (interactive)
-  (golang-goto ".csproj"))
-
-(defun golang-goto-fsproj ()
-  "Search for a F# project file in any enclosing folders relative to current directory."
-  (interactive)
-  (golang-goto ".fsproj"))
-
-(defun golang-search-upwards (regex dir)
-  "Search for REGEX in DIR."
-  (when dir
-    (or (car-safe (directory-files dir 'full regex))
-        (golang-search-upwards regex (golang-parent-dir dir)))))
-
-(defun golang-parent-dir (dir)
-  "Find parent DIR."
-  (let ((p (file-name-directory (directory-file-name dir))))
-    (unless (equal p dir)
-      p)))
-
-(defun golang-select-project-or-solution ()
-  "Prompt for the project/solution file or directory.  Try projectile root first, else use current buffer's directory."
-  (let ((default-dir-prompt "?"))
-    (ignore-errors
-      (when (fboundp 'projectile-project-root)
-        (setq default-dir-prompt (projectile-project-root))))
-    (when (string= default-dir-prompt "?")
-      (setq default-dir-prompt default-directory))
-    (expand-file-name (read-file-name "Project or solution: " default-dir-prompt nil t))))
-
-(defun golang-valid-project-solutions (path)
-  "Predicate to validate project/solution paths.  PATH is passed by `'read-file-name`."
-  ;; file-attributes returns t for directories
-  ;; if not a dir, then check the common extensions
-  (let ((extension (file-name-extension path))
-        (valid-projects (list "sln" "csproj" "fsproj")))
-    (or (member extension valid-projects)
-        (car (file-attributes path)))))
-
-(defvar golang-mode-command-map
+(defvar k-go-command-map
   (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "a p") #'golang-add-package)
-    (define-key map (kbd "a r") #'golang-add-reference)
-    (define-key map (kbd "b")   #'golang-build)
-    (define-key map (kbd "c")   #'golang-mod-tidy)
-    (define-key map (kbd "g c") #'golang-goto-csproj)
-    (define-key map (kbd "g f") #'golang-goto-fsproj)
-    (define-key map (kbd "g s") #'golang-goto-sln)
-    (define-key map (kbd "n")   #'golang-new)
-    (define-key map (kbd "p")   #'golang-publish)
-    (define-key map (kbd "r")   #'golang-restore)
-    (define-key map (kbd "e")   #'golang-run)
-    (define-key map (kbd "C-e") #'golang-run-with-args)
-    (define-key map (kbd "s a") #'golang-sln-add)
-    (define-key map (kbd "s l") #'golang-sln-list)
-    (define-key map (kbd "s n") #'golang-sln-new)
-    (define-key map (kbd "s r") #'golang-sln-remove)
-    (define-key map (kbd "t")   #'golang-test)
-    map)
-  "Keymap for golang-mode commands after `golang-mode-keymap-prefix'.")
+	(define-key map (kbd "b")   #'k-go-build)
+	(define-key map (kbd "r")   #'k-go-run)
+	(define-key map (kbd "t")   #'k-go-test)
+	(define-key map (kbd "T")   #'k-go-test-current)
+	(define-key map (kbd "v")   #'k-go-vet)
+	(define-key map (kbd "a")   #'k-go-add-package)
+	(define-key map (kbd "m")   #'k-go-mod-tidy)
+	(define-key map (kbd "i")   #'k-go-mod-init)
+	(define-key map (kbd "g")   #'k-go-goto-mod)
+	map)
+  "Keymap for Go commands, accessed via `C-c G'.")
 
-(defvar golang-mode-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map (kbd golang-mode-keymap-prefix) golang-mode-command-map)
-    map)
-  "Keymap for golang-mode.")
-
-;;;###autoload
-(define-minor-mode golang-mode
-  "golang CLI minor mode."
-  nil
-  " golang"
-  golang-mode-map
-  :group 'golang
-  ;; (add-to-list 'compilation-error-regexp-alist-alist
-  ;; (cons 'golang golang-compilation-regexps))
-  ;; (add-to-list 'compilation-error-regexp-alist 'golang))
-  )
+(define-key go-mode-map (kbd "C-c G") k-go-command-map)
 
 (provide 'k-go)
