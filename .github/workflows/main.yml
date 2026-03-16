@@ -69,6 +69,21 @@ jobs:
           echo "Checked $count files, $errors error(s)"
           [ "$errors" -eq 0 ]
 
+      - name: Install leaf for byte-compilation
+        run: |
+          LEAF_DIR="/tmp/leaf-packages"
+          echo "LEAF_DIR=$LEAF_DIR" >> "$GITHUB_ENV"
+          emacs --batch --eval "
+            (progn
+              (require (quote package))
+              (setq package-user-dir \"$LEAF_DIR\")
+              (add-to-list (quote package-archives)
+                           (quote (\"melpa\" . \"https://melpa.org/packages/\")) t)
+              (package-initialize)
+              (package-refresh-contents)
+              (package-install (quote leaf))
+              (package-install (quote leaf-keywords)))"
+
       - name: Byte-compile modules
         run: |
           # Build load-path from elpaca builds (if cached)
@@ -86,14 +101,16 @@ jobs:
             [ -f "$f" ] || continue
             if ! emacs --batch \
               --eval "(progn
+                (require (quote package))
+                (setq package-user-dir \"$LEAF_DIR\")
+                (package-initialize)
                 (add-to-list (quote load-path) \"$(pwd)/modules\")
                 (add-to-list (quote load-path) \"$(pwd)/modules/lang\")
                 (add-to-list (quote load-path) \"$(pwd)/site-lisp\")
                 $ELPACA_LOAD
-                (ignore-errors (require (quote elpaca)))
-                (ignore-errors (require (quote leaf)))
-                (ignore-errors (require (quote leaf-keywords)))
-                (ignore-errors (leaf-keywords-init))
+                (require (quote leaf))
+                (require (quote leaf-keywords))
+                (leaf-keywords-init)
                 (setq byte-compile-warnings
                       (quote (not free-vars unresolved noruntime cl-functions))))" \
               -f batch-byte-compile "$f" 2>&1; then
