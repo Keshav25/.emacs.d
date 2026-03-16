@@ -8,11 +8,10 @@
   :require t)
 
 (leaf magit
-  :elpaca t
   :require t
   :elpaca (magit :branch "main" :pre-build ("make" "info"))
   :bind
-  ("C-x g" . 'magit-status)
+  ("C-x g" . magit-status)
   :custom
   (magit-display-buffer-function . 'magit-display-buffer-same-window-except-diff-v1)
   (magit-diff-refine-hunk . 'all)
@@ -238,9 +237,9 @@ for the \"main\" or \"master\" branch."
 		 (org-mode-hook . diff-hl-mode)
 		 (magit-post-refresh-hook . diff-hl-magit-post-refresh))
   :bind (:diff-hl-mode-map
-		 ("<left-fringe> <mouse-1>" . 'diff-hl-diff-goto-hunk)
-		 ("M-C-]" . 'diff-hl-next-hunk)
-		 ("M-C-[" . 'diff-hl-previous-hunk)))
+		 ("<left-fringe> <mouse-1>" . diff-hl-diff-goto-hunk)
+		 ("M-C-]" . diff-hl-next-hunk)
+		 ("M-C-[" . diff-hl-previous-hunk)))
 
 (leaf git-gutter
   ;; no reason to use this
@@ -293,10 +292,10 @@ for the \"main\" or \"master\" branch."
 	(let* ((normal (ibizaman/syncthing--get-normal-filename conflict)))
 	  (ibizaman/ediff-files
 	   (list conflict normal)
-	   `(lambda ()
-		  (when (y-or-n-p "Delete conflict file? ")
-			(kill-buffer (get-file-buffer ,conflict))
-			(delete-file ,conflict))))))
+	   (lambda ()
+		 (when (y-or-n-p "Delete conflict file? ")
+		   (kill-buffer (get-file-buffer conflict))
+		   (delete-file conflict))))))
 
   (defun ibizaman/syncthing--get-sync-conflicts (directory)
 	"Return a list of all sync conflict files in a DIRECTORY."
@@ -318,9 +317,9 @@ for the \"main\" or \"master\" branch."
 
   (defun ibizaman/ediff-files (&optional files quit-hook)
 	(interactive)
-	(lexical-let ((files (or files (dired-get-marked-files)))
-				  (quit-hook quit-hook)
-				  (wnd (current-window-configuration)))
+	(let ((files (or files (dired-get-marked-files)))
+		  (quit-hook quit-hook)
+		  (wnd (current-window-configuration)))
 	  (if (<= (length files) 2)
 		  (let ((file1 (car files))
 				(file2 (if (cdr files)
