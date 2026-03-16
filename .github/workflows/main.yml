@@ -69,23 +69,9 @@ jobs:
           echo "Checked $count files, $errors error(s)"
           [ "$errors" -eq 0 ]
 
-      - name: Cache elpaca packages
-        uses: actions/cache@v4
-        with:
-          path: elpaca
-          key: elpaca-linux-30.1-${{ hashFiles('modules/k-leaf.el') }}
-          restore-keys: elpaca-linux-
-
-      - name: Load full configuration
-        run: |
-          timeout 300 emacs --batch \
-            --eval "(setq debug-on-error t)" \
-            -l "$HOME/.emacs.d/early-init.el" 2>&1
-          echo "Configuration loaded successfully"
-
       - name: Byte-compile modules
         run: |
-          # Build load-path from elpaca builds
+          # Build load-path from elpaca builds (if cached)
           ELPACA_LOAD=""
           if [ -d "elpaca/builds" ]; then
             for dir in elpaca/builds/*/; do
@@ -119,6 +105,21 @@ jobs:
           find . -name '*.elc' -not -path './elpaca/*' -delete 2>/dev/null || true
           echo "Byte-compile: $errors error(s)"
           [ "$errors" -eq 0 ]
+
+      - name: Cache elpaca packages
+        uses: actions/cache@v4
+        with:
+          path: elpaca
+          key: elpaca-linux-30.1-${{ hashFiles('modules/k-leaf.el') }}
+          restore-keys: elpaca-linux-
+
+      - name: Load full configuration (best-effort)
+        continue-on-error: true
+        run: |
+          timeout 300 emacs --batch \
+            --eval "(setq debug-on-error t)" \
+            -l "$HOME/.emacs.d/early-init.el" 2>&1
+          echo "Configuration loaded successfully"
 
   # ── Windows ──────────────────────────────────────────────
   windows:
@@ -185,7 +186,8 @@ jobs:
           key: elpaca-windows-30.1-${{ hashFiles('modules/k-leaf.el') }}
           restore-keys: elpaca-windows-
 
-      - name: Load full configuration
+      - name: Load full configuration (best-effort)
+        continue-on-error: true
         shell: cmd
         run: |
           emacs --batch ^
@@ -198,7 +200,6 @@ jobs:
     name: GNU Guix
     runs-on: ubuntu-latest
     timeout-minutes: 60
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
 
@@ -278,12 +279,10 @@ jobs:
           key: elpaca-guix-${{ hashFiles('modules/k-leaf.el') }}
           restore-keys: elpaca-guix-
 
-      - name: Load full configuration
+      - name: Load full configuration (best-effort)
+        continue-on-error: true
         run: |
           timeout 300 guix shell emacs git coreutils -- emacs --batch \
             --eval "(setq debug-on-error t)" \
-            -l "$HOME/.emacs.d/early-init.el" 2>&1 || {
-            echo "::warning::Full configuration load had errors (expected on fresh bootstrap)"
-            exit 0
-          }
+            -l "$HOME/.emacs.d/early-init.el" 2>&1
           echo "Configuration loaded successfully"
