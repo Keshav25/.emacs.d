@@ -1,7 +1,5 @@
 ;; -*- lexical-binding: t -*-
 
-;;; Code:
-
 (leaf prog-mode
   :hook ((prog-mode-hook . subword-mode)
 		 (prog-mode-hook . (lambda () (setq-local fill-column 120)))))
@@ -503,12 +501,6 @@
   :elpaca t
   :hook (prog-mode-hook . indent-bars-mode))
 
-
-;; ============================================================
-;; Enhanced programming environment
-;; ============================================================
-
-;; Highlight TODO/FIXME/HACK/NOTE in comments
 (leaf hl-todo
   :elpaca t
   :custom
@@ -526,7 +518,6 @@
 		 ("C-c t o" . hl-todo-occur)
 		 ("C-c t i" . hl-todo-insert)))
 
-;; Show git diff indicators in the fringe
 (leaf diff-hl
   :elpaca t
   :hook ((prog-mode-hook . diff-hl-mode)
@@ -537,34 +528,28 @@
   (global-diff-hl-mode 1)
   (diff-hl-flydiff-mode 1))
 
-;; Respect .editorconfig project settings
 (leaf editorconfig
   :elpaca t
   :config
   (editorconfig-mode 1))
 
-;; Show current function name in modeline
 (leaf which-func
   :config
   (which-function-mode 1))
 
-;; Colorize color strings in buffers (#ff0000, rgb(...), etc.)
 (leaf colorful-mode
   :elpaca t
   :hook ((prog-mode-hook . colorful-mode)
 		 (css-mode-hook . colorful-mode)
 		 (html-mode-hook . colorful-mode)))
 
-;; Breadcrumb navigation (show file > class > method in headerline)
 (leaf breadcrumb
   :elpaca t
   :hook (prog-mode-hook . breadcrumb-local-mode))
 
-;; Quick-peek inline definitions without leaving current buffer
 (leaf quick-peek
   :elpaca t)
 
-;; Better xref navigation
 (leaf xref
   :custom
   (xref-show-definitions-function . #'xref-show-definitions-completing-read)
@@ -574,12 +559,10 @@
 		 ("M-?" . xref-find-references)
 		 ("M-," . xref-go-back)))
 
-;; Automatically clean up trailing whitespace on save (only on changed lines)
 (leaf ws-butler
   :elpaca t
   :hook (prog-mode-hook . ws-butler-mode))
 
-;; Visualize and navigate errors with consult
 (leaf consult-lsp
   :after (lsp-mode consult)
   :elpaca t
@@ -588,12 +571,10 @@
 		 ("C-c l s" . consult-lsp-symbols)
 		 ("C-c l f" . consult-lsp-file-symbols)))
 
-;; Tree-sitter powered code folding
 (leaf treesit-fold
   :elpaca (treesit-fold :host github :repo "emacs-tree-sitter/treesit-fold")
   :hook (prog-mode-hook . treesit-fold-mode))
 
-;; Smart hungry delete - delete whitespace intelligently
 (leaf hungry-delete
   :elpaca t
   :config
@@ -601,7 +582,6 @@
   :custom
   (hungry-delete-chars-to-skip . " \t\f\v"))
 
-;; Language-specific tree-sitter queries via consult
 (leaf consult-imenu
   :bind (("C-c i" . consult-imenu)
 		 ("C-c I" . consult-imenu-multi)))
