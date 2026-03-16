@@ -203,6 +203,27 @@ Agenda, inserting skeleton, C-c C-s, etc.
 *** TODO jj and gh integration
 *** TODO difftastic and ediff integration 
 *** TODO TCR, magit, and jj
+* Bug Fixes
+** DONE PR: Fix org-persist timer error + remove orphan emms leaf
+CLOSED: [2026-03-16 Mon]
+** DONE PR: Fix k-eshell.el bugs (use-package, typos, project-root)
+CLOSED: [2026-03-16 Mon]
+** DONE PR: Fix k-hydra.el (evil refs, typo, ivy/counsel refs)
+CLOSED: [2026-03-16 Mon]
+** DONE PR: Fix k-org.el (typo, duplicate fn, stray quote)
+CLOSED: [2026-03-16 Mon]
+** DONE PR: Fix k-emocs.el (duplicate embark leaf, completion-preview)
+CLOSED: [2026-03-16 Mon]
+** DONE PR: Fix init.el (format string bug, duplicate settings)
+CLOSED: [2026-03-16 Mon]
+** DONE PR: Fix k-vc.el (duplicate :elpaca, lexical-let)
+CLOSED: [2026-03-16 Mon]
+** DONE PR: Fix k-dired.el + k-term.el (elpaca, :fetcher, quoted fns)
+CLOSED: [2026-03-16 Mon]
+** DONE PR: Fix k-elfeed.el (variable shadowing t)
+CLOSED: [2026-03-16 Mon]
+** DONE PR: Fix k-bindings.el M-g M-g conflict with consult
+CLOSED: [2026-03-16 Mon]
 * Version 1.0
 
 ** Complete Guix ISO and Docker Image

@@ -2,7 +2,6 @@
 
 (leaf goto
   :bind
-  ("M-g M-g" . beginning-of-buffer)
   ("M-G" . end-of-buffer))
 
 (leaf marks
