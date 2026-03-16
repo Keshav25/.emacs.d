@@ -133,8 +133,9 @@ jobs:
 
       - name: Load full configuration (best-effort)
         continue-on-error: true
+        timeout-minutes: 5
         run: |
-          timeout 300 emacs --batch \
+          emacs --batch \
             --eval "(setq debug-on-error t)" \
             -l "$HOME/.emacs.d/early-init.el" 2>&1
           echo "Configuration loaded successfully"
@@ -206,6 +207,7 @@ jobs:
 
       - name: Load full configuration (best-effort)
         continue-on-error: true
+        timeout-minutes: 5
         shell: cmd
         run: |
           emacs --batch ^
@@ -299,8 +301,9 @@ jobs:
 
       - name: Load full configuration (best-effort)
         continue-on-error: true
+        timeout-minutes: 5
         run: |
-          timeout 300 guix shell emacs git coreutils -- emacs --batch \
+          guix shell emacs git coreutils -- emacs --batch \
             --eval "(setq debug-on-error t)" \
             -l "$HOME/.emacs.d/early-init.el" 2>&1
           echo "Configuration loaded successfully"
