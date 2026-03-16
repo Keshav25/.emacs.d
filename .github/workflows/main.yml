@@ -2,44 +2,255 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
       - '**/*.el'
       - '**/*.org'
       - '.github/workflows/**'
   pull_request:
-    branches:
-      - main
+    branches: [main]
     paths:
       - '**/*.el'
       - '**/*.org'
+      - '.github/workflows/**'
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  linux-test:
+  # ── Linux (representative of Linux Mint) ─────────────────
+  linux:
+    name: Linux
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        emacs-version:
-          - 30.1
-
+    timeout-minutes: 30
     steps:
-      - name: Cache ELPA packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.emacs.d/elpa
-          key: ${{ runner.os }}-emacs-${{ matrix.emacs-version }}-elpa
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Set Up Emacs
-        uses: purcell/setup-emacs@master
+      - uses: purcell/setup-emacs@master
         with:
-          version: ${{ matrix.emacs-version }}
+          version: 30.1
 
-      - name: Validate Configuration
+      - name: Emacs version
+        run: emacs --version | head -1
+
+      - name: Link as ~/.emacs.d
         run: |
-          emacs --batch --eval "
-          (setq debug-on-error t)
-          (setq user-emacs-directory \"$HOME/.emacs.d\")
-          (load-file \"$HOME/.emacs.d/init.el\")"
+          rm -rf "$HOME/.emacs.d"
+          ln -s "$GITHUB_WORKSPACE" "$HOME/.emacs.d"
+
+      - name: Syntax check all .el files
+        run: |
+          errors=0
+          count=0
+          for f in $(find . -name '*.el' \
+              -not -path './elpaca/*' \
+              -not -path './elpa/*' \
+              -not -path './.git/*' \
+              -not -path './site-lisp/nano-elfeed/*' \
+              -not -path './site-lisp/target/*'); do
+            count=$((count + 1))
+            if ! emacs --batch --eval "
+              (condition-case err
+                  (with-temp-buffer
+                    (insert-file-contents \"$f\")
+                    (goto-char (point-min))
+                    (while (not (eobp))
+                      (read (current-buffer))))
+                (error
+                 (princ (format \"SYNTAX ERROR in %s: %S\n\" \"$f\" err) #'external-debugging-output)
+                 (kill-emacs 1)))" 2>&1; then
+              echo "::error file=${f#./}::Elisp syntax error"
+              errors=$((errors + 1))
+            fi
+          done
+          echo "Checked $count files, $errors error(s)"
+          [ "$errors" -eq 0 ]
+
+      - name: Cache elpaca packages
+        uses: actions/cache@v4
+        with:
+          path: elpaca
+          key: elpaca-linux-30.1-${{ hashFiles('modules/k-leaf.el') }}
+          restore-keys: elpaca-linux-
+
+      - name: Load full configuration
+        run: |
+          timeout 300 emacs --batch \
+            --eval "(setq debug-on-error t)" \
+            -l "$HOME/.emacs.d/early-init.el" 2>&1
+          echo "Configuration loaded successfully"
+
+      - name: Byte-compile modules
+        if: always() && steps.*.outcome != 'failure'
+        run: |
+          # Build load-path from elpaca builds
+          ELPACA_LOAD=""
+          if [ -d "elpaca/builds" ]; then
+            for dir in elpaca/builds/*/; do
+              [ -d "$dir" ] || continue
+              abs="$(cd "$dir" && pwd)"
+              ELPACA_LOAD="$ELPACA_LOAD (add-to-list (quote load-path) \"$abs\")"
+            done
+          fi
+
+          errors=0
+          for f in modules/*.el modules/lang/*.el site-lisp/k-*.el; do
+            [ -f "$f" ] || continue
+            output=$(emacs --batch \
+              --eval "(progn
+                (add-to-list (quote load-path) \"$(pwd)/modules\")
+                (add-to-list (quote load-path) \"$(pwd)/modules/lang\")
+                (add-to-list (quote load-path) \"$(pwd)/site-lisp\")
+                $ELPACA_LOAD
+                (ignore-errors (require (quote elpaca)))
+                (ignore-errors (require (quote leaf)))
+                (ignore-errors (require (quote leaf-keywords)))
+                (ignore-errors (leaf-keywords-init))
+                (setq byte-compile-warnings
+                      (quote (not free-vars unresolved noruntime cl-functions))))" \
+              -f batch-byte-compile "$f" 2>&1) || true
+            # Check for actual errors (not warnings)
+            if echo "$output" | grep -q "^.*:Error:"; then
+              echo "::error file=$f::Byte-compile error"
+              echo "$output"
+              errors=$((errors + 1))
+            fi
+          done
+          # Clean up .elc files
+          find . -name '*.elc' -not -path './elpaca/*' -delete 2>/dev/null || true
+          echo "Byte-compile: $errors error(s)"
+          [ "$errors" -eq 0 ]
+
+  # ── Windows ──────────────────────────────────────────────
+  windows:
+    name: Windows
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: purcell/setup-emacs@master
+        with:
+          version: 30.1
+
+      - name: Emacs version
+        shell: bash
+        run: emacs --version | head -1
+
+      - name: Link as ~/.emacs.d
+        shell: cmd
+        run: |
+          if exist "%USERPROFILE%\.emacs.d" rmdir /s /q "%USERPROFILE%\.emacs.d"
+          mklink /J "%USERPROFILE%\.emacs.d" "%GITHUB_WORKSPACE%"
+
+      - name: Syntax check all .el files
+        shell: bash
+        run: |
+          errors=0
+          count=0
+          for f in $(find . -name '*.el' \
+              -not -path './elpaca/*' \
+              -not -path './elpa/*' \
+              -not -path './.git/*' \
+              -not -path './site-lisp/nano-elfeed/*' \
+              -not -path './site-lisp/target/*'); do
+            count=$((count + 1))
+            if ! emacs --batch --eval "
+              (condition-case err
+                  (with-temp-buffer
+                    (insert-file-contents \"$f\")
+                    (goto-char (point-min))
+                    (while (not (eobp))
+                      (read (current-buffer))))
+                (error
+                 (princ (format \"SYNTAX ERROR in %s: %S\n\" \"$f\" err) #'external-debugging-output)
+                 (kill-emacs 1)))" 2>&1; then
+              echo "::error file=${f#./}::Elisp syntax error"
+              errors=$((errors + 1))
+            fi
+          done
+          echo "Checked $count files, $errors error(s)"
+          [ "$errors" -eq 0 ]
+
+      - name: Cache elpaca packages
+        uses: actions/cache@v4
+        with:
+          path: elpaca
+          key: elpaca-windows-30.1-${{ hashFiles('modules/k-leaf.el') }}
+          restore-keys: elpaca-windows-
+
+      - name: Load full configuration
+        shell: bash
+        run: |
+          emacs --batch \
+            --eval "(setq debug-on-error t)" \
+            -l "$HOME/.emacs.d/early-init.el" 2>&1
+          echo "Configuration loaded successfully"
+
+  # ── GNU Guix ─────────────────────────────────────────────
+  guix:
+    name: GNU Guix
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: SquidDev/setup-guix@v1.2.0
+
+      - name: Link as ~/.emacs.d
+        run: |
+          rm -rf "$HOME/.emacs.d"
+          ln -s "$GITHUB_WORKSPACE" "$HOME/.emacs.d"
+
+      - name: Guix Emacs version
+        run: guix shell emacs -- emacs --version | head -1
+
+      - name: Syntax check all .el files
+        run: |
+          # Write check script (avoids heredoc quoting issues)
+          cat > /tmp/syntax-check.sh << 'HEREDOC'
+          #!/usr/bin/env bash
+          set -uo pipefail
+          cd "$1"
+          errors=0
+          count=0
+          for f in $(find . -name '*.el' \
+              -not -path './elpaca/*' \
+              -not -path './elpa/*' \
+              -not -path './.git/*' \
+              -not -path './site-lisp/nano-elfeed/*' \
+              -not -path './site-lisp/target/*'); do
+            count=$((count + 1))
+            if ! emacs --batch --eval "
+              (condition-case err
+                  (with-temp-buffer
+                    (insert-file-contents \"$f\")
+                    (goto-char (point-min))
+                    (while (not (eobp))
+                      (read (current-buffer))))
+                (error
+                 (princ (format \"SYNTAX ERROR in %s: %S\n\" \"$f\" err) #'external-debugging-output)
+                 (kill-emacs 1)))" 2>&1; then
+              errors=$((errors + 1))
+            fi
+          done
+          echo "Checked $count files, $errors error(s)"
+          [ "$errors" -eq 0 ]
+          HEREDOC
+          chmod +x /tmp/syntax-check.sh
+          guix shell emacs -- bash /tmp/syntax-check.sh "$GITHUB_WORKSPACE"
+
+      - name: Cache elpaca packages
+        uses: actions/cache@v4
+        with:
+          path: elpaca
+          key: elpaca-guix-${{ hashFiles('modules/k-leaf.el') }}
+          restore-keys: elpaca-guix-
+
+      - name: Load full configuration
+        run: |
+          guix shell emacs -- emacs --batch \
+            --eval "(setq debug-on-error t)" \
+            -l "$HOME/.emacs.d/early-init.el" 2>&1
+          echo "Configuration loaded successfully"

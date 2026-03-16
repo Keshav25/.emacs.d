@@ -17,7 +17,7 @@
   (setq package-enable-at-startup nil
 		package-native-compile t
 		native-comp-always-compile t
-		native-comp-async-jobs-number (- (string-to-number (string-trim-right (shell-command-to-string "nproc"))) 1)
+		native-comp-async-jobs-number (max 1 (1- (num-processors)))
 		native-comp-async-report-warnings-errors 'silent
 		window-resize-pixelwise nil
 		frame-resize-pixelwise t
