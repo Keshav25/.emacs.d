@@ -195,40 +195,69 @@
 							(exwm-workspace-switch-create ,i))))
 					  (number-sequence 0 9))))
   (setopt exwm-input-simulation-keys
-		  `(
+		  `(;; --- Cursor movement ---
 			([?\C-b] . [left])
 			([?\C-f] . [right])
 			([?\C-p] . [up])
 			([?\C-n] . [down])
+			([?\C-a] . [home])
+			([?\C-e] . [end])
+			([?\M-f] . [C-right])        ; word forward
+			([?\M-b] . [C-left])         ; word backward
+			([?\M-v] . [prior])          ; page up
+			([?\C-v] . [next])           ; page down
+			([?\M-<] . [C-home])         ; buffer start
+			([?\M->] . [C-end])          ; buffer end
+
+			;; --- Selection (shifted movement) ---
 			(,(kbd "C-S-b") . [S-left])
 			(,(kbd "C-S-f") . [S-right])
 			(,(kbd "C-S-p") . [S-up])
 			(,(kbd "C-S-n") . [S-down])
 			(,(kbd "C-S-a") . [S-home])
 			(,(kbd "C-S-e") . [S-end])
-			(,(kbd "C-S-<backspace>") . [home S-end delete])
-			([?\C-a] . [home])
-			([?\C-e] . [end])
-			([?\M-v] . [prior])
-			([?\C-v] . [next])
+			(,(kbd "M-S-b") . [C-S-left])   ; select word backward
+			(,(kbd "M-S-f") . [C-S-right])  ; select word forward
+			(,(kbd "M-S-<") . [C-S-home])   ; select to start
+			(,(kbd "M-S->") . [C-S-end])    ; select to end
+
+			;; --- Editing ---
 			([?\C-d] . [delete])
 			([?\C-k] . [S-end delete])
+			([?\M-d] . [C-S-right delete]) ; kill word forward
+			(,(kbd "M-DEL") . [C-S-left delete]) ; kill word backward
+			(,(kbd "C-S-<backspace>") . [home S-end delete]) ; kill whole line
 			([?\C-m] . [return])
 			([?\C-i] . [tab])
-			([?\M-w] . [?\C-c])
-			([?\C-w] . [?\C-x])
-			([?\C-y] . [?\C-v])
-			([?\C-s] . [?\C-f])
-			([?\C-/] . [?\C-z])
-			([?\M-f] . [C-right])
-			([?\M-b] . [C-left])
-			(,(kbd "M-S-b") . [C-S-left])
-			(,(kbd "M-S-f") . [C-S-right])
-			([?\M-d] . [C-S-right delete])
-			([?\C-g] . [escape])
-			([?\M-<] . [home])
-			([?\M->] . [end])
-			(,(kbd "C-x C-s") . [C-s])))
+			([?\C-j] . [return])          ; newline
+
+			;; --- Clipboard ---
+			([?\M-w] . [?\C-c])          ; copy
+			([?\C-w] . [?\C-x])          ; cut
+			([?\C-y] . [?\C-v])          ; paste
+
+			;; --- Search / Undo ---
+			([?\C-s] . [?\C-f])          ; search
+			([?\C-r] . [?\C-h])          ; replace (in most apps)
+			([?\C-/] . [?\C-z])          ; undo
+			(,(kbd "C-S-/") . [?\C-y])   ; redo (C-y in most apps)
+			([?\C-g] . [escape])         ; cancel
+
+			;; --- File operations ---
+			(,(kbd "C-x C-s") . [?\C-s])   ; save
+			(,(kbd "C-x C-f") . [?\C-o])   ; open file
+			(,(kbd "C-x k")   . [?\C-w])   ; close tab/window
+
+			;; --- Tab navigation ---
+			(,(kbd "C-x n")   . [?\C-t])   ; new tab
+			(,(kbd "C-x C-n") . [C-tab])   ; next tab
+			(,(kbd "C-x C-p") . [C-S-tab]) ; previous tab
+
+			;; --- Zoom ---
+			(,(kbd "C-x C-=") . [?\C-=])   ; zoom in
+			(,(kbd "C-x C--") . [?\C--])   ; zoom out
+			(,(kbd "C-x C-0") . [?\C-0])   ; zoom reset
+			))
   (setopt exwm-manage-force-tiling t)
   (require 'exwm-randr)
   (setq exwm-randr-workspace-monitor-plist '(0 "eDP1"))
@@ -282,6 +311,53 @@ Does not take the minibuffer into account."
 		(evil-move-window dir)))))
 
   :hook ((exwm-input--input-mode-change-hook . force-modeline-update)))
+
+;;; EXWM utility commands
+
+(defun k/exwm-toggle-floating-and-resize ()
+  "Toggle floating and resize to a sensible centered size."
+  (interactive)
+  (exwm-floating-toggle-floating)
+  (when exwm--floating-frame
+    (let* ((fw (frame-pixel-width))
+           (fh (frame-pixel-height))
+           (w (round (* fw 0.65)))
+           (h (round (* fh 0.75)))
+           (x (/ (- fw w) 2))
+           (y (/ (- fh h) 2)))
+      (exwm-floating-move x y)
+      (exwm-layout-enlarge-window-horizontally (- w (frame-pixel-width exwm--floating-frame)))
+      (exwm-layout-enlarge-window (- h (frame-pixel-height exwm--floating-frame))))))
+
+(defun k/exwm-list-x-windows ()
+  "List all EXWM buffers with class and title for quick switching."
+  (interactive)
+  (let ((candidates
+         (cl-loop for buf in (buffer-list)
+                  when (with-current-buffer buf (derived-mode-p 'exwm-mode))
+                  collect (cons (format "%-20s %s"
+                                        (with-current-buffer buf
+                                          (or exwm-class-name "?"))
+                                        (buffer-name buf))
+                                buf))))
+    (when candidates
+      (let* ((choice (completing-read "EXWM window: " candidates nil t))
+             (buf (cdr (assoc choice candidates))))
+        (when buf (switch-to-buffer buf))))))
+
+(defun k/exwm-rename-buffer (name)
+  "Rename the current EXWM buffer to NAME."
+  (interactive "sNew buffer name: ")
+  (when (derived-mode-p 'exwm-mode)
+    (exwm-workspace-rename-buffer name)))
+
+(defun k/exwm-send-key-sequence (keys)
+  "Send a key sequence KEYS to the current EXWM window.
+KEYS is read interactively via `read-key-sequence'."
+  (interactive (list (read-key-sequence "Key sequence to send: ")))
+  (when (derived-mode-p 'exwm-mode)
+    (dolist (key (listify-key-sequence (kbd keys)))
+      (exwm-input--fake-key key))))
 
 (leaf exwm-edit
   :elpaca t
