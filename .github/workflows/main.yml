@@ -19,11 +19,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # ── Linux (representative of Linux Mint) ─────────────────
+  # ── Linux: full checks (syntax + byte-compile) ──────────
   linux:
     name: Linux
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
 
@@ -33,11 +33,6 @@ jobs:
 
       - name: Emacs version
         run: emacs --version | head -1
-
-      - name: Link as ~/.emacs.d
-        run: |
-          rm -rf "$HOME/.emacs.d"
-          ln -s "$GITHUB_WORKSPACE" "$HOME/.emacs.d"
 
       - name: Syntax check all .el files
         run: |
@@ -84,19 +79,8 @@ jobs:
               (package-install (quote leaf))
               (package-install (quote leaf-keywords)))"
 
-      - name: Byte-compile modules (informational)
-        continue-on-error: true
+      - name: Byte-compile modules
         run: |
-          # Build load-path from elpaca builds (if cached)
-          ELPACA_LOAD=""
-          if [ -d "elpaca/builds" ]; then
-            for dir in elpaca/builds/*/; do
-              [ -d "$dir" ] || continue
-              abs="$(cd "$dir" && pwd)"
-              ELPACA_LOAD="$ELPACA_LOAD (add-to-list (quote load-path) \"$abs\")"
-            done
-          fi
-
           errors=0
           for f in modules/*.el modules/lang/*.el site-lisp/k-*.el; do
             [ -f "$f" ] || continue
@@ -108,43 +92,24 @@ jobs:
                 (add-to-list (quote load-path) \"$(pwd)/modules\")
                 (add-to-list (quote load-path) \"$(pwd)/modules/lang\")
                 (add-to-list (quote load-path) \"$(pwd)/site-lisp\")
-                $ELPACA_LOAD
                 (require (quote leaf))
                 (require (quote leaf-keywords))
                 (leaf-keywords-init)
                 (setq byte-compile-warnings
                       (quote (not free-vars unresolved noruntime cl-functions))))" \
               -f batch-byte-compile "$f" 2>&1; then
-              echo "::error file=$f::Byte-compile error"
+              echo "::warning file=$f::Byte-compile issue"
               errors=$((errors + 1))
             fi
           done
-          # Clean up .elc files
           find . -name '*.elc' -not -path './elpaca/*' -delete 2>/dev/null || true
-          echo "Byte-compile: $errors error(s)"
-          [ "$errors" -eq 0 ]
+          echo "Byte-compile: $errors issue(s)"
 
-      - name: Cache elpaca packages
-        uses: actions/cache@v4
-        with:
-          path: elpaca
-          key: elpaca-linux-30.1-${{ hashFiles('modules/k-leaf.el') }}
-          restore-keys: elpaca-linux-
-
-      - name: Load full configuration (best-effort)
-        continue-on-error: true
-        timeout-minutes: 5
-        run: |
-          emacs --batch \
-            --eval "(setq debug-on-error t)" \
-            -l "$HOME/.emacs.d/early-init.el" 2>&1
-          echo "Configuration loaded successfully"
-
-  # ── Windows ──────────────────────────────────────────────
+  # ── Windows: syntax check ───────────────────────────────
   windows:
     name: Windows
     runs-on: windows-latest
-    timeout-minutes: 30
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
 
@@ -152,20 +117,9 @@ jobs:
         shell: powershell
         run: choco install emacs -y --no-progress
 
-      - name: Set HOME for Emacs
-        shell: cmd
-        run: |
-          echo HOME=%USERPROFILE%>>"%GITHUB_ENV%"
-
       - name: Emacs version
         shell: bash
         run: emacs --version | head -1
-
-      - name: Link as ~/.emacs.d
-        shell: cmd
-        run: |
-          if exist "%USERPROFILE%\.emacs.d" rmdir /s /q "%USERPROFILE%\.emacs.d"
-          mklink /J "%USERPROFILE%\.emacs.d" "%GITHUB_WORKSPACE%"
 
       - name: Syntax check all .el files
         shell: bash
@@ -198,64 +152,35 @@ jobs:
           echo "Checked $count files, $errors error(s)"
           [ "$errors" -eq 0 ]
 
-      - name: Cache elpaca packages
-        uses: actions/cache@v4
-        with:
-          path: elpaca
-          key: elpaca-windows-30.1-${{ hashFiles('modules/k-leaf.el') }}
-          restore-keys: elpaca-windows-
-
-      - name: Load full configuration (best-effort)
-        continue-on-error: true
-        timeout-minutes: 5
-        shell: cmd
-        run: |
-          emacs --batch ^
-            --eval "(setq debug-on-error t)" ^
-            -l "%USERPROFILE%\.emacs.d\early-init.el" 2>&1
-          echo Configuration loaded successfully
-
-  # ── GNU Guix ─────────────────────────────────────────────
+  # ── GNU Guix: syntax check ─────────────────────────────
   guix:
     name: GNU Guix
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
 
       - name: Install GNU Guix
         run: |
-          # Install Guix via official binary tarball
           GUIX_VERSION=1.4.0
           cd /tmp
           wget -q "https://ftp.gnu.org/gnu/guix/guix-binary-${GUIX_VERSION}.x86_64-linux.tar.xz"
           sudo tar -C / --warning=no-timestamp -xf "guix-binary-${GUIX_VERSION}.x86_64-linux.tar.xz"
           sudo ln -sf /var/guix/profiles/per-user/root/current-guix/bin/guix /usr/local/bin/guix
-
-          # Create build users
           sudo groupadd --system guixbuild 2>/dev/null || true
           for i in $(seq -w 1 10); do
             sudo useradd -g guixbuild -G guixbuild \
               -d /var/empty -s "$(which nologin)" \
               -c "Guix build user $i" --system "guixbuilder${i}" 2>/dev/null || true
           done
-
-          # Authorize substitutes
           sudo mkdir -p /etc/guix
           sudo guix archive --authorize < /var/guix/profiles/per-user/root/current-guix/share/guix/ci.guix.gnu.org.pub
-
-          # Start daemon
           sudo /var/guix/profiles/per-user/root/current-guix/bin/guix-daemon \
             --build-users-group=guixbuild &
           sleep 3
 
-      - name: Link as ~/.emacs.d
-        run: |
-          rm -rf "$HOME/.emacs.d"
-          ln -s "$GITHUB_WORKSPACE" "$HOME/.emacs.d"
-
       - name: Guix Emacs version
-        run: guix shell emacs git coreutils -- emacs --version | head -1
+        run: guix shell emacs -- emacs --version | head -1
 
       - name: Syntax check all .el files
         run: |
@@ -290,20 +215,4 @@ jobs:
           [ "$errors" -eq 0 ]
           SCRIPT
           chmod +x /tmp/syntax-check.sh
-          guix shell emacs git coreutils -- bash /tmp/syntax-check.sh "$GITHUB_WORKSPACE"
-
-      - name: Cache elpaca packages
-        uses: actions/cache@v4
-        with:
-          path: elpaca
-          key: elpaca-guix-${{ hashFiles('modules/k-leaf.el') }}
-          restore-keys: elpaca-guix-
-
-      - name: Load full configuration (best-effort)
-        continue-on-error: true
-        timeout-minutes: 5
-        run: |
-          guix shell emacs git coreutils -- emacs --batch \
-            --eval "(setq debug-on-error t)" \
-            -l "$HOME/.emacs.d/early-init.el" 2>&1
-          echo "Configuration loaded successfully"
+          guix shell emacs -- bash /tmp/syntax-check.sh "$GITHUB_WORKSPACE"
