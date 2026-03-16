@@ -13,25 +13,25 @@
 	  ("p" windmove-up "Move Up a Window")
 	  ("M" get-mru-window "Return to Most Used Window"))
 	 "Manipulation"
-	 (("s" split-and-follow-vertically "Split Window Horizontally")
-	  ("v" split-and-follow-horizontally "Split Window Vertically")
+	 (("s" k/split-and-follow-right "Split Right")
+	  ("v" k/split-and-follow-below "Split Below")
 	  ("d" delete-window "Delete Window")
-	  ("o" ace-window "Swith Window")
-	  ("m" k-toggle-fullscreen "Un/Maximize a Window")
-	  ("R" evil-window-rotate-upwards "Rotate Windows")
-	  ("r" evil-window-rotate-downwards "Reverse Rotate Windows")
-	  ("u" winner-undo "Undo Window Manipulation")
-	  ("U" winner-redo "Redo Window Manipulation"))
+	  ("o" ace-window "Switch Window")
+	  ("m" k/toggle-fullscreen "Toggle Fullscreen")
+	  ("R" rotate-frame-clockwise "Rotate Windows")
+	  ("r" rotate-frame-anticlockwise "Reverse Rotate")
+	  ("u" winner-undo "Undo Layout")
+	  ("U" winner-redo "Redo Layout"))
 	 "Size"
-	 (("+" evil-window-increase-height "Increase Height")
-	  ("-" evil-window-decrease-height "Decrease Heigth")
-	  ("<" evil-window-decrease-width "Decrease Width")
-	  (">" evil-window-increase-width "Increase Width")
+	 (("+" enlarge-window "Increase Height")
+	  ("-" shrink-window "Decrease Height")
+	  ("<" shrink-window-horizontally "Decrease Width")
+	  (">" enlarge-window-horizontally "Increase Width")
 	  ("=" balance-windows "Balance Windows")
 	  (";" enlarge-window "Enlarge Window"))
 	 "Buffer"
 	 (("l" consult-buffer "Change Buffer")
-	  ("c" centered-window-mode "Un/Center Window")
+	  ("c" perfect-margin-mode "Toggle Margins")
 	  ("M-o" ace-window-prefix "Command in a select window"))
 	 "Swap Windows"
 	 (("B" windmove-swap-states-left "Move Window Left")
@@ -171,7 +171,7 @@
 				 navy-j 'backward-word
 				 navy-i 'previous-line
 				 navy-l 'forward-word
-				 navy-k 'next-
+				 navy-k 'next-line
 				 navy-semicolon 'avy-goto-char-2
 				 navy-quote 'avy-goto-line
 				 navy-comma 'avy-goto-word-1
@@ -243,8 +243,8 @@
 				 navy-period 'lispy-ace-paren))
 	 "sexp mode")
 
-	("a" swiper-all "swiper-all")
-	("r" counsel-git-grep "git grep")
+	("a" consult-line-multi "search all buffers")
+	("r" consult-git-grep "git grep")
 	("t" avy-goto-char-timer "char timer"))
 
 
