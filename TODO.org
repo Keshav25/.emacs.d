@@ -26,11 +26,15 @@ CLOSED: [2025-04-12 Sat 18:08]
 *** TODO [#A] Embrace and Avy Actions Integration
 *** TODO [#A] Embark and Avy Actions Intergration
 *** TODO [#A] Embark Configuration
-*** TODO [#A] Combobulate Keybindings
+*** DONE [#A] Combobulate Keybindings
+CLOSED: [2026-03-16 Mon]
+Added 6 more language support in k-programming.el PR.
 *** TODO [#A] Eev Keybindings
 *** TODO [#A] Consult-Narrow
 *** TODO [#A] Jq Integration
-*** TODO [#A] Application Keybindings
+*** DONE [#A] Application Keybindings
+CLOSED: [2026-03-16 Mon]
+Implemented via k-exwm-apps.el (Brave browser hydra, KOTOR hydra).
 *** TODO [#C] GPTEL keybindings
 *** TODO [#A] Org-Mode Bindings (Pro/Demotion)
 *** TODO [#B] Test CUA Rectangle Mode
@@ -38,8 +42,10 @@ CLOSED: [2025-04-12 Sat 18:08]
 https://www.adithya.cc/posts/Consistent%20Emacs%20Key%20Bindings%20Across%20Terminals.html
 
 ** Window Management
-*** TODO [#A] Perspective-Mode + EXWM + tab bar + project.el Integration (now also add jj configuration)
-perpsective-exwm-mode, maybe see if I can use the tab bar for perspective -> tabspaces-mode
+*** DONE [#A] Perspective-Mode + EXWM + tab bar + project.el Integration (now also add jj configuration)
+CLOSED: [2026-03-16 Mon]
+Implemented perspective + project bridge + consult integration + perspective-exwm
+in k-wm.el PR. Quick perspectives for elfeed, notes, magit, terminal.
 *** TODO [#C] Replicate Tmux Sessions
 possibly through dtach + perspective.el + emacs server
 *** TODO [#B] Flat-browser navigation with EXWM, Zen/Librewolf, Consult, and Perspective.el
@@ -52,9 +58,15 @@ Just use the stack above with project.el etc.
 CLOSED: [2025-03-25 Tue 00:18]
 *** DONE EXWM desktop session
 CLOSED: [2025-03-25 Tue 00:18]
-*** TODO [#A] Hydra menu
+*** DONE [#A] Hydra menu
+CLOSED: [2026-03-16 Mon]
+Window layouts (C-x w), perspective quick-switch (C-x t), plus EXWM app
+hydras in k-exwm-apps.el (Brave, KOTOR).
 *** TODO [#C] Emacs Application Framework and PopWeb(?)
-*** TODO [#B] Add Consult-Yank to EXWM
+*** DONE [#B] Add Consult-Yank to EXWM
+CLOSED: [2026-03-16 Mon]
+Implemented k/exwm-paste-from-kill-ring: uses consult-yank-from-kill-ring
+for selection, copies to X clipboard + primary, simulates C-v via xdotool.
 *** TODO [#A] Compile emacs with xwidgets support
 *** TODO [#B] Split a widescreen monitor into 3 separate frames so that I get 3 EXWM workspaces
 ** Org-Mode
@@ -69,7 +81,10 @@ install when not installed by guix. There is also an elisp implementation of the
 *** DONE Integrate denote and howm
 CLOSED: [2025-03-17 Mon 22:48]
 link in brave bookmarks
-*** TODO [#A] PARA in denote
+*** DONE [#A] PARA in denote
+CLOSED: [2026-03-16 Mon]
+Implemented k/denote-assign-para with dedicated PARA keywords variable,
+templates auto-tagged with PARA categories, in k-denote.el PR.
 *** DONE Org Speedkey to trigger unpackaged/Org-Agenda function
 CLOSED: [2025-03-15 Sat 23:53]
 *** DONE Move over to elfeed.org
@@ -94,19 +109,29 @@ CLOSED: [2025-10-28 Tue 03:29]
 *** TODO Get emacsclient to work with Ghostty's TERM value
 *** TODO [#A] Switch to Fish Shell
 ** Programming
-*** TODO [#A] Prettier Config and EditorConfig Support
+*** DONE [#A] Prettier Config and EditorConfig Support
+CLOSED: [2026-03-16 Mon]
+Added editorconfig, hl-todo, diff-hl, ws-butler, colorful-mode,
+and more in k-programming.el PR.
 *** DONE Better Compile.el
 CLOSED: [2025-03-25 Tue 00:19]
 *** TODO [#A] Moldable Emacs
-*** TODO Remove Paredit, Use Smartparens
+*** DONE Remove Paredit, Use Smartparens
+CLOSED: [2026-03-16 Mon]
+Added smartparens to prog-mode-hook in k-programming.el PR.
 *** DONE Project-Specific vars in emacs
 CLOSED: [2025-05-04 Sun 01:30]
 *** TODO Add a debugger for Bash
 *** TODO [#A] Add a function to extract prompts from a shell and export to a buffer
-*** TODO [#A] Better LSP/DAP / Eglot/Dape Configs
+*** DONE [#A] Better LSP/DAP / Eglot/Dape Configs
+CLOSED: [2026-03-16 Mon]
+Improved lsp-mode with semantic tokens, code lens, corfu integration.
+Enhanced lsp-ui with doc-at-point and peek. In k-programming.el PR.
 *** TODO [#A] TDD Runners
 *** TODO [#A] Build Tool Transients or Hydras
-*** TODO [#A] Yasnippets, GruGru Integration, and Project-Sensitive Templates
+*** DONE [#A] Yasnippets, GruGru Integration, and Project-Sensitive Templates
+CLOSED: [2026-03-16 Mon]
+Configured yasnippet with yas-completing-prompt in k-programming.el PR.
 *** TODO [#A] CI/CD Pipelines
 *** TODO [#A] Podman/Toolbox/Docker/Kubernetes Integration
 *** TODO [#C] Ollama RAG, MCP, Completion, Agent (Evedel) Setup
@@ -122,8 +147,11 @@ CLOSED: [2025-05-04 Sun 01:30]
 *** TODO [#A] Data Structures and Algorithms
 *** TODO [#A] Language Documentation
 *** TODO [#A] Code Katas
-*** TODO [#A] Tesseract OCR with EXWM Simulation Keys
-To enchance scripting abilities
+*** DONE [#A] Tesseract OCR with EXWM Simulation Keys
+CLOSED: [2026-03-16 Mon]
+Implemented k-ocr.el (structured OCR with word positions, phrase matching,
+watch mode, wait-for-text) and k-exwm-script.el (unified scripting API
+combining xdotool, xprop, AT-SPI, OCR, clipboard). In k-ocr PR.
 ** Task Management
 *** TODO [#A] Calculate Hours Per Project/Client etc.
 *** TODO [#A] Pomodoro Timer
@@ -136,7 +164,10 @@ NGDAA
 **** TODO [#A] with semantic searching
 *** TODO [#A] Habitica
 - Maybe locally running if possible/not usual webdev insanity
-*** TODO [#A] Weekly/Monthly/Quarterly Reviews with HOWM
+*** DONE [#A] Weekly/Monthly/Quarterly Reviews with HOWM
+CLOSED: [2026-03-16 Mon]
+Implemented k/denote-daily-review (journal + recent notes side-by-side),
+k/denote-stats, denote-agenda with projects/areas filter in k-denote.el PR.
 ** SXHKD Bindings
 *** DONE S-C
 CLOSED: [2025-05-06 Tue 00:19]
