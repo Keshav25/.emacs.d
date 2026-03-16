@@ -35,6 +35,7 @@
   :ensure t
   :custom
   (exwm-layout-fullscreen-grab-keyboard . nil)
+  (exwm-layout-show-all-buffers . t)
   :bind (:exwm-mode-map
 		 ("C-q" . #'exwm-input-send-next-key)
 		 ("s-i" . #'exwm-input-toggle-keyboard)
@@ -42,7 +43,7 @@
 		 ("s-r" . #'dmenu)
 		 ("s-w" . #'exwm-workspace-switch)
 		 ("s-D" . #'kill-this-buffer)
-		 ("s-TAB" . #'exwm/jump-to-last-exwm)
+		 ("s-TAB" . #'k/exwm-jump-to-last-exwm)
 		 ("M-t" . #'execute-extended-command)
 		 ("M-!" . #'shell-command)
 		 ("M-o" . #'ace-window)
@@ -107,12 +108,42 @@
 		   (lambda (i) (nth i exwm-workspace--list))
 		   my/exwm-last-workspaces)))
 
+  (add-hook 'exwm-workspace-list-change-hook #'my/exwm-last-workspaces-clear)
+
   (defun my/fix-exwm-floating-windows ()
 	(setq-local exwm-workspace-warp-cursor nil)
 	(setq-local mouse-autoselect-window nil)
 	(setq-local focus-follows-mouse nil))
 
   (add-hook 'exwm-floating-setup-hook #'my/fix-exwm-floating-windows)
+
+  (defvar k/exwm--last-exwm-buffer nil
+	"Last visited EXWM buffer, for quick switching.")
+
+  (defun k/exwm--track-last-exwm-buffer ()
+	"Track the last EXWM buffer for quick-switch."
+	(when (derived-mode-p 'exwm-mode)
+	  (setq k/exwm--last-exwm-buffer (current-buffer))))
+
+  (add-hook 'buffer-list-update-hook #'k/exwm--track-last-exwm-buffer)
+
+  (defun k/exwm-jump-to-last-exwm ()
+	"Jump to the last visited EXWM buffer."
+	(interactive)
+	(if (and k/exwm--last-exwm-buffer
+			 (buffer-live-p k/exwm--last-exwm-buffer)
+			 (not (eq k/exwm--last-exwm-buffer (current-buffer))))
+		(switch-to-buffer k/exwm--last-exwm-buffer)
+	  ;; Fallback: find any other EXWM buffer
+	  (let ((exwm-bufs (cl-remove-if-not
+						 (lambda (buf)
+						   (and (not (eq buf (current-buffer)))
+								(with-current-buffer buf
+								  (derived-mode-p 'exwm-mode))))
+						 (buffer-list))))
+		(if exwm-bufs
+			(switch-to-buffer (car exwm-bufs))
+		  (message "No other EXWM buffer found")))))
 
   (defun efs/exwm-init-hook ()
 	(display-battery-mode 1)
@@ -187,12 +218,12 @@
 			(,(kbd "C-`") . popper-toggle)
 			(,(kbd "C-S-o") . ace-window)
 			(,(kbd "C-S-d") . dirvish-side)
-		(,(kbd "s-,") . persp-prev)
-		(,(kbd "s-.") . persp-next)
-		(,(kbd "s-[") . perspective-exwm-cycle-exwm-buffers-backward)
-		(,(kbd "s-]") . perspective-exwm-cycle-exwm-buffers-forward)
-		(,(kbd "s-<return>") . eshell-new)
-		(,(kbd "s-/") . tab-switcher)
+			(,(kbd "s-,") . persp-prev)
+			(,(kbd "s-.") . persp-next)
+			(,(kbd "s-[") . perspective-exwm-cycle-exwm-buffers-backward)
+			(,(kbd "s-]") . perspective-exwm-cycle-exwm-buffers-forward)
+			(,(kbd "s-<return>") . eshell-new)
+			(,(kbd "s-/") . tab-switcher)
 			(,(kbd "C-c '") . exwm-edit--compose)
 			,@(mapcar (lambda (i)
 						`(,(kbd (format "s-%d" i)) .
@@ -319,7 +350,6 @@ Does not take the minibuffer into account."
   (desktop-environment-brightness-small-decrement . "2%-")
   (desktop-environment-brightness-normal-increment . "5%+")
   (desktop-environment-brightness-normal-decrement . "5%-")
-  (exwm-layout-show-all-buffers . t)
   (desktop-environment-volume-set-command . "pactl set-sink-volume 0 %s")
   (desktop-environment-volume-get-command . "pactl get-sink-volume 0 | awk '{print $5}'")
   (desktop-environment-volume-normal-increment . "+5%")
