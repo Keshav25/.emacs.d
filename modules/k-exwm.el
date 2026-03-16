@@ -300,21 +300,71 @@
 			(,(kbd "C-x C-s") . [C-s])))
   (setopt exwm-manage-force-tiling t)
   (require 'exwm-randr)
+
+  ;; --- Multi-monitor auto-detection ---
+  (defvar k/exwm-monitors nil
+	"List of currently connected monitor output names.")
+
+  (defvar k/exwm-primary-monitor nil
+	"The primary monitor output name, or the first connected one.")
+
+  (defun k/exwm--parse-monitors ()
+	"Parse xrandr output and return an alist of (OUTPUT . PLIST).
+Each plist has :connected, :primary, :resolution."
+	(let ((output (shell-command-to-string "xrandr --query"))
+		  (monitors '()))
+	  (dolist (line (split-string output "\n" t))
+		(when (string-match
+			   "^\\([^ ]+\\) connected \\(primary \\)?\\([0-9]+x[0-9]+\\)?\\+?\\([0-9]+\\)?\\+?\\([0-9]+\\)?"
+			   line)
+		  (let ((name (match-string 1 line))
+				(primary (match-string 2 line))
+				(res (match-string 3 line)))
+			(push (list name
+						:connected t
+						:primary (not (null primary))
+						:resolution res)
+				  monitors))))
+	  (nreverse monitors)))
+
   (defun k/exwm-detect-monitors ()
-	"Auto-detect connected monitors and build workspace-monitor plist.
-Assigns workspace 0 to the primary monitor and subsequent workspaces
-round-robin across all connected outputs."
-	(let* ((xrandr-output (shell-command-to-string
-						   "xrandr --query | grep ' connected' | awk '{print $1}'"))
-		   (monitors (split-string (string-trim xrandr-output) "\n" t)))
-	  (when monitors
+	"Auto-detect connected monitors and configure EXWM workspaces.
+Assigns workspace 0 to the primary monitor.  Additional monitors get
+higher-numbered workspaces.  Updates `exwm-randr-workspace-monitor-plist'."
+	(interactive)
+	(let* ((parsed (k/exwm--parse-monitors))
+		   (names (mapcar #'car parsed))
+		   (primary (or (car (cl-find-if
+							  (lambda (m) (plist-get (cdr m) :primary))
+							  parsed))
+					    (car names))))
+	  (setq k/exwm-monitors names
+			k/exwm-primary-monitor primary)
+	  (when names
 		(let ((plist '())
-			  (num-monitors (length monitors)))
-		  (dotimes (i 10)
-			(setq plist (append plist
-								(list i (nth (mod i num-monitors) monitors)))))
-		  (setq exwm-randr-workspace-monitor-plist plist)
-		  (message "EXWM monitors: %s" monitors)))))
+			  (num-monitors (length names)))
+		  ;; Round-robin assign workspaces, primary first
+		  (let ((sorted (cons primary (remove primary names))))
+			(dotimes (i 10)
+			  (setq plist (append plist
+								  (list i (nth (mod i num-monitors) sorted))))))
+		  (setq exwm-randr-workspace-monitor-plist plist))
+		(message "EXWM monitors detected: %s (primary: %s)"
+				 (string-join names ", ") primary))))
+
+  (defun k/exwm-show-monitors ()
+	"Display current monitor configuration."
+	(interactive)
+	(let ((parsed (k/exwm--parse-monitors)))
+	  (message "Monitors: %s"
+			   (mapconcat
+				(lambda (m)
+				  (format "%s%s %s"
+						  (car m)
+						  (if (plist-get (cdr m) :primary) " [PRIMARY]" "")
+						  (or (plist-get (cdr m) :resolution) "unknown")))
+				parsed ", "))))
+
   (k/exwm-detect-monitors)
   (add-hook 'exwm-randr-screen-change-hook #'k/exwm-detect-monitors)
   (exwm-randr-mode 1)
