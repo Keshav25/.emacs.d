@@ -380,6 +380,122 @@ Does not take the minibuffer into account."
   (window-divider-mode)
   (centered-window-mode))
 
+;;; Screenshot integration
+;; Uses maim (region/window/full) and xclip (clipboard).
+;; Screenshots saved to ~/Pictures/Screenshots/ with timestamps.
+
+(defgroup k-exwm-screenshot nil
+  "Screenshot support for EXWM."
+  :group 'exwm)
+
+(defcustom k-exwm-screenshot-directory "~/Pictures/Screenshots/"
+  "Directory for saving screenshots."
+  :type 'directory
+  :group 'k-exwm-screenshot)
+
+(defcustom k-exwm-screenshot-format "png"
+  "Image format for screenshots (png, jpg, webp)."
+  :type 'string
+  :group 'k-exwm-screenshot)
+
+(defun k/exwm-screenshot--ensure-dir ()
+  "Ensure screenshot directory exists."
+  (let ((dir (expand-file-name k-exwm-screenshot-directory)))
+    (unless (file-directory-p dir)
+      (make-directory dir t))
+    dir))
+
+(defun k/exwm-screenshot--filename (&optional suffix)
+  "Generate a timestamped screenshot filename."
+  (expand-file-name
+   (format "screenshot_%s%s.%s"
+           (format-time-string "%Y-%m-%d_%H-%M-%S")
+           (or suffix "")
+           k-exwm-screenshot-format)
+   (k/exwm-screenshot--ensure-dir)))
+
+(defun k/exwm-screenshot--notify (file)
+  "Show message and optionally open the screenshot FILE."
+  (message "Screenshot saved: %s" file)
+  (when (y-or-n-p "Open screenshot? ")
+    (find-file file)))
+
+(defun k/exwm-screenshot-full ()
+  "Take a full-screen screenshot."
+  (interactive)
+  (let ((file (k/exwm-screenshot--filename "_full")))
+    (call-process "maim" nil nil nil
+                  "--format" k-exwm-screenshot-format
+                  file)
+    (k/exwm-screenshot--notify file)))
+
+(defun k/exwm-screenshot-region ()
+  "Take a screenshot of a selected region."
+  (interactive)
+  (let ((file (k/exwm-screenshot--filename "_region")))
+    (message "Select a region...")
+    (start-process "maim-region" nil "maim"
+                   "--select"
+                   "--format" k-exwm-screenshot-format
+                   file)
+    (set-process-sentinel
+     (get-process "maim-region")
+     (lambda (proc _event)
+       (when (= 0 (process-exit-status proc))
+         (k/exwm-screenshot--notify file))))))
+
+(defun k/exwm-screenshot-window ()
+  "Take a screenshot of the current window."
+  (interactive)
+  (let ((file (k/exwm-screenshot--filename "_window")))
+    (if (and (derived-mode-p 'exwm-mode)
+             (boundp 'exwm--id) exwm--id)
+        (call-process "maim" nil nil nil
+                      "--window" (format "%d" exwm--id)
+                      "--format" k-exwm-screenshot-format
+                      file)
+      ;; Fallback: use focused window via xdotool
+      (call-process-shell-command
+       (format "maim --window $(xdotool getactivewindow) --format %s %s"
+               k-exwm-screenshot-format
+               (shell-quote-argument file))))
+    (k/exwm-screenshot--notify file)))
+
+(defun k/exwm-screenshot-to-clipboard ()
+  "Take a region screenshot and copy it to the clipboard."
+  (interactive)
+  (message "Select a region to copy to clipboard...")
+  (start-process-shell-command
+   "maim-clip" nil
+   "maim --select | xclip -selection clipboard -t image/png")
+  (set-process-sentinel
+   (get-process "maim-clip")
+   (lambda (proc _event)
+     (when (= 0 (process-exit-status proc))
+       (message "Screenshot copied to clipboard")))))
+
+(defun k/exwm-screenshot-to-org ()
+  "Take a region screenshot and insert an org link at point."
+  (interactive)
+  (let ((file (k/exwm-screenshot--filename "_org")))
+    (message "Select a region for org capture...")
+    (start-process "maim-org" nil "maim"
+                   "--select"
+                   "--format" k-exwm-screenshot-format
+                   file)
+    (set-process-sentinel
+     (get-process "maim-org")
+     (lambda (proc _event)
+       (when (= 0 (process-exit-status proc))
+         (insert (format "[[file:%s]]" file))
+         (message "Org link inserted for %s" file))))))
+
+;; Global keybindings for screenshots (available everywhere)
+(global-set-key (kbd "<print>") #'k/exwm-screenshot-full)
+(global-set-key (kbd "S-<print>") #'k/exwm-screenshot-region)
+(global-set-key (kbd "C-<print>") #'k/exwm-screenshot-window)
+(global-set-key (kbd "M-<print>") #'k/exwm-screenshot-to-clipboard)
+
 (leaf exwm-background
   :elpaca (exwm-background :host github :repo "keshav25/exwm-background"))
 
