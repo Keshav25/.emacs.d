@@ -188,7 +188,7 @@
                              (elfeed-feed-title feed))))
            (date (elfeed-search-format-date (elfeed-entry-date entry)))
            (tags-str (mapconcat #'symbol-name
-                                (cl-remove-if (lambda (t) (memq t '(unread star)))
+                                (cl-remove-if (lambda (tag) (memq tag '(unread star)))
                                               tags)
                                 ",")))
       (insert (propertize (if starred "★ " "  ") 'face 'k/elfeed-star-face))
