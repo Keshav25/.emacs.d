@@ -455,4 +455,9 @@ the form."
 				 (slot . 4)
 				 (window-height . 0.1))))
 
+(defmacro with-timer (name &rest body)
+  `(let ((time (current-time)))
+	 ,@body
+	 (message "%s: %.06f" ,name (float-time (time-since time)))))
+
 (provide 'k-misc)
