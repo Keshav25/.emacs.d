@@ -20,7 +20,7 @@
   (eshell-pushd-dunique . t)
   :hook
   (eshell-directory-change-hook . k/sync-dir-in-buffer-name)
-  (eshell-mode-hook . k/eshell-specific-outline-regepxp)
+  (eshell-mode-hook . k/eshell-specific-outline-regexp)
   (eshell-mode-hook . (lambda ()
 						(setq-local completion-at-point-functions
 									'(pcomplete-completions-at-point cape-file cape-history))))
@@ -64,10 +64,12 @@
 	 (not (string-prefix-p "l  " input))))
 
   (defun k/sync-dir-in-buffer-name ()
-	(let* ((root (project-root))
-		   (root-name (project-name root)))
+	(let* ((proj (project-current))
+		   (root (when proj (project-root proj)))
+		   (root-name (when root (file-name-nondirectory (directory-file-name root)))))
 	  (if root-name
-		  (rename-buffer (format "eshell %s/%s" root-name (s-chop-prefix root default-directory)) t)
+		  (rename-buffer (format "eshell %s/%s" root-name
+								(string-remove-prefix root default-directory)) t)
 		(rename-buffer (format "eshell %s" default-directory) t))))
 
   (defun k/eshell-redirect-to-buffer (buffer)
@@ -98,13 +100,13 @@
 		(eshell-bol)
 		(yank)))))
 
-(use-package clear-eshell
-  :init
+(leaf clear-eshell
+  :preface
   (defun eshell/myclear ()
 	(interactive)
 	(run-this-in-eshell "clear 1"))
-  :bind ((:map eshell-command-map
-			   ("C-c C-l" . eshell/myclear))))
+  :bind (:eshell-command-map
+		 ("C-c C-l" . eshell/myclear)))
 
 ;; '(eshell-alias eshell-banner eshell-basic eshell-cmpl eshell-dirs
 ;; 			   eshell-extpipe eshell-glob eshell-hist eshell-ls
@@ -232,6 +234,6 @@
 
 (leaf eshell-git-prompt
   :after eshell
-  :ensure t)
+  :elpaca t)
 
 (provide 'k-eshell)
