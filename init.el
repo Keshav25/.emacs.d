@@ -21,6 +21,19 @@
 
 (setq warning-suppress-log-types '((package reinitialization (comp) (bytecomp))))
 
+;; Org-persist: clear corrupted cache to avoid timer errors
+(let ((org-persist-dir (expand-file-name "org-persist" (or (getenv "XDG_CACHE_HOME") "~/.cache"))))
+  (when (file-directory-p org-persist-dir)
+    (condition-case nil
+        (let ((index (expand-file-name "index" org-persist-dir)))
+          (when (file-exists-p index)
+            (with-temp-buffer
+              (insert-file-contents index)
+              (read (current-buffer)))))
+      (error
+       (message "org-persist: clearing corrupted cache at %s" org-persist-dir)
+       (delete-directory org-persist-dir t)))))
+
 ;; refresh buffer on file change
 (global-auto-revert-mode t)
 

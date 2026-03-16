@@ -414,7 +414,4 @@
   :config
   (elfeed-goodies/setup))
 
-(leaf emms
-  :elpaca t)
-
 (provide 'k-elfeed)
