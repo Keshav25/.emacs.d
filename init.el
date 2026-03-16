@@ -21,8 +21,6 @@
 
 (setq warning-suppress-log-types '((package reinitialization (comp) (bytecomp))))
 
-(setq vc-handled-backends '(Git))
-
 ;; refresh buffer on file change
 (global-auto-revert-mode t)
 
