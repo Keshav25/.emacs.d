@@ -1,40 +1,13 @@
-;;; k-exwm-apps.el --- Application-specific EXWM automation -*- lexical-binding: t -*-
-
-;; Author: Keshav
-;; URL: https://github.com/keshav25/.emacs.d
-;; Package-Requires: ((emacs "28.1"))
-
-;;; Commentary:
-
-;; Practical automation scripts for specific applications using the
-;; k-exwm-script and k-ocr systems.  Demonstrates how to make any
-;; application as scriptable as Emacs.
-;;
-;; Currently includes:
-;;   1. Brave Browser — tab/URL/search automation, page scraping
-;;   2. KOTOR (Knights of the Old Republic) — dialog reader, journal
-;;      extractor, auto-save, stat monitor, quickslot management
-;;
-;; Each section shows real scripting patterns you can adapt for any app.
-
-;;; Code:
+;; -*- lexical-binding: t -*-
 
 (require 'cl-lib)
 (require 'k-exwm-script)
 (require 'k-ocr)
 
-;; ══════════════════════════════════════════════════════════════════════
 ;;
-;;  ██████╗ ██████╗  █████╗ ██╗   ██╗███████╗
-;;  ██╔══██╗██╔══██╗██╔══██╗██║   ██║██╔════╝
-;;  ██████╔╝██████╔╝███████║██║   ██║█████╗
-;;  ██╔══██╗██╔══██╗██╔══██║╚██╗ ██╔╝██╔══╝
-;;  ██████╔╝██║  ██║██║  ██║ ╚████╔╝ ███████╗
-;;  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝  ╚═══╝  ╚══════╝
 ;;
 ;;  Brave Browser Automation
 ;;
-;; ══════════════════════════════════════════════════════════════════════
 
 (defgroup k-app-brave nil
   "Brave browser automation."
@@ -340,18 +313,10 @@ Useful when the page content is in images or can't be selected."
   (k-script-key "F11"))
 
 
-;; ══════════════════════════════════════════════════════════════════════
 ;;
-;;  ██╗  ██╗ ██████╗ ████████╗ ██████╗ ██████╗
-;;  ██║ ██╔╝██╔═══██╗╚══██╔══╝██╔═══██╗██╔══██╗
-;;  █████╔╝ ██║   ██║   ██║   ██║   ██║██████╔╝
-;;  ██╔═██╗ ██║   ██║   ██║   ██║   ██║██╔══██╗
-;;  ██║  ██╗╚██████╔╝   ██║   ╚██████╔╝██║  ██║
-;;  ╚═╝  ╚═╝ ╚═════╝    ╚═╝    ╚═════╝ ╚═╝  ╚═╝
 ;;
 ;;  Knights of the Old Republic — Game Automation
 ;;
-;; ══════════════════════════════════════════════════════════════════════
 
 (defgroup k-app-kotor nil
   "KOTOR game automation via EXWM scripting."
@@ -1047,9 +1012,7 @@ Great for looking up whatever quest/item/character you're seeing."
       (message "No meaningful text found on screen"))))
 
 
-;; ══════════════════════════════════════════════════════════════════════
 ;;  Hydra / Transient Menus (optional, if hydra is loaded)
-;; ══════════════════════════════════════════════════════════════════════
 
 (with-eval-after-load 'pretty-hydra
   ;; Brave Browser Hydra
@@ -1107,4 +1070,3 @@ Great for looking up whatever quest/item/character you're seeing."
       ("?" k-kotor-session-info "session info")))))
 
 (provide 'k-exwm-apps)
-;;; k-exwm-apps.el ends here

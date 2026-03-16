@@ -1,30 +1,7 @@
 ;; -*- lexical-binding: t -*-
-;;; k-ocr.el --- OCR utilities for EXWM -*- lexical-binding: t -*-
-
-;; Author: Keshav
-;; URL: https://github.com/keshav25/.emacs.d
-;; Package-Requires: ((emacs "28.1"))
-
-;;; Commentary:
-;; Provides OCR-powered features for EXWM, enabling text extraction
-;; and interaction with X11 windows that would otherwise be opaque.
-;;
-;; This is one component of the EXWM scripting system that aims to
-;; make every application as scriptable as Emacs itself.  OCR provides
-;; the "eyes" — reading what's on screen when no accessibility API is
-;; available.
-;;
-;; Requirements:
-;;   - tesseract-ocr (apt install tesseract-ocr)
-;;   - maim (apt install maim)
-;;   - xdotool (apt install xdotool)
-;;   - Optional: trans (translate-shell) for translation features
-
-;;; Code:
+;; requires: tesseract-ocr, maim, xdotool
 
 (require 'cl-lib)
-
-;;;; Customization
 
 (defgroup k-ocr nil
   "OCR utilities for EXWM."
@@ -62,7 +39,6 @@ Words below this threshold are discarded."
   :type 'number
   :group 'k-ocr)
 
-;;;; Internal State
 
 (defvar k-ocr--last-text nil
   "Last OCR plain-text result.")
@@ -83,14 +59,12 @@ Each plist: (:text STR :left N :top N :width N :height N :conf N).")
 (defvar k-ocr--history nil
   "History of OCR results for `completing-read'.")
 
-;;;; Ensure temp directory
 
 (defun k-ocr--ensure-temp-dir ()
   "Create `k-ocr-temp-dir' if it doesn't exist."
   (unless (file-directory-p k-ocr-temp-dir)
     (make-directory k-ocr-temp-dir t)))
 
-;;;; Core Screenshot Functions
 
 (defun k-ocr--screenshot-region (file)
   "Take screenshot of user-selected region, save to FILE."
@@ -115,7 +89,6 @@ If WINDOW-ID is nil and not in an EXWM buffer, takes full screenshot."
   (k-ocr--ensure-temp-dir)
   (call-process k-ocr-screenshot-command nil nil nil file))
 
-;;;; Core OCR Functions
 
 (defun k-ocr--run-tesseract (image-file &optional psm)
   "Run tesseract on IMAGE-FILE and return plain text.
@@ -230,7 +203,6 @@ phrase if found, or nil."
         (+ (plist-get word-plist :top)
            (/ (plist-get word-plist :height) 2))))
 
-;;;; Interactive Commands — Text Extraction
 
 ;;;###autoload
 (defun k-ocr-region ()
@@ -314,7 +286,6 @@ that you can search, copy from, etc."
         (pop-to-buffer (current-buffer)))
     (message "No previous OCR result")))
 
-;;;; Interactive Commands — Click on Text (improved)
 
 (defun k-ocr--click-at (x y &optional button)
   "Move mouse to (X, Y) and click BUTTON (default 1=left)."
@@ -437,7 +408,6 @@ Supports multi-word phrases."
           (k-ocr--move-to (car center) (cdr center))
           (message "Moved to '%s' at (%d, %d)" target (car center) (cdr center)))))))
 
-;;;; Interactive Commands — Watch Mode
 
 ;;;###autoload
 (defun k-ocr-watch-start (&optional callback)
@@ -526,7 +496,6 @@ Useful for scripting: wait for a dialog to appear, then act on it."
                         (funcall callback text)
                       (message "Found '%s'!" target)))))))))))
 
-;;;; Interactive Commands — Org Integration
 
 ;;;###autoload
 (defun k-ocr-to-org-capture ()
@@ -559,7 +528,6 @@ Useful for scripting: wait for a dialog to appear, then act on it."
         (org-table-align)
         (pop-to-buffer (current-buffer))))))
 
-;;;; Interactive Commands — URL Extraction
 
 ;;;###autoload
 (defun k-ocr-extract-urls ()
@@ -580,7 +548,6 @@ Useful for scripting: wait for a dialog to appear, then act on it."
             (browse-url url))
         (message "No URLs found")))))
 
-;;;; Interactive Commands — Translation
 
 ;;;###autoload
 (defun k-ocr-translate (target-lang)
@@ -603,7 +570,6 @@ Useful for scripting: wait for a dialog to appear, then act on it."
         (goto-char (point-min))
         (pop-to-buffer (current-buffer))))))
 
-;;;; Interactive Commands — EXWM Window Integration
 
 ;;;###autoload
 (defun k-ocr-window-search-and-focus (text)
@@ -669,7 +635,6 @@ combined text with window attribution."
           (when buf (pop-to-buffer buf)))
       (message "No text found in EXWM windows"))))
 
-;;;; Utility Functions
 
 ;;;###autoload
 (defun k-ocr-check-dependencies ()
@@ -708,4 +673,3 @@ combined text with window attribution."
       (pop-to-buffer (current-buffer)))))
 
 (provide 'k-ocr)
-;;; k-ocr.el ends here
