@@ -844,5 +844,9 @@ Returns 'horizontal for side-by-side, 'vertical for top-bottom."
 (exwm-enable)
 (exwm-init)
 
+(leaf dmenu
+  :elpaca t
+  :bind ("s-o" . dmenu))
+
 (provide 'k-exwm)
 
