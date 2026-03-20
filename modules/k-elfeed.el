@@ -114,27 +114,6 @@
     (interactive)
     (elfeed-search-set-filter "+star"))
 
-  ;; Saved searches
-  (defvar k/elfeed-saved-searches
-    '(("All unread"    . "@1-month-ago +unread -shorts")
-      ("Today"         . "@1-day-ago +unread -shorts")
-      ("This week"     . "@1-week-ago +unread -shorts")
-      ("Starred"       . "+star")
-      ("Emacs"         . "+emacs +unread")
-      ("YouTube"       . "@2-weeks-ago +unread +youtube -shorts")
-      ("Programming"   . "@1-month-ago +unread +programming")
-      ("Politics"      . "@1-month-ago +unread +politics")
-      ("All (w/ read)" . "@6-months-ago -shorts")))
-
-  (defun k/elfeed-saved-search ()
-    (interactive)
-    (let* ((choice (completing-read "Filter: "
-                                    (mapcar #'car k/elfeed-saved-searches)
-                                    nil t))
-           (filter (cdr (assoc choice k/elfeed-saved-searches))))
-      (when filter
-        (elfeed-search-set-filter filter))))
-
   ;; Bulk
   (defun k/elfeed-mark-all-read ()
     (interactive)
@@ -293,7 +272,6 @@
   (("C-c o r" . elfeed))
   (:elfeed-search-mode-map
    ("S" . k/elfeed-toggle-shorts)
-   ("s" . k/elfeed-saved-search)
    ("m" . k/elfeed-toggle-star)
    ("M" . k/elfeed-show-starred)
    ("A" . k/elfeed-mark-all-read)
@@ -362,8 +340,8 @@
   :require t
   :custom
   (elfeed-tube-mpv-options . '("--cache=yes"
-                                "--force-window=yes"
-                                "--ytdl-format=bestvideo[height<=?1080]+bestaudio/best"))
+                               "--force-window=yes"
+                               "--ytdl-format=bestvideo[height<=?1080]+bestaudio/best"))
   :bind ((:elfeed-show-mode-map
           ("C-c C-f" . elfeed-tube-mpv-follow-mode)
           ("C-c C-w" . elfeed-tube-mpv-where))
