@@ -243,8 +243,8 @@
 			(,(kbd "s-\\") . exwm-floating-toggle-floating) ;; Toggle the current window between floating and non-floating states
 			(,(kbd "s-Q") . exwm-layout-toggle-fullscreen) ;; Toggle fullscreen mode, when in an EXWM window.
 			(,(kbd "s-D") . kill-this-buffer)
-			(,(kbd "s-s") . split-and-follow-vertically)
-			(,(kbd "s-v") . split-and-follow-horizontally)
+			(,(kbd "s-s") . k/split-and-follow-below)
+			(,(kbd "s-v") . k/split-and-follow-right)
 			(,(kbd "s-'") . fhd/toggle-exwm-input-line-mode-passthrough)
 			(,(kbd "s-c") . kill-buffer-and-window)
 			(,(kbd "C-`") . popper-toggle)
