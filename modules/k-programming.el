@@ -171,8 +171,8 @@
   (lsp-mode-hook . lsp-ui-mode)
   (lsp-mode-hook . lsp-enable-which-key-integration)
   (lsp-completion-mode-hook . (lambda ()
-								 (setq-local completion-at-point-functions
-										   (list (cape-capf-super #'lsp-completion-at-point #'cape-dabbrev)))))
+								(setq-local completion-at-point-functions
+											(list (cape-capf-super #'lsp-completion-at-point #'cape-dabbrev)))))
   (python-ts-mode-hook . lsp))
 
 (leaf lsp-ui
@@ -356,9 +356,9 @@
   (next-error-recenter . '(4))
   :config
   (advice-add 'compile :around
-			 (lambda (orig-fn command &optional comint)
-			   "Always use COMINT mode for compilation."
-			   (funcall orig-fn command t)))
+			  (lambda (orig-fn command &optional comint)
+				"Always use COMINT mode for compilation."
+				(funcall orig-fn command t)))
   :hook
   (compilation-filter-hook . ansi-color-compilation-filter)
   (eshell-load-hook . compilation-shell-minor-mode)
@@ -517,16 +517,6 @@
 		 ("C-c t n" . hl-todo-next)
 		 ("C-c t o" . hl-todo-occur)
 		 ("C-c t i" . hl-todo-insert)))
-
-(leaf diff-hl
-  :elpaca t
-  :hook ((prog-mode-hook . diff-hl-mode)
-		 (dired-mode-hook . diff-hl-dired-mode)
-		 (magit-pre-refresh-hook . diff-hl-magit-pre-refresh)
-		 (magit-post-refresh-hook . diff-hl-magit-post-refresh))
-  :config
-  (global-diff-hl-mode 1)
-  (diff-hl-flydiff-mode 1))
 
 (leaf editorconfig
   :elpaca t
