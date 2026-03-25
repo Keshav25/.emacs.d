@@ -3,6 +3,27 @@
 * Introduction
 This is my emacs configuration, it is very specific to my preferences and use-cases, many of which are very niche.
 
+* Noteable Features
+
+** ISRT Keyboard Layout
+I use the ISRT keyboard layout with homerow modifiers and a few other features. This emacs configuration is optimized for that. C-x and M-x are swapped with C-t and M-t and vice versa so that both can be typed with on the homerow. Similarly, C-c is swapped with C-r and C-y with C-i for the same reason.
+
+** Advanced EXWM Configuration
+This is all very much a heavy WIP and not fully implemented yet.
+- Using window margins, I have gaps between exwm windows
+- Simulation keys to get my emacs keybindings everywhere
+- Perspective.el and Project.el integration
+- Experimenting with scripting elisp with OCR
+- BSPWM-style layout
+- Using Xephyr to run another WM inside of EXWM
+
+* Other Packages I Use Often
+- Dirvish
+- Magit
+- Elfeed + Elfeed-Tube + Elfeed-Tube-MPV
+- Embark, Marginilia, Orderless, Vertico
+- Denote + HOWM
+
 * Screenshots
 [[file:assets/2026-03-20_23-16.png]]
 [[file:assets/2026-03-20_23-14.png]]
@@ -129,7 +150,7 @@ This is my =channels.scm=
 #+end_src
 
 ** ISRT Keyboard Layout
-I have a ZSA Voyager keyboard and an Ergodox EZ that are both programmed with my custom layout that uses ISRT. However I also use Kanata to make sure I can still use the layout even when on a laptop or using a keyboard that isn't programmable or just one I haven't programmed. The Kanata configuration is a literate config.
+I have a ZSA Voyager keyboard and an Ergodox EZ that are both programmed with my custom layout that uses ISRT. However I also use Kanata to make sure I can still use the layout even when on a laptop or using a keyboard that isn't programmable. The Kanata configuration is a literate config and also on my github account.
 
 ** Locally running Searxng
-I also locally run an instance of searxng. I will elaborate more here in the future but you can find my repo for my searxng instance aswell as many other components of my EXWM desktop on my github page.
+I also locally run an instance of searxng. I will elaborate more on how it integrates with emacs configuration here in the future but you can find my repo for my searxng instance aswell as many other components of my EXWM desktop on my github page.
