@@ -12,7 +12,7 @@ I use the ISRT keyboard layout with homerow modifiers and a few other features. 
 This is all very much a heavy WIP and not fully implemented yet.
 - Using window margins, I have gaps between exwm windows
 - Simulation keys to get my emacs keybindings everywhere
-- Perspective.el and Project.el integration
+- Perspective.el + Project.el + EXWM integration packages are used for EXWM workspaces
 - Experimenting with scripting elisp with OCR
 - BSPWM-style layout
 - Using Xephyr to run another WM inside of EXWM
