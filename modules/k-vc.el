@@ -9,7 +9,7 @@
 
 (leaf magit
   :require t
-  :elpaca (magit :branch "main" :pre-build ("make" "info"))
+  :elpaca t
   :bind
   ("C-x g" . magit-status)
   :custom
