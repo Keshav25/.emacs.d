@@ -136,8 +136,8 @@
 
 (setq custom-file
       (if (boundp 'server-socket-dir)
-        (expand-file-name "~/.emacs.d/custom.el" server-socket-dir)
-        (expand-file-name (format "emacs-custom-$s.el" (user-uid))
+        (expand-file-name "custom.el" user-emacs-directory)
+        (expand-file-name (format "emacs-custom-%s.el" (user-uid))
                           temporary-file-directory)))
 
 
@@ -155,11 +155,10 @@
 
 
 ;; Line Numbers
-(setq display-line-numbers-type t)
-(add-hook 'prog-mode-hook 'display-line-numbers-mode)
-(add-hook 'text-mode-hook 'display-line-numbers-mode)
 (setq display-line-numbers-type 'relative)
 (setq display-line-numbers-width 3)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(add-hook 'text-mode-hook 'display-line-numbers-mode)
 
 ;; General Text Editing Preferences
 (show-paren-mode)
