@@ -18,6 +18,7 @@ feh --bg-fill ~/Downloads/01151_inthedeep_2560x1600.jpg &
 lxsession &
 lxqt-panel &
 flameshot &
+polybar &
 emacs -start-exwm
 
 # Logout process.
