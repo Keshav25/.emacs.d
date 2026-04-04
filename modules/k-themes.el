@@ -5,6 +5,10 @@
 
 ;; (set-fontset-font "fontset-default" 'unicode "Noto Color Emoji" nil 'prepend)
 
+;; Register site-lisp for custom themes (theme files live there, not in themes/)
+(add-to-list 'custom-theme-load-path
+             (expand-file-name "site-lisp" user-emacs-directory))
+
 ;; theme packages
 (leaf kaolin-themes :elpaca t)
 (leaf doom-themes

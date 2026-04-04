@@ -634,7 +634,13 @@
   "Load aero-glass theme and set up glass frame parameters.
 TRANSPARENCY is the alpha-background value (0-100), default 88."
   (interactive)
-  (let ((alpha (or transparency 88)))
+  (let ((alpha (or transparency 88))
+        (theme-dir (file-name-directory
+                    (or load-file-name
+                        (locate-library "aero-glass-theme")
+                        (expand-file-name "site-lisp/aero-glass-theme.el"
+                                          user-emacs-directory)))))
+    (add-to-list 'custom-theme-load-path theme-dir)
     (load-theme 'aero-glass t)
     ;; Frame transparency — the compositor (picom) does the blur
     (set-frame-parameter nil 'alpha-background alpha)
@@ -654,6 +660,15 @@ TRANSPARENCY is the alpha-background value (0-100), default 88."
   (disable-theme 'aero-glass)
   (set-frame-parameter nil 'alpha-background 100)
   (message "Aero Glass deactivated"))
+
+;; Register this file's directory so `load-theme' can find aero-glass
+;; regardless of how or when the file is loaded.
+(let ((this-dir (file-name-directory
+                 (or load-file-name
+                     (locate-library "aero-glass-theme")
+                     buffer-file-name))))
+  (when this-dir
+    (add-to-list 'custom-theme-load-path this-dir)))
 
 (provide-theme 'aero-glass)
 
