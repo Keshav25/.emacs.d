@@ -626,7 +626,163 @@
    `(whitespace-newline               ((t (:foreground ,bg-panel))))
    `(whitespace-trailing              ((t (:background ,red-faint))))
    `(whitespace-line                  ((t (:background ,bg-alt))))
-   `(whitespace-indentation           ((t (:foreground ,bg-panel))))))
+   `(whitespace-indentation           ((t (:foreground ,bg-panel))))
+
+   ;; ╔══════════════════════════════════════════════════╗
+   ;; ║  Pulse / Aero Glass shimmer                     ║
+   ;; ╚══════════════════════════════════════════════════╝
+   `(aero-glass-pulse                 ((t (:background ,glass-glow :extend t))))
+   `(pulse-highlight-start-face       ((t (:background ,glass-glow :extend t))))
+   `(pulse-highlight-face             ((t (:background ,bg-highlight :extend t))))
+
+   ;; ╔══════════════════════════════════════════════════╗
+   ;; ║  Posframe                                       ║
+   ;; ╚══════════════════════════════════════════════════╝
+   `(posframe-border                  ((t (:background ,glass-edge))))
+   `(child-frame-border               ((t (:background ,glass-frost))))
+
+   ;; ╔══════════════════════════════════════════════════╗
+   ;; ║  Transient (magit popups)                       ║
+   ;; ╚══════════════════════════════════════════════════╝
+   `(transient-key                    ((t (:foreground ,ice :weight bold))))
+   `(transient-key-exit               ((t (:foreground ,red :weight bold))))
+   `(transient-key-noop               ((t (:foreground ,fg-ghost))))
+   `(transient-key-return             ((t (:foreground ,green :weight bold))))
+   `(transient-key-stay               ((t (:foreground ,amber :weight bold))))
+   `(transient-argument               ((t (:foreground ,amber :slant italic))))
+   `(transient-value                  ((t (:foreground ,teal))))
+   `(transient-heading                ((t (:foreground ,ice-bright :weight bold))))
+   `(transient-inactive-value         ((t (:foreground ,fg-ghost))))
+   `(transient-inactive-argument      ((t (:foreground ,fg-ghost :slant italic))))
+   `(transient-unreachable            ((t (:foreground ,fg-ghost))))
+   `(transient-unreachable-key        ((t (:foreground ,fg-ghost))))
+   `(transient-inapt-suffix           ((t (:foreground ,fg-ghost :strike-through t))))
+   `(transient-enabled-suffix         ((t (:foreground ,green))))
+   `(transient-disabled-suffix        ((t (:foreground ,red))))
+   `(transient-nonstandard-key        ((t (:foreground ,amber :underline t))))
+   `(transient-mismatched-key         ((t (:foreground ,red :underline t))))
+   `(transient-separator              ((t (:foreground ,glass-frost :strike-through t))))
+   `(transient-amaranth               ((t (:foreground ,magenta :weight bold))))
+   `(transient-blue                   ((t (:foreground ,ice :weight bold))))
+   `(transient-pink                   ((t (:foreground ,pink :weight bold))))
+   `(transient-red                    ((t (:foreground ,red :weight bold))))
+   `(transient-teal                   ((t (:foreground ,teal :weight bold))))
+
+   ;; ╔══════════════════════════════════════════════════╗
+   ;; ║  Diff-hl (fringe git indicators)               ║
+   ;; ╚══════════════════════════════════════════════════╝
+   `(diff-hl-insert                   ((t (:background ,green-faint :foreground ,green))))
+   `(diff-hl-change                   ((t (:background "#1a2a5c" :foreground ,azure))))
+   `(diff-hl-delete                   ((t (:background ,red-faint :foreground ,red))))
+   `(diff-hl-reverted-hunk-highlight  ((t (:background ,bg-highlight :extend t))))
+   `(diff-hl-margin-insert            ((t (:foreground ,green))))
+   `(diff-hl-margin-change            ((t (:foreground ,azure))))
+   `(diff-hl-margin-delete            ((t (:foreground ,red))))
+   `(diff-hl-show-hunk-header         ((t (:background ,bg-panel :foreground ,ice :weight bold))))
+
+   ;; ╔══════════════════════════════════════════════════╗
+   ;; ║  VTerm                                          ║
+   ;; ╚══════════════════════════════════════════════════╝
+   `(vterm-color-default              ((t (:foreground ,fg-main :background ,bg-main))))
+   `(vterm-color-black                ((t (:foreground ,bg-deep :background ,bg-deep))))
+   `(vterm-color-red                  ((t (:foreground ,red :background ,red))))
+   `(vterm-color-green                ((t (:foreground ,green :background ,green))))
+   `(vterm-color-yellow               ((t (:foreground ,amber :background ,amber))))
+   `(vterm-color-blue                 ((t (:foreground ,ice :background ,ice))))
+   `(vterm-color-magenta              ((t (:foreground ,magenta :background ,magenta))))
+   `(vterm-color-cyan                 ((t (:foreground ,cyan :background ,cyan))))
+   `(vterm-color-white                ((t (:foreground ,fg-main :background ,fg-main))))
+   `(vterm-color-bright-black         ((t (:foreground ,fg-ghost :background ,fg-ghost))))
+   `(vterm-color-bright-red           ((t (:foreground ,red :background ,red))))
+   `(vterm-color-bright-green         ((t (:foreground ,green :background ,green))))
+   `(vterm-color-bright-yellow        ((t (:foreground ,gold :background ,gold))))
+   `(vterm-color-bright-blue          ((t (:foreground ,ice-bright :background ,ice-bright))))
+   `(vterm-color-bright-magenta       ((t (:foreground ,magenta :background ,magenta))))
+   `(vterm-color-bright-cyan          ((t (:foreground ,teal :background ,teal))))
+   `(vterm-color-bright-white         ((t (:foreground "#ffffff" :background "#ffffff"))))
+   `(vterm-color-underline            ((t (:underline t))))
+   `(vterm-color-inverse-video        ((t (:inverse-video t))))
+
+   ;; ╔══════════════════════════════════════════════════╗
+   ;; ║  Eat (terminal emulator)                        ║
+   ;; ╚══════════════════════════════════════════════════╝
+   `(eat-term-color-0                 ((t (:foreground ,bg-deep))))
+   `(eat-term-color-1                 ((t (:foreground ,red))))
+   `(eat-term-color-2                 ((t (:foreground ,green))))
+   `(eat-term-color-3                 ((t (:foreground ,amber))))
+   `(eat-term-color-4                 ((t (:foreground ,ice))))
+   `(eat-term-color-5                 ((t (:foreground ,magenta))))
+   `(eat-term-color-6                 ((t (:foreground ,cyan))))
+   `(eat-term-color-7                 ((t (:foreground ,fg-main))))
+   `(eat-term-color-8                 ((t (:foreground ,fg-ghost))))
+   `(eat-term-color-9                 ((t (:foreground ,red))))
+   `(eat-term-color-10                ((t (:foreground ,green))))
+   `(eat-term-color-11                ((t (:foreground ,gold))))
+   `(eat-term-color-12                ((t (:foreground ,ice-bright))))
+   `(eat-term-color-13                ((t (:foreground ,magenta))))
+   `(eat-term-color-14                ((t (:foreground ,teal))))
+   `(eat-term-color-15                ((t (:foreground "#ffffff"))))
+   `(eat-term-bold                    ((t (:weight bold))))
+   `(eat-term-faint                   ((t (:foreground ,fg-faint))))
+   `(eat-term-italic                  ((t (:slant italic))))
+   `(eat-term-slow-blink              ((t (:box (:line-width 1 :color ,glass-edge)))))
+   `(eat-term-fast-blink              ((t (:box (:line-width 1 :color ,amber)))))
+
+   ;; ╔══════════════════════════════════════════════════╗
+   ;; ║  Xref                                           ║
+   ;; ╚══════════════════════════════════════════════════╝
+   `(xref-file-header                 ((t (:foreground ,ice :weight bold :underline t))))
+   `(xref-line-number                 ((t (:foreground ,fg-ghost))))
+   `(xref-match                       ((t (:foreground ,amber :weight bold))))
+
+   ;; ╔══════════════════════════════════════════════════╗
+   ;; ║  Grep / Wgrep                                   ║
+   ;; ╚══════════════════════════════════════════════════╝
+   `(grep-context-face                ((t (:foreground ,fg-faint))))
+   `(grep-error-face                  ((t (:foreground ,red :weight bold))))
+   `(grep-heading-face                ((t (:foreground ,ice :weight bold))))
+   `(grep-hit-face                    ((t (:foreground ,amber :weight bold))))
+   `(grep-match-face                  ((t (:foreground ,ice :weight bold))))
+   `(wgrep-face                       ((t (:background ,bg-highlight :foreground ,amber))))
+   `(wgrep-done-face                  ((t (:foreground ,green))))
+   `(wgrep-reject-face                ((t (:foreground ,red :weight bold))))
+
+   ;; ╔══════════════════════════════════════════════════╗
+   ;; ║  Dirvish (enhanced)                             ║
+   ;; ╚══════════════════════════════════════════════════╝
+   `(dirvish-hl-line                  ((t (:background ,bg-alt :extend t))))
+   `(dirvish-git-commit-message-face  ((t (:foreground ,fg-faint :slant italic))))
+   `(dirvish-free-space               ((t (:foreground ,green))))
+   `(dirvish-file-link-number         ((t (:foreground ,fg-ghost))))
+   `(dirvish-file-user-id             ((t (:foreground ,fg-faint))))
+   `(dirvish-file-group-id            ((t (:foreground ,fg-faint))))
+   `(dirvish-file-size                ((t (:foreground ,fg-faint))))
+   `(dirvish-file-time                ((t (:foreground ,fg-ghost))))
+   `(dirvish-subtree-state            ((t (:foreground ,glass-edge))))
+   `(dirvish-media-info-heading       ((t (:foreground ,ice :weight bold))))
+   `(dirvish-media-info-property      ((t (:foreground ,fg-faint))))
+
+   ;; ╔══════════════════════════════════════════════════╗
+   ;; ║  Eldoc box                                      ║
+   ;; ╚══════════════════════════════════════════════════╝
+   `(eldoc-box-body                   ((t (:background ,bg-panel :foreground ,fg-main))))
+   `(eldoc-box-border                 ((t (:background ,glass-edge))))
+   `(eldoc-highlight-function-argument ((t (:foreground ,amber :weight bold))))
+
+   ;; ╔══════════════════════════════════════════════════╗
+   ;; ║  Aero Glass mode-line segments                  ║
+   ;; ╚══════════════════════════════════════════════════╝
+   `(aero-glass-ml-workspace          ((t (:background ,bg-selection :foreground ,ice-bright
+                                          :weight bold))))
+   `(aero-glass-ml-buffer             ((t (:foreground ,fg-main :weight semi-bold))))
+   `(aero-glass-ml-modified           ((t (:foreground ,amber))))
+   `(aero-glass-ml-readonly           ((t (:foreground ,red))))
+   `(aero-glass-ml-mode               ((t (:foreground ,fg-dim :slant italic))))
+   `(aero-glass-ml-vc                 ((t (:foreground ,green))))
+   `(aero-glass-ml-lsp                ((t (:foreground ,ice))))
+   `(aero-glass-ml-position           ((t (:foreground ,fg-faint))))
+   `(aero-glass-ml-time               ((t (:foreground ,fg-dim))))
+   `(aero-glass-ml-sep                ((t (:foreground ,glass-frost))))))
 
 ;; ── Glass activation helper ──────────────────────────────
 ;;;###autoload
