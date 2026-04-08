@@ -788,17 +788,18 @@ Returns 'horizontal for side-by-side, 'vertical for top-bottom."
   (interactive)
   (k-exwm-bsp-open "firefox"))
 
-(defun k-exwm-rotate-windows ()
-  "Rotate window positions clockwise."
-  (interactive)
-  (let* ((windows (window-list nil 'no-minibuffer))
-         (buffers (mapcar #'window-buffer windows))
-         (len (length windows)))
-    (when (> len 1)
-      (dotimes (i len)
-        (set-window-buffer (nth i windows)
-                           (nth (mod (1- i) len) buffers)))
-      (message "Windows rotated"))))
+;; No longer needed in Emacs 31
+;; (defun k-exwm-rotate-windows ()
+;;   "Rotate window positions clockwise."
+;;   (interactive)
+;;   (let* ((windows (window-list nil 'no-minibuffer))
+;;          (buffers (mapcar #'window-buffer windows))
+;;          (len (length windows)))
+;;     (when (> len 1)
+;;       (dotimes (i len)
+;;         (set-window-buffer (nth i windows)
+;;                            (nth (mod (1- i) len) buffers)))
+;;       (message "Windows rotated"))))
 
 
 (defun k-exwm-swap-master ()
