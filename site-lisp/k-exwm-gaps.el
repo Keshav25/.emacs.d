@@ -5,7 +5,7 @@
   "Smart gaps between EXWM windows."
   :group 'exwm)
 
-(defcustom k-exwm-gaps-inner-gap 20
+(defcustom k-exwm-gaps-inner-gap 36
   "Gap size in pixels between adjacent windows."
   :type 'integer
   :group 'k-exwm-gaps)
