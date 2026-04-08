@@ -39,8 +39,6 @@
   :bind (:exwm-mode-map
 		 ("C-q" . #'exwm-input-send-next-key)
 		 ("s-i" . #'exwm-input-toggle-keyboard)
-		 ("s-e" . #'switch-to-buffer)
-		 ("s-r" . #'dmenu)
 		 ("s-w" . #'exwm-workspace-switch)
 		 ("s-D" . #'kill-this-buffer)
 		 ("s-TAB" . #'k/exwm-jump-to-last-exwm)
