@@ -207,16 +207,16 @@
   (aw-background . nil)
   (aw-dispatch-always . nil)
   (aw-dispatch-alist . '((?x aw-delete-window "Delete Window")
-                          (?w aw-swap-window "Swap Windows")
-                          (?M aw-move-window "Move Window")
-                          (?c aw-copy-window "Copy Window")
-                          (?l aw-switch-buffer-in-window "Select Buffer")
-                          (?f aw-flip-window)
-                          (?u aw-switch-buffer-other-window "Switch Buffer Other Window")
-                          (?v aw-split-window-vert "Split Vert Window")
-                          (?b aw-split-window-horz "Split Horz Window")
-                          (?F delete-other-windows "Delete Other Windows")
-                          (?? aw-show-dispatch-help)))
+                         (?w aw-swap-window "Swap Windows")
+                         (?M aw-move-window "Move Window")
+                         (?c aw-copy-window "Copy Window")
+                         (?l aw-switch-buffer-in-window "Select Buffer")
+                         (?f aw-flip-window)
+                         (?u aw-switch-buffer-other-window "Switch Buffer Other Window")
+                         (?v aw-split-window-vert "Split Vert Window")
+                         (?b aw-split-window-horz "Split Horz Window")
+                         (?F delete-other-windows "Delete Other Windows")
+                         (?? aw-show-dispatch-help)))
   :config
   (defun aw--switch-buffer ()
     (call-interactively 'consult-buffer))
@@ -323,16 +323,17 @@
    ("C-x t n" . k/persp-notes)
    ("C-x t g" . k/persp-magit)
    ("C-x t T" . k/persp-term)
-   ("C-x t I" . k/persp-status)))
+   ("C-x t I" . k/persp-status)
+   ("s-S" . persp-switch)))
 
 (leaf perspective-project-bridge
   :elpaca t
   :hook
   (perspective-project-bridge-mode-hook .
-   (lambda ()
-     (if perspective-project-bridge-mode
-         (perspective-project-bridge-find-perspectives-for-all-buffers)
-       (perspective-project-bridge-kill-perspectives))))
+										(lambda ()
+										  (if perspective-project-bridge-mode
+											  (perspective-project-bridge-find-perspectives-for-all-buffers)
+											(perspective-project-bridge-kill-perspectives))))
   (persp-mode-hook . perspective-project-bridge-mode))
 
 (leaf treemacs-perspective
