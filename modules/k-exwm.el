@@ -134,11 +134,11 @@
 		(switch-to-buffer k/exwm--last-exwm-buffer)
 	  ;; Fallback: find any other EXWM buffer
 	  (let ((exwm-bufs (cl-remove-if-not
-						 (lambda (buf)
-						   (and (not (eq buf (current-buffer)))
-								(with-current-buffer buf
-								  (derived-mode-p 'exwm-mode))))
-						 (buffer-list))))
+						(lambda (buf)
+						  (and (not (eq buf (current-buffer)))
+							   (with-current-buffer buf
+								 (derived-mode-p 'exwm-mode))))
+						(buffer-list))))
 		(if exwm-bufs
 			(switch-to-buffer (car exwm-bufs))
 		  (message "No other EXWM buffer found")))))
@@ -181,12 +181,12 @@
 	"Build a clean buffer name from CLASS and TITLE."
 	(let* ((short-class (or (cdr (assoc class k/exwm-class-name-map)) class))
 		   (clean-title (if (and title (not (string-empty-p title)))
-							 (string-trim title)
-						   ""))
+							(string-trim title)
+						  ""))
 		   ;; Avoid duplicating the class name in the title
 		   (display-title (if (string-prefix-p short-class clean-title)
-							   (string-trim (substring clean-title (length short-class)))
-							 clean-title)))
+							  (string-trim (substring clean-title (length short-class)))
+							clean-title)))
 	  (if (string-empty-p display-title)
 		  short-class
 		(truncate-string-to-width
@@ -335,7 +335,7 @@ higher-numbered workspaces.  Updates `exwm-randr-workspace-monitor-plist'."
 		   (primary (or (car (cl-find-if
 							  (lambda (m) (plist-get (cdr m) :primary))
 							  parsed))
-					    (car names))))
+						(car names))))
 	  (setq k/exwm-monitors names
 			k/exwm-primary-monitor primary)
 	  (when names
@@ -424,25 +424,25 @@ higher-numbered workspaces.  Updates `exwm-randr-workspace-monitor-plist'."
 	"Check if there is space in the direction DIR.
 Does not take the minibuffer into account."
 	(cl-some (lambda (dir)
-               (let ((win (windmove-find-other-window dir)))
+			   (let ((win (windmove-find-other-window dir)))
 				 (and win (not (window-minibuffer-p win)))))
 			 (pcase dir
-               ('width '(left right))
-               ('height '(up down)))))
+			   ('width '(left right))
+			   ('height '(up down)))))
 
   (defun my/exwm-move-window (dir)
 	"Move the current window in the direction DIR."
 	(let ((other-window (windmove-find-other-window dir))
-          (other-direction (my/exwm-direction-exists-p
+		  (other-direction (my/exwm-direction-exists-p
 							(pcase dir
-                              ('up 'width)
-                              ('down 'width)
-                              ('left 'height)
-                              ('right 'height)))))
-      (cond
-       ((and other-window (not (window-minibuffer-p other-window)))
+							  ('up 'width)
+							  ('down 'width)
+							  ('left 'height)
+							  ('right 'height)))))
+	  (cond
+	   ((and other-window (not (window-minibuffer-p other-window)))
 		(window-swap-states (selected-window) other-window))
-       (other-direction
+	   (other-direction
 		(windmove-swap-states-in-direction dir)))))
 
   :hook ((exwm-input--input-mode-change-hook . force-modeline-update)))

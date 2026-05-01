@@ -18,10 +18,10 @@
   (denote-directory . "~/Documents/notes/")
   (denote-save-buffer-after-creation . nil)
   (denote-known-keywords . '("projects" "areas" "resources" "archives"
-                              "emacs" "philosophy" "politics" "economics"
-                              "astrology" "journal" "books"
-                              "meeting" "idea" "reference" "review"
-                              "elfeed" "programming"))
+                             "emacs" "philosophy" "politics" "economics"
+                             "astrology" "journal" "books"
+                             "meeting" "idea" "reference" "review"
+                             "elfeed" "programming"))
   (denote-infer-keywords . t)
   (denote-prompts . '(title keywords template))
   (denote-backlinks-show-context . t)
@@ -34,7 +34,6 @@
   (after-save-hook . k/denote-always-rename-on-save)
   :config
   (denote-rename-buffer-mode 1)
-
   (defvar k/denote-para-keywords '("projects" "areas" "resources" "archives"))
 
   (defun k/denote-assign-para ()
@@ -165,7 +164,7 @@
               (puthash kw (1+ (gethash kw by-keyword 0)) by-keyword)))))
       (let ((sorted-kws (sort (hash-table-keys by-keyword)
                               (lambda (a b) (> (gethash a by-keyword)
-                                               (gethash b by-keyword))))))
+                                          (gethash b by-keyword))))))
         (message "Notes: %d | Top: %s"
                  total
                  (string-join
