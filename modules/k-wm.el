@@ -323,7 +323,8 @@
    ("C-x t n" . k/persp-notes)
    ("C-x t g" . k/persp-magit)
    ("C-x t T" . k/persp-term)
-   ("C-x t I" . k/persp-status)))
+   ("C-x t I" . k/persp-status)
+   ("s-S" . persp-switch)))
 
 (leaf perspective-project-bridge
   :elpaca t
