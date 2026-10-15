@@ -51,7 +51,7 @@
   (require 'k-eshell)
 
   ;; EXWM
-  (require 'k-exwm)
+  ;; (require 'k-exwm)
 
   ;; Functions
   ;; (require 'k-functions)
@@ -68,8 +68,8 @@
   ;; Rust
   (require 'k-rust)
 
-  ;; Go
-  (require 'k-go)
+  ;; FIXME: Go
+  ;; (require 'k-go)
 
   ;; Zig
   (require 'k-zig)
