@@ -225,9 +225,10 @@
 ;; load libraries
 ;; (load-library "f")
 
-(load-file "~/.emacs.d/config.el")
-
 (setopt gc-cons-threshold 100000000)
 
 (setq confirm-kill-processes nil)
+
+(load-file "~/.emacs.d/config.el")
+
 (provide 'init)
