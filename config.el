@@ -74,9 +74,6 @@
   ;; Zig
   (require 'k-zig)
   
-  ;; Term
-  (require 'k-term)
-
   ;; Git
   (require 'k-vc)
 
