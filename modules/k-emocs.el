@@ -1,5 +1,7 @@
 ;; -*- lexical-binding: t -*-
 
+(setq rg-executable (executable-find "rga"))
+
 (leaf vertico
   :elpaca t
   :require t
@@ -103,6 +105,8 @@
   (defalias 'consult-line-thing-at-point 'consult-line)
   (consult-customize consult-line-thing-at-point
 					 :initial (thing-at-point 'symbol))
+  (setopt consult-ripgrep-args (concat rg-executable " --null --line-buffered --color=never --max-columns=1000 --path-separator /\
+   --smart-case --no-heading --with-filename --line-number --search-zip"))
   :hook (completion-list-mode-hook . consult-preview-at-point-mode)
   :custom
   ;; (completion-in-region-function . #'consult-completion-in-region)
@@ -110,8 +114,6 @@
   (xref-show-xrefs-function . #'consult-xref)
   (xref-show-definitions-function . #'consult-xref)
   (consult-project-root-function . #'deadgrep--project-root)
-  (consult-ripgrep-args . "~/.cargo/bin/rga --null --line-buffered --color=never --max-columns=1000 --path-separator /\
-   --smart-case --no-heading --with-filename --line-number --search-zip")
   (register-preview-delay . 0.5)
   (register-preview-function . #'consult-register-format)
   (xref-show-xrefs-function . #'consult-xref)
@@ -458,7 +460,7 @@ _e_moji
   :config
   (defun k/find-file-preview ()
     (interactive)
-    (let ((consult-ripgrep-command "rga --multiline --null --ignore-case --type org --line-buffered --color=always --max-columns=500 --no-heading --line-number . -e ARG OPTS"))
+    (let ((consult-ripgrep-command (concat rg-executable " --multiline --null --ignore-case --type org --line-buffered --color=always --max-columns=500 --no-heading --line-number . -e ARG OPTS")))
       (consult-ripgrep)))
   :bind ("C-x p C-s" . k/find-file-preview))
 
