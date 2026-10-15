@@ -197,14 +197,15 @@
 
 (leaf gptel
   :elpaca t
+  :require t
   :custom
   (gptel-default-mode . #'org-mode)
   (gptel-model . 'uncensored-deep)
   :config
   (setq gptel-backend (gptel-make-ollama "Ollama"
-						:host "localhost:11434"
-						:stream t
-						:models '(uncensored-deep))))
+										 :host "localhost:11434"
+										 :stream t
+										 :models '(uncensored-deep))))
 
 (leaf gptel-aibo :elpaca t)
 
@@ -235,7 +236,9 @@
 		 ("?" . #'gptel-quick)))
 
 
+;; FIX: unable to determine recipe URL
 (leaf evedel
+  :disabled t
   :elpaca t
   :custom
   (evedel-empty-tag-query-matches-all . nil)
@@ -278,6 +281,10 @@
   (aidermacs-editor-model . "ollama_chat/uncensored-deep:latest")
   (aidermacs-architect-model . "ollama_chat/uncensored-deep:latest")
   )
+
+
+(leaf casual-avy
+  :elpaca t)
 
 (leaf casual-suite
   :elpaca t
