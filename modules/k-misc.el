@@ -186,6 +186,7 @@
   (dir-config-mode))
 
 (leaf sotclojure
+  :disabled t
   :elpaca t)
 
 
