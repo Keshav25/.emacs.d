@@ -483,13 +483,14 @@ to an appropriate container (e.g., a paragraph)."
   :elpaca t
   :hook (org-mode-hook . org-inline-anim-mode))
 
-(leaf ob-go
-  :elpaca t
-  :after ob
-  :config
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((go . t))))
+;; FIX: Recursive Load
+;; (leaf ob-go
+;;   :elpaca t
+;;   :after ob
+;;   :config
+;;   (org-babel-do-load-languages
+;;    'org-babel-load-languages
+;;    '((go . t))))
 
 (leaf ob-rust :elpaca t)
 
@@ -823,13 +824,13 @@ headings.  See function `org-find-olp'."
   :elpaca t)
 
 (leaf org-context :elpaca t)
-(leaf org-hyperscheduler :elpaca t)
+;; (leaf org-hyperscheduler :elpaca t)
 (leaf org-custom-cookies :elpaca t)
-(leaf org-wild-notifier :elpaca t)
+;; (leaf org-wild-notifier :elpaca t)
 (leaf org-transclusion :elpaca t)
-(leaf org-time-budgets :elpaca t)
+;; (leaf org-time-budgets :elpaca t)
 (leaf org-ref-prettify :elpaca t)
-(leaf org-drill-table :elpaca t)
+;; (leaf org-drill-table :elpaca t)
 (leaf org-auto-tangle :elpaca t)
 (leaf org-tree-slide :elpaca t)
 (leaf org-tanglesync :elpaca t)
@@ -841,13 +842,14 @@ headings.  See function `org-find-olp'."
 (leaf org-rich-yank :elpaca t)
 (leaf org-review :elpaca t)
 
-(leaf org-re-reveal
-  :elpaca t
-  :setq
-  (org-re-reveal-root . "~/src/reveal.js")
-  (org-re-reveal-subtree-with-title-slide . t)
-  :config
-  (add-to-list 'org-structure-template-alist '("R" . "#+REVEAL_HTML: ?\n")))
+;; FIX: org-structure-template-alist is a void variable
+;; (leaf org-re-reveal
+;;   :elpaca t
+;;   :setq
+;;   (org-re-reveal-root . "~/src/reveal.js")
+;;   (org-re-reveal-subtree-with-title-slide . t)
+;;   :config
+;;   (add-to-list 'org-structure-template-alist '("R" . "#+REVEAL_HTML: ?\n")))
 
 
 (leaf org-pdftools :elpaca t)
@@ -864,11 +866,11 @@ headings.  See function `org-find-olp'."
   :elpaca t
   :emacs>= 28.1)
 
-(leaf org-kanban :elpaca t)
+;; (leaf org-kanban :elpaca t)
 (leaf org-appear
   :elpaca t
   :hook ((org-mode-hook . org-appear-mode)))
-(leaf org-emms :elpaca t)
+;; (leaf org-emms :elpaca t)
 (leaf org-edna :elpaca t)
 (leaf org-ref :elpaca t)
 (leaf org-msg :elpaca t)
@@ -1092,8 +1094,8 @@ headings.  See function `org-find-olp'."
   :hook
   (text-mode-hook . flyspell-mode))
 
-(leaf org-pomodoro
-  :elpaca t)
+;; (leaf org-pomodoro
+  ;; :elpaca t)
 
 (leaf org-supertag
   :disabled t

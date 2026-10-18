@@ -1,7 +1,7 @@
 ;; -*- lexical-binding: t -*-
 
 (leaf transient
-  :elpaca t)
+  :elpaca (transient :host github :repo "magit/transient"))
 
 (leaf cond-let
   :elpaca (cond-let :host github :repo "tarsius/cond-let")

@@ -6,22 +6,22 @@
 
 (defun k/main-configuration ()
   ;; Leaf
-  (load "k-leaf")
+  (require 'k-leaf)
   
   ;; Keybindings
-  (load  "k-bindings")
+  (require  'k-bindings)
 
   ;; Dashboard
-  (load "k-dashboard")
+  (require 'k-dashboard)
 
   ;; Misc
-  (load "k-misc")
-
-  ;; Themes
-  (load "k-themes")
+  ;; (require 'k-misc)
+ 
+ ;; Themes
+  (require 'k-themes)
 
   ;; Window-Management
-  (load "k-wm")
+  (require 'k-wm)
 
   ;; Hydra
   (require 'k-hydra)
@@ -51,7 +51,7 @@
   (require 'k-eshell)
 
   ;; EXWM
-  (require 'k-exwm)
+  ;; (require 'k-exwm)
 
   ;; Functions
   ;; (require 'k-functions)
@@ -60,22 +60,19 @@
   ;; (require 'k-guix)
 
   ;; Programming
-  (require 'k-programming)
+  ;; (require 'k-programming)
 
   ;; Python
-  (require 'k-python)
+  ;; (require 'k-python)
 
   ;; Rust
-  (require 'k-rust)
+  ;; (require 'k-rust)
 
-  ;; Go
-  (require 'k-go)
+  ;; FIXME: Go
+  ;; (require 'k-go)
 
   ;; Zig
-  (require 'k-zig)
-  
-  ;; Term
-  (require 'k-term)
+  ;; (require 'k-zig)
 
   ;; Git
   (require 'k-vc)
