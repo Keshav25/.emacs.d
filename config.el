@@ -60,20 +60,20 @@
   ;; (require 'k-guix)
 
   ;; Programming
-  (require 'k-programming)
+  ;; (require 'k-programming)
 
   ;; Python
-  (require 'k-python)
+  ;; (require 'k-python)
 
   ;; Rust
-  (require 'k-rust)
+  ;; (require 'k-rust)
 
   ;; FIXME: Go
   ;; (require 'k-go)
 
   ;; Zig
-  (require 'k-zig)
-  
+  ;; (require 'k-zig)
+
   ;; Git
   (require 'k-vc)
 
