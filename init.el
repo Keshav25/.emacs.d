@@ -23,16 +23,16 @@
 
 ;; Org-persist: clear corrupted cache to avoid timer errors
 (let ((org-persist-dir (expand-file-name "org-persist" (or (getenv "XDG_CACHE_HOME") "~/.cache"))))
-  (when (file-directory-p org-persist-dir)
-    (condition-case nil
-        (let ((index (expand-file-name "index" org-persist-dir)))
-          (when (file-exists-p index)
-            (with-temp-buffer
-              (insert-file-contents index)
-              (read (current-buffer)))))
-      (error
-       (message "org-persist: clearing corrupted cache at %s" org-persist-dir)
-       (delete-directory org-persist-dir t)))))
+	 (when (file-directory-p org-persist-dir)
+		   (condition-case nil
+			   (let ((index (expand-file-name "index" org-persist-dir)))
+					(when (file-exists-p index)
+						  (with-temp-buffer
+						   (insert-file-contents index)
+						   (read (current-buffer)))))
+						   (error
+							(message "org-persist: clearing corrupted cache at %s" org-persist-dir)
+							(delete-directory org-persist-dir t)))))
 
 ;; refresh buffer on file change
 (global-auto-revert-mode t)
@@ -72,12 +72,12 @@
 (let ((week (* 60 60 24 7))
 	  (current (float-time (current-time))))
 	  (dolist (file (directory-files temporary-file-directory t))
-		(when (and (backup-file-name-p file)
-				   (> (- current
-						 (float-time (fifth (file-attributes file))))
-					  (* 4 week)))
-		  (message "%s" file)
-		  (delete-file file))))
+			  (when (and (backup-file-name-p file)
+						 (> (- current
+							   (float-time (fifth (file-attributes file))))
+							   (* 4 week)))
+							   (message "%s" file)
+							   (delete-file file))))
 
 
 ;; recentf-mode
@@ -224,9 +224,10 @@
 ;; load libraries
 ;; (load-library "f")
 
-(load-file "~/.emacs.d/config.el")
-
 (setopt gc-cons-threshold 100000000)
 
 (setq confirm-kill-processes nil)
+
+(load-file "~/.emacs.d/config.el")
+
 (provide 'init)

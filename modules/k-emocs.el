@@ -1,5 +1,7 @@
 ;; -*- lexical-binding: t -*-
 
+(setq rg-executable (executable-find "rga"))
+
 (leaf vertico
   :elpaca t
   :require t
@@ -103,6 +105,8 @@
   (defalias 'consult-line-thing-at-point 'consult-line)
   (consult-customize consult-line-thing-at-point
 					 :initial (thing-at-point 'symbol))
+  (setopt consult-ripgrep-args (concat rg-executable " --null --line-buffered --color=never --max-columns=1000 --path-separator /\
+   --smart-case --no-heading --with-filename --line-number --search-zip"))
   :hook (completion-list-mode-hook . consult-preview-at-point-mode)
   :custom
   ;; (completion-in-region-function . #'consult-completion-in-region)
@@ -110,8 +114,6 @@
   (xref-show-xrefs-function . #'consult-xref)
   (xref-show-definitions-function . #'consult-xref)
   (consult-project-root-function . #'deadgrep--project-root)
-  (consult-ripgrep-args . "~/.cargo/bin/rga --null --line-buffered --color=never --max-columns=1000 --path-separator /\
-   --smart-case --no-heading --with-filename --line-number --search-zip")
   (register-preview-delay . 0.5)
   (register-preview-function . #'consult-register-format)
   (xref-show-xrefs-function . #'consult-xref)
@@ -458,7 +460,7 @@ _e_moji
   :config
   (defun k/find-file-preview ()
     (interactive)
-    (let ((consult-ripgrep-command "rga --multiline --null --ignore-case --type org --line-buffered --color=always --max-columns=500 --no-heading --line-number . -e ARG OPTS"))
+    (let ((consult-ripgrep-command (concat rg-executable " --multiline --null --ignore-case --type org --line-buffered --color=always --max-columns=500 --no-heading --line-number . -e ARG OPTS")))
       (consult-ripgrep)))
   :bind ("C-x p C-s" . k/find-file-preview))
 
@@ -521,6 +523,88 @@ _e_moji
 
 (leaf ctrlf
   :elpaca t)
+
+
+(leaf perspective
+  :elpaca t
+  :require t
+  :custom
+  (persp-sort . 'created)
+  :config
+  (setopt persp-mode-prefix-key (kbd "C-x t"))
+  (persp-mode)
+  (consult-customize consult--source-buffer :hidden t :default nil)
+  (add-to-list 'consult-buffer-sources persp-consult-source)
+
+  (defun k/persp-switch-or-create (name)
+    (persp-switch name))
+
+  (defun k/persp-elfeed ()
+    (interactive)
+    (k/persp-switch-or-create "elfeed")
+    (unless (get-buffer "*elfeed-search*")
+      (elfeed)))
+
+  (defun k/persp-notes ()
+    (interactive)
+    (k/persp-switch-or-create "notes")
+    (let ((denote-dir (or (bound-and-true-p denote-directory) "~/Documents/notes/")))
+      (unless (cl-some (lambda (b) (string-prefix-p denote-dir (or (buffer-file-name b) "")))
+                       (buffer-list))
+        (dired denote-dir))))
+
+  (defun k/persp-magit ()
+    (interactive)
+    (let* ((project (ignore-errors (project-name (project-current t))))
+           (name (format "git:%s" (or project "magit"))))
+      (k/persp-switch-or-create name)
+      (magit-status)))
+
+  (defun k/persp-term ()
+    (interactive)
+    (k/persp-switch-or-create "term")
+    (unless (cl-some (lambda (b)
+                       (with-current-buffer b
+                         (derived-mode-p 'eshell-mode 'vterm-mode 'term-mode)))
+                     (buffer-list))
+      (eshell)))
+
+  (defun k/persp-status ()
+    (interactive)
+    (let ((current (persp-current-name)))
+      (message "Perspectives: %s"
+               (string-join
+                (mapcar (lambda (name)
+                          (let ((buf-count (length (persp-buffers (persp-get-by-name name)))))
+                            (if (string= name current)
+                                (propertize (format "[%s:%d]" name buf-count) 'face 'bold)
+                              (format "%s:%d" name buf-count))))
+                        (persp-names))
+                " | "))))
+
+  :bind
+  (("C-x t e" . k/persp-elfeed)
+   ("C-x t n" . k/persp-notes)
+   ("C-x t g" . k/persp-magit)
+   ("C-x t T" . k/persp-term)
+   ("C-x t I" . k/persp-status)))
+
+(leaf perspective-project-bridge
+  :elpaca t
+  :hook
+  (perspective-project-bridge-mode-hook .
+   (lambda ()
+     (if perspective-project-bridge-mode
+         (perspective-project-bridge-find-perspectives-for-all-buffers)
+       (perspective-project-bridge-kill-perspectives))))
+  (persp-mode-hook . perspective-project-bridge-mode))
+
+(leaf treemacs-perspective
+  :elpaca t
+  :require t
+  :config
+  (treemacs-set-scope-type 'Perspectives))
+
 
 (provide 'k-emocs)
 ;;; k-emocs.el ends here

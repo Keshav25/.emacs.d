@@ -223,6 +223,7 @@
 		 ;; since htop doesn't work with the former
 		 (eshell-load-hook . eat-eshell-visual-command-mode)))
 
+
 (leaf comint-mime
   :elpaca t
   :hook (shell-mode-hook . comint-mime-setup)

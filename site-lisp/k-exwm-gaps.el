@@ -31,12 +31,13 @@ Works well with `ace-window' overlays (set `aw-display-mode-line' to nil)."
   :type 'boolean
   :group 'k-exwm-gaps)
 
-(defcustom k-exwm-gaps-focus-border-color "purple"
+(defcustom k-exwm-gaps-focus-border-color "darkslategrey"
   "Color for the border around the focused EXWM window.
 The border appears in the gap area. Set to nil to disable."
   :type '(choice (string :tag "Color")
                  (const :tag "Disabled" nil))
   :group 'k-exwm-gaps)
+
 
 (defvar-local k-exwm-gaps--bg-cookie nil
   "Cookie for buffer-local background face remapping.")

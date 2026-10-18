@@ -114,27 +114,6 @@
     (interactive)
     (elfeed-search-set-filter "+star"))
 
-  ;; Saved searches
-  (defvar k/elfeed-saved-searches
-    '(("All unread"    . "@1-month-ago +unread -shorts")
-      ("Today"         . "@1-day-ago +unread -shorts")
-      ("This week"     . "@1-week-ago +unread -shorts")
-      ("Starred"       . "+star")
-      ("Emacs"         . "+emacs +unread")
-      ("YouTube"       . "@2-weeks-ago +unread +youtube -shorts")
-      ("Programming"   . "@1-month-ago +unread +programming")
-      ("Politics"      . "@1-month-ago +unread +politics")
-      ("All (w/ read)" . "@6-months-ago -shorts")))
-
-  (defun k/elfeed-saved-search ()
-    (interactive)
-    (let* ((choice (completing-read "Filter: "
-                                    (mapcar #'car k/elfeed-saved-searches)
-                                    nil t))
-           (filter (cdr (assoc choice k/elfeed-saved-searches))))
-      (when filter
-        (elfeed-search-set-filter filter))))
-
   ;; Bulk
   (defun k/elfeed-mark-all-read ()
     (interactive)
@@ -188,7 +167,7 @@
                              (elfeed-feed-title feed))))
            (date (elfeed-search-format-date (elfeed-entry-date entry)))
            (tags-str (mapconcat #'symbol-name
-                                (cl-remove-if (lambda (t) (memq t '(unread star)))
+                                (cl-remove-if (lambda (tag) (memq tag '(unread star)))
                                               tags)
                                 ",")))
       (insert (propertize (if starred "★ " "  ") 'face 'k/elfeed-star-face))
@@ -293,7 +272,6 @@
   (("C-c o r" . elfeed))
   (:elfeed-search-mode-map
    ("S" . k/elfeed-toggle-shorts)
-   ("s" . k/elfeed-saved-search)
    ("m" . k/elfeed-toggle-star)
    ("M" . k/elfeed-show-starred)
    ("A" . k/elfeed-mark-all-read)
@@ -301,8 +279,8 @@
    ("b" . k/elfeed-open-in-browser)
    ("e" . k/elfeed-open-in-eww)
    ("y" . k/elfeed-copy-link)
-   ("p" . elfeed-tube-mpv)
-   ("P" . k/elfeed-play-audio-only)
+   ("P" . elfeed-tube-mpv)
+   ("a" . k/elfeed-play-audio-only)
    ("d" . k/elfeed-download-video)
    ("+" . k/elfeed-tag-selected)
    ("-" . k/elfeed-untag-selected)
@@ -313,8 +291,8 @@
    ("b" . k/elfeed-open-in-browser)
    ("e" . k/elfeed-open-in-eww)
    ("y" . k/elfeed-copy-link)
-   ("p" . elfeed-tube-mpv)
-   ("P" . k/elfeed-play-audio-only)
+   ("P" . elfeed-tube-mpv)
+   ("a" . k/elfeed-play-audio-only)
    ("SPC" . k/elfeed-mpv-toggle-pause)
    (">" . k/elfeed-mpv-speed-up)
    ("<" . k/elfeed-mpv-speed-down)
@@ -362,8 +340,8 @@
   :require t
   :custom
   (elfeed-tube-mpv-options . '("--cache=yes"
-                                "--force-window=yes"
-                                "--ytdl-format=bestvideo[height<=?1080]+bestaudio/best"))
+                               "--force-window=yes"
+                               "--ytdl-format=bestvideo[height<=?1080]+bestaudio/best"))
   :bind ((:elfeed-show-mode-map
           ("C-c C-f" . elfeed-tube-mpv-follow-mode)
           ("C-c C-w" . elfeed-tube-mpv-where))
