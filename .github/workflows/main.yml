@@ -37,12 +37,27 @@ jobs:
         run: emacs --version | head -1
 
       - name: Run Config
-      run: |
-      RUN_DATA=$(emacs --no-window-system --batch --script init.el 2>&1 | cat)
-      echo "$RUN_DATA"
-      WARNINGS=$(echo "$RUN_DATA" | sed '{/Warning/N;s/\n//;}' |  grep Warning | sed -E 's/^(.*\.el)/- \*\*\1\*\*/')
-      LOAD_ERRORS=$(echo "$RUN_DATA" | grep -E "(Cannot load)|(Not found)" | sed 's/^/- /')
-      MISSING_FILES=$(echo "$RUN_DATA" | grep "(file-missing" || : )
-      echo -e "# Tangle and byte-compile report\n## Errors\n$LOAD_ERRORS\n## Warnings\n$WARNINGS" >> $GITHUB_STEP_SUMMARY
-      [ -z "$MISSING_FILES" ] || exit 1
-      [ -z "$LOAD_ERRORS" ] || exit 1
+        run: |
+          RUN_DATA=$(emacs --no-window-system --batch --script init.el 2>&1 | cat)
+          echo "$RUN_DATA"
+          WARNINGS=$(echo "$RUN_DATA" | sed '{/Warning/N;s/\n//;}' |  grep Warning | sed -E 's/^(.*\.el)/- \*\*\1\*\*/')
+          LOAD_ERRORS=$(echo "$RUN_DATA" | grep -E "(Cannot load)|(Not found)" | sed 's/^/- /')
+          MISSING_FILES=$(echo "$RUN_DATA" | grep "(file-missing" || : )
+          echo -e "# Tangle and byte-compile report\n## Errors\n$LOAD_ERRORS\n## Warnings\n$WARNINGS" >> $GITHUB_STEP_SUMMARY
+          [ -z "$MISSING_FILES" ] || exit 1
+          [ -z "$LOAD_ERRORS" ] || exit 1
+    
+  # verify that setup loads on Windows. Just in case I ever have to use it...
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+      - name: Setup Emacs
+        run: |
+          choco install emacs
+      - name: Tangle, byte-compile (replaces old init.el) and run new setup
+        run: |
+          $env:HOME = "D:\a\.emacs.d\"
+          emacs --no-window-system --batch --script init.el
