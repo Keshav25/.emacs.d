@@ -70,6 +70,7 @@
   (flyover-use-theme-colors . t))
 
 (leaf treemacs
+      :require t
   :elpaca t
   :custom
   (treemacs-width . 25)
