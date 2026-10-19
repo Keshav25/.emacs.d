@@ -5,6 +5,15 @@
 
 ;; (set-fontset-font "fontset-default" 'unicode "Noto Color Emoji" nil 'prepend)
 
+;; Register site-lisp for custom themes (theme files live there, not in themes/)
+(add-to-list 'custom-theme-load-path
+             (expand-file-name "site-lisp" user-emacs-directory))
+
+;; Aero Glass effects (picom config, fringe bitmaps, posframe glass, pulse)
+;; Load after theme packages settle.  Call (aero-glass-enable-effects) to activate.
+(with-eval-after-load 'aero-glass-theme
+  (require 'aero-glass-effects nil t))
+
 ;; theme packages
 (leaf kaolin-themes :elpaca t)
 (leaf doom-themes
