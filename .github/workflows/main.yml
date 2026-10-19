@@ -38,7 +38,7 @@ jobs:
 
       - name: Run Config
         run: |
-          RUN_DATA=$(emacs --no-window-system --batch --script early-init.el 2>&1 | cat)
+          RUN_DATA=$(emacs --no-window-system 2>&1 | cat)
           echo "$RUN_DATA"
           WARNINGS=$(echo "$RUN_DATA" | sed '{/Warning/N;s/\n//;}' |  grep Warning | sed -E 's/^(.*\.el)/- \*\*\1\*\*/')
           LOAD_ERRORS=$(echo "$RUN_DATA" | grep -E "(Cannot load)|(Not found)" | sed 's/^/- /')
@@ -60,4 +60,4 @@ jobs:
       - name: Tangle, byte-compile (replaces old init.el) and run new setup
         run: |
           $env:HOME = "D:\a\.emacs.d\"
-          emacs --no-window-system --batch --script early-init.el
+          emacs --no-window-system
