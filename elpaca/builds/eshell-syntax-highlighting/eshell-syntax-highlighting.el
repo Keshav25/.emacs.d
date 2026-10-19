@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/eshell-syntax-highlighting/eshell-syntax-highlighting.el

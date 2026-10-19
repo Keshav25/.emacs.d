@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/emacs-material-ocean/material-ocean-theme.el

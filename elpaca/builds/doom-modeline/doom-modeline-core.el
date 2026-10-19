@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/doom-modeline/doom-modeline-core.el

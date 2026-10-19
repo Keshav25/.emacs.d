@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/elfeed-goodies/elfeed-goodies-new-entry-hooks.el

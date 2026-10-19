@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/doom-themes/themes/doom-1337-theme.el

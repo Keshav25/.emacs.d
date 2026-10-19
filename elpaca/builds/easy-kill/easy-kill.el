@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/easy-kill/easy-kill.el

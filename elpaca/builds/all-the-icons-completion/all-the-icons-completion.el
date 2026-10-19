@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/all-the-icons-completion/all-the-icons-completion.el

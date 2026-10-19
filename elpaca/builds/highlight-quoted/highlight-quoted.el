@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/highlight-quoted/highlight-quoted.el

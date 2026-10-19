@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/major-mode-hydra/pretty-hydra.el

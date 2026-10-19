@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/xterm-color/xterm-color.el

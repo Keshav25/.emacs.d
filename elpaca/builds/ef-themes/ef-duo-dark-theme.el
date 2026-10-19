@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/ef-themes/ef-duo-dark-theme.el

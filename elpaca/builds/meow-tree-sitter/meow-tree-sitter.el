@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/meow-tree-sitter/meow-tree-sitter.el

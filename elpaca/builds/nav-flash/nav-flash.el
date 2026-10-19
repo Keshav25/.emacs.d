@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/nav-flash/nav-flash.el

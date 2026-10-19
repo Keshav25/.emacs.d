@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/eshell-git-prompt/eshell-git-prompt.el

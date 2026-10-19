@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/nano-theme/nano-dark-theme.el

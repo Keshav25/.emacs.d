@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/emacs-kaolin-themes/themes/kaolin-mono-light-theme.el

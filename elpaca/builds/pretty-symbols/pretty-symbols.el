@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/pretty-symbols/pretty-symbols.el

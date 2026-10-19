@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/emacs-kaolin-themes/kaolin-themes-treemacs.el

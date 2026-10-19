@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/org-pretty-tags/org-pretty-tags.el
