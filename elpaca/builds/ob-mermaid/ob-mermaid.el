@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/ob-mermaid/ob-mermaid.el

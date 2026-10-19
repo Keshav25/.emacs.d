@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/org-fancy-priorities/org-fancy-priorities.el

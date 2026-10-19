@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/doom-themes/themes/doom-acario-light-theme.el

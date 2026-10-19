@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/treemacs/src/elisp/treemacs-annotations.el

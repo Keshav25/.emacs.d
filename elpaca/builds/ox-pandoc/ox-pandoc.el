@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/ox-pandoc/ox-pandoc.el

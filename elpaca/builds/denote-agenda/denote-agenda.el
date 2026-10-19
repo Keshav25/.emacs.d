@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/denote-agenda/denote-agenda.el

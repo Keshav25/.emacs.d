@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/persistent-soft/persistent-soft.el

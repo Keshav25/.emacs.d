@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/consult-gh/consult-gh.el

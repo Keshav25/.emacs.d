@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/consult-omni/sources/consult-omni-elfeed.el

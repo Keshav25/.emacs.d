@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/string-inflection/string-inflection.el

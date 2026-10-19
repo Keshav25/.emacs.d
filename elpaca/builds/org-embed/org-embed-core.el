@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/org-embed/org-embed-core.el

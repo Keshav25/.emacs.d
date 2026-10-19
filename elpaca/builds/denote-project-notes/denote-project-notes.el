@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/denote-project-notes/denote-project-notes.el

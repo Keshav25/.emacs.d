@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/nerd-icons/nerd-icons-data.el

@@ -1,0 +1,1 @@
+/home/kesh/.emacs.d/elpaca/sources/exec-path-from-shell/exec-path-from-shell.el
