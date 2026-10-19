@@ -1,0 +1,208 @@
+;;; casual-info.el --- Transient UI for Info -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2024-2026  Charles Y. Choi
+
+;; Author: Charles Choi <kickingvegas@gmail.com>
+;; Keywords: tools
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;; Casual Info is a Transient user interface for the Info library.
+
+;; INSTALLATION
+
+;; By default, `casual-init' will setup Casual Info by running the hook
+;; function `casual-info-init'.
+
+;; Ensure that `casual-info-init' is included in the customizable hook
+;; variable `casual-init-hook'.
+
+;; Consult the Info node `(casual) Info Install' for more detail on
+;; installation.
+
+;;; Code:
+(require 'transient)
+(require 'info)
+(require 'casual-lib)
+
+(require 'casual-info-variables)
+(require 'casual-info-settings)
+(require 'casual-info-utils)
+
+;;;###autoload (autoload 'casual-info-init "casual-info" nil t)
+(defun casual-info-init ()
+  "Initialize and configure Casual Info.
+
+This hook binds `casual-info-tmenu' to `casual-keybinding-primary'.
+
+If `casual-info-add-extra-keybindings' is non-nil, then extra
+keybindings specified in `casual-info-setup' will be set."
+  (add-hook 'Info-mode-hook #'casual-info-setup))
+
+(defun casual-info-setup ()
+  "Setup `Info-mode' for Casual.
+
+To see what keybindings are set by this function, press ‘s’ to view its
+source."
+  (keymap-set Info-mode-map casual-keybinding-primary #'casual-info-tmenu)
+
+  (when casual-info-add-extra-keybindings
+    (keymap-set Info-mode-map "M-[" #'Info-history-back)
+    (keymap-set Info-mode-map "M-]" #'Info-history-forward)
+    (keymap-set Info-mode-map "p" #'casual-lib-browse-backward-paragraph)
+    (keymap-set Info-mode-map "n" #'casual-lib-browse-forward-paragraph)
+    (keymap-set Info-mode-map "h" #'Info-prev)
+    (keymap-set Info-mode-map "j" #'Info-next-reference)
+    (keymap-set Info-mode-map "k" #'Info-prev-reference)
+    (keymap-set Info-mode-map "l" #'Info-next)
+    (keymap-set Info-mode-map "/" #'Info-search)
+    (keymap-set Info-mode-map "B" #'bookmark-set)))
+
+;;; Menus
+;;;###autoload (autoload 'casual-info-tmenu "casual-info" nil t)
+
+(transient-define-prefix casual-info-tmenu ()
+  "CC Info Transient menu."
+
+  [["Overview"
+    ("d" "Directory" Info-directory)
+    ("M" "Manual…" info-display-manual)
+    ("t" "Top" Info-top-node)
+    ("T" "ToC" Info-toc :transient nil)]
+
+   ["Goto"
+    ("m" "Menu…" Info-menu)
+    ("g" "Node…" Info-goto-node)
+    ("i" "Index…" Info-index)
+    ("I" "V-index…" Info-virtual-index)]
+
+   ["Search"
+    :pad-keys t
+    ("C-s" "I-search…" isearch-forward)
+    ("s" "Search…" Info-search)
+    ("S" "Case sensitive…" Info-search-case-sensitively)
+    ("a" "Apropos…" info-apropos)]
+
+   ["History"
+    :pad-keys t
+    ("L" "History" Info-history :transient nil)
+    ("M-[" "←" Info-history-back
+     :description (lambda () (casual-info-unicode-get :history-back))
+     :transient t)
+    ("M-]" "→" Info-history-forward
+     :description (lambda () (casual-info-unicode-get :history-forward))
+     :transient t)]
+
+   ["Scroll"
+    :pad-keys t
+    ("S-SPC" "Scroll Down" Info-scroll-down
+     :if display-graphic-p
+     :description (lambda ()
+                    (casual-info-unicode-get :scroll-down))
+     :transient t)
+
+    ("DEL" "Scroll Down" Info-scroll-down
+     :if-not display-graphic-p
+     :description (lambda ()
+                    (casual-info-unicode-get :scroll-down))
+     :transient t)
+
+    ("SPC" "Scroll Up" Info-scroll-up
+     :description (lambda ()
+                    (casual-info-unicode-get :scroll-up))
+     :transient t)]]
+
+  ["Navigation"
+   ["Link"
+    :description (lambda () (casual-info-unicode-get :link))
+    ("k" "Previous" Info-prev-reference
+     :description (lambda () (casual-info-unicode-get :up-arrow))
+     :transient t)
+    ("j" "Next" Info-next-reference
+     :description (lambda () (casual-info-unicode-get :down-arrow))
+     :transient t)]
+
+   ["Paragraph"
+    :description (lambda () (casual-info-unicode-get :paragraph))
+    ("p" "Previous" casual-lib-browse-backward-paragraph
+     :description (lambda () (casual-info-unicode-get :up-arrow))
+     :transient t)
+    ("n" "Next" casual-lib-browse-forward-paragraph
+     :description (lambda () (casual-info-unicode-get :down-arrow))
+     :transient t)]
+
+   ["All Nodes"
+    ("[" "Back" Info-backward-node
+     :description (lambda ()
+                    (casual-info-unicode-get :backward-node))
+     :transient t)
+    ("]" "Forward" Info-forward-node
+     :description (lambda ()
+                    (casual-info-unicode-get :forward-node))
+     :transient t)]
+
+   ["Peer Nodes"
+    ("h" "Prev" Info-prev
+     :description (lambda () (casual-info-unicode-get :previous))
+     :transient t)
+    ("l" "Next" Info-next
+     :description (lambda () (casual-info-unicode-get :next))
+     :transient t)]
+
+   [""
+    ("<" "Top" Info-top-node
+     :description (lambda () (casual-info-unicode-get :top-node))
+     :transient nil)
+    (">" "Final" Info-final-node
+     :description (lambda () (casual-info-unicode-get :final-node))
+     :transient nil)]
+
+   [""
+    :pad-keys t
+    ("^" "Up"  Info-up
+     :description (lambda () (casual-info-unicode-get :up-node))
+     :transient t)
+    ("RET" "Open" Info-follow-nearest-node :transient t)]]
+
+  ["Quick"
+   [("J" "Jump to bookmark…" bookmark-jump :transient nil)
+    ("B" "Set bookmark…" bookmark-set :transient nil)
+    ("b" "List buffers" ibuffer :transient nil)]
+
+   [("c" "Copy node name" Info-copy-current-node-name :transient nil)
+    ("G" "Open node in web…" Info-goto-node-web :transient nil)]
+
+   [:pad-keys t
+    ("C-M-n" "New Info in frame" casual-info-new-info-frame
+     :transient nil)
+    ("M-n" "Clone buffer" clone-buffer :transient nil)]]
+
+  [:class transient-row
+   (casual-lib-quit-one)
+   ("," "Settings›" casual-info-settings-tmenu)
+   ("q" "Quit Info" quit-window)])
+
+(defun casual-info-new-info-frame ()
+  "Create new Info manual instance (buffer) in a new frame.
+
+This command creates a new frame populated by the
+`info-display-manual' command."
+  (interactive)
+  (other-frame-prefix)
+  (call-interactively #'info-display-manual))
+
+(provide 'casual-info)
+;;; casual-info.el ends here

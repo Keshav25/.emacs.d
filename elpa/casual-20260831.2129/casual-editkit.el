@@ -1,0 +1,137 @@
+;;; casual-editkit.el --- Transient user interface library for editing commands -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2024-2026  Charles Y. Choi
+
+;; Author: Charles Choi <kickingvegas@gmail.com>
+;; Keywords: tools, wp
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;; Casual EditKit is a Transient user interface toolkit for Emacs editing.
+
+;; INSTALLATION
+
+;; By default, `casual-init' will setup Casual EditKit by running the hook
+;; function `casual-editkit-init'.
+
+;; Ensure that `casual-editkit-init' is included in the customizable hook
+;; variable `casual-init-hook'.
+
+;; Consult the Info node `(casual) EditKit Install' for more detail on
+;; installation.
+
+;;; Code:
+(require 'casual-editkit-utils)
+(require 'casual-ispell)
+
+;;;###autoload (autoload 'casual-editkit-init "casual-editkit" nil t)
+(defun casual-editkit-init ()
+  "Initialize and configure Casual EditKit."
+  (keymap-global-set casual-keybinding-primary #'casual-editkit-main-tmenu))
+
+;;;###autoload (autoload 'casual-editkit-main-tmenu "casual-editkit" nil t)
+(transient-define-prefix casual-editkit-main-tmenu ()
+  "Reference main menu for Casual EditKit.
+
+This prefix is intended to be a reference model that employs the
+different Transient prefixes (menus) provided by Casual EditKit.
+It can be used as-is or serve as a template for building a
+user-customized menu."
+  [["File"
+    ("o" "Open›" casual-editkit-open-tmenu)
+    ("f" "Open file…" find-file-at-point)
+    ("d" "Open in Dired" dired-jump-other-window
+     :if (lambda () (buffer-file-name)))
+    ("b" "List Buffers" ibuffer)
+    ("R" "Recent Files" recentf-open-files)
+    ("v" "Revert…" revert-buffer
+     :inapt-if-not buffer-modified-p
+     :if-not (lambda () buffer-read-only))
+    ("s" "Save" save-buffer
+     :if-not (lambda () buffer-read-only))
+    ("S" "Save as…" write-file
+     :if-not (lambda () buffer-read-only))
+    ("y" "Write region…" write-region
+     :if use-region-p)]
+
+   ["Edit"
+    :pad-keys t
+    ("e" "Edit›" casual-editkit-edit-tmenu)
+    ("p" "Fill Paragraph" fill-paragraph
+     :if-not casual-editkit-buffer-read-only-p)
+    ("l" "Join line" join-line
+     :transient nil
+     :if-not casual-editkit-buffer-read-only-p)
+    ("C-o" "Open line" open-line
+     :transient t
+     :if-not casual-editkit-buffer-read-only-p)
+    ("N" "Narrow›" casual-editkit-narrow-tmenu :if-not buffer-narrowed-p)
+    ("W" "Widen" widen :if buffer-narrowed-p)
+    ("M-s" "Spell›" casual-ispell-tmenu)
+    ("E" "Emoji & Symbols›" casual-editkit-emoji-symbols-tmenu
+     :if-not casual-editkit-buffer-read-only-p)]
+
+   ["Sexp"
+    ("m" "Mark" mark-sexp)
+    ("c" "Copy" casual-editkit-copy-sexp)
+    ("k" "Kill (Cut)" kill-sexp
+     :if-not casual-editkit-buffer-read-only-p)
+    ("t" "Transpose" transpose-sexps
+     :if-not casual-editkit-buffer-read-only-p)]
+
+   ["Tools"
+    ("T" "Tools›" casual-editkit-tools-tmenu)
+    ("a" "Org Agenda" org-agenda)
+    ("C" "Compile…" compile)
+    ("*" "Quick Calc…" quick-calc)
+    ("!" "Shell Command…" shell-command)
+    ("g" "Magit Status" casual-editkit-select-magit-command
+     :description casual-editkit-select-magit-command-description
+     :if (lambda ()
+           (and (casual-editkit-package-magit-installed-p)
+                (casual-editkit-version-controlled-p))))
+    ("h" "Highlight Symbol" casual-editkit-symbol-overlay-put
+     :if casual-editkit-package-symbol-overlay-installed-p)]]
+
+  [[;;"Bookmarks"
+    ("B" "Bookmarks›" casual-editkit-bookmarks-tmenu)
+    ("J" "Jump to Bookmark…" bookmark-jump)]
+
+   [;;"Window"
+    ("w" "Window›" casual-editkit-windows-tmenu)
+    ("M-n" "New Frame" make-frame-command)]
+
+   [;;"Search/Replace"
+    ("/" "Search/Replace›" casual-editkit-search-tmenu)
+    ("P" "Project›" casual-editkit-project-tmenu)]
+
+   [("M" "Macros›" casual-editkit-macro-tmenu)
+    ("F" "Font Scale…" text-scale-adjust
+     :if display-graphic-p)]]
+
+  ;; casual-editkit-cursor-navigation-group
+
+  [:class transient-row
+   (casual-lib-quit-one)
+   ("r" "Registers›" casual-editkit-registers-tmenu)
+   ("U" "Undo" undo :transient t)
+   ("," "Settings›" casual-editkit-settings-tmenu)
+   ("RET" "Done" transient-quit-all)
+   (casual-lib-quit-all)
+   ("x" "Exit Emacs" save-buffers-kill-emacs)])
+
+(provide 'casual-editkit)
+;;; casual-editkit.el ends here
