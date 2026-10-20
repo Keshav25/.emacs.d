@@ -474,54 +474,55 @@ Does not take the minibuffer into account."
        (other-direction
 		(windmove-swap-states-in-direction dir)))))
 
-  :hook ((exwm-input--input-mode-change-hook . force-modeline-update)))
-
 ;;; EXWM utility commands
 
-(defun k/exwm-toggle-floating-and-resize ()
-  "Toggle floating and resize to a sensible centered size."
-  (interactive)
-  (exwm-floating-toggle-floating)
-  (when exwm--floating-frame
-    (let* ((fw (frame-pixel-width))
-           (fh (frame-pixel-height))
-           (w (round (* fw 0.65)))
-           (h (round (* fh 0.75)))
-           (x (/ (- fw w) 2))
-           (y (/ (- fh h) 2)))
-      (exwm-floating-move x y)
-      (exwm-layout-enlarge-window-horizontally (- w (frame-pixel-width exwm--floating-frame)))
-      (exwm-layout-enlarge-window (- h (frame-pixel-height exwm--floating-frame))))))
+  (defun k/exwm-toggle-floating-and-resize ()
+	"Toggle floating and resize to a sensible centered size."
+	(interactive)
+	(exwm-floating-toggle-floating)
+	(when exwm--floating-frame
+      (let* ((fw (frame-pixel-width))
+			 (fh (frame-pixel-height))
+			 (w (round (* fw 0.65)))
+			 (h (round (* fh 0.75)))
+			 (x (/ (- fw w) 2))
+			 (y (/ (- fh h) 2)))
+		(exwm-floating-move x y)
+		(exwm-layout-enlarge-window-horizontally (- w (frame-pixel-width exwm--floating-frame)))
+		(exwm-layout-enlarge-window (- h (frame-pixel-height exwm--floating-frame))))))
 
-(defun k/exwm-list-x-windows ()
-  "List all EXWM buffers with class and title for quick switching."
-  (interactive)
-  (let ((candidates
-         (cl-loop for buf in (buffer-list)
-                  when (with-current-buffer buf (derived-mode-p 'exwm-mode))
-                  collect (cons (format "%-20s %s"
-                                        (with-current-buffer buf
-                                          (or exwm-class-name "?"))
-                                        (buffer-name buf))
-                                buf))))
-    (when candidates
-      (let* ((choice (completing-read "EXWM window: " candidates nil t))
-             (buf (cdr (assoc choice candidates))))
-        (when buf (switch-to-buffer buf))))))
+  (defun k/exwm-list-x-windows ()
+	"List all EXWM buffers with class and title for quick switching."
+	(interactive)
+	(let ((candidates
+           (cl-loop for buf in (buffer-list)
+					when (with-current-buffer buf (derived-mode-p 'exwm-mode))
+					collect (cons (format "%-20s %s"
+                                          (with-current-buffer buf
+											(or exwm-class-name "?"))
+                                          (buffer-name buf))
+                                  buf))))
+      (when candidates
+		(let* ((choice (completing-read "EXWM window: " candidates nil t))
+               (buf (cdr (assoc choice candidates))))
+          (when buf (switch-to-buffer buf))))))
 
-(defun k/exwm-rename-buffer (name)
-  "Rename the current EXWM buffer to NAME."
-  (interactive "sNew buffer name: ")
-  (when (derived-mode-p 'exwm-mode)
-    (exwm-workspace-rename-buffer name)))
+  (defun k/exwm-rename-buffer (name)
+	"Rename the current EXWM buffer to NAME."
+	(interactive "sNew buffer name: ")
+	(when (derived-mode-p 'exwm-mode)
+      (exwm-workspace-rename-buffer name)))
 
-(defun k/exwm-send-key-sequence (keys)
-  "Send a key sequence KEYS to the current EXWM window.
+  (defun k/exwm-send-key-sequence (keys)
+	"Send a key sequence KEYS to the current EXWM window.
 KEYS is read interactively via `read-key-sequence'."
-  (interactive (list (read-key-sequence "Key sequence to send: ")))
-  (when (derived-mode-p 'exwm-mode)
-    (dolist (key (listify-key-sequence (kbd keys)))
-      (exwm-input--fake-key key))))
+	(interactive (list (read-key-sequence "Key sequence to send: ")))
+	(when (derived-mode-p 'exwm-mode)
+      (dolist (key (listify-key-sequence (kbd keys)))
+		(exwm-input--fake-key key))))
+
+
+  :hook ((exwm-input--input-mode-change-hook . force-modeline-update)))
 
 (leaf exwm-edit
   :elpaca t
