@@ -917,8 +917,7 @@ Returns 'horizontal for side-by-side, 'vertical for top-bottom."
 ;;; Initialize EXWM
 (elpaca-wait)
 (require 'exwm)
-(exwm-enable)
-(exwm-init)
+(exwm-wm-mode 1)
 
 (leaf dmenu
   :elpaca t
