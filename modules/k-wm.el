@@ -205,6 +205,8 @@
   :custom
   (aw-keys . '(?i ?s ?r ?t ?g ?p ?n ?e ?o))
   (aw-background . nil)
+  (aw-char-position . 'top-left)
+  (aw-scope . 'frame)
   (aw-dispatch-always . nil)
   (aw-dispatch-alist . '((?x aw-delete-window "Delete Window")
                           (?w aw-swap-window "Swap Windows")
