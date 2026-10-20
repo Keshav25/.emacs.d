@@ -51,7 +51,7 @@
   (require 'k-eshell)
 
   ;; EXWM
-  ;; (require 'k-exwm)
+  (require 'k-exwm)
 
   ;; Functions
   ;; (require 'k-functions)
