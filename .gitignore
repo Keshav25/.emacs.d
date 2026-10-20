@@ -1,9 +1,9 @@
 /.cache/
 /eln-cache/
 /elisp-autofmt-cache/
-/elpaca/cache
-/elpaca/repos
-/elpaca/sources
+/elpaca/cache/
+/elpaca/repos/
+/elpaca/sources/
 /eshell/history
 /straight/
 /tmp/
