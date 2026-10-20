@@ -315,7 +315,6 @@
 			;; --- File operations ---
 			(,(kbd "C-x C-s") . [?\C-s])   ; save
 			(,(kbd "C-x C-f") . [?\C-o])   ; open file
-			(,(kbd "C-x k")   . [?\C-w])   ; close tab/window
 
 			;; --- Tab navigation ---
 			(,(kbd "C-x n")   . [?\C-t])   ; new tab
