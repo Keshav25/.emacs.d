@@ -61,12 +61,11 @@
         (ignore-errors (denote-rename-file-using-front-matter buffer-file-name)))))
 
   (setq denote-templates
-        '((meeting . "#+filetags: :meeting:\n\n* Attendees\n- \n\n* Agenda\n- \n\n* Notes\n\n* Action Items\n- [ ] ")
-          (book . "#+filetags: :books:\n\n* Summary\n\n* Key Ideas\n-\n\n* Quotes\n-\n\n* My Thoughts\n\n* Rating: /10")
-          (project . "#+filetags: :projects:\n\n* Goal\n\n* Tasks\n- [ ] \n\n* Notes\n\n* Resources\n-\n\n* Status: Active")
-          (idea . "#+filetags: :idea:\n\n* The Idea\n\n* Why It Matters\n\n* How To Explore\n- [ ] \n\n* Related Notes")
-          (review . "#+filetags: :review:\n\n* What Went Well\n-\n\n* What Didn't\n-\n\n* Lessons Learned\n-\n\n* Next Steps\n- [ ] ")
-          (reference . "#+filetags: :reference:\n\n* Source\n- URL: \n- Author: \n\n* Summary\n\n* Key Points\n-\n\n* My Notes")))
+        ;; '((meeting . "#+filetags: :meeting:\n\n* Attendees\n- \n\n* Agenda\n- \n\n* Notes\n\n* Action Items\n- [ ] ")
+          ;; (book . "#+filetags: :books:\n\n* Summary\n\n* Key Ideas\n-\n\n* Quotes\n-\n\n* My Thoughts\n\n* Rating: /10")
+          ;; (retrospective . "#+filetags: :review:\n\n* What Went Well\n-\n\n* What Didn't\n-\n\n* Lessons Learned\n-\n\n* Next Steps\n- [ ] ")
+        ;; (reference . "#+filetags: :reference:\n\n* Source\n- URL: \n- Author: \n\n* Summary\n\n* Key Points\n-\n\n* My Notes"))
+		nil)
 
   (defun k/denote-from-elfeed ()
     "Create a note from the current elfeed entry."
