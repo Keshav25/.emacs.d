@@ -68,4 +68,5 @@
 						  transset
 						  go-github-com-go-ldap-ldap-v3
 						  emacs-vterm
+						  jj
 						  ))
