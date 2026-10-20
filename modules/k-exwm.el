@@ -34,7 +34,7 @@
   :require (xelb compat)
   :ensure t
   :custom
-  (exwm-layout-fullscreen-grab-keyboard . nil)
+  (exwm-layout-fullscreen-release-keyboard . nil)
   (exwm-layout-show-all-buffers . t)
   :bind (:exwm-mode-map
 		 ("C-q" . #'exwm-input-send-next-key)
